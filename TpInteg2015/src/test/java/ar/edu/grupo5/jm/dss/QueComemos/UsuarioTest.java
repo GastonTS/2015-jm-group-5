@@ -22,7 +22,7 @@ public class UsuarioTest {
 		
 	}
 	@Test 
-	public void leandroTieneIMCDe2499(){
+	public void leandroTieneIMCDe2493(){
 		assertEquals(24.93,leandro.indiceMasaCorporal(),0.01);
 	}
 }
