@@ -8,11 +8,13 @@ public class UsuarioTest {
 	
 	private Usuario leandro;
 	private Usuario gustavo;
+	private Usuario ramiro;
 	
 	@Before
 	public void setUp() {
 		gustavo = new Usuario(73, 1.83);
 		leandro = new Usuario(79, 1.78);
+		ramiro = new Usuario(63, 1.75);
 	}
 	
 
@@ -24,5 +26,9 @@ public class UsuarioTest {
 	@Test 
 	public void leandroTieneIMCDe2493(){
 		assertEquals(24.93,leandro.indiceMasaCorporal(),0.01);
+	}
+	@Test
+	public void ramiroTieneIMCDe2057(){
+		assertEquals(20.57, ramiro.indiceMasaCorporal(), 0.01);
 	}
 }
