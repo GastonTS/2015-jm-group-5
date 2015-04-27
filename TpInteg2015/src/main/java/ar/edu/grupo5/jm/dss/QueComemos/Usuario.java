@@ -1,9 +1,5 @@
 package ar.edu.grupo5.jm.dss.QueComemos;
 
-/**
- * Hello world!
- *
- */
 public class Usuario 
 {
 	private double peso;
