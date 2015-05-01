@@ -15,14 +15,14 @@ public class Usuario
 	private Collection<Receta> recetasPublicas;
 	private Collection<Receta> recetasPropias;
 	private Collection<CondicionPreexistente> condicionesPreexistentes;
-	private Rutina rutina;
+	private String rutina;
 	
 	
 	
 	public Usuario(double unPeso, double unaEstatura, String UnNombre,LocalDate UnaFechaDeNacimiento,
 			Collection<String> unasPreferenciasAlimenticias, Collection<String> unosDisgustosAlimenticios,
 			Collection<Receta> unasRecetasPublicas, Collection<Receta> unasRecetasPropias,
-			Collection<CondicionPreexistente> unasCondicionesPreexistentes, Rutina unaRutina) {
+			Collection<CondicionPreexistente> unasCondicionesPreexistentes, String unaRutina) {
 		peso = unPeso;
 		estatura = unaEstatura;
 		fechaDeNacimiento = UnaFechaDeNacimiento;
