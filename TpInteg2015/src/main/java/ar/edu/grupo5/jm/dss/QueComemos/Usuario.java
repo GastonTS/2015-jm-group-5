@@ -35,33 +35,50 @@ public class Usuario
 		rutina = unaRutina;
 	}
 	
+	//Punto 1
+	public boolean esUsuarioValido (){
+		return tieneCamposObligatorios() && nombre.length()>4 && esUsuarioValidoParaSusCondiciones() && fechaDeNacimientoAnteriorAHoy();		
+	}
+
+	//Punto 2.a
 	public double indiceMasaCorporal() {
 		return peso / Math.pow(estatura,2);
 	}
+	
+	//Punto 2.b
+	public boolean sigueRutinaSaludable(){
+		return 18>=indiceMasaCorporal() && indiceMasaCorporal()<=30 && this.subsanaTodasLasCondiciones();
+	}
+	
+	//Punto 3.a
+	public void crearReceta(){
+		//implementar es tipo Receta
+	}
+	
+	//Punto 4.c
+	public void modificarReceta(){
+		//implementar es tipo Receta
+	}
+	
+	
 	
 	private boolean esUsuarioValidoParaSusCondiciones() {
 		return condicionesPreexistentes.stream().allMatch(condicion -> condicion.esUsuarioValido(this));
 	}
 	
-	public boolean esUsuarioValido (){
-		return tieneCamposObligatorios() && esUsuarioValidoParaSusCondiciones();		
+	private boolean fechaDeNacimientoAnteriorAHoy() {
+		return fechaDeNacimiento.isBefore(LocalDate.now());
 	}
 	
 	private boolean subsanaTodasLasCondiciones() {
 		return condicionesPreexistentes.stream().allMatch(condicion -> condicion.subsanaCondicion(this));
 	}
 	
-	public boolean sigueRutinaSaludable(){
-		return 18>=indiceMasaCorporal() && indiceMasaCorporal()<=30 && this.subsanaTodasLasCondiciones();
+	private boolean tieneCamposObligatorios() {
+		return nombre!=null && peso!=0 && estatura!=0 && fechaDeNacimiento!=null && rutina!=null;
 	}
 	
-	public void crearReceta(){
-		//implementar es tipo Receta
-	}
-	
-	public void modificarReceta(){
-		//implementar es tipo Receta
-	}
+
 	
 	public double getPeso() {
 		return peso; 
@@ -79,7 +96,5 @@ public class Usuario
 		return rutina.equals("Intensiva") || rutina.equals("Alta");
 	}
 	
-	private boolean tieneCamposObligatorios() {
-		return nombre!=null && peso!=0 && estatura!=0 && fechaDeNacimiento!=null && rutina!=null;
-	}
+
 }

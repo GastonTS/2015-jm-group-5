@@ -25,10 +25,7 @@ public class Receta {
 		cantCalorias = unasCantCalorias;
 	}
 	
-	//public Collection<CondicionPreexistente> esInadecuadaPara() {
-//		return;
-//	}
-	
+
 	public boolean esValida(){
 		return tieneAlMenosUnIngrediente() && totalCaloriasEntre(10, 5000);
 	}

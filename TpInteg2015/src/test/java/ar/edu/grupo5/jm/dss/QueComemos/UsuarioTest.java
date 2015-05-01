@@ -1,6 +1,10 @@
 package ar.edu.grupo5.jm.dss.QueComemos;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+
+import java.time.LocalDate;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -12,16 +16,61 @@ public class UsuarioTest {
 	private Usuario gaston;
 	private Usuario juanchi;
 	
+	private Usuario sinPeso;
+	private Usuario sinEstatura;
+	private Usuario sinFecha;
+	private Usuario sinNombre;
+	private Usuario sinRutina;
+	
+	private Usuario nombreCorto;
+	private Usuario nacioHoy;
+	
 	@Before
 	public void setUp() {
-		gustavo = new Usuario(73, 1.83, null, null, null, null, null, null, null, null);
+		gustavo = new Usuario(73, 1.83, "Gustavo", LocalDate.parse("1994-02-25"), null, null, null, null, null, "Mediano");
 		leandro = new Usuario(79, 1.78, null, null, null, null, null, null, null, null);
 		ramiro = new Usuario(63, 1.75, null, null, null, null, null, null, null, null);
 		gaston = new Usuario(65, 1.66, null, null, null, null, null, null, null, null);
 		juanchi = new Usuario(70, 1.85, null, null, null, null, null, null, null, null);
+		
+		sinPeso = new Usuario(0, 1.83, "falta peso", LocalDate.parse("2000-01-01"), null, null, null, null, null, "Mediano");
+		sinEstatura = new Usuario(73, 0, "falta estatura", LocalDate.parse("2000-01-01"), null, null, null, null, null, "Mediano");
+		sinFecha = new Usuario(73, 1.83, "falta fecha", null, null, null, null, null, null, "Mediano");
+		sinNombre = new Usuario(73, 1.83, null, LocalDate.parse("2000-01-01"), null, null, null, null, null, "Mediano");
+		sinRutina = new Usuario(73, 1.83, "falta rutina", LocalDate.parse("2000-01-01"), null, null, null, null, null, null);
+		
+		nombreCorto = new Usuario(73, 1.83, "cort", LocalDate.parse("2000-01-01"), null, null, null, null, null, "Mediano");
+		
+		nacioHoy = new Usuario(73, 1.83, "Nació hoy", LocalDate.now(), null, null, null, null, null, "Mediano");
+	} 
+	
+	@Test
+	public void gustavoEsValido() {
+		assert(gustavo.esUsuarioValido());
 	}
 	
-
+	@Test
+	public void noEsValidoSiFaltaUnCampoObligatorio() {
+		assertFalse(sinPeso.esUsuarioValido());
+		assertFalse(sinEstatura.esUsuarioValido());
+		assertFalse(sinFecha.esUsuarioValido());
+		assertFalse(sinNombre.esUsuarioValido());
+		assertFalse(sinRutina.esUsuarioValido());
+	}
+	
+	@Test
+	public void noEsValidoSiElNombreEsCorto() {
+		assertFalse(nombreCorto.esUsuarioValido());
+	}
+	
+	@Test
+	public void noEsValidoSiFechaNoEsMenorAHoy() {
+		assertFalse(nacioHoy.esUsuarioValido());
+	}
+	
+	
+	
+	
 	@Test
 	public void juanchiTieneIMCDe2045(){
 		assertEquals(20.45,juanchi.indiceMasaCorporal(),0.01);
