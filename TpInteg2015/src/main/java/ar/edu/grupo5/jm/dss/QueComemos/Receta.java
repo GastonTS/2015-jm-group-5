@@ -12,8 +12,6 @@ public class Receta {
 	private String dificultad;
 	private double cantCalorias;
 	
-	
-	
 	public Receta(String unNombre,Collection<String> unosIngredientes, Collection<String> unosCondimentos,
 			Collection<Receta> unassubRecetas, String unProceso, String unaTemporada, String unaDificultad,
 			double unasCantCalorias) {
@@ -32,7 +30,20 @@ public class Receta {
 //	}
 	
 	public boolean esValida(){
-		//implementar
-		return true;
+		return tieneAlMenosUnIngrediente() && totalCaloriasEntre(10, 5000);
+	}
+	private boolean tieneAlMenosUnIngrediente(){
+		return !ingredientes.isEmpty();
+	}
+	private boolean totalCaloriasEntre(int minimo, int maximo){
+		return calorias() >= minimo && calorias() <= maximo;
+	}
+	
+	//Esto en realidad se calcula de alguna forma. No se como hacerlo por ahora
+	public double calorias(){
+		return this.cantCalorias;
+	}
+	public void calorias(double unasCalorias){
+		this.cantCalorias = unasCalorias;
 	}
 }

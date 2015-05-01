@@ -14,11 +14,11 @@ public class UsuarioTest {
 	
 	@Before
 	public void setUp() {
-		gustavo = new Usuario(73, 1.83);
-		leandro = new Usuario(79, 1.78);
-		ramiro = new Usuario(63, 1.75);
-		gaston = new Usuario(65, 1.66);
-		juanchi = new Usuario(70, 1.85);
+		gustavo = new Usuario(73, 1.83, null, null, null, null, null, null, null, null);
+		leandro = new Usuario(79, 1.78, null, null, null, null, null, null, null, null);
+		ramiro = new Usuario(63, 1.75, null, null, null, null, null, null, null, null);
+		gaston = new Usuario(65, 1.66, null, null, null, null, null, null, null, null);
+		juanchi = new Usuario(70, 1.85, null, null, null, null, null, null, null, null);
 	}
 	
 
