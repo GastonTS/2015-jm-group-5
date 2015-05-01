@@ -6,9 +6,10 @@ import java.util.Collection;
 
 public class Usuario 
 {
+	private String nombre;
+	private String sexo;
 	private double peso;
 	private double estatura;
-	private String nombre;
 	private LocalDate fechaDeNacimiento;
 	private Collection<String> preferenciasAlimenticias;
 	private Collection<String> disgustosAlimenticios;
@@ -38,15 +39,20 @@ public class Usuario
 		return peso / Math.pow(estatura,2);
 	}
 	
+	private boolean esUsuarioValidoParaSusCondiciones() {
+		return condicionesPreexistentes.stream().allMatch(condicion -> condicion.esUsuarioValido(this));
+	}
+	
 	public boolean esUsuarioValido (){
-		//implementar!
-		return true;		
+		return tieneCamposObligatorios() && esUsuarioValidoParaSusCondiciones();		
+	}
+	
+	private boolean subsanaTodasLasCondiciones() {
+		return condicionesPreexistentes.stream().allMatch(condicion -> condicion.subsanaCondicion(this));
 	}
 	
 	public boolean sigueRutinaSaludable(){
-		//implementar!
-		return true;
-	
+		return 18>=indiceMasaCorporal() && indiceMasaCorporal()<=30 && this.subsanaTodasLasCondiciones();
 	}
 	
 	public void crearReceta(){
@@ -55,5 +61,25 @@ public class Usuario
 	
 	public void modificarReceta(){
 		//implementar es tipo Receta
+	}
+	
+	public double getPeso() {
+		return peso; 
+	}
+	
+	public boolean indicaSexo() {
+		return sexo!=null && !(sexo.equals(""));
+	}
+	
+	public boolean tieneAlgunaPreferencia() {
+		return preferenciasAlimenticias.size()>0;
+	}
+	
+	public boolean tieneRutinaActiva() {
+		return rutina.equals("Intensiva") || rutina.equals("Alta");
+	}
+	
+	private boolean tieneCamposObligatorios() {
+		return nombre!=null && peso!=0 && estatura!=0 && fechaDeNacimiento!=null && rutina!=null;
 	}
 }
