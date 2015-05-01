@@ -36,14 +36,6 @@ public class Receta {
 		return !ingredientes.isEmpty();
 	}
 	private boolean totalCaloriasEntre(int minimo, int maximo){
-		return calorias() >= minimo && calorias() <= maximo;
-	}
-	
-	//Esto en realidad se calcula de alguna forma. No se como hacerlo por ahora
-	public double calorias(){
-		return this.cantCalorias;
-	}
-	public void calorias(double unasCalorias){
-		this.cantCalorias = unasCalorias;
+		return cantCalorias >= minimo && cantCalorias <= maximo;
 	}
 }

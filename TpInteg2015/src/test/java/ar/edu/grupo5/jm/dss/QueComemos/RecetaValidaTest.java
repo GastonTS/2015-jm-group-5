@@ -11,20 +11,29 @@ import org.junit.Test;
 
 public class RecetaValidaTest {
 
-	private Receta receta;
+	private Receta recetaValida;
+	private Receta recetaSinIngredientes;
+	private Receta recetaConMuchasCalorias;
 	Collection<String> ingredientes = new ArrayList<String>();
-
+	Collection<String> ingredientesVacia = new ArrayList<String>();;
 	@Before
 	public void setUp() {
 		ingredientes.add("pimienta");
 		ingredientes.add("sal");
 		
-		receta = new Receta(null, ingredientes, null, null, null, null, null, 1000);
+		recetaValida = new Receta(null, ingredientes, null, null, null, null, null, 1000);
+		recetaConMuchasCalorias = new Receta(null, ingredientes, null, null, null, null, null, 99999);
+		recetaSinIngredientes = new Receta(null, ingredientesVacia, null, null, null, null, null, 1000);
 	}
 	
 	@Test
 	public void recetaValida() {
-		assertTrue(receta.esValida());
+		assertTrue(recetaValida.esValida());
 	}
-
+	
+	@Test
+	public void recetasNoValida() {
+		assertFalse(recetaSinIngredientes.esValida());
+		assertFalse(recetaConMuchasCalorias.esValida());
+	}
 }
