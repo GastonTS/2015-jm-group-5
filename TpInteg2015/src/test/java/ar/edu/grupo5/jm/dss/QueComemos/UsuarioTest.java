@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -24,11 +26,13 @@ public class UsuarioTest {
 	
 	private Usuario nombreCorto;
 	private Usuario nacioHoy;
-	
+	private Collection<String> preferenciaLean;
 	@Before
 	public void setUp() {
+		preferenciaLean = new ArrayList();
+		preferenciaLean.add("fruta");
 		gustavo = new Usuario(73, 1.83, "Gustavo", LocalDate.parse("1994-02-25"), null, null, null, null, null, "Mediano");
-		leandro = new Usuario(79, 1.78, null, null, null, null, null, null, null, null);
+		leandro = new Usuario(79, 1.78, "leandro", null, preferenciaLean, null, null, null, null, null);
 		ramiro = new Usuario(63, 1.75, null, null, null, null, null, null, null, null);
 		gaston = new Usuario(65, 1.66, null, null, null, null, null, null, null, null);
 		juanchi = new Usuario(70, 1.85, null, null, null, null, null, null, null, null);
@@ -95,5 +99,10 @@ public class UsuarioTest {
 	@Test
 	public void gastonTieneIMCDe2358(){
 		assertEquals(23.58, gaston.indiceMasaCorporal(), 0.01);
+	}
+	
+	@Test
+	public void leanPrefiereFruta(){
+		assert(leandro.tienePreferencia("fruta"));
 	}
 }

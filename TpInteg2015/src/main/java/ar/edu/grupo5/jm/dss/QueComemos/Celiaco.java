@@ -4,7 +4,7 @@ public class Celiaco implements CondicionPreexistente {
 
 	@Override
 	public boolean subsanaCondicion(Usuario unUsuario) {
-		return false;
+		return true;
 	}
 
 	@Override

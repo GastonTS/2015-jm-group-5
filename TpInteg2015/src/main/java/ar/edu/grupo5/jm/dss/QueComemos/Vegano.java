@@ -4,7 +4,7 @@ public class Vegano implements CondicionPreexistente {
 
 	@Override
 	public boolean subsanaCondicion(Usuario unUsuario) {
-		return false;
+		return unUsuario.tienePreferencia("fruta");
 	}
 
 	@Override

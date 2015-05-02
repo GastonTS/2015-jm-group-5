@@ -96,5 +96,7 @@ public class Usuario
 		return rutina.equals("Intensiva") || rutina.equals("Alta");
 	}
 	
-
+	public boolean tienePreferencia(String preferencia) {
+		return preferenciasAlimenticias.contains(preferencia);
+	}
 }
