@@ -93,7 +93,11 @@ public class Usuario
 	}
 	
 	public boolean tieneRutinaActiva() {
-		return rutina.equals("Intensiva") || rutina.equals("Alta");
+		return this.tieneRutinaIntensiva() || rutina.equals("Alta");
+	}
+	
+	public boolean tieneRutinaIntensiva(){
+		return rutina.equals("Intensiva");
 	}
 	
 	public boolean tienePreferencia(String preferencia) {

@@ -4,7 +4,7 @@ public class Hipertenso implements CondicionPreexistente {
 
 	@Override
 	public boolean subsanaCondicion(Usuario unUsuario) {
-		return false;
+		return unUsuario.tieneRutinaIntensiva();
 	}
 
 	@Override

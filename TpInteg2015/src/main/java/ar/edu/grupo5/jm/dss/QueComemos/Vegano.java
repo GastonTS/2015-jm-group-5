@@ -14,7 +14,8 @@ public class Vegano implements CondicionPreexistente {
 
 	@Override
 	public boolean esUsuarioValido(Usuario unUsuario) {
-		return false;
+		return !(unUsuario.tienePreferencia("pollo") || unUsuario.tienePreferencia("carne") || unUsuario.tienePreferencia("chivito")
+				|| unUsuario.tienePreferencia("chori"));
 	}
 
 }

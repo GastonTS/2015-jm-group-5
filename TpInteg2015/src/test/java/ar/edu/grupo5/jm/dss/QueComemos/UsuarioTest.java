@@ -29,7 +29,7 @@ public class UsuarioTest {
 	private Collection<String> preferenciaLean;
 	@Before
 	public void setUp() {
-		preferenciaLean = new ArrayList();
+		preferenciaLean = new ArrayList<String>();
 		preferenciaLean.add("fruta");
 		gustavo = new Usuario(73, 1.83, "Gustavo", LocalDate.parse("1994-02-25"), null, null, null, null, null, "Mediano");
 		leandro = new Usuario(79, 1.78, "leandro", null, preferenciaLean, null, null, null, null, null);
