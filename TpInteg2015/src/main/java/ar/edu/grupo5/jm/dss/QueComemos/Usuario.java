@@ -89,7 +89,7 @@ public class Usuario
 	}
 	
 	public boolean tieneAlgunaPreferencia() {
-		return preferenciasAlimenticias.size()>0;
+		return !preferenciasAlimenticias.isEmpty();
 	}
 	
 	public boolean tieneRutinaActiva() {
