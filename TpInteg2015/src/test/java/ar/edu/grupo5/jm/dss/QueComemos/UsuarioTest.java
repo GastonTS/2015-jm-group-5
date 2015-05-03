@@ -10,6 +10,8 @@ import java.util.Collection;
 import org.junit.Before;
 import org.junit.Test;
 
+
+
 public class UsuarioTest {
 	
 	private Usuario leandro;
