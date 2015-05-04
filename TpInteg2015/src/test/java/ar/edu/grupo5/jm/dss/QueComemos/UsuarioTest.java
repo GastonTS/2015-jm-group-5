@@ -107,4 +107,9 @@ public class UsuarioTest {
 	public void leanPrefiereFruta(){
 		assert(leandro.tienePreferencia("fruta"));
 	}
+	
+	@Test
+	public void juanchiSigueRutinaSaludable(){
+		assert(juanchi.sigueRutinaSaludable());
+	}
 }
