@@ -23,7 +23,7 @@ public class Vegano implements CondicionPreexistente {
 
 	@Override
 	public boolean esInadecuada(Receta unaReceta) {
-		return false;
+		return unaReceta.tenesAlgunIngredienteDeEstos(preferenciasProhibidas);
 	}
 
 	@Override

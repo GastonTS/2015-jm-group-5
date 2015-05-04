@@ -48,6 +48,7 @@ public class Usuario
 	
 	//Punto 2.b
 	public boolean sigueRutinaSaludable(){
+		//usar isBetween o algo similar. Estoy repitiendo lógica acá y en receta para ver si es valida
 		return 18>=indiceMasaCorporal() && indiceMasaCorporal()<=30 && this.subsanaTodasLasCondiciones();
 	}
 	
