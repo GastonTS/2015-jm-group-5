@@ -9,6 +9,13 @@ public class Vegano implements CondicionPreexistente {
 											Arrays.asList("pollo", "chori", "carne", "chivito"); 
 			
 			
+	/**
+	 * @return the preferenciasprohibidas
+	 */
+	public static Collection<String> getPreferenciasprohibidas() {
+		return preferenciasProhibidas;
+	}
+
 	@Override
 	public boolean subsanaCondicion(Usuario unUsuario) {
 		return unUsuario.tienePreferencia("fruta");
@@ -22,7 +29,7 @@ public class Vegano implements CondicionPreexistente {
 	@Override
 	public boolean esUsuarioValido(Usuario unUsuario) {
 		
-		return !(unUsuario.tienePreferencias(preferenciasProhibidas));//me parecio que de esta forma era más lindo
+		return !(unUsuario.tienePreferencias(getPreferenciasprohibidas()));//me parecio que de esta forma era más lindo
 		//return !(unUsuario.tienePreferencia("pollo") || unUsuario.tienePreferencia("carne") || unUsuario.tienePreferencia("chivito")
 		//		|| unUsuario.tienePreferencia("chori"));
 	}
