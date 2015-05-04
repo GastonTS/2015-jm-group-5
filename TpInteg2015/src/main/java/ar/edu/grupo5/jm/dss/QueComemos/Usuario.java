@@ -22,6 +22,7 @@ public class Usuario
 	
 	public Usuario(double unPeso, double unaEstatura, String UnNombre,LocalDate UnaFechaDeNacimiento,
 			Collection<String> unasPreferenciasAlimenticias, Collection<String> unosDisgustosAlimenticios,
+	
 			Collection<Receta> unasRecetasPublicas, Collection<Receta> unasRecetasPropias,
 			Collection<CondicionPreexistente> unasCondicionesPreexistentes, String unaRutina) {
 		peso = unPeso;
@@ -102,5 +103,8 @@ public class Usuario
 	
 	public boolean tienePreferencia(String preferencia) {
 		return preferenciasAlimenticias.contains(preferencia);
+	}
+	public boolean tienePreferencias(Collection<String> preferencias){
+		return preferenciasAlimenticias.containsAll(preferencias);
 	}
 }
