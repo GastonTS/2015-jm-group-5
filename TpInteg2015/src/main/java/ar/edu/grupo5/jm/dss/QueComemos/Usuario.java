@@ -13,7 +13,7 @@ public class Usuario
 	private LocalDate fechaDeNacimiento;
 	private Collection<String> preferenciasAlimenticias;
 	private Collection<String> disgustosAlimenticios;
-	private Collection<Receta> recetasPublicas;
+	private static Collection<Receta> recetasPublicas;
 	private Collection<Receta> recetasPropias;
 	private Collection<CondicionPreexistente> condicionesPreexistentes;
 	private String rutina;
@@ -22,15 +22,13 @@ public class Usuario
 	
 	public Usuario(double unPeso, double unaEstatura, String UnNombre,LocalDate UnaFechaDeNacimiento,
 			Collection<String> unasPreferenciasAlimenticias, Collection<String> unosDisgustosAlimenticios,
-	
-			Collection<Receta> unasRecetasPublicas, Collection<Receta> unasRecetasPropias,
-			Collection<CondicionPreexistente> unasCondicionesPreexistentes, String unaRutina) {
+			Collection<Receta> unasRecetasPropias, Collection<CondicionPreexistente> unasCondicionesPreexistentes,
+			String unaRutina) {
 		peso = unPeso;
 		estatura = unaEstatura;
 		fechaDeNacimiento = UnaFechaDeNacimiento;
 		preferenciasAlimenticias = unasPreferenciasAlimenticias;
 		disgustosAlimenticios = unosDisgustosAlimenticios;
-		recetasPublicas = unasRecetasPublicas;
 		recetasPropias = unasRecetasPropias;
 		condicionesPreexistentes = unasCondicionesPreexistentes;
 		rutina = unaRutina;
@@ -57,6 +55,11 @@ public class Usuario
 		//implementar es tipo Receta
 	}
 	
+	//Punto 4.a y 4.b
+	public boolean puedeAcceder(Receta unaReceta){
+		return creoLaReceta(unaReceta) || esPublica(unaReceta);
+	}
+	
 	//Punto 4.c
 	public void modificarReceta(){
 		//implementar es tipo Receta
@@ -80,7 +83,21 @@ public class Usuario
 		return nombre!=null && peso!=0 && estatura!=0 && fechaDeNacimiento!=null && rutina!=null;
 	}
 	
-
+	//auxiliares para punto 4.a y 4.b
+	private boolean creoLaReceta(Receta unaReceta){
+		return contieneListadoDeRecetas(recetasPropias, unaReceta);
+	}
+	private boolean esPublica(Receta unaReceta){
+		return contieneListadoDeRecetas(recetasPublicas, unaReceta);
+	}
+	private boolean contieneListadoDeRecetas(Collection<Receta> recetas, Receta unaReceta){
+		return recetas.contains(unaReceta);
+	}
+	
+	//Setter de variable de clase recetasPublicas
+	public static void recetasPublicas(Collection<Receta> recetas){
+		recetasPublicas = recetas;
+	}
 	
 	public double getPeso() {
 		return peso; 

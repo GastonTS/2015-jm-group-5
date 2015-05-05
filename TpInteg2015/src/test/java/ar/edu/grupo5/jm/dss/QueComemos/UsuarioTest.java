@@ -33,21 +33,21 @@ public class UsuarioTest {
 	public void setUp() {
 		preferenciaLean = new ArrayList<String>();
 		preferenciaLean.add("fruta");
-		gustavo = new Usuario(73, 1.83, "Gustavo", LocalDate.parse("1994-02-25"), null, null, null, null, null, "Mediano");
-		leandro = new Usuario(79, 1.78, "leandro", null, preferenciaLean, null, null, null, null, null);
-		ramiro = new Usuario(63, 1.75, null, null, null, null, null, null, null, null);
-		gaston = new Usuario(65, 1.66, null, null, null, null, null, null, null, null);
-		juanchi = new Usuario(70, 1.85, null, null, null, null, null, null, null, null);
+		gustavo = new Usuario(73, 1.83, "Gustavo", LocalDate.parse("1994-02-25"), null, null, null, null, "Mediano");
+		leandro = new Usuario(79, 1.78, "leandro", null, preferenciaLean, null, null, null, null);
+		ramiro = new Usuario(63, 1.75, null, null, null, null, null, null, null);
+		gaston = new Usuario(65, 1.66, null, null, null, null, null, null, null);
+		juanchi = new Usuario(70, 1.85, null, null, null, null, null, null, null);
 		
-		sinPeso = new Usuario(0, 1.83, "falta peso", LocalDate.parse("2000-01-01"), null, null, null, null, null, "Mediano");
-		sinEstatura = new Usuario(73, 0, "falta estatura", LocalDate.parse("2000-01-01"), null, null, null, null, null, "Mediano");
-		sinFecha = new Usuario(73, 1.83, "falta fecha", null, null, null, null, null, null, "Mediano");
-		sinNombre = new Usuario(73, 1.83, null, LocalDate.parse("2000-01-01"), null, null, null, null, null, "Mediano");
-		sinRutina = new Usuario(73, 1.83, "falta rutina", LocalDate.parse("2000-01-01"), null, null, null, null, null, null);
+		sinPeso = new Usuario(0, 1.83, "falta peso", LocalDate.parse("2000-01-01"), null, null, null, null, "Mediano");
+		sinEstatura = new Usuario(73, 0, "falta estatura", LocalDate.parse("2000-01-01"), null, null, null, null, "Mediano");
+		sinFecha = new Usuario(73, 1.83, "falta fecha", null, null, null, null, null, "Mediano");
+		sinNombre = new Usuario(73, 1.83, null, LocalDate.parse("2000-01-01"), null, null, null, null, "Mediano");
+		sinRutina = new Usuario(73, 1.83, "falta rutina", LocalDate.parse("2000-01-01"), null, null, null, null, null);
 		
-		nombreCorto = new Usuario(73, 1.83, "cort", LocalDate.parse("2000-01-01"), null, null, null, null, null, "Mediano");
+		nombreCorto = new Usuario(73, 1.83, "cort", LocalDate.parse("2000-01-01"), null, null, null, null, "Mediano");
 		
-		nacioHoy = new Usuario(73, 1.83, "Nació hoy", LocalDate.now(), null, null, null, null, null, "Mediano");
+		nacioHoy = new Usuario(73, 1.83, "Nació hoy", LocalDate.now(), null, null, null, null, "Mediano");
 	} 
 	
 	@Test
