@@ -63,7 +63,6 @@ public class Receta {
 		return false;
 	}
 
-
 	
 }
 

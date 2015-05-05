@@ -30,7 +30,7 @@ public class Usuario
 		preferenciasAlimenticias = unasPreferenciasAlimenticias;
 		disgustosAlimenticios = unosDisgustosAlimenticios;
 		recetasPropias = unasRecetasPropias;
-		condicionesPreexistentes = unasCondicionesPreexistentes;
+		setCondicionesPreexistentes(unasCondicionesPreexistentes);
 		rutina = unaRutina;
 	}
 	
@@ -51,13 +51,24 @@ public class Usuario
 	}
 	
 	//Punto 3.a
-	public void crearReceta(){
-		//implementar es tipo Receta
+	public Receta crearReceta(Receta unaReceta){
+		//tirar excepcion si receta no es valida
+		recetasPropias.add(unaReceta);
+		return unaReceta;
+		//decidi devolver la receta creada, Puede ser que mas adelante convenga que sea una metodo void
 	}
+	
+	//Punto 3.b en receta
+	public boolean sosRecetaInadecuadaParaMi(Receta unaReceta){
+		return condicionesPreexistentes.stream().anyMatch(condicion -> condicion.esInadecuada(unaReceta));
+	}//si no tiene condiciones devuelve false por lo tanto no es inadecuada
 	
 	//Punto 4.a y 4.b
 	public boolean puedeAcceder(Receta unaReceta){
-		return creoLaReceta(unaReceta) || esPublica(unaReceta);
+		return esRecetaPropia(unaReceta) || esRecetaPublica(unaReceta);
+	}
+	public boolean puedeModificar(Receta unaReceta){
+		return puedeAcceder(unaReceta);//La definicion de visualizar/modificar segun el enunciado es la misma
 	}
 	
 	//Punto 4.c
@@ -68,7 +79,7 @@ public class Usuario
 	
 	
 	private boolean esUsuarioValidoParaSusCondiciones() {
-		return condicionesPreexistentes.stream().allMatch(condicion -> condicion.esUsuarioValido(this));
+		return getCondicionesPreexistentes().stream().allMatch(condicion -> condicion.esUsuarioValido(this));
 	}
 	
 	private boolean fechaDeNacimientoAnteriorAHoy() {
@@ -76,7 +87,7 @@ public class Usuario
 	}
 	
 	private boolean subsanaTodasLasCondiciones() {
-		return condicionesPreexistentes.stream().allMatch(condicion -> condicion.subsanaCondicion(this));
+		return getCondicionesPreexistentes().stream().allMatch(condicion -> condicion.subsanaCondicion(this));
 	}
 	
 	private boolean tieneCamposObligatorios() {
@@ -84,16 +95,13 @@ public class Usuario
 	}
 	
 	//auxiliares para punto 4.a y 4.b
-	private boolean creoLaReceta(Receta unaReceta){
-		return contieneListadoDeRecetas(recetasPropias, unaReceta);
-	}
-	private boolean esPublica(Receta unaReceta){
-		return contieneListadoDeRecetas(recetasPublicas, unaReceta);
-	}
-	private boolean contieneListadoDeRecetas(Collection<Receta> recetas, Receta unaReceta){
-		return recetas.contains(unaReceta);
+	private boolean esRecetaPropia(Receta unaReceta){
+		return recetasPropias.contains(unaReceta);
 	}
 	
+	private boolean esRecetaPublica(Receta unaReceta){
+		return recetasPublicas.contains(unaReceta);
+	}
 	//Setter de variable de clase recetasPublicas
 	public static void recetasPublicas(Collection<Receta> recetas){
 		recetasPublicas = recetas;
@@ -124,5 +132,19 @@ public class Usuario
 	}
 	public boolean tienePreferencias(Collection<String> preferencias){
 		return preferenciasAlimenticias.containsAll(preferencias);
+	}
+
+	/**
+	 * @return the condicionesPreexistentes
+	 */
+	public Collection<CondicionPreexistente> getCondicionesPreexistentes() {
+		return condicionesPreexistentes;
+	}
+
+	/**
+	 * @param condicionesPreexistentes the condicionesPreexistentes to set
+	 */
+	public void setCondicionesPreexistentes(Collection<CondicionPreexistente> condicionesPreexistentes) {
+		this.condicionesPreexistentes = condicionesPreexistentes;
 	}
 }

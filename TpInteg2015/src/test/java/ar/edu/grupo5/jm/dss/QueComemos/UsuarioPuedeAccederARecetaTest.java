@@ -58,4 +58,5 @@ public class UsuarioPuedeAccederARecetaTest {
 		assertTrue(gaston.puedeAcceder(ensalada));
 		assertTrue(juanchi.puedeAcceder(pancho));
 	}
+	//no se desarrollan test de puedeModificar porque al momento de esta iteración puedeModificar y puedeAcceder hacen lo mismo
 }

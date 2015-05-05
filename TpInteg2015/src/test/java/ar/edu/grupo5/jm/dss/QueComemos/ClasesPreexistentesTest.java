@@ -8,7 +8,6 @@ import static org.mockito.Mockito.*;
 
 public class ClasesPreexistentesTest {
 	
-	private Receta recetaFalsa;
 	 private Usuario usuarioFalso;
      private Vegano vegano;
      private Hipertenso hipertenso;
@@ -17,7 +16,6 @@ public class ClasesPreexistentesTest {
      @Before
 	public void setUp() {
 	usuarioFalso = mock(Usuario.class);	
-	recetaFalsa = mock(Receta.class);
 	
 	}
 	
@@ -60,21 +58,4 @@ public class ClasesPreexistentesTest {
 		assert (vegano.esUsuarioValido(usuarioFalso));
 	}
 	
-	@Test
-	public void RecetaValidaHipertenso(){
-		when(recetaFalsa.tenesAlgoDe(Hipertenso.getCondimentosProhibidos())).thenReturn(false);
-		assert (hipertenso.esInadecuada(recetaFalsa));
-	}
-	
-	@Test
-	public void RecetaValidaDiabetico(){
-		when(recetaFalsa.tenesMasDe(Diabetico.GetCondimentosProhibidos())).thenReturn(false);
-		assert (diabetico.esInadecuada(recetaFalsa));
-	}
-	
-	@Test
-	public void RecetaValidaVegano(){
-		when(recetaFalsa.tenesAlgunIngredienteDeEstos(Vegano.getPreferenciasprohibidas())).thenReturn(false);
-		assert (vegano.esInadecuada(recetaFalsa));
-	}
 }
