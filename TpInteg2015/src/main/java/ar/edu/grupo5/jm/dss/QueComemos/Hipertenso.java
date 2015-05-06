@@ -5,11 +5,10 @@ import java.util.Collection;
 
 public class Hipertenso implements CondicionPreexistente {
 	
-	static Condimento sal = new Condimento("Sal");
-	static Condimento caldo = new Condimento("Caldo");
-	private static final Collection<Condimento> condimentosProhibidos = Arrays.asList(sal, caldo);
+
+	private static final Collection<String> condimentosProhibidos = Arrays.asList("sal", "caldo");
 	
-	public static Collection<Condimento> getCondimentosProhibidos() {
+	public static Collection<String> getCondimentosProhibidos() {
 		return condimentosProhibidos;
 	}
 

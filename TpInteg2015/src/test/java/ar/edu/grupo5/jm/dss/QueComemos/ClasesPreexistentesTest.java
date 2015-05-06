@@ -54,7 +54,7 @@ public class ClasesPreexistentesTest {
 	
 	@Test
 	public void UsuarioVeganoValido() {
-		when(!usuarioFalso.tienePreferencias(Vegano.getPreferenciasprohibidas())).thenReturn(true);
+		when(!usuarioFalso.tieneAlgunaDeEstasPreferencias(Vegano.getPreferenciasprohibidas())).thenReturn(true);
 		assert (vegano.esUsuarioValido(usuarioFalso));
 	}
 	

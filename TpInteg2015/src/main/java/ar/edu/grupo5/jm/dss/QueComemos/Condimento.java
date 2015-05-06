@@ -18,16 +18,17 @@ public class Condimento {
 	public boolean esCondimentoConMasDe(String unNombre, double unaCantidad) {
 		return nombre.equals(unNombre)&& cantidad>unaCantidad;
 	}
-	public  boolean sosIgualAUnoDe(Collection<Condimento> condimentosProhibidos) {
-		return condimentosProhibidos.stream().anyMatch(condimento -> condimento.sosIgualA(this));
-	}
-	
-	public boolean sosIgualA(Condimento unCondimento){
-		
-		return nombre.equals(unCondimento.nombre);	
-	}
+	public  boolean sosIgualAUnoDe(Collection<String> condimentosProhibidos) {
+		  return condimentosProhibidos.stream().anyMatch(condimento -> this.sosIgualA(condimento));
+		 }
+		 
+	public boolean sosIgualA(String unCondimento){
+		  
+		  return nombre.equals(unCondimento); 
+	 }
+		 
 	public boolean mayorCantidadQue(Condimento unCondimento) {
-		return this.sosIgualA(unCondimento) && this.cantidad > unCondimento.cantidad;
+		return this.sosIgualA(unCondimento.nombre) && this.cantidad > unCondimento.cantidad;
 	}
 	
 }

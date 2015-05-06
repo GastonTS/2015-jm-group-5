@@ -6,11 +6,11 @@ public class Receta {
 	private String nombre;
 	private Collection<String> ingredientes;
 	private Collection<Condimento> condimentos;
-	private Collection<Receta> subRecetas;
 	private String proceso;
-	private String temporada;
-	private String dificultad;
 	private double cantCalorias;
+	private String dificultad;
+	private String temporada;
+	private Collection<Receta> subRecetas;
 	
 	public Receta(String unNombre,Collection<String> unosIngredientes, Collection<Condimento> unosCondimentos,
 			Collection<Receta> unassubRecetas, String unProceso, String unaTemporada, String unaDificultad,
@@ -23,6 +23,7 @@ public class Receta {
 		temporada = unaTemporada;
 		dificultad = unaDificultad;
 		cantCalorias = unasCantCalorias;
+		
 	}
 	
 	public boolean esValida(){
@@ -34,7 +35,6 @@ public class Receta {
 	}
 	
 	private boolean totalCaloriasEntre(int minimo, int maximo){
-		//usar isBetween o algo similar
 		return cantCalorias >= minimo && cantCalorias <= maximo;
 	}
 	
@@ -47,7 +47,7 @@ public class Receta {
 	}
 
 
-	public boolean tenesAlgoDe(Collection<Condimento> condimentosProhibidos) {
+	public boolean tenesAlgoDe(Collection<String> condimentosProhibidos) {
 		return condimentos.stream().anyMatch(condimento -> condimento.sosIgualAUnoDe(condimentosProhibidos));
 	}
 		//buscar abstraccion para stream().anyMatch() . tenesAlgoDe y tenesMasDe son muy similares
@@ -58,9 +58,11 @@ public class Receta {
 
 
 	public boolean tenesAlgunIngredienteDeEstos(Collection<String> ingredientesProhibidas) {
-		//return !ingredientes.retainAll(ingredientesProhibidas).isEmpty(); el metodo no se porque mierda no anda debería hacer
-		// la concatenacion de ingredientes con ingredientes prohibidos y si es empty lo niega porque no tiene de esos ingredientes
-		return false;
+				
+		Collection<String> interseccionIngredientes = ingredientes;
+		interseccionIngredientes.retainAll(ingredientesProhibidas);
+		
+		return !interseccionIngredientes.isEmpty();
 	}
 
 	

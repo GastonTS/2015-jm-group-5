@@ -8,16 +8,15 @@ public class Usuario
 {
 	private String nombre;
 	private String sexo;
+	private LocalDate fechaDeNacimiento;
 	private double peso;
 	private double estatura;
-	private LocalDate fechaDeNacimiento;
 	private Collection<String> preferenciasAlimenticias;
 	private Collection<String> disgustosAlimenticios;
-	private static Collection<Receta> recetasPublicas;
-	private Collection<Receta> recetasPropias;
 	private Collection<CondicionPreexistente> condicionesPreexistentes;
 	private String rutina;
-	
+	private static Collection<Receta> recetasPublicas;
+	private Collection<Receta> recetasPropias;
 	
 	
 	public Usuario(double unPeso, double unaEstatura, String UnNombre,LocalDate UnaFechaDeNacimiento,
@@ -34,9 +33,52 @@ public class Usuario
 		rutina = unaRutina;
 	}
 	
+	//Setter de variable de clase recetasPublicas
+	public static void recetasPublicas(Collection<Receta> recetas){
+		recetasPublicas = recetas;
+	}
+	
+	public double getPeso() {
+		return peso; 
+	}
+	
+	/**
+	 * @return the condicionesPreexistentes
+	 */
+	public Collection<CondicionPreexistente> getCondicionesPreexistentes() {
+		return condicionesPreexistentes;
+	}
+
+	/**
+	 * @param condicionesPreexistentes the condicionesPreexistentes to set
+	 */
+	public void setCondicionesPreexistentes(Collection<CondicionPreexistente> condicionesPreexistentes) {
+		this.condicionesPreexistentes = condicionesPreexistentes;
+	}
+	
 	//Punto 1
 	public boolean esUsuarioValido (){
 		return tieneCamposObligatorios() && nombre.length()>4 && esUsuarioValidoParaSusCondiciones() && fechaDeNacimientoAnteriorAHoy();		
+	}
+	
+	private boolean tieneCamposObligatorios() {
+		return nombre!=null && peso!=0 && estatura!=0 && fechaDeNacimiento!=null && rutina!=null;
+	}
+	
+	private boolean esUsuarioValidoParaSusCondiciones() {
+		return getCondicionesPreexistentes().stream().allMatch(condicion -> condicion.esUsuarioValido(this));
+	}
+	
+	public boolean indicaSexo() {
+		return sexo!=null && !(sexo.equals(""));
+	}
+	
+	public boolean tieneAlgunaPreferencia() {
+		return !preferenciasAlimenticias.isEmpty();
+	}
+	
+	private boolean fechaDeNacimientoAnteriorAHoy() {
+		return fechaDeNacimiento.isBefore(LocalDate.now());
 	}
 
 	//Punto 2.a
@@ -46,9 +88,29 @@ public class Usuario
 	
 	//Punto 2.b
 	public boolean sigueRutinaSaludable(){
-		//usar isBetween o algo similar. Estoy repitiendo lógica acá y en receta para ver si es valida
 		return 18>=indiceMasaCorporal() && indiceMasaCorporal()<=30 && this.subsanaTodasLasCondiciones();
 	}
+	
+	private boolean subsanaTodasLasCondiciones() {
+		return getCondicionesPreexistentes().stream().allMatch(condicion -> condicion.subsanaCondicion(this));
+	}
+	
+	public boolean tieneRutinaActiva() {
+		return this.tieneRutinaIntensiva() || rutina.equals("Alta");
+	}
+	
+	public boolean tieneRutinaIntensiva(){
+		return rutina.equals("Intensiva");
+	}
+	
+	public boolean tienePreferencia(String preferencia) {
+		return preferenciasAlimenticias.contains(preferencia);
+	}
+	
+	public boolean tieneAlgunaDeEstasPreferencias(Collection<String> preferencias){
+		return preferenciasAlimenticias.stream().anyMatch(preferencia -> preferencias.contains(preferencia));
+	}
+	
 	
 	//Punto 3.a
 	public Receta crearReceta(Receta unaReceta){
@@ -67,34 +129,7 @@ public class Usuario
 	public boolean puedeAcceder(Receta unaReceta){
 		return esRecetaPropia(unaReceta) || esRecetaPublica(unaReceta);
 	}
-	public boolean puedeModificar(Receta unaReceta){
-		return puedeAcceder(unaReceta);//La definicion de visualizar/modificar segun el enunciado es la misma
-	}
 	
-	//Punto 4.c
-	public void modificarReceta(){
-		//implementar es tipo Receta
-	}
-	
-	
-	
-	private boolean esUsuarioValidoParaSusCondiciones() {
-		return getCondicionesPreexistentes().stream().allMatch(condicion -> condicion.esUsuarioValido(this));
-	}
-	
-	private boolean fechaDeNacimientoAnteriorAHoy() {
-		return fechaDeNacimiento.isBefore(LocalDate.now());
-	}
-	
-	private boolean subsanaTodasLasCondiciones() {
-		return getCondicionesPreexistentes().stream().allMatch(condicion -> condicion.subsanaCondicion(this));
-	}
-	
-	private boolean tieneCamposObligatorios() {
-		return nombre!=null && peso!=0 && estatura!=0 && fechaDeNacimiento!=null && rutina!=null;
-	}
-	
-	//auxiliares para punto 4.a y 4.b
 	private boolean esRecetaPropia(Receta unaReceta){
 		return recetasPropias.contains(unaReceta);
 	}
@@ -102,49 +137,11 @@ public class Usuario
 	private boolean esRecetaPublica(Receta unaReceta){
 		return recetasPublicas.contains(unaReceta);
 	}
-	//Setter de variable de clase recetasPublicas
-	public static void recetasPublicas(Collection<Receta> recetas){
-		recetasPublicas = recetas;
+	
+	//Punto 4.c
+	public void modificarReceta(){
+		//implementar es tipo Receta
 	}
 	
-	public double getPeso() {
-		return peso; 
-	}
-	
-	public boolean indicaSexo() {
-		return sexo!=null && !(sexo.equals(""));
-	}
-	
-	public boolean tieneAlgunaPreferencia() {
-		return !preferenciasAlimenticias.isEmpty();
-	}
-	
-	public boolean tieneRutinaActiva() {
-		return this.tieneRutinaIntensiva() || rutina.equals("Alta");
-	}
-	
-	public boolean tieneRutinaIntensiva(){
-		return rutina.equals("Intensiva");
-	}
-	
-	public boolean tienePreferencia(String preferencia) {
-		return preferenciasAlimenticias.contains(preferencia);
-	}
-	public boolean tienePreferencias(Collection<String> preferencias){
-		return preferenciasAlimenticias.containsAll(preferencias);
-	}
 
-	/**
-	 * @return the condicionesPreexistentes
-	 */
-	public Collection<CondicionPreexistente> getCondicionesPreexistentes() {
-		return condicionesPreexistentes;
-	}
-
-	/**
-	 * @param condicionesPreexistentes the condicionesPreexistentes to set
-	 */
-	public void setCondicionesPreexistentes(Collection<CondicionPreexistente> condicionesPreexistentes) {
-		this.condicionesPreexistentes = condicionesPreexistentes;
-	}
 }
