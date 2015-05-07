@@ -1,7 +1,7 @@
 package ar.edu.grupo5.jm.dss.QueComemos;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,7 +28,7 @@ public class UsuarioPuedeAccederARecetaTest {
     	ensalada = mock(Receta.class);
     	pancho = mock(Receta.class);
     	choripan = mock(Receta.class);
-    	
+
     	recetasPublicas = Arrays.asList(ensalada, pancho); 
     	recetasRamiro = Arrays.asList(choripan);
     	recetasGaston = Arrays.asList(pancho); 
@@ -43,18 +43,24 @@ public class UsuarioPuedeAccederARecetaTest {
     
 	@Test
 	public void UsuarioPuedeAccederARecetaPropia() {
+		when(ramiro.esRecetaPropia(choripan)).thenReturn(true);
+		when(gaston.esRecetaPropia(pancho)).thenReturn(true);
 		assertTrue(ramiro.puedeAcceder(choripan));
 		assertTrue(gaston.puedeAcceder(pancho));
 	}
 	
 	@Test
 	public void UsuarioNoPuedeAccederAReceta() {
+		when(juanchi.esRecetaPropia(choripan)).thenReturn(false);
+		when(gaston.esRecetaPropia(choripan)).thenReturn(false);
 		assertFalse(juanchi.puedeAcceder(choripan));
 		assertFalse(gaston.puedeAcceder(choripan));
 	}
 
 	@Test
 	public void UsuarioPuedeAccederARecetaPublica() {
+		when(gaston.esRecetaPropia(ensalada)).thenReturn(true);
+		when(juanchi.esRecetaPropia(pancho)).thenReturn(true);
 		assertTrue(gaston.puedeAcceder(ensalada));
 		assertTrue(juanchi.puedeAcceder(pancho));
 	}

@@ -130,12 +130,12 @@ public class Usuario
 		return esRecetaPropia(unaReceta) || esRecetaPublica(unaReceta);
 	}
 	
-	private boolean esRecetaPropia(Receta unaReceta){
-		return recetasPropias.contains(unaReceta);
+	public boolean esRecetaPropia(Receta unaReceta){
+		return unaReceta.estasEnEstasRecetas(recetasPropias);
 	}
 	
-	private boolean esRecetaPublica(Receta unaReceta){
-		return recetasPublicas.contains(unaReceta);
+	public boolean esRecetaPublica(Receta unaReceta){
+		return unaReceta.estasEnEstasRecetas(recetasPublicas);
 	}
 	
 	//Punto 4.c
