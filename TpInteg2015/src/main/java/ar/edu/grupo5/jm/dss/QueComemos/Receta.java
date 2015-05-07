@@ -50,7 +50,6 @@ public class Receta {
 	public boolean tenesAlgoDe(Collection<String> condimentosProhibidos) {
 		return condimentos.stream().anyMatch(condimento -> condimento.sosIgualAUnoDe(condimentosProhibidos));
 	}
-		//buscar abstraccion para stream().anyMatch() . tenesAlgoDe y tenesMasDe son muy similares
 
 	public boolean tenesMasDe(Condimento unCondimento) {
 		return condimentos.stream().anyMatch(condimento -> condimento.mayorCantidadQue(unCondimento));

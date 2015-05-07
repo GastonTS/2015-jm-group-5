@@ -2,6 +2,9 @@ package ar.edu.grupo5.jm.dss.QueComemos;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+import static org.mockito.Matchers.any;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -28,9 +31,24 @@ public class UsuarioTest {
 	
 	private Usuario nombreCorto;
 	private Usuario nacioHoy;
+	
+	private Usuario conCondicionMockeada;
+	private Collection<CondicionPreexistente> condiciones = new ArrayList<CondicionPreexistente>();
+	private CondicionPreexistente condicion1 = mock(CondicionPreexistente.class);;
+	private CondicionPreexistente condicion2 = mock(CondicionPreexistente.class);;
+	
+	private Usuario demasiadoICM;
+	private Usuario pocoICM;
+	
 	private Collection<String> preferenciaLean;
+	
+	
+	
 	@Before
 	public void setUp() {
+		condiciones.add(condicion1);
+		condiciones.add(condicion2);
+		
 		preferenciaLean = new ArrayList<String>();
 		preferenciaLean.add("fruta");
 		gustavo = new Usuario(73, 1.83, "Gustavo", LocalDate.parse("1994-02-25"), null, null, null, null, "Mediano");
@@ -48,7 +66,15 @@ public class UsuarioTest {
 		nombreCorto = new Usuario(73, 1.83, "cort", LocalDate.parse("2000-01-01"), null, null, null, null, "Mediano");
 		
 		nacioHoy = new Usuario(73, 1.83, "Nació hoy", LocalDate.now(), null, null, null, null, "Mediano");
+		
+		conCondicionMockeada = new Usuario(73, 1.83, "conCondicionMockeada", LocalDate.parse("2000-01-01"), null, null, null, condiciones, "Mediano");
+		
+		demasiadoICM = new Usuario(101, 1.83, "demasiadoICM", LocalDate.parse("2000-01-01"), null, null, null, condiciones, "Mediano");
+		pocoICM = new Usuario(60, 1.83, "pocoICM", LocalDate.parse("2000-01-01"), null, null, null, condiciones, "Mediano");
+		
 	} 
+	
+	//Punto 1
 	
 	@Test
 	public void gustavoEsValido() {
@@ -75,7 +101,15 @@ public class UsuarioTest {
 	}
 	
 	
+	@Test
+	public void noEsValidoSiSusCondicionesNoLoPermiten() {
+		when(condicion1.esUsuarioValido(any(Usuario.class))).thenReturn(false);
+		when(condicion2.esUsuarioValido(any(Usuario.class))).thenReturn(true);
+		assertFalse(conCondicionMockeada.esUsuarioValido());
+	}
 	
+	
+	//Punto 2.a
 	
 	@Test
 	public void juanchiTieneIMCDe2045(){
@@ -102,6 +136,30 @@ public class UsuarioTest {
 	public void gastonTieneIMCDe2358(){
 		assertEquals(23.58, gaston.indiceMasaCorporal(), 0.01);
 	}
+	
+	
+	
+	//Punto 2.b
+	@Test
+	public void noSigueRutinaSaludableSiNoSubsanaUnaCondicion() {
+		when(condicion1.subsanaCondicion(any(Usuario.class))).thenReturn(false);
+		when(condicion2.subsanaCondicion(any(Usuario.class))).thenReturn(true);
+		assertFalse(conCondicionMockeada.sigueRutinaSaludable());
+	}
+	
+	@Test
+	public void noSigueRutinaSaludableSiNoTieneICMMenorA18() {
+		assertFalse(pocoICM.sigueRutinaSaludable());
+	}
+	
+	@Test 
+	public void noSigueRutinaSaludableSiNoTieneICMMayorA30() {
+		assertFalse(demasiadoICM.sigueRutinaSaludable());
+	}		
+	
+	
+	
+	
 	
 	@Test
 	public void leanPrefiereFruta(){
