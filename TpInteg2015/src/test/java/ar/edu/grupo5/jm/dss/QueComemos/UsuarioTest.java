@@ -2,6 +2,7 @@ package ar.edu.grupo5.jm.dss.QueComemos;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.mockito.Matchers.any;
@@ -37,6 +38,10 @@ public class UsuarioTest {
 	private CondicionPreexistente condicion1 = mock(CondicionPreexistente.class);;
 	private CondicionPreexistente condicion2 = mock(CondicionPreexistente.class);;
 	
+	private Collection<Receta> recetasPropias = new ArrayList<Receta>();
+	private Receta recetaMock = mock(Receta.class);
+	
+	
 	private Usuario demasiadoICM;
 	private Usuario pocoICM;
 	
@@ -49,23 +54,23 @@ public class UsuarioTest {
 		condiciones.add(condicion1);
 		condiciones.add(condicion2);
 		
-		preferenciaLean = new ArrayList<String>();
+		preferenciaLean = new ArrayList<String>(); 
 		preferenciaLean.add("fruta");
-		gustavo = new Usuario(73, 1.83, "Gustavo", LocalDate.parse("1994-02-25"), null, null, null, null, "Mediano");
-		leandro = new Usuario(79, 1.78, "leandro", null, preferenciaLean, null, null, null, null);
-		ramiro = new Usuario(63, 1.75, null, null, null, null, null, null, null);
-		gaston = new Usuario(65, 1.66, null, null, null, null, null, null, null);
-		juanchi = new Usuario(70, 1.85, null, null, null, null, null, null, null);
+		gustavo = new Usuario(73, 1.83, "Gustavo", LocalDate.parse("1994-02-25"), null, null, recetasPropias, condiciones, "Mediano");
+		leandro = new Usuario(79, 1.78, "leandro", null, preferenciaLean, null, null, condiciones, null);
+		ramiro = new Usuario(63, 1.75, null, null, null, null, null, condiciones, null);
+		gaston = new Usuario(65, 1.66, null, null, null, null, null, condiciones, null);
+		juanchi = new Usuario(70, 1.85, null, null, null, null, null, condiciones, null);
 		
-		sinPeso = new Usuario(0, 1.83, "falta peso", LocalDate.parse("2000-01-01"), null, null, null, null, "Mediano");
-		sinEstatura = new Usuario(73, 0, "falta estatura", LocalDate.parse("2000-01-01"), null, null, null, null, "Mediano");
-		sinFecha = new Usuario(73, 1.83, "falta fecha", null, null, null, null, null, "Mediano");
-		sinNombre = new Usuario(73, 1.83, null, LocalDate.parse("2000-01-01"), null, null, null, null, "Mediano");
-		sinRutina = new Usuario(73, 1.83, "falta rutina", LocalDate.parse("2000-01-01"), null, null, null, null, null);
+		sinPeso = new Usuario(0, 1.83, "falta peso", LocalDate.parse("2000-01-01"), null, null, null, condiciones, "Mediano");
+		sinEstatura = new Usuario(73, 0, "falta estatura", LocalDate.parse("2000-01-01"), null, null, null, condiciones, "Mediano");
+		sinFecha = new Usuario(73, 1.83, "falta fecha", null, null, null, null, condiciones, "Mediano");
+		sinNombre = new Usuario(73, 1.83, null, LocalDate.parse("2000-01-01"), null, null, null, condiciones, "Mediano");
+		sinRutina = new Usuario(73, 1.83, "falta rutina", LocalDate.parse("2000-01-01"), null, null, null, condiciones, null);
 		
-		nombreCorto = new Usuario(73, 1.83, "cort", LocalDate.parse("2000-01-01"), null, null, null, null, "Mediano");
+		nombreCorto = new Usuario(73, 1.83, "cort", LocalDate.parse("2000-01-01"), null, null, null, condiciones, "Mediano");
 		
-		nacioHoy = new Usuario(73, 1.83, "Nació hoy", LocalDate.now(), null, null, null, null, "Mediano");
+		nacioHoy = new Usuario(73, 1.83, "Nació hoy", LocalDate.now(), null, null, null, condiciones, "Mediano");
 		
 		conCondicionMockeada = new Usuario(73, 1.83, "conCondicionMockeada", LocalDate.parse("2000-01-01"), null, null, null, condiciones, "Mediano");
 		
@@ -75,29 +80,31 @@ public class UsuarioTest {
 	} 
 	
 	//Punto 1
-	
+	 
 	@Test
 	public void gustavoEsValido() {
-		assert(gustavo.esUsuarioValido());
+		when(condicion1.esUsuarioValido(any(Usuario.class))).thenReturn(true);
+		when(condicion2.esUsuarioValido(any(Usuario.class))).thenReturn(true);
+		assertTrue(gustavo.esUsuarioValido());
 	}
 	
 	@Test
-	public void noEsValidoSiFaltaUnCampoObligatorio() {
-		assertFalse(sinPeso.esUsuarioValido());
-		assertFalse(sinEstatura.esUsuarioValido());
-		assertFalse(sinFecha.esUsuarioValido());
-		assertFalse(sinNombre.esUsuarioValido());
-		assertFalse(sinRutina.esUsuarioValido());
+	public void faltaUnCampoObligatorio() {
+		assertFalse(sinPeso.tieneCamposObligatorios());
+		assertFalse(sinEstatura.tieneCamposObligatorios());
+		assertFalse(sinFecha.tieneCamposObligatorios());
+		assertFalse(sinNombre.tieneCamposObligatorios());
+		assertFalse(sinRutina.tieneCamposObligatorios());
 	}
 	
 	@Test
-	public void noEsValidoSiElNombreEsCorto() {
-		assertFalse(nombreCorto.esUsuarioValido());
+	public void elNombreEsCorto() {
+		assertFalse(nombreCorto.esNombreCorto());
 	}
 	
 	@Test
-	public void noEsValidoSiFechaNoEsMenorAHoy() {
-		assertFalse(nacioHoy.esUsuarioValido());
+	public void fechaNoEsMenorAHoy() {
+		assertFalse(nacioHoy.fechaDeNacimientoAnteriorAHoy());
 	}
 	
 	
@@ -105,7 +112,7 @@ public class UsuarioTest {
 	public void noEsValidoSiSusCondicionesNoLoPermiten() {
 		when(condicion1.esUsuarioValido(any(Usuario.class))).thenReturn(false);
 		when(condicion2.esUsuarioValido(any(Usuario.class))).thenReturn(true);
-		assertFalse(conCondicionMockeada.esUsuarioValido());
+		assertFalse(conCondicionMockeada.esUsuarioValidoParaSusCondiciones());
 	}
 	
 	
@@ -157,17 +164,24 @@ public class UsuarioTest {
 		assertFalse(demasiadoICM.sigueRutinaSaludable());
 	}		
 	
+
+	//Punto 3.a
+	@Test 
+	public void usuarioCreaRecetaExitosa() {
+		when(recetaMock.esValida()).thenReturn(true);
+		gustavo.crearReceta(recetaMock);
+		assertTrue(gustavo.esRecetaPropia(recetaMock));
+	}		
 	
-	
+	@Test(expected=RecetaNoValidaException.class)
+	public void usuarioCreaRecetaFallida() {
+		when(recetaMock.esValida()).thenReturn(false);
+		gustavo.crearReceta(recetaMock);
+	}		
 	
 	
 	@Test
 	public void leanPrefiereFruta(){
-		assert(leandro.tienePreferencia("fruta"));
-	}
-	
-	@Test
-	public void juanchiSigueRutinaSaludable(){
-		assert(juanchi.sigueRutinaSaludable());
+		assertTrue(leandro.tienePreferencia("fruta"));
 	}
 }
