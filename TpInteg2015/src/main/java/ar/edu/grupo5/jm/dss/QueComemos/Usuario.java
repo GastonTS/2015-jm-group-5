@@ -147,10 +147,10 @@ public class Usuario
 	
 	//Punto 4.c
 	public void modificarReceta(Receta unaReceta){
-		if(this.esRecetaPropia(unaReceta)) {
-			this.modificarRecetaPropia(unaReceta);
+		if(esRecetaPropia(unaReceta)) {
+			modificarRecetaPropia(unaReceta);
 		}
-		this.crearReceta(unaReceta);
+		crearReceta(unaReceta);
 		
 		
 	}
@@ -160,9 +160,9 @@ public class Usuario
 		recetasPropias.add(unaReceta);
 	}
 
-	private void eliminarRecetaPropia(String nombreReceta) {
-		Optional<Receta> recetaAEliminar = recetasPropias.stream().filter(unaReceta -> unaReceta.getNombre().equals(nombreReceta)).findFirst();
-		recetasPropias.remove(recetaAEliminar.get());
+	public void eliminarRecetaPropia(String nombreReceta) {
+		Receta recetaAEliminar = recetasPropias.stream().filter(unaReceta -> unaReceta.getNombre().equals(nombreReceta)).findFirst().get();
+		recetasPropias.remove(recetaAEliminar);
 	}
 
 	/**
