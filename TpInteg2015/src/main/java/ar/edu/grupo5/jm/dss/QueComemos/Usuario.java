@@ -137,7 +137,7 @@ public class Usuario
 	}
 	
 	public boolean esRecetaPropia(Receta unaReceta){
-		return recetasPropias.contains(unaReceta);
+		return unaReceta.estasEnEstasRecetas(recetasPropias);
 	}
 	
 	private boolean esRecetaPublica(Receta unaReceta){

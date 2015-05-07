@@ -63,6 +63,18 @@ public class Receta {
 		
 		return !interseccionIngredientes.isEmpty();
 	}
+	public boolean estasEnEstasRecetas(Collection<Receta> unasRecetas) {
+		return unasRecetas.stream().anyMatch(unaReceta -> unaReceta.getNombre().equals(this.getNombre()));
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 
 	
 }
