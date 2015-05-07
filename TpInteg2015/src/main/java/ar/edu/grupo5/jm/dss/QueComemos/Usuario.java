@@ -19,14 +19,13 @@ public class Usuario
 	private static Collection<Receta> recetasPublicas;
 	
 	//XXX long parameter list
-	public Usuario(double unPeso, double unaEstatura, String unNombre,LocalDate unaFechaDeNacimiento,
-			Collection<String> unasPreferenciasAlimenticias, Collection<String> unosDisgustosAlimenticios,
-			Collection<Receta> unasRecetasPropias, Collection<CondicionPreexistente> unasCondicionesPreexistentes,
-			String unaRutina) {
+	public Usuario(String unNombre,LocalDate unaFechaDeNacimiento, double unPeso, double unaEstatura,
+			Collection<String> unasPreferenciasAlimenticias, Collection<Receta> unasRecetasPropias, 
+			Collection<CondicionPreexistente> unasCondicionesPreexistentes,	String unaRutina) {
 		nombre = unNombre;
+		fechaDeNacimiento = unaFechaDeNacimiento;
 		peso = unPeso;
 		estatura = unaEstatura;
-		fechaDeNacimiento = unaFechaDeNacimiento;
 		preferenciasAlimenticias = unasPreferenciasAlimenticias;
 		setRecetasPropias(unasRecetasPropias);
 		setCondicionesPreexistentes(unasCondicionesPreexistentes);
@@ -62,8 +61,8 @@ public class Usuario
 	public boolean esUsuarioValido (){
 		return tieneCamposObligatorios() && 
 				esNombreCorto() && 
-				esUsuarioValidoParaSusCondiciones() && 
-				fechaDeNacimientoAnteriorAHoy();		
+				fechaDeNacimientoAnteriorAHoy() && 	
+				esUsuarioValidoParaSusCondiciones(); 	
 	}
 	
 	public boolean esNombreCorto() {

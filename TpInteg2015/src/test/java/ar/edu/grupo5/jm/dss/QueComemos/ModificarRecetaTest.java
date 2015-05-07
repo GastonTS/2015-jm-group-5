@@ -3,7 +3,6 @@ package ar.edu.grupo5.jm.dss.QueComemos;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -17,11 +16,9 @@ public class ModificarRecetaTest {
 	private Receta choripan;
 	private Receta choripan2;
 	private Usuario ramiro;
-	private Usuario juanchi;
 	
 	private Collection<Receta> recetasPublicas;
 	private Collection<Receta> recetasRamiro;
-	private Collection<Receta> recetasJuanchi;
 	
     @Before
 	public void setUp() {
@@ -31,14 +28,12 @@ public class ModificarRecetaTest {
     	choripan2 = mock(Receta.class);
     	
     	recetasPublicas = Arrays.asList(ensalada, pancho); 
-    	recetasRamiro = Arrays.asList(choripan); 
-    	recetasJuanchi = new ArrayList<Receta>(); //no tiene recetas propias
+    	recetasRamiro = Arrays.asList(choripan);
     	
     	Usuario.recetasPublicas(recetasPublicas);
     	
     	//FIXME falta una abstraccion
-    	ramiro = new Usuario(0, 0, null, null, null, null, recetasRamiro, null, null);
-    	juanchi = new Usuario(0, 0, null, null, null, null, recetasJuanchi, null, null);
+    	ramiro = new Usuario(null, null, 0, 0, null, recetasRamiro, null, null);
 	}
 
 

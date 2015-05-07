@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.Matchers.any;
 
@@ -83,19 +85,19 @@ public class UsuarioTest {
 		preferenciasVariadas.add("champignones");
 		
 		Usuario.recetasPublicas(recetasPublicas);
-		gustavo = new Usuario(73, 1.83, "Gustavo", LocalDate.parse("1994-02-25"), null, null, recetasGustavo, condiciones, "Mediano");
-		leandro = new Usuario(79, 1.78, "leandro", null, preferenciaFruta, null, null, coleccionCondicionVegano, "Mediano"); //No tiene fecha y es vegano (con preferencia fruta)
-		ramiro = new Usuario(63, 1.75, null, LocalDate.parse("2000-01-01"), null, null, null, coleccionCondicionCeliaco, "Mediano"); //No tiene nombre
-		gaston = new Usuario(65, 1.66, "gast", null, null, null, recetasGaston, null, null); //Tiene Nombre corto
-		juanchi = new Usuario(70, 1.85, "juanchi", LocalDate.parse("2000-01-01"), null, null, recetasJuanchi, coleccionCondicionDiabetico, "Alta"); //tiene rutina y es diabetico
-		juanchiSinRutina = new Usuario(70, 1.85, "juanchi", LocalDate.parse("2000-01-01"), null, null, recetasJuanchi, coleccionCondicionDiabetico, null); //No tiene rutina y es diabetico
+		gustavo = new Usuario("Gustavo", LocalDate.parse("1994-02-25"), 73, 1.83, null, recetasGustavo, condiciones, "Mediano");
+		leandro = new Usuario("leandro", null, 79, 1.78,  preferenciaFruta, null, coleccionCondicionVegano, "Mediano"); //No tiene fecha y es vegano (con preferencia fruta)
+		ramiro = new Usuario(null, LocalDate.parse("2000-01-01"), 63, 1.75, null, null, coleccionCondicionCeliaco, "Mediano"); //No tiene nombre
+		gaston = new Usuario("gast", null, 65, 1.66,  null, recetasGaston, null, null); //Tiene Nombre corto
+		juanchi = new Usuario("juanchi", LocalDate.parse("2000-01-01"), 70, 1.85, null, recetasJuanchi, coleccionCondicionDiabetico, "Alta"); //tiene rutina y es diabetico
+		juanchiSinRutina = new Usuario("juanchi", LocalDate.parse("2000-01-01"), 70, 1.85, null, recetasJuanchi, coleccionCondicionDiabetico, null); //No tiene rutina y es diabetico
 		
-		sinPeso = new Usuario(0, 1.83, "falta peso", LocalDate.parse("2000-01-01"), null, null, null, condiciones, "Mediano");
-		sinEstatura = new Usuario(73, 0, "falta estatura", LocalDate.parse("2000-01-01"), null, null, null, condiciones, "Mediano");
-		nacioHoy = new Usuario(73, 1.83, "Nació hoy", LocalDate.now(), null, null, null, condiciones, "Mediano");
-		usuarioDiabeticoRutinaAlata = new Usuario(71, 1.70, null, null, null, null, null, coleccionCondicionDiabetico, "Alta");
-		demasiadoICM = new Usuario(101, 1.83, "demasiadoICM", LocalDate.parse("2000-01-01"), null, null, null, condiciones, "Mediano");
-		pocoICM = new Usuario(60, 1.83, "pocoICM", LocalDate.parse("2000-01-01"), null, null, null, condiciones, "Mediano");
+		sinPeso = new Usuario("falta peso", LocalDate.parse("2000-01-01"), 0, 1.83, null, null, condiciones, "Mediano");
+		sinEstatura = new Usuario("falta estatura", LocalDate.parse("2000-01-01"), 73, 0, null, null, condiciones, "Mediano");
+		nacioHoy = new Usuario("Nació hoy", LocalDate.now(), 73, 1.83, null, null, condiciones, "Mediano");
+		usuarioDiabeticoRutinaAlata = new Usuario(null, null, 71, 1.70, null, null, coleccionCondicionDiabetico, "Alta");
+		demasiadoICM = new Usuario("demasiadoICM", LocalDate.parse("2000-01-01"), 101, 1.83, null, null, condiciones, "Mediano");
+		pocoICM = new Usuario("pocoICM", LocalDate.parse("2000-01-01"), 60, 1.83, null, null, condiciones, "Mediano");
 				
 	} 
 	
@@ -105,7 +107,11 @@ public class UsuarioTest {
 	public void gustavoEsValido() {
 		when(hippie.esUsuarioValido(any(Usuario.class))).thenReturn(true);
 		when(corporativo.esUsuarioValido(any(Usuario.class))).thenReturn(true);
+		
 		assertTrue(gustavo.esUsuarioValido()); //XXX pensar si no podria refactorizarse para que no se puedan crear usuarios invalidos
+		
+		verify(hippie, times(1)).esUsuarioValido(any(Usuario.class));
+		verify(corporativo, times(1)).esUsuarioValido(any(Usuario.class));
 	}
 	
 	@Test
@@ -130,15 +136,19 @@ public class UsuarioTest {
 	
 	@Test
 	public void noEsValidoSiSusCondicionesNoLoPermiten() {
-		when(hippie.esUsuarioValido(any(Usuario.class))).thenReturn(false);
-		when(corporativo.esUsuarioValido(any(Usuario.class))).thenReturn(true);
+		when(hippie.esUsuarioValido(any(Usuario.class))).thenReturn(true);
+		when(corporativo.esUsuarioValido(any(Usuario.class))).thenReturn(false);
+
 		assertFalse(gustavo.esUsuarioValidoParaSusCondiciones());
+		
+		verify(hippie, times(1)).esUsuarioValido(any(Usuario.class));
+		verify(corporativo, times(1)).esUsuarioValido(any(Usuario.class));
 	}
 	
 	@Test
 	public void siNoCumplenAlgunaCondicionSonInvalidos() {
-			when(hippie.esUsuarioValido(any(Usuario.class))).thenReturn(false);
-			when(corporativo.esUsuarioValido(any(Usuario.class))).thenReturn(true);
+			when(hippie.esUsuarioValido(any(Usuario.class))).thenReturn(true);
+			when(corporativo.esUsuarioValido(any(Usuario.class))).thenReturn(false);
 
 			assertFalse(ramiro.esUsuarioValido());
 			assertFalse(sinPeso.esUsuarioValido());
@@ -148,6 +158,9 @@ public class UsuarioTest {
 			assertFalse(gaston.esUsuarioValido());
 			assertFalse(nacioHoy.esUsuarioValido());
 			assertFalse(gustavo.esUsuarioValido());
+			
+			verify(hippie, times(1)).esUsuarioValido(any(Usuario.class));
+			verify(corporativo, times(1)).esUsuarioValido(any(Usuario.class));
 	}
 	
 	
@@ -186,7 +199,11 @@ public class UsuarioTest {
 	public void sigueRutinaSaludableConCondiciones() {
 		when(hippie.subsanaCondicion(any(Usuario.class))).thenReturn(true);
 		when(corporativo.subsanaCondicion(any(Usuario.class))).thenReturn(true);
+		
 		assertTrue(gustavo.sigueRutinaSaludable());
+		
+		verify(hippie, times(1)).subsanaCondicion(any(Usuario.class));
+		verify(corporativo, times(1)).subsanaCondicion(any(Usuario.class));
 	}
 	
 	@Test
@@ -196,9 +213,12 @@ public class UsuarioTest {
 	
 	@Test
 	public void noSigueRutinaSaludableSiNoSubsanaUnaCondicion() {
-		when(hippie.subsanaCondicion(any(Usuario.class))).thenReturn(false);
-		when(corporativo.subsanaCondicion(any(Usuario.class))).thenReturn(true);
+		when(hippie.subsanaCondicion(any(Usuario.class))).thenReturn(true);
+		when(corporativo.subsanaCondicion(any(Usuario.class))).thenReturn(false);
 		assertFalse(gustavo.sigueRutinaSaludable());
+		
+		verify(hippie, times(1)).subsanaCondicion(any(Usuario.class));
+		verify(corporativo, times(1)).subsanaCondicion(any(Usuario.class));
 	}
 	
 	@Test
@@ -244,39 +264,57 @@ public class UsuarioTest {
 	@Test 
 	public void usuarioCreaRecetaExitosa() {
 		when(recetaMock.esValida()).thenReturn(true);
+		
 		gustavo.crearReceta(recetaMock);
+		
+		verify(recetaMock,times(1)).esValida();
 	}		
 	
 	@Test(expected=RecetaNoValidaException.class)
 	public void usuarioCreaRecetaFallida() {
 		when(recetaMock.esValida()).thenReturn(false);
+		
 		gustavo.crearReceta(recetaMock);
+		
+		verify(recetaMock,times(1)).esValida();
 	}		
 	
 	//Test de Acceso a recetas
 	
+	@SuppressWarnings("unchecked")
 	@Test
 	public void UsuarioPuedeAccederARecetaPropia() {
 		when(gustavo.esRecetaPropia(choripanMock)).thenReturn(true);
 		when(gaston.esRecetaPropia(panchoMock)).thenReturn(true);
 		assertTrue(gustavo.puedeAcceder(choripanMock));
 		assertTrue(gaston.puedeAcceder(panchoMock));
+		
+		verify(choripanMock,times(1)).estasEnEstasRecetas(any(Collection.class));
+		verify(panchoMock,times(1)).estasEnEstasRecetas(any(Collection.class));
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Test
 	public void UsuarioNoPuedeAccederAReceta() {
 		when(juanchi.esRecetaPropia(choripanMock)).thenReturn(false);
 		when(gaston.esRecetaPropia(choripanMock)).thenReturn(false);
+		
 		assertFalse(juanchi.puedeAcceder(choripanMock));
 		assertFalse(gaston.puedeAcceder(choripanMock));
+		
+		verify(choripanMock,times(4)).estasEnEstasRecetas(any(Collection.class)); //1 por cada lista de recetas (2 veces las privadas, y dos veces la publica
 	}
 
+	@SuppressWarnings("unchecked")
 	@Test
 	public void UsuarioPuedeAccederARecetaPublica() {
 		when(gaston.esRecetaPropia(ensaladaMock)).thenReturn(true);
 		when(juanchi.esRecetaPropia(panchoMock)).thenReturn(true);
 		assertTrue(gaston.puedeAcceder(ensaladaMock));
 		assertTrue(juanchi.puedeAcceder(panchoMock));
+		
+		verify(ensaladaMock,times(1)).estasEnEstasRecetas(any(Collection.class));
+		verify(panchoMock,times(1)).estasEnEstasRecetas(any(Collection.class));
 	}
 	//no se desarrollan test de puedeModificar porque al momento de esta iteración puedeModificar y puedeAcceder hacen lo mismo
 	
@@ -288,6 +326,8 @@ public class UsuarioTest {
 		when(ensaladaMock.esValida()).thenReturn(true);
 		juanchi.modificarReceta(ensaladaMock);
 		assertTrue(juanchi.getRecetasPropias().contains(ensaladaMock));
+		
+		verify(ensaladaMock,times(1)).esValida();
 	}
 	
 

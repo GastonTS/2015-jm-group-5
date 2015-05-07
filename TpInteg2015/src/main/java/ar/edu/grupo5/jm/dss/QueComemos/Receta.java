@@ -6,22 +6,15 @@ public class Receta {
 	private String nombre;
 	private Collection<String> ingredientes;
 	private Collection<Condimento> condimentos;
-	private String proceso;
 	private double cantCalorias;
-	private String dificultad;
-	private String temporada;
 	private Collection<Receta> subRecetas;
 	
 	public Receta(String unNombre,Collection<String> unosIngredientes, Collection<Condimento> unosCondimentos,
-			Collection<Receta> unassubRecetas, String unProceso, String unaTemporada, String unaDificultad,
-			double unasCantCalorias) {
+			Collection<Receta> unassubRecetas, double unasCantCalorias) {
 		nombre = unNombre;
 		ingredientes = unosIngredientes;
 		condimentos = unosCondimentos;
 		subRecetas = unassubRecetas;
-		proceso = unProceso;
-		temporada = unaTemporada;
-		dificultad = unaDificultad;
 		cantCalorias = unasCantCalorias;
 		
 	}

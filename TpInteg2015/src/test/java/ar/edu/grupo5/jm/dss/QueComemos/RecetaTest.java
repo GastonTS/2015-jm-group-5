@@ -33,17 +33,17 @@ public class RecetaTest {
 	@Before
 	public void setUp() {
 		
-		recetaConMuchasCalorias = new Receta(null, Arrays.asList("Algo super calorico"), null, null, null, null, null, 99999);
-		recetaSinIngredientes = new Receta(null, ingredientesVacia, null, null, null, null, null, 1000);
-		pure = new Receta("Pure", Arrays.asList("papas 2kg","manteca 200gr"), Arrays.asList(sal,pimienta,nuezMoscada), new ArrayList<Receta>(), "-Hervir las Papas -Pisar el Puré -Fin", "Todo el año", "Fácil", 400);
-    	ensalada = new Receta("Ensalada", Arrays.asList("Lechuga 2kg","Cebolla 1.5kg","Tomate 200gr"), Arrays.asList(sal,aceite), new ArrayList<Receta>(), "-Cortar los Ingredientes -Sasonar -Fin", "Todo el año", "Fácil", 40);
-    	polloConPureOEnsalada = new Receta("Pollo c/pure", Arrays.asList("pollo mediano"), Arrays.asList(sal,condimentoParaPollo), new ArrayList<Receta>(), "-Cortar el Pollo -Cocinarlo -Fin", "Todo el año", "Fácil", 3000);
+		recetaConMuchasCalorias = new Receta(null, Arrays.asList("Algo super calorico"), null, null, 99999);
+		recetaSinIngredientes = new Receta(null, ingredientesVacia, null, null, 1000);
+		pure = new Receta("Pure", Arrays.asList("papas 2kg","manteca 200gr"), Arrays.asList(sal,pimienta,nuezMoscada), new ArrayList<Receta>(), 400);
+    	ensalada = new Receta("Ensalada", Arrays.asList("Lechuga 2kg","Cebolla 1.5kg","Tomate 200gr"), Arrays.asList(sal,aceite), new ArrayList<Receta>(), 40);
+    	polloConPureOEnsalada = new Receta("Pollo c/pure", Arrays.asList("pollo mediano"), Arrays.asList(sal,condimentoParaPollo), new ArrayList<Receta>(), 3000);
 
     	recetasPublicas = Arrays.asList(pure); 
     	recetasGustavo = new ArrayList<Receta>();
     	Usuario.recetasPublicas(recetasPublicas);
     	
-    	gustavo = new Usuario(73, 1.83, "Gustavo", null, null, null, recetasGustavo, null, "Mediano");
+    	gustavo = new Usuario("Gustavo", null, 73, 1.83, null, recetasGustavo, null, "Mediano");
 	}
 	
 	@Test
