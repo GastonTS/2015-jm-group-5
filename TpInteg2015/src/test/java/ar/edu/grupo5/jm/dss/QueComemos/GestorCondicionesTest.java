@@ -30,10 +30,10 @@ public class GestorCondicionesTest {
 	
     @Test
     public void lasCondicionesQueSonValidasSonLasNoInadecuadas() {
-    	when(celiaco.esInadecuada(receta)).thenReturn(false);
-    	when(hipertenso.esInadecuada(receta)).thenReturn(false);
-    	when(diabetico.esInadecuada(receta)).thenReturn(true);
-    	when(vegano.esInadecuada(receta)).thenReturn(true);
+    	when(celiaco.esInadecuada(any(Receta.class))).thenReturn(false);
+    	when(hipertenso.esInadecuada(any(Receta.class))).thenReturn(false);
+    	when(diabetico.esInadecuada(any(Receta.class))).thenReturn(true);
+    	when(vegano.esInadecuada(any(Receta.class))).thenReturn(true);
     	
     	condicionesAdecuadas=gestor.condicionesALasQueEsInadecuada(receta).collect(Collectors.toList());
     	
@@ -41,6 +41,11 @@ public class GestorCondicionesTest {
     	assertFalse(condicionesAdecuadas.contains(hipertenso));
     	assertTrue(condicionesAdecuadas.contains(diabetico));
     	assertTrue(condicionesAdecuadas.contains(vegano));
+    	
+    	verify(celiaco,times(1)).esInadecuada(any(Receta.class));
+    	verify(hipertenso,times(1)).esInadecuada(any(Receta.class));
+    	verify(diabetico,times(1)).esInadecuada(any(Receta.class));
+    	verify(vegano,times(1)).esInadecuada(any(Receta.class));
     }
     
 }
