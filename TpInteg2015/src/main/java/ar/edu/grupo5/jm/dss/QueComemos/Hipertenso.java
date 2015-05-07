@@ -3,7 +3,7 @@ package ar.edu.grupo5.jm.dss.QueComemos;
 import java.util.Arrays;
 import java.util.Collection;
 
-public class Hipertenso implements CondicionPreexistente {
+public class Hipertenso implements CondicionDeSalud {
 	
 
 	private static final Collection<String> condimentosProhibidos = Arrays.asList("sal", "caldo");

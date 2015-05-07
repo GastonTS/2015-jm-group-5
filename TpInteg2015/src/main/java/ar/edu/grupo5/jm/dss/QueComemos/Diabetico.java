@@ -1,6 +1,6 @@
 package ar.edu.grupo5.jm.dss.QueComemos;
 
-public class Diabetico implements CondicionPreexistente {
+public class Diabetico implements CondicionDeSalud {
 	private static Condimento condimentoProhibido = new Condimento("Azucar",100);
 	@Override
 	public boolean subsanaCondicion(Usuario unUsuario) {

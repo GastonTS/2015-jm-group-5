@@ -3,7 +3,7 @@ package ar.edu.grupo5.jm.dss.QueComemos;
 import java.util.Arrays;
 import java.util.Collection;
 
-public class Vegano implements CondicionPreexistente {
+public class Vegano implements CondicionDeSalud {
 	
 	private static final Collection<String> preferenciasProhibidas = 
 											Arrays.asList("pollo", "chori", "carne", "chivito"); 

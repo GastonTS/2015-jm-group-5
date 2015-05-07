@@ -12,7 +12,7 @@ public class Usuario
 	private double peso;
 	private double estatura;
 	private Collection<String> preferenciasAlimenticias;
-	private Collection<CondicionPreexistente> condicionesPreexistentes;
+	private Collection<CondicionDeSalud> condicionesPreexistentes;
 	private String rutina;
 	private Collection<Receta> recetasPropias;
 	
@@ -21,7 +21,7 @@ public class Usuario
 	//XXX long parameter list
 	public Usuario(String unNombre,LocalDate unaFechaDeNacimiento, double unPeso, double unaEstatura,
 			Collection<String> unasPreferenciasAlimenticias, Collection<Receta> unasRecetasPropias, 
-			Collection<CondicionPreexistente> unasCondicionesPreexistentes,	String unaRutina) {
+			Collection<CondicionDeSalud> unasCondicionesPreexistentes,	String unaRutina) {
 		nombre = unNombre;
 		fechaDeNacimiento = unaFechaDeNacimiento;
 		peso = unPeso;
@@ -44,7 +44,7 @@ public class Usuario
 	/**
 	 * @return the condicionesPreexistentes
 	 */
-	public Collection<CondicionPreexistente> getCondicionesPreexistentes() {
+	public Collection<CondicionDeSalud> getCondicionesPreexistentes() {
 		return condicionesPreexistentes;
 	}
 
@@ -52,7 +52,7 @@ public class Usuario
 	 * @param condicionesPreexistentes the condicionesPreexistentes to set
 	 */
 	//TODO minimizar las mutaciones, ergo, no poner setters inutiles
-	public void setCondicionesPreexistentes(Collection<CondicionPreexistente> condicionesPreexistentes) {
+	public void setCondicionesPreexistentes(Collection<CondicionDeSalud> condicionesPreexistentes) {
 		this.condicionesPreexistentes = condicionesPreexistentes;
 	}
 	

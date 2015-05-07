@@ -1,6 +1,6 @@
 package ar.edu.grupo5.jm.dss.QueComemos;
 
-public class Celiaco implements CondicionPreexistente {
+public class Celiaco implements CondicionDeSalud {
 
 	@Override
 	public boolean subsanaCondicion(Usuario unUsuario) {

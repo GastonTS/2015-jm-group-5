@@ -1,6 +1,7 @@
 package ar.edu.grupo5.jm.dss.QueComemos;
 
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 public class Receta {
 	private String nombre;
@@ -47,11 +48,8 @@ public class Receta {
 
 
 	public boolean tenesAlgunIngredienteDeEstos(Collection<String> ingredientesProhibidas) {
-				
-		Collection<String> interseccionIngredientes = ingredientes;
-		interseccionIngredientes.retainAll(ingredientesProhibidas);
-		
-		return !interseccionIngredientes.isEmpty();
+		return ingredientesProhibidas.stream().
+				anyMatch(ingProhibido -> ingredientes.contains(ingProhibido));
 	}
 	
 	public boolean estasEnEstasRecetas(Collection<Receta> unasRecetas) {
@@ -74,6 +72,13 @@ public class Receta {
 	
 	public boolean subrecetasIncluye(Receta unaReceta) {
 		return subRecetas.contains(unaReceta);
+	}
+	
+	
+	//Punto 3.b
+	public Collection<CondicionDeSalud> condicionesALasQueEsInadecuada() {
+		return CondicionDeSalud.condicionesExistentes.stream().
+				filter(condicion -> condicion.esInadecuada(this)).collect(Collectors.toList());
 	}
 }
 

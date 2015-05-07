@@ -43,12 +43,12 @@ public class UsuarioTest {
 	private Collection<String> preferenciaFruta;
 	private Collection<String> preferenciasVariadas;
 	
-	private Collection<CondicionPreexistente> coleccionCondicionVegano;
-	private Collection<CondicionPreexistente> coleccionCondicionCeliaco;
-	private Collection<CondicionPreexistente> coleccionCondicionDiabetico;
-	private Collection<CondicionPreexistente> condiciones = new ArrayList<CondicionPreexistente>();
-	private CondicionPreexistente hippie = mock(CondicionPreexistente.class);
-	private CondicionPreexistente corporativo = mock(CondicionPreexistente.class);
+	private Collection<CondicionDeSalud> coleccionCondicionVegano;
+	private Collection<CondicionDeSalud> coleccionCondicionCeliaco;
+	private Collection<CondicionDeSalud> coleccionCondicionDiabetico;
+	private Collection<CondicionDeSalud> condiciones = new ArrayList<CondicionDeSalud>();
+	private CondicionDeSalud hippie = mock(CondicionDeSalud.class);
+	private CondicionDeSalud corporativo = mock(CondicionDeSalud.class);
 	
 	private Receta recetaMock = mock(Receta.class);
 	private Receta panchoMock = mock(Receta.class);
@@ -71,11 +71,11 @@ public class UsuarioTest {
 		recetasGaston.add(panchoMock);
 		
 		
-		coleccionCondicionVegano = new ArrayList<CondicionPreexistente>();
+		coleccionCondicionVegano = new ArrayList<CondicionDeSalud>();
 		coleccionCondicionVegano.add(condicionVegano);
-		coleccionCondicionCeliaco = new ArrayList<CondicionPreexistente>();
-		coleccionCondicionCeliaco.add(condicionCeliaco);
-		coleccionCondicionDiabetico = new ArrayList<CondicionPreexistente>();
+		coleccionCondicionCeliaco = new ArrayList<CondicionDeSalud>();
+		coleccionCondicionCeliaco.add(condicionCeliaco); 
+		coleccionCondicionDiabetico = new ArrayList<CondicionDeSalud>();
 		coleccionCondicionDiabetico.add(condicionDiabetico);
 		preferenciaFruta = new ArrayList<String>();
 		preferenciaFruta.add("fruta");
