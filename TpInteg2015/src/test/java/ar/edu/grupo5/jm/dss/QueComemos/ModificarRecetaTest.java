@@ -43,13 +43,14 @@ public class ModificarRecetaTest {
     
 	@Test
 	public void JuanchiModificaRecetaPublica() {
-		when(juanchi.esRecetaPropia(ensalada)).thenReturn(false);
-		//when(ensalada.getNombre()).thenReturn("ensalada");
-		
-	//	juanchi.modificarReceta(ensalada);
-		//assertTrue(juanchi.getRecetasPropias().contains(ensalada));
+		assertTrue(juanchi.getRecetasPropias().isEmpty());
+		when(ensalada.esValida()).thenReturn(true);
+		juanchi.modificarReceta(ensalada);
+		assertTrue(juanchi.getRecetasPropias().contains(ensalada));
 	}
 /*	
+  //when(juanchi.esRecetaPropia(ensalada)).thenReturn(false);
+		//when(ensalada.getNombre()).thenReturn("ensalada");
 	@Test
 	public void UsuarioNoPuedeAccederAReceta() {
 		when(juanchi.esRecetaPropia(choripan)).thenReturn(false);
