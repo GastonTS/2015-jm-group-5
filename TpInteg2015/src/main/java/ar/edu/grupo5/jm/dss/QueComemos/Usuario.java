@@ -142,7 +142,7 @@ public class Usuario
 	}
 	
 	private boolean esRecetaPublica(Receta unaReceta){
-		return recetasPublicas.contains(unaReceta);
+		return unaReceta.estasEnEstasRecetas(recetasPublicas);
 	}
 	
 	//Punto 4.c
