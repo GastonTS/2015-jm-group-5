@@ -34,7 +34,9 @@ public class GestorCondicionesTest {
     	when(hipertenso.esInadecuada(receta)).thenReturn(false);
     	when(diabetico.esInadecuada(receta)).thenReturn(true);
     	when(vegano.esInadecuada(receta)).thenReturn(true);
+    	
     	condicionesAdecuadas=gestor.condicionesALasQueEsInadecuada(receta).collect(Collectors.toList());
+    	
     	assertFalse(condicionesAdecuadas.contains(celiaco));
     	assertFalse(condicionesAdecuadas.contains(hipertenso));
     	assertTrue(condicionesAdecuadas.contains(diabetico));

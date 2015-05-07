@@ -1,9 +1,7 @@
 package ar.edu.grupo5.jm.dss.QueComemos;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Collection;
-import java.util.Optional;
 
 
 public class Usuario 
@@ -127,7 +125,7 @@ public class Usuario
 	//Punto 3.a
 	public void crearReceta(Receta unaReceta){
 		if(!unaReceta.esValida()) {
-			throw new RecetaNoValidaException("No se Puede agregar una receta no válida!!!",new IOException()); //ejjejej
+			throw new RecetaNoValidaException("No se Puede agregar una receta no válida!!!",new RuntimeException()); //ejjejej
 		}
 		recetasPropias.add(unaReceta);
 	}
