@@ -75,7 +75,9 @@ public class Receta {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-
 	
+	public void agregarSubRecetas(Collection<Receta> unasSubRecetas){
+		subRecetas.addAll(unasSubRecetas);
+	}
 }
 
