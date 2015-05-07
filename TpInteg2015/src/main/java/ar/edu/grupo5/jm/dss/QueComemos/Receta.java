@@ -62,6 +62,7 @@ public class Receta {
 	}
 	
 	public boolean estasEnEstasRecetas(Collection<Receta> unasRecetas) {
+		//XXX ojo que esto hace que dos recetas diferentes sean consideradas la misma
 		return unasRecetas.stream().anyMatch(unaReceta -> unaReceta.getNombre().equals(this.getNombre()));
 	}
 

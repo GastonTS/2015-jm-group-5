@@ -12,7 +12,7 @@ public class Vegano implements CondicionPreexistente {
 	/**
 	 * @return the preferenciasprohibidas
 	 */
-	public static Collection<String> getPreferenciasprohibidas() {
+	public static Collection<String> getPreferenciasProhibidas() {
 		return preferenciasProhibidas;
 	}
 
@@ -28,7 +28,7 @@ public class Vegano implements CondicionPreexistente {
 
 	@Override
 	public boolean esUsuarioValido(Usuario unUsuario) {
-		return !(unUsuario.tieneAlgunaDeEstasPreferencias(getPreferenciasprohibidas()));
+		return !(unUsuario.tieneAlgunaDeEstasPreferencias(preferenciasProhibidas));
 	}
 
 }

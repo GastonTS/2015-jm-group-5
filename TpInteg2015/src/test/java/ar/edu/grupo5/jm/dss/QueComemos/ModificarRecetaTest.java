@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class ModificarRecetaTest {
@@ -35,13 +36,14 @@ public class ModificarRecetaTest {
     	
     	Usuario.recetasPublicas(recetasPublicas);
     	
+    	//FIXME falta una abstraccion
     	ramiro = new Usuario(0, 0, null, null, null, null, recetasRamiro, null, null);
     	juanchi = new Usuario(0, 0, null, null, null, null, recetasJuanchi, null, null);
 	}
 
 
-	/* hay problemas para configurar test con efecto en los cuales hay que medir el efecto, sobre todo a la hora de remover un objeto de la lista
 	@Test
+	@Ignore
 	public void eliminarUnaRecetaPrivada(){
 		assertTrue(ramiro.getRecetasPropias().contains(choripan));
 		assertTrue(ramiro.getRecetasPropias().size() == 1);
@@ -56,7 +58,8 @@ public class ModificarRecetaTest {
 	//	ramiro.getRecetasPropias().remove(choripan);
 		//assertTrue(ramiro.getRecetasPropias().isEmpty());
 	}
-	/* hay problemas para configurar test con efecto en los cuales hay que medir el efecto
+	
+	@Ignore
 	@Test
 	public void RamiroModificaRecetaPrivada(){
 		assertTrue(ramiro.getRecetasPropias().contains(choripan));
@@ -71,7 +74,6 @@ public class ModificarRecetaTest {
 		//assertTrue(ramiro.getRecetasPropias().contains(choripan2));
 		//assertFalse(ramiro.getRecetasPropias().contains(choripan));
 	}
-	*/
 	
 }
 

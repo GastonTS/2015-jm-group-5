@@ -118,13 +118,13 @@ public class CondicionesPreexistentesTest {
 	
 	@Test
 	public void UsuarioVeganoValido() {
-		when(usuarioFalso.tieneAlgunaDeEstasPreferencias(Vegano.getPreferenciasprohibidas())).thenReturn(false);
+		when(usuarioFalso.tieneAlgunaDeEstasPreferencias(Vegano.getPreferenciasProhibidas())).thenReturn(false);
 		assertTrue (vegano.esUsuarioValido(usuarioFalso));
 	}
 	
 	@Test
 	public void UsuarioVeganoNoEsValido() {
-		when(usuarioFalso.tieneAlgunaDeEstasPreferencias(Vegano.getPreferenciasprohibidas())).thenReturn(true);
+		when(usuarioFalso.tieneAlgunaDeEstasPreferencias(Vegano.getPreferenciasProhibidas())).thenReturn(true);
 		assertFalse (vegano.esUsuarioValido(usuarioFalso));
 	}
 	
@@ -136,7 +136,7 @@ public class CondicionesPreexistentesTest {
 	
 	@Test
 	public void recetaVeganaInvalida() {
-		when(recetaFalsa.tenesAlgunIngredienteDeEstos(Vegano.getPreferenciasprohibidas())).thenReturn(true);
+		when(recetaFalsa.tenesAlgunIngredienteDeEstos(Vegano.getPreferenciasProhibidas())).thenReturn(true);
 		assertTrue (vegano.esInadecuada(recetaFalsa));
 	}
 	
@@ -167,7 +167,7 @@ public class CondicionesPreexistentesTest {
 	
 	@Test
 	public void RecetaValidaVegano(){
-		when(recetaFalsa.tenesAlgunIngredienteDeEstos(Vegano.getPreferenciasprohibidas())).thenReturn(false);
+		when(recetaFalsa.tenesAlgunIngredienteDeEstos(Vegano.getPreferenciasProhibidas())).thenReturn(false);
 		assert (vegano.esInadecuada(recetaFalsa));
 	}
 	

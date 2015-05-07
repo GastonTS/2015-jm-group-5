@@ -9,7 +9,6 @@ import static org.mockito.Matchers.any;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 
 import org.junit.Before;
@@ -24,6 +23,8 @@ public class UsuarioTest {
 	private Usuario ramiro;
 	private Usuario gaston;
 	private Usuario juanchi;
+	private Usuario juanchiSinRutina;
+
 	
 	private Usuario sinPeso;
 	private Usuario sinEstatura;
@@ -33,9 +34,9 @@ public class UsuarioTest {
 	private Usuario pocoICM;
 	private Usuario usuarioDiabeticoRutinaAlata;
 	
-	private Vegano condicionVegano;
-	private Celiaco condicionCeliaco ;
-	private Diabetico condicionDiabetico;
+	private Vegano condicionVegano = new Vegano();
+	private Celiaco condicionCeliaco = new Celiaco();
+	private Diabetico condicionDiabetico = new Diabetico();
 	
 	private Collection<String> preferenciaFruta;
 	private Collection<String> preferenciasVariadas;
@@ -51,7 +52,6 @@ public class UsuarioTest {
 	private Receta panchoMock = mock(Receta.class);
 	private Receta ensaladaMock = mock(Receta.class);
 	private Receta choripanMock = mock(Receta.class);
-	private Receta choripanModificadoMock = mock(Receta.class);
 	
 	private Collection<Receta> recetasPublicas = new ArrayList<Receta>();
 	private Collection<Receta> recetasGaston = new ArrayList<Receta>();
@@ -87,7 +87,8 @@ public class UsuarioTest {
 		leandro = new Usuario(79, 1.78, "leandro", null, preferenciaFruta, null, null, coleccionCondicionVegano, "Mediano"); //No tiene fecha y es vegano (con preferencia fruta)
 		ramiro = new Usuario(63, 1.75, null, LocalDate.parse("2000-01-01"), null, null, null, coleccionCondicionCeliaco, "Mediano"); //No tiene nombre
 		gaston = new Usuario(65, 1.66, "gast", null, null, null, recetasGaston, null, null); //Tiene Nombre corto
-		juanchi = new Usuario(70, 1.85, "juanchi", LocalDate.parse("2000-01-01"), null, null, recetasJuanchi, coleccionCondicionDiabetico, null); //No tiene rutina y es diabetico
+		juanchi = new Usuario(70, 1.85, "juanchi", LocalDate.parse("2000-01-01"), null, null, recetasJuanchi, coleccionCondicionDiabetico, "Alta"); //tiene rutina y es diabetico
+		juanchiSinRutina = new Usuario(70, 1.85, "juanchi", LocalDate.parse("2000-01-01"), null, null, recetasJuanchi, coleccionCondicionDiabetico, null); //No tiene rutina y es diabetico
 		
 		sinPeso = new Usuario(0, 1.83, "falta peso", LocalDate.parse("2000-01-01"), null, null, null, condiciones, "Mediano");
 		sinEstatura = new Usuario(73, 0, "falta estatura", LocalDate.parse("2000-01-01"), null, null, null, condiciones, "Mediano");
@@ -104,7 +105,7 @@ public class UsuarioTest {
 	public void gustavoEsValido() {
 		when(hippie.esUsuarioValido(any(Usuario.class))).thenReturn(true);
 		when(corporativo.esUsuarioValido(any(Usuario.class))).thenReturn(true);
-		assertTrue(gustavo.esUsuarioValido());
+		assertTrue(gustavo.esUsuarioValido()); //XXX pensar si no podria refactorizarse para que no se puedan crear usuarios invalidos
 	}
 	
 	@Test
@@ -113,7 +114,7 @@ public class UsuarioTest {
 		assertFalse(sinEstatura.tieneCamposObligatorios());
 		assertFalse(leandro.tieneCamposObligatorios());
 		assertFalse(ramiro.tieneCamposObligatorios());
-		assertFalse(juanchi.tieneCamposObligatorios());
+		assertFalse(juanchiSinRutina.tieneCamposObligatorios());
 	}
 	
 	@Test
@@ -221,22 +222,22 @@ public class UsuarioTest {
 	
 	@Test
 	public void veganoQueLeGustanLAsFrutas(){
-		assert(leandro.sigueRutinaSaludable());
+		assertTrue(leandro.sigueRutinaSaludable());
 	}
 	
 	@Test
 	public void celiacoCumpleSiCumpleIMCD(){
-		assert(ramiro.sigueRutinaSaludable());
+		assertTrue(ramiro.sigueRutinaSaludable());
 	}
 	
 	@Test
 	public void diabeticoCumpleIMCPesaMenosDe70(){
-		assert(juanchi.sigueRutinaSaludable());
+		assertTrue(juanchi.sigueRutinaSaludable());
 	}
 	
 	@Test
 	public void diabeticoCumpleIMCConRutinaAlta(){
-		assert(usuarioDiabeticoRutinaAlata.sigueRutinaSaludable());
+		assertTrue(usuarioDiabeticoRutinaAlata.sigueRutinaSaludable());
 	}
 	
 	//Tests Creacion de Recetas

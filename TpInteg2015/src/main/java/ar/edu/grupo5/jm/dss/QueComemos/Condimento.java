@@ -2,7 +2,7 @@ package ar.edu.grupo5.jm.dss.QueComemos;
 
 import java.util.Collection;
 
-public class Condimento {
+public class Condimento {//TODO pensar un nombre mejor
 
 	private String nombre;
 	private double cantidad;
@@ -21,7 +21,7 @@ public class Condimento {
 	public  boolean sosIgualAUnoDe(Collection<String> condimentosProhibidos) {
 		  return condimentosProhibidos.stream().anyMatch(condimento -> this.sosIgualA(condimento));
 		 }
-		 
+		 //TODO nombre? sos? capaz sea mejor hablar de tipo
 	public boolean sosIgualA(String unCondimento){
 		  
 		  return nombre.equals(unCondimento); 

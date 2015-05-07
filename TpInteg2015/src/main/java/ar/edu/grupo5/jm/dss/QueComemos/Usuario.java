@@ -7,20 +7,20 @@ import java.util.Optional;
 
 
 public class Usuario 
-{
+{//TODO ser consistentes en la identacion
 	private String nombre;
 	private String sexo;
 	private LocalDate fechaDeNacimiento;
 	private double peso;
 	private double estatura;
 	private Collection<String> preferenciasAlimenticias;
-	private Collection<String> disgustosAlimenticios;
 	private Collection<CondicionPreexistente> condicionesPreexistentes;
 	private String rutina;
-	private static Collection<Receta> recetasPublicas;
 	private Collection<Receta> recetasPropias;
 	
+	private static Collection<Receta> recetasPublicas;
 	
+	//XXX long parameter list
 	public Usuario(double unPeso, double unaEstatura, String unNombre,LocalDate unaFechaDeNacimiento,
 			Collection<String> unasPreferenciasAlimenticias, Collection<String> unosDisgustosAlimenticios,
 			Collection<Receta> unasRecetasPropias, Collection<CondicionPreexistente> unasCondicionesPreexistentes,
@@ -30,7 +30,6 @@ public class Usuario
 		estatura = unaEstatura;
 		fechaDeNacimiento = unaFechaDeNacimiento;
 		preferenciasAlimenticias = unasPreferenciasAlimenticias;
-		disgustosAlimenticios = unosDisgustosAlimenticios;
 		setRecetasPropias(unasRecetasPropias);
 		setCondicionesPreexistentes(unasCondicionesPreexistentes);
 		rutina = unaRutina;
@@ -55,13 +54,18 @@ public class Usuario
 	/**
 	 * @param condicionesPreexistentes the condicionesPreexistentes to set
 	 */
+	//TODO minimizar las mutaciones, ergo, no poner setters inutiles
 	public void setCondicionesPreexistentes(Collection<CondicionPreexistente> condicionesPreexistentes) {
 		this.condicionesPreexistentes = condicionesPreexistentes;
 	}
 	
 	//Punto 1
+	//XXX esto podria no ser facil de extender
 	public boolean esUsuarioValido (){
-		return tieneCamposObligatorios() && esNombreCorto() && esUsuarioValidoParaSusCondiciones() && fechaDeNacimientoAnteriorAHoy();		
+		return tieneCamposObligatorios() && 
+				esNombreCorto() && 
+				esUsuarioValidoParaSusCondiciones() && 
+				fechaDeNacimientoAnteriorAHoy();		
 	}
 	
 	public boolean esNombreCorto() {
@@ -99,12 +103,12 @@ public class Usuario
 	}
 	
 	private boolean subsanaTodasLasCondiciones() {
-		if (getCondicionesPreexistentes()==null) return true;
+		if (getCondicionesPreexistentes()==null) return true; //FIXME asegurarse de que no sea null
 		return getCondicionesPreexistentes().stream().allMatch(condicion -> condicion.subsanaCondicion(this));
 	}
 	
 	public boolean tieneRutinaActiva() {
-		return this.tieneRutinaIntensiva() || rutina.equals("Alta");
+		return this.tieneRutinaIntensiva() || rutina.equals("Alta"); //TODO usar enums
 	}
 	
 	public boolean tieneRutinaIntensiva(){
@@ -123,7 +127,7 @@ public class Usuario
 	//Punto 3.a
 	public void crearReceta(Receta unaReceta){
 		if(!unaReceta.esValida()) {
-			throw new RecetaNoValidaException("No se Puede agregar una receta no válida!!!",new IOException());
+			throw new RecetaNoValidaException("No se Puede agregar una receta no válida!!!",new IOException()); //ejjejej
 		}
 		recetasPropias.add(unaReceta);
 	}
@@ -150,10 +154,8 @@ public class Usuario
 	public void modificarReceta(Receta unaReceta){
 		if(esRecetaPropia(unaReceta)) {
 			modificarRecetaPropia(unaReceta);
-		}
-		crearReceta(unaReceta);
-		
-		
+		} else 
+			crearReceta(unaReceta);
 	}
 
 	private void modificarRecetaPropia(Receta unaReceta) {
