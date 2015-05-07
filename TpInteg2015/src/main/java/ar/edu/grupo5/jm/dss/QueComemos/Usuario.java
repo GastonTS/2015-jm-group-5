@@ -95,10 +95,11 @@ public class Usuario
 	
 	//Punto 2.b
 	public boolean sigueRutinaSaludable(){
-		return 18>=indiceMasaCorporal() && indiceMasaCorporal()<=30 && this.subsanaTodasLasCondiciones();
+		return 18<=indiceMasaCorporal() && indiceMasaCorporal()<=30 && this.subsanaTodasLasCondiciones();
 	}
 	
 	private boolean subsanaTodasLasCondiciones() {
+		if (getCondicionesPreexistentes()==null) return true;
 		return getCondicionesPreexistentes().stream().allMatch(condicion -> condicion.subsanaCondicion(this));
 	}
 	

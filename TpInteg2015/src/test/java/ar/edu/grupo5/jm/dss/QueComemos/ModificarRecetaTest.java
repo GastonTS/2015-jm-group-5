@@ -38,14 +38,7 @@ public class ModificarRecetaTest {
     	ramiro = new Usuario(0, 0, null, null, null, null, recetasRamiro, null, null);
     	juanchi = new Usuario(0, 0, null, null, null, null, recetasJuanchi, null, null);
 	}
-    
-	@Test
-	public void JuanchiModificaRecetaPublica() {
-		assertTrue(juanchi.getRecetasPropias().isEmpty());
-		when(ensalada.esValida()).thenReturn(true);
-		juanchi.modificarReceta(ensalada);
-		assertTrue(juanchi.getRecetasPropias().contains(ensalada));
-	}
+
 
 	/* hay problemas para configurar test con efecto en los cuales hay que medir el efecto, sobre todo a la hora de remover un objeto de la lista
 	@Test
