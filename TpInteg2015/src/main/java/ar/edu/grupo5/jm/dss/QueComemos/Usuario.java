@@ -165,6 +165,12 @@ public class Usuario
 		recetasPropias.remove(recetaAEliminar);
 	}
 
+	
+	//Punto 5
+	public void crearRecetaConSubRecetas(Receta unaReceta, Collection<Receta> unasSubRecetas){
+		unaReceta.agregarSubRecetas(unasSubRecetas);
+		crearReceta(unaReceta);
+	}
 	/**
 	 * @return the recetasPropias
 	 */

@@ -6,7 +6,9 @@ import java.util.stream.Stream;
 public class GestorCondiciones {
 	private Collection<CondicionPreexistente> condiciones;
 
-	
+	public GestorCondiciones(Collection<CondicionPreexistente> unasCondiciones) {	
+		condiciones = unasCondiciones;
+	}
 	//Punto 3.b
 	public Stream<CondicionPreexistente> condicionesALasQueEsInadecuada(Receta unaReceta) {
 		return condiciones.stream().filter(condicion -> condicion.esInadecuada(unaReceta));
