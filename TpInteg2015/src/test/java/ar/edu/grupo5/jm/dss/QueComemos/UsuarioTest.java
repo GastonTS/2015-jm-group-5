@@ -170,7 +170,6 @@ public class UsuarioTest {
 	public void usuarioCreaRecetaExitosa() {
 		when(recetaMock.esValida()).thenReturn(true);
 		gustavo.crearReceta(recetaMock);
-		assertTrue(gustavo.esRecetaPropia(recetaMock));
 	}		
 	
 	@Test(expected=RecetaNoValidaException.class)
