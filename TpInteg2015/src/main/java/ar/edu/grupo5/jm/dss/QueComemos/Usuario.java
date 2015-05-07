@@ -2,6 +2,7 @@ package ar.edu.grupo5.jm.dss.QueComemos;
 
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.Optional;
 
 
 public class Usuario 
@@ -28,7 +29,7 @@ public class Usuario
 		fechaDeNacimiento = UnaFechaDeNacimiento;
 		preferenciasAlimenticias = unasPreferenciasAlimenticias;
 		disgustosAlimenticios = unosDisgustosAlimenticios;
-		recetasPropias = unasRecetasPropias;
+		setRecetasPropias(unasRecetasPropias);
 		setCondicionesPreexistentes(unasCondicionesPreexistentes);
 		rutina = unaRutina;
 	}
@@ -139,8 +140,37 @@ public class Usuario
 	}
 	
 	//Punto 4.c
-	public void modificarReceta(){
-		//implementar es tipo Receta
+	public void modificarReceta(Receta unaReceta){
+		if(this.esRecetaPropia(unaReceta)) {
+			this.modificarRecetaPropia(unaReceta);
+		}
+		this.crearReceta(unaReceta);
+		
+		
+	}
+
+	private void modificarRecetaPropia(Receta unaReceta) {
+		eliminarRecetaPropia(unaReceta.getNombre());
+		recetasPropias.add(unaReceta);
+	}
+
+	private void eliminarRecetaPropia(String nombreReceta) {
+		Optional<Receta> recetaAEliminar = recetasPropias.stream().filter(unaReceta -> unaReceta.getNombre().equals(nombreReceta)).findFirst();
+		recetasPropias.remove(recetaAEliminar.get());
+	}
+
+	/**
+	 * @return the recetasPropias
+	 */
+	public Collection<Receta> getRecetasPropias() {
+		return recetasPropias;
+	}
+
+	/**
+	 * @param recetasPropias the recetasPropias to set
+	 */
+	public void setRecetasPropias(Collection<Receta> recetasPropias) {
+		this.recetasPropias = recetasPropias;
 	}
 	
 
