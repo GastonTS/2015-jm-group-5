@@ -1,5 +1,6 @@
 package ar.edu.grupo5.jm.dss.QueComemos;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Collection;
 
@@ -19,13 +20,14 @@ public class Usuario
 	private Collection<Receta> recetasPropias;
 	
 	
-	public Usuario(double unPeso, double unaEstatura, String UnNombre,LocalDate UnaFechaDeNacimiento,
+	public Usuario(double unPeso, double unaEstatura, String unNombre,LocalDate unaFechaDeNacimiento,
 			Collection<String> unasPreferenciasAlimenticias, Collection<String> unosDisgustosAlimenticios,
 			Collection<Receta> unasRecetasPropias, Collection<CondicionPreexistente> unasCondicionesPreexistentes,
 			String unaRutina) {
+		nombre = unNombre;
 		peso = unPeso;
 		estatura = unaEstatura;
-		fechaDeNacimiento = UnaFechaDeNacimiento;
+		fechaDeNacimiento = unaFechaDeNacimiento;
 		preferenciasAlimenticias = unasPreferenciasAlimenticias;
 		disgustosAlimenticios = unosDisgustosAlimenticios;
 		recetasPropias = unasRecetasPropias;
@@ -58,14 +60,18 @@ public class Usuario
 	
 	//Punto 1
 	public boolean esUsuarioValido (){
-		return tieneCamposObligatorios() && nombre.length()>4 && esUsuarioValidoParaSusCondiciones() && fechaDeNacimientoAnteriorAHoy();		
+		return tieneCamposObligatorios() && esNombreCorto() && esUsuarioValidoParaSusCondiciones() && fechaDeNacimientoAnteriorAHoy();		
 	}
 	
-	private boolean tieneCamposObligatorios() {
+	public boolean esNombreCorto() {
+		return nombre.length()>4;
+	}
+	
+	public boolean tieneCamposObligatorios() {
 		return nombre!=null && peso!=0 && estatura!=0 && fechaDeNacimiento!=null && rutina!=null;
 	}
 	
-	private boolean esUsuarioValidoParaSusCondiciones() {
+	public boolean esUsuarioValidoParaSusCondiciones() {
 		return getCondicionesPreexistentes().stream().allMatch(condicion -> condicion.esUsuarioValido(this));
 	}
 	
@@ -77,7 +83,7 @@ public class Usuario
 		return !preferenciasAlimenticias.isEmpty();
 	}
 	
-	private boolean fechaDeNacimientoAnteriorAHoy() {
+	public boolean fechaDeNacimientoAnteriorAHoy() {
 		return fechaDeNacimiento.isBefore(LocalDate.now());
 	}
 
@@ -113,11 +119,11 @@ public class Usuario
 	
 	
 	//Punto 3.a
-	public Receta crearReceta(Receta unaReceta){
-		//tirar excepcion si receta no es valida
+	public void crearReceta(Receta unaReceta){
+		if(!unaReceta.esValida()) {
+			throw new RecetaNoValidaException("No se Puede agregar una receta no válida!!!",new IOException());
+		}
 		recetasPropias.add(unaReceta);
-		return unaReceta;
-		//decidi devolver la receta creada, Puede ser que mas adelante convenga que sea una metodo void
 	}
 	
 	//Punto 3.b en receta
@@ -130,7 +136,7 @@ public class Usuario
 		return esRecetaPropia(unaReceta) || esRecetaPublica(unaReceta);
 	}
 	
-	private boolean esRecetaPropia(Receta unaReceta){
+	public boolean esRecetaPropia(Receta unaReceta){
 		return recetasPropias.contains(unaReceta);
 	}
 	
