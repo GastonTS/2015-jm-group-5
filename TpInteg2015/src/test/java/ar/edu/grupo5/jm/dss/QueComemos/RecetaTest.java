@@ -67,10 +67,4 @@ public class RecetaTest {
 		assertTrue(polloConPureOEnsalada.subrecetasIncluye(ensalada));
 	}
 	
-	@Test
-	public void unaRecetaEstaEnUnaListaDeRecetas() {
-		assertTrue(pure.estasEnEstasRecetas(recetasPublicas));
-		assertFalse(ensalada.estasEnEstasRecetas(recetasPublicas));
-	}
-	
 }

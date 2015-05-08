@@ -28,7 +28,7 @@ public class Usuario {// TODO ser consistentes en la identacion
 		peso = unPeso;
 		estatura = unaEstatura;
 		preferenciasAlimenticias = unasPreferenciasAlimenticias;
-		setRecetasPropias(unasRecetasPropias);
+		recetasPropias=unasRecetasPropias;
 		setCondicionesPreexistentes(unasCondicionesPreexistentes);
 		rutina = unaRutina;
 	}
@@ -153,11 +153,11 @@ public class Usuario {// TODO ser consistentes en la identacion
 	}
 
 	public boolean esRecetaPropia(Receta unaReceta) {
-		return unaReceta.estasEnEstasRecetas(recetasPropias);
+		return recetasPropias.contains(unaReceta);
 	}
 
 	private boolean esRecetaPublica(Receta unaReceta) {
-		return unaReceta.estasEnEstasRecetas(recetasPublicas);
+		return recetasPublicas.contains(unaReceta);
 	}
 
 	// Punto 4.c
@@ -194,13 +194,4 @@ public class Usuario {// TODO ser consistentes en la identacion
 	public Collection<Receta> getRecetasPropias() {
 		return recetasPropias;
 	}
-
-	/**
-	 * @param recetasPropias
-	 *            the recetasPropias to set
-	 */
-	public void setRecetasPropias(Collection<Receta> recetasPropias) {
-		this.recetasPropias = recetasPropias;
-	}
-
 }

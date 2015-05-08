@@ -279,45 +279,6 @@ public class UsuarioTest {
 		verify(recetaMock,times(1)).esValida();
 	}		
 	
-	//Test de Acceso a recetas
-	
-	@SuppressWarnings("unchecked")
-	@Test
-	public void UsuarioPuedeAccederARecetaPropia() {
-		when(gustavo.esRecetaPropia(choripanMock)).thenReturn(true);
-		when(gaston.esRecetaPropia(panchoMock)).thenReturn(true);
-		assertTrue(gustavo.puedeAcceder(choripanMock));
-		assertTrue(gaston.puedeAcceder(panchoMock));
-		
-		verify(choripanMock,times(1)).estasEnEstasRecetas(any(Collection.class));
-		verify(panchoMock,times(1)).estasEnEstasRecetas(any(Collection.class));
-	}
-	
-	@SuppressWarnings("unchecked")
-	@Test
-	public void UsuarioNoPuedeAccederAReceta() {
-		when(juanchi.esRecetaPropia(choripanMock)).thenReturn(false);
-		when(gaston.esRecetaPropia(choripanMock)).thenReturn(false);
-		
-		assertFalse(juanchi.puedeAcceder(choripanMock));
-		assertFalse(gaston.puedeAcceder(choripanMock));
-		
-		verify(choripanMock,times(4)).estasEnEstasRecetas(any(Collection.class)); //1 por cada lista de recetas (2 veces las privadas, y dos veces la publica
-	}
-
-	@SuppressWarnings("unchecked")
-	@Test
-	public void UsuarioPuedeAccederARecetaPublica() {
-		when(gaston.esRecetaPropia(ensaladaMock)).thenReturn(true);
-		when(juanchi.esRecetaPropia(panchoMock)).thenReturn(true);
-		assertTrue(gaston.puedeAcceder(ensaladaMock));
-		assertTrue(juanchi.puedeAcceder(panchoMock));
-		
-		verify(ensaladaMock,times(1)).estasEnEstasRecetas(any(Collection.class));
-		verify(panchoMock,times(1)).estasEnEstasRecetas(any(Collection.class));
-	}
-	//no se desarrollan test de puedeModificar porque al momento de esta iteración puedeModificar y puedeAcceder hacen lo mismo
-	
 	//Tests Modificacion de Recetas
 	
 	@Test
