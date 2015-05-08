@@ -29,7 +29,7 @@ public class Usuario {// TODO ser consistentes en la identacion
 		estatura = unaEstatura;
 		preferenciasAlimenticias = unasPreferenciasAlimenticias;
 		recetasPropias = unasRecetasPropias;
-		setCondicionesPreexistentes(unasCondicionesPreexistentes);
+		condicionesPreexistentes = unasCondicionesPreexistentes;
 		rutina = unaRutina;
 	}
 
@@ -42,21 +42,12 @@ public class Usuario {// TODO ser consistentes en la identacion
 		return peso;
 	}
 
-	/**
-	 * @return the condicionesPreexistentes
-	 */
 	public Collection<CondicionDeSalud> getCondicionesPreexistentes() {
 		return condicionesPreexistentes;
 	}
 
-	/**
-	 * @param condicionesPreexistentes
-	 *            the condicionesPreexistentes to set
-	 */
-	// TODO minimizar las mutaciones, ergo, no poner setters inutiles
-	public void setCondicionesPreexistentes(
-			Collection<CondicionDeSalud> condicionesPreexistentes) {
-		this.condicionesPreexistentes = condicionesPreexistentes;
+	public Collection<Receta> getRecetasPropias() {
+		return recetasPropias;
 	}
 
 	// Punto 1
@@ -188,12 +179,5 @@ public class Usuario {// TODO ser consistentes en la identacion
 			Collection<Receta> unasSubRecetas) {
 		unaReceta.agregarSubRecetas(unasSubRecetas);
 		crearReceta(unaReceta);
-	}
-
-	/**
-	 * @return the recetasPropias
-	 */
-	public Collection<Receta> getRecetasPropias() {
-		return recetasPropias;
 	}
 }

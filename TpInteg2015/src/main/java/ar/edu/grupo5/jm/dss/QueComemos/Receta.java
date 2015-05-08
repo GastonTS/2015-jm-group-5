@@ -21,6 +21,10 @@ public class Receta {
 
 	}
 
+	public Collection<Receta> getSubRecetas() {
+		return subRecetas;
+	}
+
 	public boolean esValida() {
 		return tieneAlMenosUnIngrediente() && totalCaloriasEntre(10, 5000);
 	}
@@ -65,10 +69,6 @@ public class Receta {
 
 	public void agregarSubRecetas(Collection<Receta> unasSubRecetas) {
 		subRecetas.addAll(unasSubRecetas);
-	}
-
-	public boolean subrecetasIncluye(Receta unaReceta) {
-		return subRecetas.contains(unaReceta);
 	}
 
 	// Punto 3.b

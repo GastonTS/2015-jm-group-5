@@ -11,6 +11,7 @@ import static org.mockito.Matchers.any;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 
 import org.junit.Before;
@@ -286,11 +287,22 @@ public class UsuarioTest {
 
 	// Tests Creacion de Recetas
 	@Test
-	public void usuarioCreaRecetaExitosa() {
+	public void gustavoCreaRecetaExitosa() {
 		when(recetaMock.esValida()).thenReturn(true);
 
 		gustavo.crearReceta(recetaMock);
 
+		verify(recetaMock, times(1)).esValida();
+	}
+
+	@Test
+	public void gustavoCreaRecetaConSubrecetas() {
+		when(recetaMock.esValida()).thenReturn(true);
+
+		gustavo.crearRecetaConSubRecetas(recetaMock,
+				Arrays.asList(choripanMock, ensaladaMock));
+
+		assertTrue(gustavo.esRecetaPropia(recetaMock));
 		verify(recetaMock, times(1)).esValida();
 	}
 

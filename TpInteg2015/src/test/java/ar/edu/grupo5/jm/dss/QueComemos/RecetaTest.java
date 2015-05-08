@@ -26,11 +26,6 @@ public class RecetaTest {
 
 	Collection<String> ingredientesVacia = new ArrayList<String>();
 
-	private Usuario gustavo;
-
-	private Collection<Receta> recetasPublicas;
-	private Collection<Receta> recetasGustavo;
-
 	@Before
 	public void setUp() {
 
@@ -48,12 +43,6 @@ public class RecetaTest {
 				Arrays.asList("pollo mediano"), Arrays.asList(sal,
 						condimentoParaPollo), new ArrayList<Receta>(), 3000);
 
-		recetasPublicas = Arrays.asList(pure);
-		recetasGustavo = new ArrayList<Receta>();
-		Usuario.recetasPublicas(recetasPublicas);
-
-		gustavo = new Usuario("Gustavo", null, 73, 1.83, null, recetasGustavo,
-				null, "Mediano");
 	}
 
 	@Test
@@ -70,12 +59,11 @@ public class RecetaTest {
 	}
 
 	@Test
-	public void gustavoCreaRecetaDelPolloConPapasYEnsalada() {
-		gustavo.crearRecetaConSubRecetas(polloConPureOEnsalada,
-				Arrays.asList(pure, ensalada));
-		assertTrue(gustavo.esRecetaPropia(polloConPureOEnsalada));
-		assertTrue(polloConPureOEnsalada.subrecetasIncluye(pure));
-		assertTrue(polloConPureOEnsalada.subrecetasIncluye(ensalada));
+	public void agregarSubrecetas() {
+		polloConPureOEnsalada.agregarSubRecetas(Arrays.asList(pure, ensalada));
+
+		assertTrue(polloConPureOEnsalada.getSubRecetas().contains(pure));
+		assertTrue(polloConPureOEnsalada.getSubRecetas().contains(ensalada));
 	}
 
 }
