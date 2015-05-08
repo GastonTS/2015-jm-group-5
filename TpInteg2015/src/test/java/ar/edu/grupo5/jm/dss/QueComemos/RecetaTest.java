@@ -17,11 +17,11 @@ public class RecetaTest {
 	private Receta pure;
 	private Receta ensalada;
 	
-	private Condimento sal = new Condimento("sal fina",100); 
-	private Condimento pimienta = new Condimento("pimienta molida",50);
-	private Condimento nuezMoscada = new Condimento("nuez moscada",20);
-	private Condimento condimentoParaPollo = new Condimento("condimento P/pollo",40);
-	private Condimento aceite = new Condimento("Aceite de Maiz",2);
+	private Condimentacion sal = new Condimentacion("sal fina",100); 
+	private Condimentacion pimienta = new Condimentacion("pimienta molida",50);
+	private Condimentacion nuezMoscada = new Condimentacion("nuez moscada",20);
+	private Condimentacion condimentoParaPollo = new Condimentacion("condimento P/pollo",40);
+	private Condimentacion aceite = new Condimentacion("Aceite de Maiz",2);
 	
 	Collection<String> ingredientesVacia = new ArrayList<String>();
 	

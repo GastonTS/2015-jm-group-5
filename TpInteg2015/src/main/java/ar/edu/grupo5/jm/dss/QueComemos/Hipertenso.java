@@ -4,10 +4,10 @@ import java.util.Arrays;
 import java.util.Collection;
 
 public class Hipertenso implements CondicionDeSalud {
-	
 
-	private static final Collection<String> condimentosProhibidos = Arrays.asList("sal", "caldo");
-	
+	private static final Collection<String> condimentosProhibidos = Arrays
+			.asList("sal", "caldo");
+
 	public static Collection<String> getCondimentosProhibidos() {
 		return condimentosProhibidos;
 	}

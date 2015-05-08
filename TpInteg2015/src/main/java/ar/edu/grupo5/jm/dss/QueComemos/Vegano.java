@@ -4,11 +4,10 @@ import java.util.Arrays;
 import java.util.Collection;
 
 public class Vegano implements CondicionDeSalud {
-	
-	private static final Collection<String> preferenciasProhibidas = 
-											Arrays.asList("pollo", "chori", "carne", "chivito"); 
-			
-			
+
+	private static final Collection<String> preferenciasProhibidas = Arrays
+			.asList("pollo", "chori", "carne", "chivito");
+
 	/**
 	 * @return the preferenciasprohibidas
 	 */
@@ -28,7 +27,8 @@ public class Vegano implements CondicionDeSalud {
 
 	@Override
 	public boolean esUsuarioValido(Usuario unUsuario) {
-		return !(unUsuario.tieneAlgunaDeEstasPreferencias(preferenciasProhibidas));
+		return !(unUsuario
+				.tieneAlgunaDeEstasPreferencias(preferenciasProhibidas));
 	}
 
 }

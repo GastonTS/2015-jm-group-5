@@ -13,9 +13,9 @@ import static org.junit.Assert.*;
 public class RecetaInadecuadaTest {
 
 	private Receta recetaParaNoVeganos,recetaParaTodos,recetaParaNoDiabeticos,recetaParaNoHipertensos;
-	private Condimento sal = new Condimento("sal",200);
-	private Condimento mayonesa = new Condimento("mayonesa",200);;
-	private Condimento azucar = new Condimento("Azucar",300);
+	private Condimentacion sal = new Condimentacion("sal",200);
+	private Condimentacion mayonesa = new Condimentacion("mayonesa",200);;
+	private Condimentacion azucar = new Condimentacion("Azucar",300);
 	
 	private Collection<CondicionDeSalud> condicionesInadecuadas;
 
