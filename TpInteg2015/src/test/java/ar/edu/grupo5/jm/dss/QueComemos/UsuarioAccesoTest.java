@@ -14,16 +14,17 @@ public class UsuarioAccesoTest {
 	private Receta choripanMock = mock(Receta.class);
 	private Receta panchoMock = mock(Receta.class);
 	private Receta ensaladaMock = mock(Receta.class);
-	
+
 	private Usuario dueñoDelChori;
 	private Usuario dueñoDelPancho;
-	
-	
+
 	@Before
 	public void setUp() {
 		Usuario.recetasPublicas(Arrays.asList(ensaladaMock));
-		dueñoDelChori = new Usuario(null,null,0,0,null,Arrays.asList(choripanMock),null,null);
-		dueñoDelPancho = new Usuario(null,null,0,0,null,Arrays.asList(panchoMock),null,null);
+		dueñoDelChori = new Usuario(null, null, 0, 0, null,
+				Arrays.asList(choripanMock), null, null);
+		dueñoDelPancho = new Usuario(null, null, 0, 0, null,
+				Arrays.asList(panchoMock), null, null);
 	}
 
 	@Test

@@ -28,7 +28,7 @@ public class Usuario {// TODO ser consistentes en la identacion
 		peso = unPeso;
 		estatura = unaEstatura;
 		preferenciasAlimenticias = unasPreferenciasAlimenticias;
-		recetasPropias=unasRecetasPropias;
+		recetasPropias = unasRecetasPropias;
 		setCondicionesPreexistentes(unasCondicionesPreexistentes);
 		rutina = unaRutina;
 	}
