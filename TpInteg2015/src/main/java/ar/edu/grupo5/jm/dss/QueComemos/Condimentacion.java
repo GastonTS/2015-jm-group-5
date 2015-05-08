@@ -12,11 +12,6 @@ public class Condimentacion {
 		cantidad = unaCantidad;
 	}
 
-	//XXX No se usa??
-	public Condimentacion(String unCondimento) {
-		condimento = unCondimento;
-	}
-
 	public boolean tieneCondimentoUnoDe(Collection<String> unosCondimentos) {
 		return unosCondimentos.stream().anyMatch(
 				condimento -> tieneCondimento(condimento));
