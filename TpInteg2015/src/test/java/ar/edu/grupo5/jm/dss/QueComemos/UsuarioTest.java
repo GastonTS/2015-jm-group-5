@@ -50,7 +50,9 @@ public class UsuarioTest {
 	private Receta recetaMock = mock(Receta.class);
 	private Receta panchoMock = mock(Receta.class);
 	private Receta ensaladaMock = mock(Receta.class);
+	private Receta nuevaEnsaladaMock = mock(Receta.class);
 	private Receta choripanMock = mock(Receta.class);
+	private Receta choriConChimiMock = mock(Receta.class);
 
 	private Collection<Receta> recetasPublicas = new ArrayList<Receta>();
 	private Collection<Receta> recetasGaston = new ArrayList<Receta>();
@@ -301,16 +303,51 @@ public class UsuarioTest {
 		verify(recetaMock, times(1)).esValida();
 	}
 
+	@Test
+	public void accesoARecetas() {
+		assertTrue(gustavo.puedeAcceder(choripanMock));
+		assertTrue(gustavo.puedeAcceder(ensaladaMock));
+		assertFalse(gaston.puedeAcceder(choripanMock));
+	}
+
 	// Tests Modificacion de Recetas
 
 	@Test
-	public void JuanchiModificaRecetaPublica() {
+	public void juanchiModificaRecetaPublica() {
 		assertTrue(juanchi.getRecetasPropias().isEmpty());
-		when(ensaladaMock.esValida()).thenReturn(true);
-		juanchi.modificarReceta(ensaladaMock);
-		assertTrue(juanchi.getRecetasPropias().contains(ensaladaMock));
+		when(nuevaEnsaladaMock.esValida()).thenReturn(true);
 
-		verify(ensaladaMock, times(1)).esValida();
+		juanchi.modificarReceta(ensaladaMock, nuevaEnsaladaMock);
+
+		assertTrue(juanchi.getRecetasPropias().contains(nuevaEnsaladaMock));
+		verify(nuevaEnsaladaMock, times(1)).esValida();
+	}
+
+	@Test(expected = NoPuedeAccederARecetaException.class)
+	public void gastonNoPuedeModificarUnaRecetaDeOtro() {
+		gaston.modificarReceta(choripanMock, choriConChimiMock);
+
+	}
+
+	@Test
+	public void gustavoModificaRecetaPropia() {
+		when(choriConChimiMock.esValida()).thenReturn(true);
+
+		gustavo.modificarReceta(choripanMock, choriConChimiMock);
+
+		assertTrue(gustavo.getRecetasPropias().contains(choriConChimiMock));
+		assertFalse(gustavo.getRecetasPropias().contains(choripanMock));
+		verify(choriConChimiMock, times(1)).esValida();
+	}
+
+	// Test Eliminar Recetas Propias
+	@Test
+	public void eliminarUnaRecetaPrivada() {
+		assertFalse(gustavo.getRecetasPropias().isEmpty());
+
+		gustavo.eliminarRecetaPropia(choripanMock);
+
+		assertTrue(gustavo.getRecetasPropias().isEmpty());
 	}
 
 }

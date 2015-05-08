@@ -136,7 +136,7 @@ public class Usuario {// TODO ser consistentes en la identacion
 		if (!unaReceta.esValida()) {
 			throw new RecetaNoValidaException(
 					"No se Puede agregar una receta no válida!!!",
-					new RuntimeException()); // ejjejej
+					new RuntimeException());
 		}
 		recetasPropias.add(unaReceta);
 	}
@@ -161,24 +161,26 @@ public class Usuario {// TODO ser consistentes en la identacion
 	}
 
 	// Punto 4.c
-	public void modificarReceta(Receta unaReceta) {
-		if (esRecetaPropia(unaReceta)) {
-			modificarRecetaPropia(unaReceta);
+	public void modificarReceta(Receta viejaReceta, Receta nuevaReceta) {
+		if (!puedeAcceder(viejaReceta)) {
+			throw new NoPuedeAccederARecetaException(
+					"No tiene permiso para acceder a esa receta",
+					new RuntimeException());
+		}
+
+		if (esRecetaPropia(viejaReceta)) {
+			modificarRecetaPropia(viejaReceta, nuevaReceta);
 		} else
-			crearReceta(unaReceta);
+			crearReceta(nuevaReceta);
 	}
 
-	private void modificarRecetaPropia(Receta unaReceta) {
-		eliminarRecetaPropia(unaReceta.getNombre());
-		recetasPropias.add(unaReceta);
+	private void modificarRecetaPropia(Receta viejaReceta, Receta nuevaReceta) {
+		eliminarRecetaPropia(viejaReceta);
+		crearReceta(nuevaReceta);
 	}
 
-	public void eliminarRecetaPropia(String nombreReceta) {
-		Receta recetaAEliminar = recetasPropias
-				.stream()
-				.filter(unaReceta -> unaReceta.getNombre().equals(nombreReceta))
-				.findFirst().get();
-		recetasPropias.remove(recetaAEliminar);
+	public void eliminarRecetaPropia(Receta unaReceta) {
+		recetasPropias.remove(unaReceta);
 	}
 
 	// Punto 5
