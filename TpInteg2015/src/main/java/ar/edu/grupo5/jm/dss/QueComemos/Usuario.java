@@ -11,7 +11,12 @@ public class Usuario {
 	private double estatura;
 	private Collection<String> preferenciasAlimenticias;
 	private Collection<CondicionDeSalud> condicionesDeSalud;
-	private String rutina;
+
+	public enum Rutina {
+		LEVE, NADA, MEDIANA, INTENSIVA, ALTA
+	}
+
+	private Rutina rutina;
 	private Collection<Receta> recetasPropias;
 
 	private static Collection<Receta> recetasPublicas;
@@ -22,7 +27,7 @@ public class Usuario {
 			Collection<String> unasPreferenciasAlimenticias,
 			Collection<Receta> unasRecetasPropias,
 			Collection<CondicionDeSalud> unasCondicionesDeSalud,
-			String unaRutina) {
+			Rutina unaRutina) {
 		nombre = unNombre;
 		fechaDeNacimiento = unaFechaDeNacimiento;
 		peso = unPeso;
@@ -99,13 +104,11 @@ public class Usuario {
 	}
 
 	public boolean tieneRutinaActiva() {
-		return this.tieneRutinaIntensiva() || rutina.equals("Alta"); // TODO
-																		// usar
-																		// enums
+		return this.tieneRutinaIntensiva() || rutina == Rutina.ALTA;
 	}
 
 	public boolean tieneRutinaIntensiva() {
-		return rutina.equals("Intensiva");
+		return rutina == Rutina.INTENSIVA;
 	}
 
 	public boolean tienePreferencia(String preferencia) {

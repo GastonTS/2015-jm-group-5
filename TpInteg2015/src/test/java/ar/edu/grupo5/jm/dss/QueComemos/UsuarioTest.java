@@ -17,6 +17,8 @@ import java.util.Collection;
 import org.junit.Before;
 import org.junit.Test;
 
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Rutina;
+
 public class UsuarioTest {
 
 	private Usuario leandro;
@@ -87,42 +89,41 @@ public class UsuarioTest {
 
 		Usuario.setRecetasPublicas(recetasPublicas);
 		gustavo = new Usuario("Gustavo", LocalDate.parse("1994-02-25"), 73,
-				1.83, null, recetasGustavo, condiciones, "Mediano");
+				1.83, null, recetasGustavo, condiciones, Rutina.MEDIANA);
 		leandro = new Usuario("leandro", null, 79, 1.78, preferenciaFruta,
-				null, coleccionCondicionVegano, "Mediano"); // No tiene fecha y
-															// es vegano (con
-															// preferencia
-															// fruta)
+				null, coleccionCondicionVegano, Rutina.MEDIANA); // No tiene
+																	// fecha y
+		// es vegano (con
+		// preferencia
+		// fruta)
 		ramiro = new Usuario(null, LocalDate.parse("2000-01-01"), 63, 1.75,
-				null, null, coleccionCondicionCeliaco, "Mediano"); // No tiene
-																	// nombre
+				null, null, coleccionCondicionCeliaco, Rutina.MEDIANA); // No
+																		// tiene
+		// nombre
 		gaston = new Usuario("gast", null, 65, 1.66, null, recetasGaston, null,
 				null); // Tiene Nombre corto
 		juanchi = new Usuario("juanchi", LocalDate.parse("2000-01-01"), 70,
-				1.85, null, recetasJuanchi, coleccionCondicionDiabetico, "Alta"); // tiene
-																					// rutina
-																					// y
-																					// es
-																					// diabetico
+				1.85, null, recetasJuanchi, coleccionCondicionDiabetico,
+				Rutina.ALTA); // tiene rutina y es diabetico
 		juanchiSinRutina = new Usuario("juanchi",
 				LocalDate.parse("2000-01-01"), 70, 1.85, null, recetasJuanchi,
 				coleccionCondicionDiabetico, null); // No tiene rutina y es
 													// diabetico
 
 		sinPeso = new Usuario("falta peso", LocalDate.parse("2000-01-01"), 0,
-				1.83, null, null, condiciones, "Mediano");
+				1.83, null, null, condiciones, Rutina.MEDIANA);
 		sinEstatura = new Usuario("falta estatura",
 				LocalDate.parse("2000-01-01"), 73, 0, null, null, condiciones,
-				"Mediano");
+				Rutina.MEDIANA);
 		nacioHoy = new Usuario("Nació hoy", LocalDate.now(), 73, 1.83, null,
-				null, condiciones, "Mediano");
+				null, condiciones, Rutina.MEDIANA);
 		usuarioDiabeticoRutinaAlata = new Usuario(null, null, 71, 1.70, null,
-				null, coleccionCondicionDiabetico, "Alta");
+				null, coleccionCondicionDiabetico, Rutina.ALTA);
 		demasiadoICM = new Usuario("demasiadoICM",
 				LocalDate.parse("2000-01-01"), 101, 1.83, null, null,
-				condiciones, "Mediano");
+				condiciones, Rutina.MEDIANA);
 		pocoICM = new Usuario("pocoICM", LocalDate.parse("2000-01-01"), 60,
-				1.83, null, null, condiciones, "Mediano");
+				1.83, null, null, condiciones, Rutina.MEDIANA);
 
 	}
 
