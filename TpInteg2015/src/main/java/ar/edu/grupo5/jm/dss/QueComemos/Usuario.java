@@ -3,14 +3,14 @@ package ar.edu.grupo5.jm.dss.QueComemos;
 import java.time.LocalDate;
 import java.util.Collection;
 
-public class Usuario {// TODO ser consistentes en la identacion
+public class Usuario {
 	private String nombre;
 	private String sexo;
 	private LocalDate fechaDeNacimiento;
 	private double peso;
 	private double estatura;
 	private Collection<String> preferenciasAlimenticias;
-	private Collection<CondicionDeSalud> condicionesPreexistentes;
+	private Collection<CondicionDeSalud> condicionesDeSalud;
 	private String rutina;
 	private Collection<Receta> recetasPropias;
 
@@ -21,7 +21,7 @@ public class Usuario {// TODO ser consistentes en la identacion
 			double unPeso, double unaEstatura,
 			Collection<String> unasPreferenciasAlimenticias,
 			Collection<Receta> unasRecetasPropias,
-			Collection<CondicionDeSalud> unasCondicionesPreexistentes,
+			Collection<CondicionDeSalud> unasCondicionesDeSalud,
 			String unaRutina) {
 		nombre = unNombre;
 		fechaDeNacimiento = unaFechaDeNacimiento;
@@ -29,21 +29,17 @@ public class Usuario {// TODO ser consistentes en la identacion
 		estatura = unaEstatura;
 		preferenciasAlimenticias = unasPreferenciasAlimenticias;
 		recetasPropias = unasRecetasPropias;
-		condicionesPreexistentes = unasCondicionesPreexistentes;
+		condicionesDeSalud = unasCondicionesDeSalud;
 		rutina = unaRutina;
 	}
 
 	// Setter de variable de clase recetasPublicas
-	public static void recetasPublicas(Collection<Receta> recetas) {
+	public static void setRecetasPublicas(Collection<Receta> recetas) {
 		recetasPublicas = recetas;
 	}
 
 	public double getPeso() {
 		return peso;
-	}
-
-	public Collection<CondicionDeSalud> getCondicionesPreexistentes() {
-		return condicionesPreexistentes;
 	}
 
 	public Collection<Receta> getRecetasPropias() {
@@ -68,7 +64,7 @@ public class Usuario {// TODO ser consistentes en la identacion
 	}
 
 	public boolean esUsuarioValidoParaSusCondiciones() {
-		return getCondicionesPreexistentes().stream().allMatch(
+		return condicionesDeSalud.stream().allMatch(
 				condicion -> condicion.esUsuarioValido(this));
 	}
 
@@ -96,9 +92,9 @@ public class Usuario {// TODO ser consistentes en la identacion
 	}
 
 	private boolean subsanaTodasLasCondiciones() {
-		if (getCondicionesPreexistentes() == null)
+		if (condicionesDeSalud == null)
 			return true; // FIXME asegurarse de que no sea null
-		return getCondicionesPreexistentes().stream().allMatch(
+		return condicionesDeSalud.stream().allMatch(
 				condicion -> condicion.subsanaCondicion(this));
 	}
 
@@ -134,7 +130,7 @@ public class Usuario {// TODO ser consistentes en la identacion
 
 	// Punto 3.b en receta
 	public boolean sosRecetaInadecuadaParaMi(Receta unaReceta) {
-		return condicionesPreexistentes.stream().anyMatch(
+		return condicionesDeSalud.stream().anyMatch(
 				condicion -> condicion.esInadecuada(unaReceta));
 	}// si no tiene condiciones devuelve false por lo tanto no es inadecuada
 
@@ -161,8 +157,9 @@ public class Usuario {// TODO ser consistentes en la identacion
 
 		if (esRecetaPropia(viejaReceta)) {
 			modificarRecetaPropia(viejaReceta, nuevaReceta);
-		} else
+		} else {
 			crearReceta(nuevaReceta);
+		}
 	}
 
 	private void modificarRecetaPropia(Receta viejaReceta, Receta nuevaReceta) {

@@ -8,9 +8,6 @@ public class Vegano implements CondicionDeSalud {
 	private static final Collection<String> preferenciasProhibidas = Arrays
 			.asList("pollo", "chori", "carne", "chivito");
 
-	/**
-	 * @return the preferenciasprohibidas
-	 */
 	public static Collection<String> getPreferenciasProhibidas() {
 		return preferenciasProhibidas;
 	}
@@ -22,7 +19,7 @@ public class Vegano implements CondicionDeSalud {
 
 	@Override
 	public boolean esInadecuada(Receta unaReceta) {
-		return unaReceta.tenesAlgunIngredienteDeEstos(preferenciasProhibidas);
+		return unaReceta.tieneAlgunIngredienteDeEstos(preferenciasProhibidas);
 	}
 
 	@Override

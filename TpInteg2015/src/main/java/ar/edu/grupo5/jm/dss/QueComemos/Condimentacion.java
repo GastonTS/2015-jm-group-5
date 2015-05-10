@@ -21,8 +21,9 @@ public class Condimentacion {
 		return condimento.equals(unCondimento);
 	}
 
-	public boolean mayorCantidadDeMismoCondimentoQue(Condimentacion unCondimento) {
-		return tieneCondimento(unCondimento.condimento)
-				&& cantidad > unCondimento.cantidad;
+	public boolean mayorCantidadDeMismoCondimentoQue(
+			Condimentacion unaCondimentacion) {
+		return tieneCondimento(unaCondimentacion.condimento)
+				&& cantidad > unaCondimentacion.cantidad;
 	}
 }

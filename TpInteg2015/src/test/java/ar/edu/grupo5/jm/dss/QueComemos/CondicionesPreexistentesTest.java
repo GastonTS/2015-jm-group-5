@@ -178,12 +178,12 @@ public class CondicionesPreexistentesTest {
 	@Test
 	public void recetaVeganaEsInadecuadaSiTieneIngredientesProhibidos() {
 		when(
-				recetaFalsa.tenesAlgunIngredienteDeEstos(Vegano
+				recetaFalsa.tieneAlgunIngredienteDeEstos(Vegano
 						.getPreferenciasProhibidas())).thenReturn(true);
 
 		assertTrue(vegano.esInadecuada(recetaFalsa));
 
-		verify(recetaFalsa, times(1)).tenesAlgunIngredienteDeEstos(
+		verify(recetaFalsa, times(1)).tieneAlgunIngredienteDeEstos(
 				Vegano.getPreferenciasProhibidas());
 	}
 

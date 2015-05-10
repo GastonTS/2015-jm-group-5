@@ -85,7 +85,7 @@ public class UsuarioTest {
 		preferenciasVariadas.add("semillas");
 		preferenciasVariadas.add("champignones");
 
-		Usuario.recetasPublicas(recetasPublicas);
+		Usuario.setRecetasPublicas(recetasPublicas);
 		gustavo = new Usuario("Gustavo", LocalDate.parse("1994-02-25"), 73,
 				1.83, null, recetasGustavo, condiciones, "Mediano");
 		leandro = new Usuario("leandro", null, 79, 1.78, preferenciaFruta,
