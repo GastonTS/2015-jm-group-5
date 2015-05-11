@@ -6,9 +6,8 @@ import java.util.Collection;
 public class Usuario {
 	private String nombre;
 	private String sexo;
+	private Complexion complexion;
 	private LocalDate fechaDeNacimiento;
-	private double peso;
-	private double estatura;
 	private Collection<String> preferenciasAlimenticias;
 	private Collection<CondicionDeSalud> condicionesDeSalud;
 
@@ -23,15 +22,14 @@ public class Usuario {
 
 	// XXX long parameter list
 	public Usuario(String unNombre, LocalDate unaFechaDeNacimiento,
-			double unPeso, double unaEstatura,
+			Complexion unaComplexion,
 			Collection<String> unasPreferenciasAlimenticias,
 			Collection<Receta> unasRecetasPropias,
 			Collection<CondicionDeSalud> unasCondicionesDeSalud,
 			Rutina unaRutina) {
 		nombre = unNombre;
 		fechaDeNacimiento = unaFechaDeNacimiento;
-		peso = unPeso;
-		estatura = unaEstatura;
+		complexion = unaComplexion;
 		preferenciasAlimenticias = unasPreferenciasAlimenticias;
 		recetasPropias = unasRecetasPropias;
 		condicionesDeSalud = unasCondicionesDeSalud;
@@ -44,7 +42,7 @@ public class Usuario {
 	}
 
 	public double getPeso() {
-		return peso;
+		return complexion.getPeso();
 	}
 
 	public Collection<Receta> getRecetasPropias() {
@@ -64,7 +62,7 @@ public class Usuario {
 	}
 
 	public boolean tieneCamposObligatorios() {
-		return nombre != null && peso != 0 && estatura != 0
+		return nombre != null && complexion.esComplexionValida()
 				&& fechaDeNacimiento != null && rutina != null;
 	}
 
@@ -87,7 +85,7 @@ public class Usuario {
 
 	// Punto 2.a
 	public double indiceMasaCorporal() {
-		return peso / Math.pow(estatura, 2);
+		return complexion.indiceMasaCorporal();
 	}
 
 	// Punto 2.b

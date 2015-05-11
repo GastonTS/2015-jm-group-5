@@ -36,6 +36,16 @@ public class UsuarioTest {
 	private Usuario pocoICM;
 	private Usuario usuarioDiabeticoRutinaAlata;
 
+	private Complexion complexionLeandro;
+	private Complexion complexionGustavo;
+	private Complexion complexionRamiro;
+	private Complexion complexionGaston;
+	private Complexion complexionJuanchi;
+	private Complexion complexionSinPeso;
+	private Complexion complexionSinEstatura;
+	private Complexion complexionDemasiadoIMC;
+	private Complexion complexionPocoIMC;
+
 	private Vegano condicionVegano = new Vegano();
 	private Celiaco condicionCeliaco = new Celiaco();
 	private Diabetico condicionDiabetico = new Diabetico();
@@ -87,43 +97,59 @@ public class UsuarioTest {
 		preferenciasVariadas.add("semillas");
 		preferenciasVariadas.add("champignones");
 
+		// Complexiones
+		complexionRamiro = new Complexion(63, 1.75);
+		complexionGaston = new Complexion(65, 1.66);
+		complexionGustavo = new Complexion(73, 1.83);
+		complexionJuanchi = new Complexion(70, 1.85);
+		complexionLeandro = new Complexion(79, 1.78);
+		complexionSinPeso = new Complexion(0, 1.83);
+		complexionSinEstatura = new Complexion(73, 0);
+		complexionDemasiadoIMC = new Complexion(101,  1.83);
+		complexionPocoIMC = new Complexion(60,  1.83);
+		
 		Usuario.setRecetasPublicas(recetasPublicas);
-		gustavo = new Usuario("Gustavo", LocalDate.parse("1994-02-25"), 73,
-				1.83, null, recetasGustavo, condiciones, Rutina.MEDIANA);
-		leandro = new Usuario("leandro", null, 79, 1.78, preferenciaFruta,
-				null, coleccionCondicionVegano, Rutina.MEDIANA); // No tiene
-																	// fecha y
+		gustavo = new Usuario("Gustavo", LocalDate.parse("1994-02-25"),
+				complexionGustavo, null, recetasGustavo, condiciones,
+				Rutina.MEDIANA);
+		leandro = new Usuario("leandro", null, complexionLeandro,
+				preferenciaFruta, null, coleccionCondicionVegano,
+				Rutina.MEDIANA); // No tiene
+									// fecha y
 		// es vegano (con
 		// preferencia
 		// fruta)
-		ramiro = new Usuario(null, LocalDate.parse("2000-01-01"), 63, 1.75,
-				null, null, coleccionCondicionCeliaco, Rutina.MEDIANA); // No
-																		// tiene
+		ramiro = new Usuario(null, LocalDate.parse("2000-01-01"),
+				complexionRamiro, null, null, coleccionCondicionCeliaco,
+				Rutina.MEDIANA); // No
+									// tiene
 		// nombre
-		gaston = new Usuario("gast", null, 65, 1.66, null, recetasGaston, null,
-				null); // Tiene Nombre corto
-		juanchi = new Usuario("juanchi", LocalDate.parse("2000-01-01"), 70,
-				1.85, null, recetasJuanchi, coleccionCondicionDiabetico,
-				Rutina.ALTA); // tiene rutina y es diabetico
+		gaston = new Usuario("gast", null, complexionGaston, null,
+				recetasGaston, null, null); // Tiene Nombre corto
+		juanchi = new Usuario("juanchi", LocalDate.parse("2000-01-01"),
+				complexionJuanchi, null, recetasJuanchi,
+				coleccionCondicionDiabetico, Rutina.ALTA); // tiene rutina y es
+															// diabetico
 		juanchiSinRutina = new Usuario("juanchi",
-				LocalDate.parse("2000-01-01"), 70, 1.85, null, recetasJuanchi,
-				coleccionCondicionDiabetico, null); // No tiene rutina y es
-													// diabetico
+				LocalDate.parse("2000-01-01"), complexionLeandro, null,
+				recetasJuanchi, coleccionCondicionDiabetico, null); // No tiene
+																	// rutina y
+																	// es
+																	// diabetico
 
-		sinPeso = new Usuario("falta peso", LocalDate.parse("2000-01-01"), 0,
-				1.83, null, null, condiciones, Rutina.MEDIANA);
+		sinPeso = new Usuario("falta peso", LocalDate.parse("2000-01-01"),
+				complexionSinPeso, null, null, condiciones, Rutina.MEDIANA);
 		sinEstatura = new Usuario("falta estatura",
-				LocalDate.parse("2000-01-01"), 73, 0, null, null, condiciones,
-				Rutina.MEDIANA);
-		nacioHoy = new Usuario("Nació hoy", LocalDate.now(), 73, 1.83, null,
+				LocalDate.parse("2000-01-01"), complexionSinEstatura, null,
 				null, condiciones, Rutina.MEDIANA);
-		usuarioDiabeticoRutinaAlata = new Usuario(null, null, 71, 1.70, null,
+		nacioHoy = new Usuario("Nació hoy", LocalDate.now(), complexionGustavo, null,
+				null, condiciones, Rutina.MEDIANA);
+		usuarioDiabeticoRutinaAlata = new Usuario(null, null, complexionGustavo, null,
 				null, coleccionCondicionDiabetico, Rutina.ALTA);
 		demasiadoICM = new Usuario("demasiadoICM",
-				LocalDate.parse("2000-01-01"), 101, 1.83, null, null,
+				LocalDate.parse("2000-01-01"), complexionDemasiadoIMC, null, null,
 				condiciones, Rutina.MEDIANA);
-		pocoICM = new Usuario("pocoICM", LocalDate.parse("2000-01-01"), 60,
-				1.83, null, null, condiciones, Rutina.MEDIANA);
+		pocoICM = new Usuario("pocoICM", LocalDate.parse("2000-01-01"), complexionPocoIMC, null, null, condiciones, Rutina.MEDIANA);
 
 	}
 
