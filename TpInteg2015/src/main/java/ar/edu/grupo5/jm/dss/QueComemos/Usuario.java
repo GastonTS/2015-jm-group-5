@@ -4,10 +4,8 @@ import java.time.LocalDate;
 import java.util.Collection;
 
 public class Usuario {
-	private String nombre;
-	private String sexo;
 	private Complexion complexion;
-	private LocalDate fechaDeNacimiento;
+	private DatosPersonales datosPersonales;
 	private Collection<String> preferenciasAlimenticias;
 	private Collection<CondicionDeSalud> condicionesDeSalud;
 
@@ -21,14 +19,13 @@ public class Usuario {
 	private static Collection<Receta> recetasPublicas;
 
 	// XXX long parameter list
-	public Usuario(String unNombre, LocalDate unaFechaDeNacimiento,
+	public Usuario(DatosPersonales unosDatosPersonales,
 			Complexion unaComplexion,
 			Collection<String> unasPreferenciasAlimenticias,
 			Collection<Receta> unasRecetasPropias,
 			Collection<CondicionDeSalud> unasCondicionesDeSalud,
 			Rutina unaRutina) {
-		nombre = unNombre;
-		fechaDeNacimiento = unaFechaDeNacimiento;
+		datosPersonales = unosDatosPersonales;
 		complexion = unaComplexion;
 		preferenciasAlimenticias = unasPreferenciasAlimenticias;
 		recetasPropias = unasRecetasPropias;
@@ -44,6 +41,10 @@ public class Usuario {
 	public double getPeso() {
 		return complexion.getPeso();
 	}
+	
+	public boolean indicaSexo(){
+		return datosPersonales.indicaSexo();
+	}
 
 	public Collection<Receta> getRecetasPropias() {
 		return recetasPropias;
@@ -52,18 +53,14 @@ public class Usuario {
 	// Punto 1
 	// XXX esto podria no ser facil de extender
 	public boolean esUsuarioValido() {
-		return tieneCamposObligatorios() && esNombreCorto()
-				&& fechaDeNacimientoAnteriorAHoy()
+		return tieneCamposObligatorios() && !datosPersonales.esNombreCorto()
+				&& datosPersonales.fechaDeNacimientoAnteriorAHoy()
 				&& esUsuarioValidoParaSusCondiciones();
 	}
 
-	public boolean esNombreCorto() {
-		return nombre.length() > 4;
-	}
-
 	public boolean tieneCamposObligatorios() {
-		return nombre != null && complexion.esComplexionValida()
-				&& fechaDeNacimiento != null && rutina != null;
+		return datosPersonales.esDatosPersonalesValido()
+				&& complexion.esComplexionValida() && rutina != null;
 	}
 
 	public boolean esUsuarioValidoParaSusCondiciones() {
@@ -71,16 +68,8 @@ public class Usuario {
 				condicion -> condicion.esUsuarioValido(this));
 	}
 
-	public boolean indicaSexo() {
-		return sexo != null && !(sexo.equals(""));
-	}
-
 	public boolean tieneAlgunaPreferencia() {
 		return !preferenciasAlimenticias.isEmpty();
-	}
-
-	public boolean fechaDeNacimientoAnteriorAHoy() {
-		return fechaDeNacimiento.isBefore(LocalDate.now());
 	}
 
 	// Punto 2.a
