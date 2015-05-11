@@ -15,7 +15,6 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Rutina;
@@ -112,8 +111,8 @@ public class UsuarioTest {
 				"Indefinido", LocalDate.parse("2000-01-01"));
 		datosPersonalesNacidoHoy = new DatosPersonales("PersonaGenerica",
 				"Indefinido", LocalDate.now());
-		datosPersonalesNombreCorto = new DatosPersonales("asd",
-				"Indefinido", LocalDate.parse("2000-01-01"));
+		datosPersonalesNombreCorto = new DatosPersonales("asd", "Indefinido",
+				LocalDate.parse("2000-01-01"));
 		datosPersonalesRamiro = new DatosPersonales("Ramiro", "masculino",
 				LocalDate.parse("1993-07-19"));
 		datosPersonalesGaston = new DatosPersonales("Gaston", "masculino",
@@ -166,11 +165,12 @@ public class UsuarioTest {
 													// diabetico
 
 		sinPeso = new Usuario(datosPersonalesGenericos, complexionSinPeso,
-				null, null, condiciones, Rutina.MEDIANA);
+				null, null, new ArrayList<CondicionDeSalud>(), Rutina.MEDIANA);
 		sinEstatura = new Usuario(datosPersonalesGenericos,
-				complexionSinEstatura, null, null, condiciones, Rutina.MEDIANA);
+				complexionSinEstatura, null, null,
+				new ArrayList<CondicionDeSalud>(), Rutina.MEDIANA);
 		nacioHoy = new Usuario(datosPersonalesNacidoHoy, complexionGustavo,
-				null, null, condiciones, Rutina.MEDIANA);
+				null, null, new ArrayList<CondicionDeSalud>(), Rutina.MEDIANA);
 		usuarioDiabeticoRutinaAlata = new Usuario(datosPersonalesGenericos,
 				complexionGustavo, null, null, coleccionCondicionDiabetico,
 				Rutina.ALTA);
@@ -225,18 +225,11 @@ public class UsuarioTest {
 		verify(corporativo, times(1)).esUsuarioValido(any(Usuario.class));
 	}
 
-	@Ignore
 	@Test
-	public void siNoCumplenAlgunaCondicionSonInvalidos() {
-		when(hippie.esUsuarioValido(any(Usuario.class))).thenReturn(true);
-		when(corporativo.esUsuarioValido(any(Usuario.class))).thenReturn(true);
-
+	public void siNoCumplenAlgunaOtraCondicionSonInvalidos() {
 		assertFalse(sinPeso.esUsuarioValido());
 		assertFalse(sinEstatura.esUsuarioValido());
 		assertFalse(nacioHoy.esUsuarioValido());
-
-		verify(hippie, times(1)).esUsuarioValido(any(Usuario.class));
-		verify(corporativo, times(1)).esUsuarioValido(any(Usuario.class));
 	}
 
 	// Test de IMCD

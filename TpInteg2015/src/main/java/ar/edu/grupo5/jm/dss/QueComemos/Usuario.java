@@ -1,6 +1,5 @@
 package ar.edu.grupo5.jm.dss.QueComemos;
 
-import java.time.LocalDate;
 import java.util.Collection;
 
 public class Usuario {
@@ -41,8 +40,8 @@ public class Usuario {
 	public double getPeso() {
 		return complexion.getPeso();
 	}
-	
-	public boolean indicaSexo(){
+
+	public boolean indicaSexo() {
 		return datosPersonales.indicaSexo();
 	}
 
