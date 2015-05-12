@@ -52,14 +52,8 @@ public class Usuario {
 	// Punto 1
 	// XXX esto podria no ser facil de extender
 	public boolean esUsuarioValido() {
-		return tieneCamposObligatorios() && !datosPersonales.esNombreCorto()
-				&& datosPersonales.fechaDeNacimientoAnteriorAHoy()
-				&& esUsuarioValidoParaSusCondiciones();
-	}
-
-	public boolean tieneCamposObligatorios() {
-		return datosPersonales.esDatosPersonalesValido()
-				&& complexion.esComplexionValida() && rutina != null;
+		return datosPersonales.sonValidos() && complexion.esComplexionValida()
+				&& rutina != null && esUsuarioValidoParaSusCondiciones();
 	}
 
 	public boolean esUsuarioValidoParaSusCondiciones() {

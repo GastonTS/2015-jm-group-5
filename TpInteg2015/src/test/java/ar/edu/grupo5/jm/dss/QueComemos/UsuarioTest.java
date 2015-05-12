@@ -9,7 +9,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.Matchers.any;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -26,24 +25,15 @@ public class UsuarioTest {
 	private Usuario ramiro;
 	private Usuario gaston;
 	private Usuario juanchi;
-	private Usuario juanchiSinRutina;
+	private Usuario diabeticoConPesoMenorA70;
 
 	private Usuario sinPeso;
 	private Usuario sinEstatura;
-	private Usuario nacioHoy;
 
 	private Usuario demasiadoICM;
 	private Usuario pocoICM;
-	private Usuario usuarioDiabeticoRutinaAlata;
 
-	private DatosPersonales datosPersonalesGenericos;
-	private DatosPersonales datosPersonalesNacidoHoy;
-	private DatosPersonales datosPersonalesNombreCorto;
-	private DatosPersonales datosPersonalesLeandro;
-	private DatosPersonales datosPersonalesRamiro;
-	private DatosPersonales datosPersonalesGaston;
-	private DatosPersonales datosPersonalesGustavo;
-	private DatosPersonales datosPersonalesJuanchi;
+	private DatosPersonales datosPersonalesMock = mock(DatosPersonales.class);
 
 	private Complexion complexionLeandro;
 	private Complexion complexionGustavo;
@@ -106,24 +96,6 @@ public class UsuarioTest {
 		preferenciasVariadas.add("semillas");
 		preferenciasVariadas.add("champignones");
 
-		// Datos Personales
-		datosPersonalesGenericos = new DatosPersonales("PersonaGenerica",
-				"Indefinido", LocalDate.parse("2000-01-01"));
-		datosPersonalesNacidoHoy = new DatosPersonales("PersonaGenerica",
-				"Indefinido", LocalDate.now());
-		datosPersonalesNombreCorto = new DatosPersonales("asd", "Indefinido",
-				LocalDate.parse("2000-01-01"));
-		datosPersonalesRamiro = new DatosPersonales("Ramiro", "masculino",
-				LocalDate.parse("1993-07-19"));
-		datosPersonalesGaston = new DatosPersonales("Gaston", "masculino",
-				LocalDate.parse("2000-01-01"));
-		datosPersonalesGustavo = new DatosPersonales("Gustavo", "masculino",
-				LocalDate.parse("1994-02-25"));
-		datosPersonalesLeandro = new DatosPersonales("Leandro", "masculino",
-				LocalDate.parse("2000-01-01"));
-		datosPersonalesJuanchi = new DatosPersonales("Juanchi", "masculino",
-				LocalDate.parse("2000-01-01"));
-
 		// Complexiones
 		complexionRamiro = new Complexion(63, 1.75);
 		complexionGaston = new Complexion(65, 1.66);
@@ -136,55 +108,40 @@ public class UsuarioTest {
 		complexionPocoIMC = new Complexion(60, 1.83);
 
 		Usuario.setRecetasPublicas(recetasPublicas);
-		gustavo = new Usuario(datosPersonalesGustavo, complexionGustavo, null,
+		gustavo = new Usuario(datosPersonalesMock, complexionGustavo, null,
 				recetasGustavo, condiciones, Rutina.MEDIANA);
-		leandro = new Usuario(datosPersonalesLeandro, complexionLeandro,
+		// es Vegano con preferencia fruta
+		leandro = new Usuario(datosPersonalesMock, complexionLeandro,
 				preferenciaFruta, null, coleccionCondicionVegano,
-				Rutina.MEDIANA); // No tiene
-									// fecha y
-		// es vegano (con
-		// preferencia
-		// fruta)
-		ramiro = new Usuario(datosPersonalesRamiro, complexionRamiro, null,
-				null, coleccionCondicionCeliaco, Rutina.MEDIANA); // No
-																	// tiene
-		// nombre
-		gaston = new Usuario(datosPersonalesGaston, complexionGaston, null,
-				recetasGaston, null, null); // Tiene Nombre corto
-		juanchi = new Usuario(datosPersonalesJuanchi, complexionJuanchi, null,
-				recetasJuanchi, coleccionCondicionDiabetico, Rutina.ALTA); // tiene
-																			// rutina
-																			// y
-																			// es
-																			// diabetico
-		juanchiSinRutina = new Usuario(datosPersonalesJuanchi,
-				complexionLeandro, null, recetasJuanchi,
-				coleccionCondicionDiabetico, null); // No tiene
-													// rutina y
-													// es
-													// diabetico
+				Rutina.MEDIANA);
+		// Celiaco
+		ramiro = new Usuario(datosPersonalesMock, complexionRamiro, null, null,
+				coleccionCondicionCeliaco, Rutina.MEDIANA);
+		// No tiene Rutina
+		gaston = new Usuario(datosPersonalesMock, complexionGaston, null,
+				recetasGaston, null, null);
+		// Tiene rutina ALTA y es Diabetico
+		juanchi = new Usuario(datosPersonalesMock, complexionJuanchi, null,
+				recetasJuanchi, coleccionCondicionDiabetico, Rutina.ALTA);
+		diabeticoConPesoMenorA70 = new Usuario(datosPersonalesMock,
+				complexionGaston, null, recetasJuanchi,
+				coleccionCondicionDiabetico, Rutina.MEDIANA);
 
-		sinPeso = new Usuario(datosPersonalesGenericos, complexionSinPeso,
+		sinPeso = new Usuario(datosPersonalesMock, complexionSinPeso, null,
+				null, new ArrayList<CondicionDeSalud>(), Rutina.MEDIANA);
+		sinEstatura = new Usuario(datosPersonalesMock, complexionSinEstatura,
 				null, null, new ArrayList<CondicionDeSalud>(), Rutina.MEDIANA);
-		sinEstatura = new Usuario(datosPersonalesGenericos,
-				complexionSinEstatura, null, null,
-				new ArrayList<CondicionDeSalud>(), Rutina.MEDIANA);
-		nacioHoy = new Usuario(datosPersonalesNacidoHoy, complexionGustavo,
-				null, null, new ArrayList<CondicionDeSalud>(), Rutina.MEDIANA);
-		usuarioDiabeticoRutinaAlata = new Usuario(datosPersonalesGenericos,
-				complexionGustavo, null, null, coleccionCondicionDiabetico,
-				Rutina.ALTA);
-		demasiadoICM = new Usuario(datosPersonalesGenericos,
-				complexionDemasiadoIMC, null, null, condiciones, Rutina.MEDIANA);
-		pocoICM = new Usuario(datosPersonalesGenericos, complexionPocoIMC,
+		demasiadoICM = new Usuario(datosPersonalesMock, complexionDemasiadoIMC,
 				null, null, condiciones, Rutina.MEDIANA);
+		pocoICM = new Usuario(datosPersonalesMock, complexionPocoIMC, null,
+				null, condiciones, Rutina.MEDIANA);
 
 	}
 
 	// Test de Validez de usuario
-
 	@Test
 	public void gustavoEsValido() {
+		when(datosPersonalesMock.sonValidos()).thenReturn(true);
 		when(hippie.esUsuarioValido(any(Usuario.class))).thenReturn(true);
 		when(corporativo.esUsuarioValido(any(Usuario.class))).thenReturn(true);
 
@@ -198,20 +155,12 @@ public class UsuarioTest {
 	}
 
 	@Test
-	public void faltaUnCampoObligatorio() {
-		assertFalse(sinPeso.tieneCamposObligatorios());
-		assertFalse(sinEstatura.tieneCamposObligatorios());
-		assertFalse(juanchiSinRutina.tieneCamposObligatorios());
-	}
+	public void noEsValidoSiSusDatosPersonalesNoLoSon() {
+		when(datosPersonalesMock.sonValidos()).thenReturn(false);
 
-	@Test
-	public void elNombreEsCorto() {
-		assertTrue(datosPersonalesNombreCorto.esNombreCorto());
-	}
+		assertFalse(gustavo.esUsuarioValido());
 
-	@Test
-	public void fechaNoEsMenorAHoy() {
-		assertFalse(datosPersonalesNacidoHoy.fechaDeNacimientoAnteriorAHoy());
+		verify(datosPersonalesMock, times(1)).sonValidos();
 	}
 
 	@Test
@@ -229,11 +178,10 @@ public class UsuarioTest {
 	public void siNoCumplenAlgunaOtraCondicionSonInvalidos() {
 		assertFalse(sinPeso.esUsuarioValido());
 		assertFalse(sinEstatura.esUsuarioValido());
-		assertFalse(nacioHoy.esUsuarioValido());
+		assertFalse(gaston.esUsuarioValido());
 	}
 
 	// Test de IMCD
-
 	@Test
 	public void juanchiTieneIMCDe2045() {
 		assertEquals(20.45, juanchi.indiceMasaCorporal(), 0.01);
@@ -319,12 +267,12 @@ public class UsuarioTest {
 
 	@Test
 	public void diabeticoCumpleIMCPesaMenosDe70() {
-		assertTrue(juanchi.sigueRutinaSaludable());
+		assertTrue(diabeticoConPesoMenorA70.sigueRutinaSaludable());
 	}
 
 	@Test
 	public void diabeticoCumpleIMCConRutinaAlta() {
-		assertTrue(usuarioDiabeticoRutinaAlata.sigueRutinaSaludable());
+		assertTrue(juanchi.sigueRutinaSaludable());
 	}
 
 	// Tests Creacion de Recetas
