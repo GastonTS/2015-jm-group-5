@@ -26,14 +26,13 @@ public class RecetaInadecuadaTest {
 	@Before
 	public void setUp() {
 		recetaParaNoVeganos = new Receta(Arrays.asList("chori", "lechuga"),
-				Arrays.asList(mayonesa), null,
-				0);
-		recetaParaTodos = new Receta(Arrays.asList("lechuga"), Arrays.asList(mayonesa),
-				null, 0);
-		recetaParaNoDiabeticos = new Receta(Arrays.asList("lechuga"), Arrays.asList(mayonesa, azucar),
-				null, 0);
-		recetaParaNoHipertensos = new Receta(Arrays.asList("lechuga"), Arrays.asList(mayonesa, sal),
-				null, 0);
+				Arrays.asList(mayonesa), null, 0);
+		recetaParaTodos = new Receta(Arrays.asList("lechuga"),
+				Arrays.asList(mayonesa), null, 0);
+		recetaParaNoDiabeticos = new Receta(Arrays.asList("lechuga"),
+				Arrays.asList(mayonesa, azucar), null, 0);
+		recetaParaNoHipertensos = new Receta(Arrays.asList("lechuga"),
+				Arrays.asList(mayonesa, sal), null, 0);
 	}
 
 	@Test

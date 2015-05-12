@@ -15,7 +15,7 @@ public class CompexionTest {
 	private Complexion complexionRamiro;
 	private Complexion complexionSinPeso;
 	private Complexion complexionSinEstatura;
-	
+
 	@Before
 	public void setUp() {
 		complexionGaston = new Complexion(65, 1.66);
@@ -26,7 +26,7 @@ public class CompexionTest {
 		complexionSinPeso = new Complexion(0, 1.83);
 		complexionSinEstatura = new Complexion(73, 0);
 	}
-	
+
 	@Test
 	public void juanchiTieneIMCDe2045() {
 		assertEquals(20.45, complexionJuanchi.indiceMasaCorporal(), 0.01);
@@ -52,17 +52,16 @@ public class CompexionTest {
 	public void gastonTieneIMCDe2358() {
 		assertEquals(23.58, complexionGaston.indiceMasaCorporal(), 0.01);
 	}
-	
+
 	@Test
 	public void esComplexionValida() {
 		assertTrue(complexionGaston.esComplexionValida());
 	}
-	
+
 	@Test
 	public void noEsComplexionValidaSinPeso() {
 		assertFalse(complexionSinPeso.esComplexionValida());
 	}
-	
 
 	@Test
 	public void noEsComplexionValidaSinEstatura() {

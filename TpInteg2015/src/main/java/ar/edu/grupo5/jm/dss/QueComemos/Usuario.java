@@ -67,7 +67,8 @@ public class Usuario {
 
 	// Punto 2.b
 	public boolean sigueRutinaSaludable() {
-		return 18 <= complexion.indiceMasaCorporal() && complexion.indiceMasaCorporal() <= 30
+		return 18 <= complexion.indiceMasaCorporal()
+				&& complexion.indiceMasaCorporal() <= 30
 				&& this.subsanaTodasLasCondiciones();
 	}
 

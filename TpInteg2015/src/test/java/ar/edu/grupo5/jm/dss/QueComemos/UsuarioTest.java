@@ -19,27 +19,17 @@ import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Rutina;
 
 public class UsuarioTest {
 
-	private Usuario leandro;
 	private Usuario gustavo;
-	private Usuario ramiro;
 	private Usuario gaston;
 	private Usuario juanchi;
-	private Usuario diabeticoConPesoMenorA70;
 
 	private DatosPersonales datosPersonalesMock = mock(DatosPersonales.class);
 
 	private Complexion complexionMock = mock(Complexion.class);
-	
-	private Vegano condicionVegano = new Vegano();
-	private Celiaco condicionCeliaco = new Celiaco();
-	private Diabetico condicionDiabetico = new Diabetico();
 
-	private Collection<String> preferenciaFruta;
-	private Collection<String> preferenciasVariadas;
+	private Collection<String> preferenciaFruta = new ArrayList<String>();
+	private Collection<String> preferenciasVariadas = new ArrayList<String>();
 
-	private Collection<CondicionDeSalud> coleccionCondicionVegano;
-	private Collection<CondicionDeSalud> coleccionCondicionCeliaco;
-	private Collection<CondicionDeSalud> coleccionCondicionDiabetico;
 	private Collection<CondicionDeSalud> condiciones = new ArrayList<CondicionDeSalud>();
 	private CondicionDeSalud hippie = mock(CondicionDeSalud.class);
 	private CondicionDeSalud corporativo = mock(CondicionDeSalud.class);
@@ -53,10 +43,9 @@ public class UsuarioTest {
 
 	private Collection<Receta> recetasPublicas = new ArrayList<Receta>();
 	private Collection<Receta> recetasGaston = new ArrayList<Receta>();
-	private Collection<Receta> recetasJuanchi = new ArrayList<Receta>();// Queda
-																		// sin
-																		// recetas
 	private Collection<Receta> recetasGustavo = new ArrayList<Receta>();
+	// Juanchi queda sin recetas
+	private Collection<Receta> recetasJuanchi = new ArrayList<Receta>();
 
 	@Before
 	public void setUp() {
@@ -68,15 +57,7 @@ public class UsuarioTest {
 		recetasGustavo.add(choripanMock);
 		recetasGaston.add(panchoMock);
 
-		coleccionCondicionVegano = new ArrayList<CondicionDeSalud>();
-		coleccionCondicionVegano.add(condicionVegano);
-		coleccionCondicionCeliaco = new ArrayList<CondicionDeSalud>();
-		coleccionCondicionCeliaco.add(condicionCeliaco);
-		coleccionCondicionDiabetico = new ArrayList<CondicionDeSalud>();
-		coleccionCondicionDiabetico.add(condicionDiabetico);
-		preferenciaFruta = new ArrayList<String>();
 		preferenciaFruta.add("fruta");
-		preferenciasVariadas = new ArrayList<String>();
 		preferenciasVariadas.add("fruta");
 		preferenciasVariadas.add("semillas");
 		preferenciasVariadas.add("champignones");
@@ -84,22 +65,10 @@ public class UsuarioTest {
 		Usuario.setRecetasPublicas(recetasPublicas);
 		gustavo = new Usuario(datosPersonalesMock, complexionMock, null,
 				recetasGustavo, condiciones, Rutina.MEDIANA);
-		// es Vegano con preferencia fruta
-		leandro = new Usuario(datosPersonalesMock, complexionMock,
-				preferenciaFruta, null, coleccionCondicionVegano,
-				Rutina.MEDIANA);
-		// Celiaco
-		ramiro = new Usuario(datosPersonalesMock, complexionMock, null, null,
-				coleccionCondicionCeliaco, Rutina.MEDIANA);
-		// No tiene Rutina
 		gaston = new Usuario(datosPersonalesMock, complexionMock, null,
 				recetasGaston, null, null);
-		// Tiene rutina ALTA y es Diabetico
-		juanchi = new Usuario(datosPersonalesMock, complexionMock, null,
-				recetasJuanchi, coleccionCondicionDiabetico, Rutina.ALTA);
-		diabeticoConPesoMenorA70 = new Usuario(datosPersonalesMock,
-				complexionMock, null, recetasJuanchi,
-				coleccionCondicionDiabetico, Rutina.MEDIANA);
+		juanchi = new Usuario(datosPersonalesMock, complexionMock,
+				preferenciaFruta, recetasJuanchi, null, null);
 
 	}
 
@@ -115,7 +84,6 @@ public class UsuarioTest {
 												// refactorizarse para que no se
 												// puedan crear usuarios
 												// invalidos
-
 
 		verify(complexionMock, times(1)).esComplexionValida();
 		verify(hippie, times(1)).esUsuarioValido(any(Usuario.class));
@@ -163,7 +131,7 @@ public class UsuarioTest {
 	@Test
 	public void sigueRutinaSaludableSinCondiciones() {
 		when(complexionMock.indiceMasaCorporal()).thenReturn(20.0);
-		
+
 		assertTrue(gaston.sigueRutinaSaludable());
 	}
 
@@ -173,9 +141,8 @@ public class UsuarioTest {
 		when(hippie.subsanaCondicion(any(Usuario.class))).thenReturn(true);
 		when(corporativo.subsanaCondicion(any(Usuario.class)))
 				.thenReturn(false);
-		
-		assertFalse(gustavo.sigueRutinaSaludable());
 
+		assertFalse(gustavo.sigueRutinaSaludable());
 
 		verify(complexionMock, times(2)).indiceMasaCorporal();
 		verify(hippie, times(1)).subsanaCondicion(any(Usuario.class));
@@ -185,9 +152,8 @@ public class UsuarioTest {
 	@Test
 	public void noSigueRutinaSaludableSiNoTieneICMMenorA18() {
 		when(complexionMock.indiceMasaCorporal()).thenReturn(15.0);
-		
+
 		assertFalse(gaston.sigueRutinaSaludable());
-		
 
 		verify(complexionMock, times(1)).indiceMasaCorporal();
 	}
@@ -195,60 +161,19 @@ public class UsuarioTest {
 	@Test
 	public void noSigueRutinaSaludableSiNoTieneICMMayorA30() {
 		when(complexionMock.indiceMasaCorporal()).thenReturn(35.0);
-		
+
 		assertFalse(gaston.sigueRutinaSaludable());
-		
 
 		verify(complexionMock, times(2)).indiceMasaCorporal();
 	}
 
 	public void tieneAlgunaDeEstasPreferenciasTest() {
-		assertTrue(leandro.tieneAlgunaDeEstasPreferencias(preferenciasVariadas));
+		assertTrue(juanchi.tieneAlgunaDeEstasPreferencias(preferenciasVariadas));
 	}
 
 	@Test
 	public void usuarioVeganoPrefiereFruta() {
-		assertTrue(leandro.tienePreferencia("fruta"));
-	}
-
-	@Test
-	public void veganoQueLeGustanLAsFrutas() {
-		when(complexionMock.indiceMasaCorporal()).thenReturn(20.0);
-		
-		assertTrue(leandro.sigueRutinaSaludable());
-		
-
-		verify(complexionMock, times(2)).indiceMasaCorporal();
-	}
-
-	@Test
-	public void celiacoCumpleSiCumpleIMCD() {
-		when(complexionMock.indiceMasaCorporal()).thenReturn(20.0);
-		
-		assertTrue(ramiro.sigueRutinaSaludable());
-		
-
-		verify(complexionMock, times(2)).indiceMasaCorporal();
-	}
-
-	@Test
-	public void diabeticoCumpleIMCPesaMenosDe70() {
-		when(complexionMock.indiceMasaCorporal()).thenReturn(20.0);
-		
-		assertTrue(diabeticoConPesoMenorA70.sigueRutinaSaludable());
-
-		verify(complexionMock, times(2)).indiceMasaCorporal();
-	}
-
-	@Test
-	public void diabeticoCumpleIMCConRutinaAlta() {
-		when(complexionMock.indiceMasaCorporal()).thenReturn(20.0);
-		when(complexionMock.getPeso()).thenReturn(75.0);
-		
-		assertTrue(juanchi.sigueRutinaSaludable());
-		
-		verify(complexionMock, times(1)).getPeso();
-		verify(complexionMock, times(2)).indiceMasaCorporal();
+		assertTrue(juanchi.tienePreferencia("fruta"));
 	}
 
 	// Tests Creacion de Recetas

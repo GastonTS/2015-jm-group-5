@@ -9,9 +9,9 @@ public class Receta {
 	private double cantCalorias;
 	private Collection<Receta> subRecetas;
 
-	public Receta(Collection<String> unosIngredientes, Collection<Condimentacion> unasCondimentaciones,
-			Collection<Receta> unasSubRecetas,
-			double unasCantCalorias) {
+	public Receta(Collection<String> unosIngredientes,
+			Collection<Condimentacion> unasCondimentaciones,
+			Collection<Receta> unasSubRecetas, double unasCantCalorias) {
 		ingredientes = unosIngredientes;
 		condimentaciones = unasCondimentaciones;
 		subRecetas = unasSubRecetas;

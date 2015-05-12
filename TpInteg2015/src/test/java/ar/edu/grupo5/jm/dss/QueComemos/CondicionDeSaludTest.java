@@ -8,7 +8,7 @@ import static org.junit.Assert.assertFalse;
 
 import static org.mockito.Mockito.*;
 
-public class CondicionesPreexistentesTest {
+public class CondicionDeSaludTest {
 
 	private Usuario usuarioFalso;
 	private Receta recetaFalsa;
@@ -90,7 +90,7 @@ public class CondicionesPreexistentesTest {
 	}
 
 	@Test
-	public void UsuarioNoSubsanaCondicionDiabetic() {
+	public void UsuarioNoSubsanaCondicionDiabetico() {
 		when(usuarioFalso.getPeso()).thenReturn(85.00);
 		when(usuarioFalso.tieneRutinaActiva()).thenReturn(false);
 

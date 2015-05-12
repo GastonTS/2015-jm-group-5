@@ -4,11 +4,11 @@ public class Complexion {
 	private double peso;
 	private double estatura;
 
-	public Complexion(double unPeso, double unaEstatura){
+	public Complexion(double unPeso, double unaEstatura) {
 		peso = unPeso;
 		estatura = unaEstatura;
 	}
-	
+
 	public double indiceMasaCorporal() {
 		return peso / Math.pow(estatura, 2);
 	}
