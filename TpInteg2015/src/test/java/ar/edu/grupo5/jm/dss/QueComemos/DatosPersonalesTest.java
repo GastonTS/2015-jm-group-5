@@ -10,13 +10,10 @@ import org.junit.Test;
 
 public class DatosPersonalesTest {
 
-	String nombre;
-	String sexo;
-	LocalDate fechaDeNacimiento;
-	DatosPersonales datosPersonalesValidos;
-	DatosPersonales nombreCorto;
-	DatosPersonales sinSexo;
-	DatosPersonales nacidoHoy;
+	private DatosPersonales datosPersonalesValidos;
+	private DatosPersonales nombreCorto;
+	private DatosPersonales sinSexo;
+	private DatosPersonales nacidoHoy;
 
 	@Before
 	public void setUp() {

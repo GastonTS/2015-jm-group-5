@@ -65,14 +65,9 @@ public class Usuario {
 		return !preferenciasAlimenticias.isEmpty();
 	}
 
-	// Punto 2.a
-	public double indiceMasaCorporal() {
-		return complexion.indiceMasaCorporal();
-	}
-
 	// Punto 2.b
 	public boolean sigueRutinaSaludable() {
-		return 18 <= indiceMasaCorporal() && indiceMasaCorporal() <= 30
+		return 18 <= complexion.indiceMasaCorporal() && complexion.indiceMasaCorporal() <= 30
 				&& this.subsanaTodasLasCondiciones();
 	}
 

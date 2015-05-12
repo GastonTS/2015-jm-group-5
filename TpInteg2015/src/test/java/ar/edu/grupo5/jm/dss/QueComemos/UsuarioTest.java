@@ -1,6 +1,5 @@
 package ar.edu.grupo5.jm.dss.QueComemos;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
@@ -27,24 +26,10 @@ public class UsuarioTest {
 	private Usuario juanchi;
 	private Usuario diabeticoConPesoMenorA70;
 
-	private Usuario sinPeso;
-	private Usuario sinEstatura;
-
-	private Usuario demasiadoICM;
-	private Usuario pocoICM;
-
 	private DatosPersonales datosPersonalesMock = mock(DatosPersonales.class);
 
-	private Complexion complexionLeandro;
-	private Complexion complexionGustavo;
-	private Complexion complexionRamiro;
-	private Complexion complexionGaston;
-	private Complexion complexionJuanchi;
-	private Complexion complexionSinPeso;
-	private Complexion complexionSinEstatura;
-	private Complexion complexionDemasiadoIMC;
-	private Complexion complexionPocoIMC;
-
+	private Complexion complexionMock = mock(Complexion.class);
+	
 	private Vegano condicionVegano = new Vegano();
 	private Celiaco condicionCeliaco = new Celiaco();
 	private Diabetico condicionDiabetico = new Diabetico();
@@ -96,51 +81,32 @@ public class UsuarioTest {
 		preferenciasVariadas.add("semillas");
 		preferenciasVariadas.add("champignones");
 
-		// Complexiones
-		complexionRamiro = new Complexion(63, 1.75);
-		complexionGaston = new Complexion(65, 1.66);
-		complexionGustavo = new Complexion(73, 1.83);
-		complexionJuanchi = new Complexion(70, 1.85);
-		complexionLeandro = new Complexion(79, 1.78);
-		complexionSinPeso = new Complexion(0, 1.83);
-		complexionSinEstatura = new Complexion(73, 0);
-		complexionDemasiadoIMC = new Complexion(101, 1.83);
-		complexionPocoIMC = new Complexion(60, 1.83);
-
 		Usuario.setRecetasPublicas(recetasPublicas);
-		gustavo = new Usuario(datosPersonalesMock, complexionGustavo, null,
+		gustavo = new Usuario(datosPersonalesMock, complexionMock, null,
 				recetasGustavo, condiciones, Rutina.MEDIANA);
 		// es Vegano con preferencia fruta
-		leandro = new Usuario(datosPersonalesMock, complexionLeandro,
+		leandro = new Usuario(datosPersonalesMock, complexionMock,
 				preferenciaFruta, null, coleccionCondicionVegano,
 				Rutina.MEDIANA);
 		// Celiaco
-		ramiro = new Usuario(datosPersonalesMock, complexionRamiro, null, null,
+		ramiro = new Usuario(datosPersonalesMock, complexionMock, null, null,
 				coleccionCondicionCeliaco, Rutina.MEDIANA);
 		// No tiene Rutina
-		gaston = new Usuario(datosPersonalesMock, complexionGaston, null,
+		gaston = new Usuario(datosPersonalesMock, complexionMock, null,
 				recetasGaston, null, null);
 		// Tiene rutina ALTA y es Diabetico
-		juanchi = new Usuario(datosPersonalesMock, complexionJuanchi, null,
+		juanchi = new Usuario(datosPersonalesMock, complexionMock, null,
 				recetasJuanchi, coleccionCondicionDiabetico, Rutina.ALTA);
 		diabeticoConPesoMenorA70 = new Usuario(datosPersonalesMock,
-				complexionGaston, null, recetasJuanchi,
+				complexionMock, null, recetasJuanchi,
 				coleccionCondicionDiabetico, Rutina.MEDIANA);
-
-		sinPeso = new Usuario(datosPersonalesMock, complexionSinPeso, null,
-				null, new ArrayList<CondicionDeSalud>(), Rutina.MEDIANA);
-		sinEstatura = new Usuario(datosPersonalesMock, complexionSinEstatura,
-				null, null, new ArrayList<CondicionDeSalud>(), Rutina.MEDIANA);
-		demasiadoICM = new Usuario(datosPersonalesMock, complexionDemasiadoIMC,
-				null, null, condiciones, Rutina.MEDIANA);
-		pocoICM = new Usuario(datosPersonalesMock, complexionPocoIMC, null,
-				null, condiciones, Rutina.MEDIANA);
 
 	}
 
 	// Test de Validez de usuario
 	@Test
 	public void gustavoEsValido() {
+		when(complexionMock.esComplexionValida()).thenReturn(true);
 		when(datosPersonalesMock.sonValidos()).thenReturn(true);
 		when(hippie.esUsuarioValido(any(Usuario.class))).thenReturn(true);
 		when(corporativo.esUsuarioValido(any(Usuario.class))).thenReturn(true);
@@ -150,6 +116,8 @@ public class UsuarioTest {
 												// puedan crear usuarios
 												// invalidos
 
+
+		verify(complexionMock, times(1)).esComplexionValida();
 		verify(hippie, times(1)).esUsuarioValido(any(Usuario.class));
 		verify(corporativo, times(1)).esUsuarioValido(any(Usuario.class));
 	}
@@ -175,42 +143,14 @@ public class UsuarioTest {
 	}
 
 	@Test
-	public void siNoCumplenAlgunaOtraCondicionSonInvalidos() {
-		assertFalse(sinPeso.esUsuarioValido());
-		assertFalse(sinEstatura.esUsuarioValido());
+	public void siNoTieneRutinaEsInvalidos() {
 		assertFalse(gaston.esUsuarioValido());
-	}
-
-	// Test de IMCD
-	@Test
-	public void juanchiTieneIMCDe2045() {
-		assertEquals(20.45, juanchi.indiceMasaCorporal(), 0.01);
-	}
-
-	@Test
-	public void gustavoTieneIMCDe2180() {
-		assertEquals(21.80, gustavo.indiceMasaCorporal(), 0.01);
-
-	}
-
-	@Test
-	public void leandroTieneIMCDe2493() {
-		assertEquals(24.93, leandro.indiceMasaCorporal(), 0.01);
-	}
-
-	@Test
-	public void ramiroTieneIMCDe2057() {
-		assertEquals(20.57, ramiro.indiceMasaCorporal(), 0.01);
-	}
-
-	@Test
-	public void gastonTieneIMCDe2358() {
-		assertEquals(23.58, gaston.indiceMasaCorporal(), 0.01);
 	}
 
 	// Test de Rutina saludable
 	@Test
 	public void sigueRutinaSaludableConCondiciones() {
+		when(complexionMock.indiceMasaCorporal()).thenReturn(20.0);
 		when(hippie.subsanaCondicion(any(Usuario.class))).thenReturn(true);
 		when(corporativo.subsanaCondicion(any(Usuario.class))).thenReturn(true);
 
@@ -222,28 +162,44 @@ public class UsuarioTest {
 
 	@Test
 	public void sigueRutinaSaludableSinCondiciones() {
+		when(complexionMock.indiceMasaCorporal()).thenReturn(20.0);
+		
 		assertTrue(gaston.sigueRutinaSaludable());
 	}
 
 	@Test
 	public void noSigueRutinaSaludableSiNoSubsanaUnaCondicion() {
+		when(complexionMock.indiceMasaCorporal()).thenReturn(20.0);
 		when(hippie.subsanaCondicion(any(Usuario.class))).thenReturn(true);
 		when(corporativo.subsanaCondicion(any(Usuario.class)))
 				.thenReturn(false);
+		
 		assertFalse(gustavo.sigueRutinaSaludable());
 
+
+		verify(complexionMock, times(2)).indiceMasaCorporal();
 		verify(hippie, times(1)).subsanaCondicion(any(Usuario.class));
 		verify(corporativo, times(1)).subsanaCondicion(any(Usuario.class));
 	}
 
 	@Test
 	public void noSigueRutinaSaludableSiNoTieneICMMenorA18() {
-		assertFalse(pocoICM.sigueRutinaSaludable());
+		when(complexionMock.indiceMasaCorporal()).thenReturn(15.0);
+		
+		assertFalse(gaston.sigueRutinaSaludable());
+		
+
+		verify(complexionMock, times(1)).indiceMasaCorporal();
 	}
 
 	@Test
 	public void noSigueRutinaSaludableSiNoTieneICMMayorA30() {
-		assertFalse(demasiadoICM.sigueRutinaSaludable());
+		when(complexionMock.indiceMasaCorporal()).thenReturn(35.0);
+		
+		assertFalse(gaston.sigueRutinaSaludable());
+		
+
+		verify(complexionMock, times(2)).indiceMasaCorporal();
 	}
 
 	public void tieneAlgunaDeEstasPreferenciasTest() {
@@ -257,22 +213,42 @@ public class UsuarioTest {
 
 	@Test
 	public void veganoQueLeGustanLAsFrutas() {
+		when(complexionMock.indiceMasaCorporal()).thenReturn(20.0);
+		
 		assertTrue(leandro.sigueRutinaSaludable());
+		
+
+		verify(complexionMock, times(2)).indiceMasaCorporal();
 	}
 
 	@Test
 	public void celiacoCumpleSiCumpleIMCD() {
+		when(complexionMock.indiceMasaCorporal()).thenReturn(20.0);
+		
 		assertTrue(ramiro.sigueRutinaSaludable());
+		
+
+		verify(complexionMock, times(2)).indiceMasaCorporal();
 	}
 
 	@Test
 	public void diabeticoCumpleIMCPesaMenosDe70() {
+		when(complexionMock.indiceMasaCorporal()).thenReturn(20.0);
+		
 		assertTrue(diabeticoConPesoMenorA70.sigueRutinaSaludable());
+
+		verify(complexionMock, times(2)).indiceMasaCorporal();
 	}
 
 	@Test
 	public void diabeticoCumpleIMCConRutinaAlta() {
+		when(complexionMock.indiceMasaCorporal()).thenReturn(20.0);
+		when(complexionMock.getPeso()).thenReturn(75.0);
+		
 		assertTrue(juanchi.sigueRutinaSaludable());
+		
+		verify(complexionMock, times(1)).getPeso();
+		verify(complexionMock, times(2)).indiceMasaCorporal();
 	}
 
 	// Tests Creacion de Recetas
