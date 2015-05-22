@@ -53,7 +53,6 @@ public class UsuarioTest {
 		condiciones.add(corporativo);
 
 		recetasPublicas.add(ensaladaMock);
-		recetasPublicas.add(panchoMock);
 		recetasGustavo.add(choripanMock);
 		recetasGaston.add(panchoMock);
 
@@ -186,6 +185,16 @@ public class UsuarioTest {
 		verify(recetaMock, times(1)).esValida();
 	}
 
+	
+	@Test(expected = NoPuedeAccederARecetaException.class)
+	public void noPuedeCrearRecetaConSubRecetasSinAccesoAEllas() {
+
+		gustavo.crearRecetaConSubRecetas(recetaMock,
+				Arrays.asList(panchoMock, ensaladaMock));
+
+		assertFalse(gustavo.esRecetaPropia(recetaMock));
+	}
+	
 	@Test
 	public void gustavoCreaRecetaConSubrecetas() {
 		when(recetaMock.esValida()).thenReturn(true);

@@ -153,7 +153,15 @@ public class Usuario {
 	// Punto 5
 	public void crearRecetaConSubRecetas(Receta unaReceta,
 			Collection<Receta> unasSubRecetas) {
-		unaReceta.agregarSubRecetas(unasSubRecetas);
-		crearReceta(unaReceta);
+		if (unasSubRecetas.stream().allMatch(unaSubReceta -> puedeAcceder(unaSubReceta))){
+			unaReceta.agregarSubRecetas(unasSubRecetas);
+			crearReceta(unaReceta);
+		}
+		else{
+			throw new NoPuedeAccederARecetaException(
+				"No puede agregar subrecetas a las que no tenga permiso de acceder",
+				new RuntimeException());
+	}
+		
 	}
 }
