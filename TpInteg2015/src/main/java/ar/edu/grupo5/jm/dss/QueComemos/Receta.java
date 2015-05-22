@@ -2,6 +2,7 @@ package ar.edu.grupo5.jm.dss.QueComemos;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
+import java.util.ArrayList;
 
 public class Receta {
 	private Collection<String> ingredientes;
@@ -12,9 +13,25 @@ public class Receta {
 	public Receta(Collection<String> unosIngredientes,
 			Collection<Condimentacion> unasCondimentaciones,
 			Collection<Receta> unasSubRecetas, double unasCantCalorias) {
-		ingredientes = unosIngredientes;
-		condimentaciones = unasCondimentaciones;
-		subRecetas = unasSubRecetas;
+		
+		if(unosIngredientes != null) {
+			ingredientes = unosIngredientes;	
+		} else {
+			ingredientes = new ArrayList<String>();
+		}
+		
+		if(unasCondimentaciones != null) {
+			condimentaciones = unasCondimentaciones;
+		} else {
+			condimentaciones = new ArrayList<Condimentacion>();
+		}
+			
+		if (unasSubRecetas != null) {
+			subRecetas = unasSubRecetas;
+		} else {
+			subRecetas = new ArrayList<Receta>();
+		}
+		
 		cantCalorias = unasCantCalorias;
 
 	}
@@ -28,7 +45,7 @@ public class Receta {
 	}
 
 	private boolean tieneAlMenosUnIngrediente() {
-		return !ingredientes.isEmpty();
+		return !getIngredientesTotales().isEmpty();
 	}
 
 	private boolean totalCaloriasEntre(int minimo, int maximo) {
@@ -36,21 +53,40 @@ public class Receta {
 	}
 
 	public boolean tenesAlgoDe(Collection<String> condimentosProhibidos) {
-		return condimentaciones.stream().anyMatch(
+		return getCondimentacionesTotales().stream().anyMatch(
 				condimentacion -> condimentacion
 						.tieneCondimentoUnoDe(condimentosProhibidos));
 	}
 
 	public boolean tenesMasDe(Condimentacion unaCondimentacion) {
-		return condimentaciones.stream().anyMatch(
+		return getCondimentacionesTotales().stream().anyMatch(
 				condimentacion -> condimentacion
 						.mayorCantidadDeMismoCondimentoQue(unaCondimentacion));
 	}
 
 	public boolean tieneAlgunIngredienteDeEstos(
 			Collection<String> ingredientesProhibidas) {
-		return ingredientesProhibidas.stream().anyMatch(
-				ingProhibido -> ingredientes.contains(ingProhibido));
+		
+		return getIngredientesTotales().stream().anyMatch(
+				ingrediente -> ingredientesProhibidas.contains(ingrediente));
+	}
+	
+	private Collection<String> getIngredientesTotales() {
+		Collection<String> auxIngredientes = new ArrayList<String>();
+		subRecetas.stream().forEach(
+				subReceta -> auxIngredientes.addAll(subReceta
+						.getIngredientesTotales()));
+		auxIngredientes.addAll(ingredientes);
+		return auxIngredientes;
+	}
+	
+	private Collection<Condimentacion> getCondimentacionesTotales() {
+		Collection<Condimentacion> auxCondimentaciones = new ArrayList<Condimentacion>();
+		subRecetas.stream().forEach(
+				subReceta -> auxCondimentaciones.addAll(subReceta
+						.getCondimentacionesTotales()));
+		auxCondimentaciones.addAll(condimentaciones);
+		return auxCondimentaciones;
 	}
 
 	public void agregarSubRecetas(Collection<Receta> unasSubRecetas) {
