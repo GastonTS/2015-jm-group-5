@@ -1,5 +1,6 @@
 package ar.edu.grupo5.jm.dss.QueComemos;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 public class Usuario {
@@ -24,10 +25,22 @@ public class Usuario {
 			Collection<Receta> unasRecetasPropias,
 			Collection<CondicionDeSalud> unasCondicionesDeSalud,
 			Rutina unaRutina) {
+		
 		datosPersonales = unosDatosPersonales;
 		complexion = unaComplexion;
-		preferenciasAlimenticias = unasPreferenciasAlimenticias;
-		recetasPropias = unasRecetasPropias;
+		
+		if(unasPreferenciasAlimenticias != null) {
+			preferenciasAlimenticias = unasPreferenciasAlimenticias;
+		} else {
+			preferenciasAlimenticias = new ArrayList<String>();
+		}
+		
+		if(unasRecetasPropias != null) {
+			recetasPropias = unasRecetasPropias;
+		} else {
+			recetasPropias = new ArrayList<Receta>();
+		}
+		
 		condicionesDeSalud = unasCondicionesDeSalud;
 		rutina = unaRutina;
 	}
