@@ -331,8 +331,22 @@ public class UsuarioTest {
 	public void consultaRecetasPublicas(){
 		Collection<Receta> resultadoConsulta = new ArrayList<Receta>();
 		resultadoConsulta.add(ensaladaMock);
+		when(grupoMock.consultarRecetas()).thenReturn(new ArrayList<Receta>());
 		
 		assertEquals(juanchi.consultarRecetas(), resultadoConsulta);
+		
+		verify(grupoMock, times(1)).consultarRecetas();
 	}
-
+	
+	@Test
+	public void consultaRecetasPublicasYDelGrupo(){
+		Collection<Receta> resultadoConsulta = new ArrayList<Receta>();
+		resultadoConsulta.add(panchoMock);
+		resultadoConsulta.add(ensaladaMock);
+		when(grupoMock.consultarRecetas()).thenReturn(Arrays.asList(panchoMock));
+		
+		assertEquals(juanchi.consultarRecetas(), resultadoConsulta);
+		
+		verify(grupoMock, times(1)).consultarRecetas();
+	}
 }

@@ -207,9 +207,17 @@ public class Usuario {
 				&& !sosRecetaInadecuadaParaMi(unaReceta);
 	}
 	
+	public Collection<Receta> consultarRecetasDeLosGrupos(){
+		Collection<Receta> resultadoConsulta = new ArrayList<Receta>();
+		grupos.forEach(unGrupo -> resultadoConsulta.addAll(unGrupo.consultarRecetas()));
+		
+		return resultadoConsulta;
+	}
+	
 	public Collection<Receta> consultarRecetas(/*Agregar Filtro*/){
 		Collection<Receta> resultadoConsulta = new ArrayList<Receta>();
 		resultadoConsulta.addAll(recetasPropias);
+		resultadoConsulta.addAll(consultarRecetasDeLosGrupos());
 		resultadoConsulta.addAll(recetasPublicas);
 		
 		return resultadoConsulta;		

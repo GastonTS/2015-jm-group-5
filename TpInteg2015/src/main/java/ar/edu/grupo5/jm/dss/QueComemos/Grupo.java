@@ -1,5 +1,6 @@
 package ar.edu.grupo5.jm.dss.QueComemos;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 public class Grupo {
@@ -13,6 +14,12 @@ public class Grupo {
 		integrantes = unosIntegrantes;
 	}
 
+	public Collection<Receta> consultarRecetas(){
+		Collection<Receta> resultadoConsulta = new ArrayList<Receta>();
+		integrantes.forEach(unIntegrante -> resultadoConsulta.addAll(unIntegrante.getRecetasPropias()));
+		return resultadoConsulta;		
+	}
+	
 	public boolean alguienTiene(Receta unaReceta) {
 		return integrantes.stream().anyMatch(
 				unUsuario -> unUsuario.getRecetasPropias().contains(unaReceta));
