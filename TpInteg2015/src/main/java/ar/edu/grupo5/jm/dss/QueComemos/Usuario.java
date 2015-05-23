@@ -7,6 +7,7 @@ public class Usuario {
 	private Complexion complexion;
 	private DatosPersonales datosPersonales;
 	private Collection<String> preferenciasAlimenticias;
+	private Collection<String> disgustosAlimenticios;
 	private Collection<CondicionDeSalud> condicionesDeSalud;
 
 	public enum Rutina {
@@ -22,26 +23,33 @@ public class Usuario {
 	public Usuario(DatosPersonales unosDatosPersonales,
 			Complexion unaComplexion,
 			Collection<String> unasPreferenciasAlimenticias,
+			Collection<String> unosDisgustosAlimenticios,
 			Collection<Receta> unasRecetasPropias,
 			Collection<CondicionDeSalud> unasCondicionesDeSalud,
 			Rutina unaRutina) {
-		
+
 		datosPersonales = unosDatosPersonales;
 		complexion = unaComplexion;
-		
-		if(unasPreferenciasAlimenticias != null) {
+
+		if (unasPreferenciasAlimenticias != null) {
 			preferenciasAlimenticias = unasPreferenciasAlimenticias;
 		} else {
 			preferenciasAlimenticias = new ArrayList<String>();
 		}
-		
-		if(unasRecetasPropias != null) {
+
+		if (unosDisgustosAlimenticios != null) {
+			disgustosAlimenticios = unosDisgustosAlimenticios;
+		} else {
+			disgustosAlimenticios = new ArrayList<String>();
+		}
+
+		if (unasRecetasPropias != null) {
 			recetasPropias = unasRecetasPropias;
 		} else {
 			recetasPropias = new ArrayList<Receta>();
 		}
-		
-		if(unasCondicionesDeSalud != null) {
+
+		if (unasCondicionesDeSalud != null) {
 			condicionesDeSalud = unasCondicionesDeSalud;
 		} else {
 			condicionesDeSalud = new ArrayList<CondicionDeSalud>();
@@ -170,15 +178,20 @@ public class Usuario {
 	// Punto 5
 	public void crearRecetaConSubRecetas(Receta unaReceta,
 			Collection<Receta> unasSubRecetas) {
-		if (unasSubRecetas.stream().allMatch(unaSubReceta -> puedeAcceder(unaSubReceta))){
+		if (unasSubRecetas.stream().allMatch(
+				unaSubReceta -> puedeAcceder(unaSubReceta))) {
 			unaReceta.agregarSubRecetas(unasSubRecetas);
 			crearReceta(unaReceta);
-		}
-		else{
+		} else {
 			throw new NoPuedeAccederARecetaException(
-				"No puede agregar subrecetas a las que no tenga permiso de acceder",
-				new RuntimeException());
+					"No puede agregar subrecetas a las que no tenga permiso de acceder",
+					new RuntimeException());
+		}
+
 	}
-		
+
+	public boolean puedeSugerirse(Receta unaReceta) {
+		return !unaReceta.tieneAlgunIngredienteDeEstos(disgustosAlimenticios)
+				&& !sosRecetaInadecuadaParaMi(unaReceta);
 	}
 }

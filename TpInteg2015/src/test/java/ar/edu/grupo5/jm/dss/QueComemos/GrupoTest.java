@@ -60,10 +60,10 @@ public class GrupoTest {
 		condicionHipertenso.add(hipertenso);
 
 		usuarioHipertenso = new Usuario(datosPersonalesMock, complexionMock,
-				null, recetasGustavo, condicionHipertenso, Rutina.MEDIANA);
-		gaston = new Usuario(datosPersonalesMock, complexionMock, null,
+				null, null, recetasGustavo, condicionHipertenso, Rutina.MEDIANA);
+		gaston = new Usuario(datosPersonalesMock, complexionMock, null, null,
 				recetasGaston, condicionSinNada, null);
-		juanchi = new Usuario(datosPersonalesMock, complexionMock, null,
+		juanchi = new Usuario(datosPersonalesMock, complexionMock, null, null,
 				recetasJuanchi, condicionSinNada, null);
 
 		integrantesGrupoConHipertenso.add(usuarioHipertenso);

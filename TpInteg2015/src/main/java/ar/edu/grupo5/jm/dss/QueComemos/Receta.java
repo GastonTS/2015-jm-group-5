@@ -13,25 +13,25 @@ public class Receta {
 	public Receta(Collection<String> unosIngredientes,
 			Collection<Condimentacion> unasCondimentaciones,
 			Collection<Receta> unasSubRecetas, double unasCantCalorias) {
-		
-		if(unosIngredientes != null) {
-			ingredientes = unosIngredientes;	
+
+		if (unosIngredientes != null) {
+			ingredientes = unosIngredientes;
 		} else {
 			ingredientes = new ArrayList<String>();
 		}
-		
-		if(unasCondimentaciones != null) {
+
+		if (unasCondimentaciones != null) {
 			condimentaciones = unasCondimentaciones;
 		} else {
 			condimentaciones = new ArrayList<Condimentacion>();
 		}
-			
+
 		if (unasSubRecetas != null) {
 			subRecetas = unasSubRecetas;
 		} else {
 			subRecetas = new ArrayList<Receta>();
 		}
-		
+
 		cantCalorias = unasCantCalorias;
 
 	}
@@ -66,11 +66,11 @@ public class Receta {
 
 	public boolean tieneAlgunIngredienteDeEstos(
 			Collection<String> ingredientesProhibidas) {
-		
+
 		return getIngredientesTotales().stream().anyMatch(
 				ingrediente -> ingredientesProhibidas.contains(ingrediente));
 	}
-	
+
 	private Collection<String> getIngredientesTotales() {
 		Collection<String> auxIngredientes = new ArrayList<String>();
 		subRecetas.stream().forEach(
@@ -79,7 +79,7 @@ public class Receta {
 		auxIngredientes.addAll(ingredientes);
 		return auxIngredientes;
 	}
-	
+
 	private Collection<Condimentacion> getCondimentacionesTotales() {
 		Collection<Condimentacion> auxCondimentaciones = new ArrayList<Condimentacion>();
 		subRecetas.stream().forEach(

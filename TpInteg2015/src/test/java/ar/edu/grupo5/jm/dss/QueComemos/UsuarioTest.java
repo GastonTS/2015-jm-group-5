@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Rutina;
@@ -27,6 +28,7 @@ public class UsuarioTest {
 
 	private Complexion complexionMock = mock(Complexion.class);
 
+	private Collection<String> disgustosGustavo = new ArrayList<String>();
 	private Collection<String> preferenciaFruta = new ArrayList<String>();
 	private Collection<String> preferenciasVariadas = new ArrayList<String>();
 
@@ -56,6 +58,7 @@ public class UsuarioTest {
 		recetasGustavo.add(choripanMock);
 		recetasGaston.add(panchoMock);
 
+		disgustosGustavo.add("McDonalds");
 		preferenciaFruta.add("fruta");
 		preferenciasVariadas.add("fruta");
 		preferenciasVariadas.add("semillas");
@@ -63,11 +66,11 @@ public class UsuarioTest {
 
 		Usuario.setRecetasPublicas(recetasPublicas);
 		gustavo = new Usuario(datosPersonalesMock, complexionMock, null,
-				recetasGustavo, condiciones, Rutina.MEDIANA);
-		gaston = new Usuario(datosPersonalesMock, complexionMock, null,
+				disgustosGustavo, recetasGustavo, condiciones, Rutina.MEDIANA);
+		gaston = new Usuario(datosPersonalesMock, complexionMock, null, null,
 				recetasGaston, null, null);
 		juanchi = new Usuario(datosPersonalesMock, complexionMock,
-				preferenciaFruta, recetasJuanchi, null, null);
+				preferenciaFruta, null, recetasJuanchi, null, null);
 
 	}
 
@@ -185,7 +188,6 @@ public class UsuarioTest {
 		verify(recetaMock, times(1)).esValida();
 	}
 
-	
 	@Test(expected = NoPuedeAccederARecetaException.class)
 	public void noPuedeCrearRecetaConSubRecetasSinAccesoAEllas() {
 
@@ -194,7 +196,7 @@ public class UsuarioTest {
 
 		assertFalse(gustavo.esRecetaPropia(recetaMock));
 	}
-	
+
 	@Test
 	public void gustavoCreaRecetaConSubrecetas() {
 		when(recetaMock.esValida()).thenReturn(true);
@@ -260,6 +262,46 @@ public class UsuarioTest {
 		gustavo.eliminarRecetaPropia(choripanMock);
 
 		assertTrue(gustavo.getRecetasPropias().isEmpty());
+	}
+
+	// Test de Sugerencias
+	@Test
+	public void seSugiereUnaRecetaSiNoDisgustaYEsAdecauda() {
+		when(hippie.esInadecuada(recetaMock)).thenReturn(false);
+		when(corporativo.esInadecuada(recetaMock)).thenReturn(false);
+		when(recetaMock.tieneAlgunIngredienteDeEstos(disgustosGustavo))
+				.thenReturn(false);
+
+		assertTrue(gustavo.puedeSugerirse(recetaMock));
+
+		verify(hippie, times(1)).esInadecuada(recetaMock);
+		verify(corporativo, times(1)).esInadecuada(recetaMock);
+		verify(recetaMock, times(1)).tieneAlgunIngredienteDeEstos(
+				disgustosGustavo);
+	}
+
+	@Test
+	public void noSeSugiereRecetaSiDisgusta() {
+		when(recetaMock.tieneAlgunIngredienteDeEstos(disgustosGustavo))
+				.thenReturn(true);
+
+		assertFalse(gustavo.puedeSugerirse(recetaMock));
+
+		verify(recetaMock, times(1)).tieneAlgunIngredienteDeEstos(
+				disgustosGustavo);
+	}
+
+	@Test
+	public void noSeSugiereRecetaSiEsInadecuada() {
+		when(hippie.esInadecuada(recetaMock)).thenReturn(true);
+		when(recetaMock.tieneAlgunIngredienteDeEstos(disgustosGustavo))
+				.thenReturn(false);
+
+		assertFalse(gustavo.puedeSugerirse(recetaMock));
+
+		verify(hippie, times(1)).esInadecuada(recetaMock);
+		verify(recetaMock, times(1)).tieneAlgunIngredienteDeEstos(
+				disgustosGustavo);
 	}
 
 }
