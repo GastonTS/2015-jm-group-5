@@ -282,6 +282,28 @@ public class UsuarioTest {
 
 	// Test de Sugerencias
 	@Test
+	public void unaRecetaDisgusta() {
+		when(recetaMock.tieneAlgunIngredienteDeEstos(disgustosGustavo))
+				.thenReturn(false);
+
+		assertTrue(gustavo.noLeDisgusta(recetaMock));
+
+		verify(recetaMock, times(1)).tieneAlgunIngredienteDeEstos(
+				disgustosGustavo);
+	}
+
+	@Test
+	public void unaRecetaNoDisgusta() {
+		when(recetaMock.tieneAlgunIngredienteDeEstos(disgustosGustavo))
+				.thenReturn(true);
+
+		assertFalse(gustavo.noLeDisgusta(recetaMock));
+
+		verify(recetaMock, times(1)).tieneAlgunIngredienteDeEstos(
+				disgustosGustavo);
+	}
+
+	@Test
 	public void seSugiereUnaRecetaSiNoDisgustaYEsAdecauda() {
 		when(hippie.esInadecuada(recetaMock)).thenReturn(false);
 		when(corporativo.esInadecuada(recetaMock)).thenReturn(false);

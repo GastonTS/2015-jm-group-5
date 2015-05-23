@@ -210,8 +210,7 @@ public class Usuario {
 	}
 
 	public boolean puedeSugerirse(Receta unaReceta) {
-		return !unaReceta.tieneAlgunIngredienteDeEstos(disgustosAlimenticios)
-				&& !sosRecetaInadecuadaParaMi(unaReceta);
+		return noLeDisgusta(unaReceta) && !sosRecetaInadecuadaParaMi(unaReceta);
 	}
 
 	public Collection<Receta> consultarRecetasDeLosGrupos() {
