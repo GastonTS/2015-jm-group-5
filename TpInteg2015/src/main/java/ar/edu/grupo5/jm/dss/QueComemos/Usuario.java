@@ -214,12 +214,16 @@ public class Usuario {
 		return resultadoConsulta;
 	}
 	
-	public Collection<Receta> consultarRecetas(/*Agregar Filtro*/){
+	public Collection<Receta> consultarRecetas(IFiltro unFiltro){
 		Collection<Receta> resultadoConsulta = new ArrayList<Receta>();
 		resultadoConsulta.addAll(recetasPropias);
 		resultadoConsulta.addAll(consultarRecetasDeLosGrupos());
 		resultadoConsulta.addAll(recetasPublicas);
 		
-		return resultadoConsulta;		
+		return unFiltro.filtrarRecetas(resultadoConsulta);
+	}
+	
+	public boolean teGusta(Receta unaReceta){
+		return unaReceta.tieneAlgunIngredienteDeEstos(disgustosAlimenticios);
 	}
 }

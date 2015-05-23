@@ -8,6 +8,10 @@ public class Receta {
 	private Collection<String> ingredientes;
 	private Collection<Condimentacion> condimentaciones;
 	private double cantCalorias;
+	public double getCantCalorias() {
+		return cantCalorias;
+	}
+
 	private Collection<Receta> subRecetas;
 
 	public Receta(Collection<String> unosIngredientes,

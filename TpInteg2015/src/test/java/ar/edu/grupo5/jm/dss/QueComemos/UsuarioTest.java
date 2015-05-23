@@ -50,6 +50,8 @@ public class UsuarioTest {
 	private Collection<Receta> recetasJuanchi = new ArrayList<Receta>();
 
 	private Grupo grupoMock = mock(Grupo.class);
+	
+	private SinFiltro sinFiltro = new SinFiltro();
 
 	@Before
 	public void setUp() {
@@ -324,7 +326,7 @@ public class UsuarioTest {
 		resultadoConsulta.add(panchoMock);
 		resultadoConsulta.add(ensaladaMock);
 		
-		assertEquals(gaston.consultarRecetas(), resultadoConsulta);
+		assertEquals(gaston.consultarRecetas(sinFiltro), resultadoConsulta);
 	}
 	
 	@Test
@@ -333,7 +335,7 @@ public class UsuarioTest {
 		resultadoConsulta.add(ensaladaMock);
 		when(grupoMock.consultarRecetas()).thenReturn(new ArrayList<Receta>());
 		
-		assertEquals(juanchi.consultarRecetas(), resultadoConsulta);
+		assertEquals(juanchi.consultarRecetas(sinFiltro), resultadoConsulta);
 		
 		verify(grupoMock, times(1)).consultarRecetas();
 	}
@@ -345,7 +347,7 @@ public class UsuarioTest {
 		resultadoConsulta.add(ensaladaMock);
 		when(grupoMock.consultarRecetas()).thenReturn(Arrays.asList(panchoMock));
 		
-		assertEquals(juanchi.consultarRecetas(), resultadoConsulta);
+		assertEquals(juanchi.consultarRecetas(sinFiltro), resultadoConsulta);
 		
 		verify(grupoMock, times(1)).consultarRecetas();
 	}
