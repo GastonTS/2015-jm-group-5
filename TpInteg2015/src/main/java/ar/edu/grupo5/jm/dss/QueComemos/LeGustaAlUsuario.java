@@ -12,7 +12,7 @@ public class LeGustaAlUsuario extends Filtro {
 	@Override
 	public Collection<Receta> filtrarRecetas(Collection<Receta> recetas) {
 		Collection<Receta> recetasParciales = recetas.stream()
-				.filter((unaReceta -> usuarioAConsiderar.teGusta(unaReceta)))
+				.filter((unaReceta -> usuarioAConsiderar.noLeDisgusta(unaReceta)))
 				.collect(Collectors.toList());
 
 		return subFiltro.filtrarRecetas(recetasParciales);

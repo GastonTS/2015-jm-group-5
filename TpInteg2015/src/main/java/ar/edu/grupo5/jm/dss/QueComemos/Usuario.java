@@ -229,8 +229,8 @@ public class Usuario {
 		return unFiltro.filtrarRecetas(resultadoConsulta);
 	}
 
-	public boolean teGusta(Receta unaReceta) {
-		return unaReceta.tieneAlgunIngredienteDeEstos(disgustosAlimenticios);
+	public boolean noLeDisgusta(Receta unaReceta) {
+		return !unaReceta.tieneAlgunIngredienteDeEstos(disgustosAlimenticios);
 	}
 
 	public void agregarAFavorita(Receta unaReceta) {

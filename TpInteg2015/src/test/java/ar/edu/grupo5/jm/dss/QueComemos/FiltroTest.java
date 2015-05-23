@@ -112,10 +112,10 @@ public class FiltroTest {
 
 	@Test
 	public void leGustaAlUsuarioSoloDevuelveLasQueLeGustan() {
-		when(usuarioMock.teGusta(guisoMock)).thenReturn(true);
-		when(usuarioMock.teGusta(ensaladaMock)).thenReturn(false);
-		when(usuarioMock.teGusta(panchoMock)).thenReturn(true);
-		when(usuarioMock.teGusta(vegetarianaMock)).thenReturn(false);
+		when(usuarioMock.noLeDisgusta(guisoMock)).thenReturn(true);
+		when(usuarioMock.noLeDisgusta(ensaladaMock)).thenReturn(false);
+		when(usuarioMock.noLeDisgusta(panchoMock)).thenReturn(true);
+		when(usuarioMock.noLeDisgusta(vegetarianaMock)).thenReturn(false);
 
 		Collection<Receta> sonAdecuadasParaUsuario = new ArrayList<Receta>();
 		sonAdecuadasParaUsuario.add(guisoMock);
@@ -124,10 +124,10 @@ public class FiltroTest {
 		assertEquals(leGustaAlUsuario.filtrarRecetas(recetas),
 				sonAdecuadasParaUsuario);
 
-		verify(usuarioMock, times(1)).teGusta(guisoMock);
-		verify(usuarioMock, times(1)).teGusta(ensaladaMock);
-		verify(usuarioMock, times(1)).teGusta(panchoMock);
-		verify(usuarioMock, times(1)).teGusta(vegetarianaMock);
+		verify(usuarioMock, times(1)).noLeDisgusta(guisoMock);
+		verify(usuarioMock, times(1)).noLeDisgusta(ensaladaMock);
+		verify(usuarioMock, times(1)).noLeDisgusta(panchoMock);
+		verify(usuarioMock, times(1)).noLeDisgusta(vegetarianaMock);
 
 	}
 
@@ -170,8 +170,8 @@ public class FiltroTest {
 		when(ensaladaMock.getCantCalorias()).thenReturn((double) 200);
 		when(panchoMock.getCantCalorias()).thenReturn((double) 500);
 		when(vegetarianaMock.getCantCalorias()).thenReturn((double) 400);
-		when(usuarioMock.teGusta(ensaladaMock)).thenReturn(true);
-		when(usuarioMock.teGusta(vegetarianaMock)).thenReturn(false);
+		when(usuarioMock.noLeDisgusta(ensaladaMock)).thenReturn(true);
+		when(usuarioMock.noLeDisgusta(vegetarianaMock)).thenReturn(false);
 
 		when(usuarioMock.sosRecetaInadecuadaParaMi(ensaladaMock)).thenReturn(
 				false);
@@ -197,8 +197,8 @@ public class FiltroTest {
 		verify(usuarioMock, times(1))
 				.sosRecetaInadecuadaParaMi(vegetarianaMock);
 
-		verify(usuarioMock, times(1)).teGusta(ensaladaMock);
-		verify(usuarioMock, times(1)).teGusta(vegetarianaMock);
+		verify(usuarioMock, times(1)).noLeDisgusta(ensaladaMock);
+		verify(usuarioMock, times(1)).noLeDisgusta(vegetarianaMock);
 
 		verify(ensaladaMock, times(1)).tieneAlgunIngredienteDeEstos(
 				Arrays.asList("lechon", "lomo", "salmon", "alcaparras"));
