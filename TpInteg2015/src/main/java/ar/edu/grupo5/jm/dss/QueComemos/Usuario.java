@@ -189,6 +189,8 @@ public class Usuario {
 	}
 
 	public void eliminarRecetaPropia(Receta unaReceta) {
+		if (recetasFavoritas.contains(unaReceta))
+			recetasFavoritas.remove(unaReceta);
 		recetasPropias.remove(unaReceta);
 	}
 
