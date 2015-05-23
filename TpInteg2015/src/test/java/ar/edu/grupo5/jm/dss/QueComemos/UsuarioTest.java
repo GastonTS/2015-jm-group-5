@@ -13,7 +13,6 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Rutina;

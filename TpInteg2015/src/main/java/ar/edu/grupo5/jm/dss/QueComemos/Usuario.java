@@ -9,6 +9,7 @@ public class Usuario {
 	private Collection<String> preferenciasAlimenticias;
 	private Collection<String> disgustosAlimenticios;
 	private Collection<CondicionDeSalud> condicionesDeSalud;
+	private Collection<Grupo> grupos;
 
 	public enum Rutina {
 		LEVE, NADA, MEDIANA, INTENSIVA, ALTA
@@ -30,6 +31,7 @@ public class Usuario {
 
 		datosPersonales = unosDatosPersonales;
 		complexion = unaComplexion;
+		grupos = new ArrayList<Grupo>();
 
 		if (unasPreferenciasAlimenticias != null) {
 			preferenciasAlimenticias = unasPreferenciasAlimenticias;
@@ -140,7 +142,13 @@ public class Usuario {
 
 	// Punto 4.a y 4.b
 	public boolean puedeAcceder(Receta unaReceta) {
-		return esRecetaPropia(unaReceta) || esRecetaPublica(unaReceta);
+		return esRecetaPropia(unaReceta) || esRecetaPublica(unaReceta)
+				|| esRecetaDeGrupo(unaReceta);
+	}
+
+	public boolean esRecetaDeGrupo(Receta unaReceta) {
+		return grupos.stream().anyMatch(
+				unGrupo -> unGrupo.alguienTiene(unaReceta));
 	}
 
 	public boolean esRecetaPropia(Receta unaReceta) {

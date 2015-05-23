@@ -13,6 +13,11 @@ public class Grupo {
 		integrantes = unosIntegrantes;
 	}
 
+	public boolean alguienTiene(Receta unaReceta) {
+		return integrantes.stream().anyMatch(
+				unUsuario -> unUsuario.getRecetasPropias().contains(unaReceta));
+	}
+
 	public boolean puedeSugerirse(Receta unaReceta) {
 		return unaReceta.tieneAlgunIngredienteDeEstos(preferenciasAlimenticias)
 				&& esApropiadaParaTodosSusIntegrantes(unaReceta);
