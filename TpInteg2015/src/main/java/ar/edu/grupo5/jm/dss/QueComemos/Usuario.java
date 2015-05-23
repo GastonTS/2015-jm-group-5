@@ -41,7 +41,11 @@ public class Usuario {
 			recetasPropias = new ArrayList<Receta>();
 		}
 		
-		condicionesDeSalud = unasCondicionesDeSalud;
+		if(unasCondicionesDeSalud != null) {
+			condicionesDeSalud = unasCondicionesDeSalud;
+		} else {
+			condicionesDeSalud = new ArrayList<CondicionDeSalud>();
+		}
 		rutina = unaRutina;
 	}
 
