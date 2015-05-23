@@ -4,14 +4,11 @@ import java.util.Collection;
 
 public class Grupo {
 
-	private String nombre;
 	private Collection<String> preferenciasAlimenticias;
 	private Collection<Usuario> integrantes;
 
-	public Grupo(String unNombre,
-			Collection<String> unasPreferenciasAlimenticias,
+	public Grupo(Collection<String> unasPreferenciasAlimenticias,
 			Collection<Usuario> unosIntegrantes) {
-		nombre = unNombre;
 		preferenciasAlimenticias = unasPreferenciasAlimenticias;
 		integrantes = unosIntegrantes;
 	}
@@ -23,7 +20,7 @@ public class Grupo {
 
 	private boolean esApropiadaParaTodosSusIntegrantes(Receta unaReceta) {
 		return integrantes.stream().allMatch(
-				unIntegrante -> unIntegrante
+				unIntegrante -> !unIntegrante
 						.sosRecetaInadecuadaParaMi(unaReceta));
 	}
 }
