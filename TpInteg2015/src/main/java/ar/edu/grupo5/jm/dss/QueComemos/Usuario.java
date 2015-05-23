@@ -58,6 +58,10 @@ public class Usuario {
 		}
 		rutina = unaRutina;
 	}
+	
+	public void agregarGrupo(Grupo unGrupo){
+		grupos.add(unGrupo);
+	}
 
 	// Setter de variable de clase recetasPublicas
 	public static void setRecetasPublicas(Collection<Receta> recetas) {

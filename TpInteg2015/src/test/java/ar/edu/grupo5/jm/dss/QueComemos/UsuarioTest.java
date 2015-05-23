@@ -48,6 +48,8 @@ public class UsuarioTest {
 	// Juanchi queda sin recetas
 	private Collection<Receta> recetasJuanchi = new ArrayList<Receta>();
 
+	private Grupo grupoMock = mock(Grupo.class);
+
 	@Before
 	public void setUp() {
 		condiciones.add(hippie);
@@ -70,7 +72,7 @@ public class UsuarioTest {
 				recetasGaston, null, null);
 		juanchi = new Usuario(datosPersonalesMock, complexionMock,
 				preferenciaFruta, null, recetasJuanchi, null, null);
-
+		juanchi.agregarGrupo(grupoMock);
 	}
 
 	// Test de Validez de usuario
@@ -221,6 +223,18 @@ public class UsuarioTest {
 		assertTrue(gustavo.puedeAcceder(choripanMock));
 		assertTrue(gustavo.puedeAcceder(ensaladaMock));
 		assertFalse(gaston.puedeAcceder(choripanMock));
+	}
+
+	@Test
+	public void accesoARecetasPorgrupo() {
+		when(grupoMock.alguienTiene(choripanMock)).thenReturn(true);
+		when(grupoMock.alguienTiene(panchoMock)).thenReturn(false);
+
+		assertTrue(juanchi.puedeAcceder(choripanMock));
+		assertFalse(juanchi.puedeAcceder(panchoMock));
+
+		verify(grupoMock, times(1)).alguienTiene(choripanMock);
+		verify(grupoMock, times(1)).alguienTiene(panchoMock);
 	}
 
 	// Tests Modificacion de Recetas
