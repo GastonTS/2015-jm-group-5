@@ -1,5 +1,6 @@
 package ar.edu.grupo5.jm.dss.QueComemos;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
@@ -315,6 +316,23 @@ public class UsuarioTest {
 		verify(hippie, times(1)).esInadecuada(recetaMock);
 		verify(recetaMock, times(1)).tieneAlgunIngredienteDeEstos(
 				disgustosGustavo);
+	}
+	
+	@Test
+	public void consultaRecetasPublicasYPrivadas(){
+		Collection<Receta> resultadoConsulta = new ArrayList<Receta>();
+		resultadoConsulta.add(panchoMock);
+		resultadoConsulta.add(ensaladaMock);
+		
+		assertEquals(gaston.consultarRecetas(), resultadoConsulta);
+	}
+	
+	@Test
+	public void consultaRecetasPublicas(){
+		Collection<Receta> resultadoConsulta = new ArrayList<Receta>();
+		resultadoConsulta.add(ensaladaMock);
+		
+		assertEquals(juanchi.consultarRecetas(), resultadoConsulta);
 	}
 
 }

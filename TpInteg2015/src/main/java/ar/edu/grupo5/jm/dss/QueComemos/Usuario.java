@@ -206,4 +206,12 @@ public class Usuario {
 		return !unaReceta.tieneAlgunIngredienteDeEstos(disgustosAlimenticios)
 				&& !sosRecetaInadecuadaParaMi(unaReceta);
 	}
+	
+	public Collection<Receta> consultarRecetas(/*Agregar Filtro*/){
+		Collection<Receta> resultadoConsulta = new ArrayList<Receta>();
+		resultadoConsulta.addAll(recetasPropias);
+		resultadoConsulta.addAll(recetasPublicas);
+		
+		return resultadoConsulta;		
+	}
 }
