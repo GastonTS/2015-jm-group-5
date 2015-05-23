@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -24,23 +23,22 @@ public class RecetaTest {
 			"condimento P/pollo", 40);
 	private Condimentacion aceite = new Condimentacion("Aceite de Maiz", 2);
 
-	Collection<String> ingredientesVacia = new ArrayList<String>();
-
 	@Before
 	public void setUp() {
 
-		recetaConMuchasCalorias = new Receta(
+		recetaConMuchasCalorias = new Receta("Muy calorica",
 				Arrays.asList("Algo super calorico"), null, null, 99999);
-		recetaSinIngredientes = new Receta(ingredientesVacia, null, null, 1000);
-		pure = new Receta(Arrays.asList("papas 2kg", "manteca 200gr"),
+		recetaSinIngredientes = new Receta("Sin Ingredientes",
+				new ArrayList<String>(), null, null, 1000);
+		pure = new Receta("Pure", Arrays.asList("papas 2kg", "manteca 200gr"),
 				Arrays.asList(sal, pimienta, nuezMoscada),
 				new ArrayList<Receta>(), 400);
-		ensalada = new Receta(Arrays.asList("Lechuga 2kg", "Cebolla 1.5kg",
-				"Tomate 200gr"), Arrays.asList(sal, aceite),
+		ensalada = new Receta("Ensalada", Arrays.asList("Lechuga 2kg",
+				"Cebolla 1.5kg", "Tomate 200gr"), Arrays.asList(sal, aceite),
 				new ArrayList<Receta>(), 40);
-		polloConPureOEnsalada = new Receta(Arrays.asList("pollo mediano"),
-				Arrays.asList(sal, condimentoParaPollo),
-				new ArrayList<Receta>(), 3000);
+		polloConPureOEnsalada = new Receta("Pollo Con Pure o Ensalada",
+				Arrays.asList("pollo mediano"), Arrays.asList(sal,
+						condimentoParaPollo), new ArrayList<Receta>(), 3000);
 
 	}
 

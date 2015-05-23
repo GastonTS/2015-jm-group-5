@@ -5,18 +5,30 @@ import java.util.stream.Collectors;
 import java.util.ArrayList;
 
 public class Receta {
+	private String nombre;
+
+	public String getNombre() {
+		return nombre;
+	}
+
 	private Collection<String> ingredientes;
 	private Collection<Condimentacion> condimentaciones;
 	private double cantCalorias;
+
 	public double getCantCalorias() {
 		return cantCalorias;
 	}
 
 	private Collection<Receta> subRecetas;
 
-	public Receta(Collection<String> unosIngredientes,
+	public Receta(String nombreReceta, Collection<String> unosIngredientes,
 			Collection<Condimentacion> unasCondimentaciones,
 			Collection<Receta> unasSubRecetas, double unasCantCalorias) {
+		if (nombreReceta != null) {
+			nombre = nombreReceta;
+		} else {
+			nombre = "";
+		}
 
 		if (unosIngredientes != null) {
 			ingredientes = unosIngredientes;
