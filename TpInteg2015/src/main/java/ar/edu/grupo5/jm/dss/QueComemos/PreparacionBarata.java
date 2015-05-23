@@ -6,8 +6,8 @@ import java.util.stream.Collectors;
 
 public class PreparacionBarata extends Filtro {
 
-	private Collection<String> ingredientesCaros = Arrays.asList("lechon",
-			"lomo", "salmon", "alcaparras");
+	private static final Collection<String> ingredientesCaros = Arrays.asList(
+			"lechon", "lomo", "salmon", "alcaparras");
 
 	public PreparacionBarata(IFiltro unFiltro) {
 		super(unFiltro);

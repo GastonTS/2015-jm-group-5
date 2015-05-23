@@ -17,6 +17,11 @@ public class Usuario {
 
 	private Rutina rutina;
 	private Collection<Receta> recetasPropias;
+	private Collection<Receta> recetasFavoritas;
+
+	public Collection<Receta> getRecetasFavoritas() {
+		return recetasFavoritas;
+	}
 
 	private static Collection<Receta> recetasPublicas;
 
@@ -32,7 +37,7 @@ public class Usuario {
 		datosPersonales = unosDatosPersonales;
 		complexion = unaComplexion;
 		grupos = new ArrayList<Grupo>();
-
+		recetasFavoritas = new ArrayList<Receta>();
 		if (unasPreferenciasAlimenticias != null) {
 			preferenciasAlimenticias = unasPreferenciasAlimenticias;
 		} else {
@@ -58,8 +63,8 @@ public class Usuario {
 		}
 		rutina = unaRutina;
 	}
-	
-	public void agregarGrupo(Grupo unGrupo){
+
+	public void agregarGrupo(Grupo unGrupo) {
 		grupos.add(unGrupo);
 	}
 
@@ -206,24 +211,29 @@ public class Usuario {
 		return !unaReceta.tieneAlgunIngredienteDeEstos(disgustosAlimenticios)
 				&& !sosRecetaInadecuadaParaMi(unaReceta);
 	}
-	
-	public Collection<Receta> consultarRecetasDeLosGrupos(){
+
+	public Collection<Receta> consultarRecetasDeLosGrupos() {
 		Collection<Receta> resultadoConsulta = new ArrayList<Receta>();
-		grupos.forEach(unGrupo -> resultadoConsulta.addAll(unGrupo.consultarRecetas()));
-		
+		grupos.forEach(unGrupo -> resultadoConsulta.addAll(unGrupo
+				.consultarRecetas()));
+
 		return resultadoConsulta;
 	}
-	
-	public Collection<Receta> consultarRecetas(IFiltro unFiltro){
+
+	public Collection<Receta> consultarRecetas(IFiltro unFiltro) {
 		Collection<Receta> resultadoConsulta = new ArrayList<Receta>();
 		resultadoConsulta.addAll(recetasPropias);
 		resultadoConsulta.addAll(consultarRecetasDeLosGrupos());
 		resultadoConsulta.addAll(recetasPublicas);
-		
+
 		return unFiltro.filtrarRecetas(resultadoConsulta);
 	}
-	
-	public boolean teGusta(Receta unaReceta){
+
+	public boolean teGusta(Receta unaReceta) {
 		return unaReceta.tieneAlgunIngredienteDeEstos(disgustosAlimenticios);
+	}
+
+	public void agregarAFavorita(Receta unaReceta) {
+		recetasFavoritas.add(unaReceta);
 	}
 }

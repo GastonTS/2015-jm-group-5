@@ -46,8 +46,8 @@ public class FiltroTest {
 
 	private OrdenadosPorCriterio ordenadosAlfabeticamente = new OrdenadosPorCriterio(
 			sinFiltro,
-			((receta1, receta2) -> (receta1.getNombre())
-					.compareTo(receta2.getNombre())));
+			((receta1, receta2) -> (receta1.getNombre()).compareTo(receta2
+					.getNombre())));
 
 	private SoloPares combinacionPostProcesadoConPre = new SoloPares(
 			new ExcesoDeCalorias(sinFiltro));
@@ -235,7 +235,7 @@ public class FiltroTest {
 
 		assertEquals(soloPares.filtrarRecetas(recetas), recetaSoloPares);
 	}
-	
+
 	@Test
 	public void ordenadosPorCalorias() {
 		when(guisoMock.getCantCalorias()).thenReturn((double) 550);
@@ -257,7 +257,7 @@ public class FiltroTest {
 		verify(panchoMock, times(4)).getCantCalorias();
 		verify(vegetarianaMock, times(2)).getCantCalorias();
 	}
-	
+
 	@Test
 	public void ordenadasAlfabeticamente() {
 		when(guisoMock.getNombre()).thenReturn("Guiso");
@@ -298,5 +298,5 @@ public class FiltroTest {
 		verify(panchoMock, times(1)).getCantCalorias();
 		verify(vegetarianaMock, times(1)).getCantCalorias();
 	}
-	
+
 }

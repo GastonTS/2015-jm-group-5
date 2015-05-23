@@ -50,7 +50,7 @@ public class UsuarioTest {
 	private Collection<Receta> recetasJuanchi = new ArrayList<Receta>();
 
 	private Grupo grupoMock = mock(Grupo.class);
-	
+
 	private SinFiltro sinFiltro = new SinFiltro();
 
 	@Before
@@ -319,36 +319,46 @@ public class UsuarioTest {
 		verify(recetaMock, times(1)).tieneAlgunIngredienteDeEstos(
 				disgustosGustavo);
 	}
-	
+
 	@Test
-	public void consultaRecetasPublicasYPrivadas(){
+	public void consultaRecetasPublicasYPrivadas() {
 		Collection<Receta> resultadoConsulta = new ArrayList<Receta>();
 		resultadoConsulta.add(panchoMock);
 		resultadoConsulta.add(ensaladaMock);
-		
+
 		assertEquals(gaston.consultarRecetas(sinFiltro), resultadoConsulta);
 	}
-	
+
 	@Test
-	public void consultaRecetasPublicas(){
+	public void consultaRecetasPublicas() {
 		Collection<Receta> resultadoConsulta = new ArrayList<Receta>();
 		resultadoConsulta.add(ensaladaMock);
 		when(grupoMock.consultarRecetas()).thenReturn(new ArrayList<Receta>());
-		
+
 		assertEquals(juanchi.consultarRecetas(sinFiltro), resultadoConsulta);
-		
+
 		verify(grupoMock, times(1)).consultarRecetas();
 	}
-	
+
 	@Test
-	public void consultaRecetasPublicasYDelGrupo(){
+	public void consultaRecetasPublicasYDelGrupo() {
 		Collection<Receta> resultadoConsulta = new ArrayList<Receta>();
 		resultadoConsulta.add(panchoMock);
 		resultadoConsulta.add(ensaladaMock);
-		when(grupoMock.consultarRecetas()).thenReturn(Arrays.asList(panchoMock));
-		
+		when(grupoMock.consultarRecetas())
+				.thenReturn(Arrays.asList(panchoMock));
+
 		assertEquals(juanchi.consultarRecetas(sinFiltro), resultadoConsulta);
-		
+
 		verify(grupoMock, times(1)).consultarRecetas();
+	}
+
+	@Test
+	public void agregarAFavoritas() {
+		assertTrue(gustavo.getRecetasFavoritas().isEmpty());
+
+		gustavo.agregarAFavorita(choripanMock);
+
+		assertEquals(gustavo.getRecetasFavoritas(), Arrays.asList(choripanMock));
 	}
 }

@@ -25,20 +25,22 @@ public class RecetaInadecuadaTest {
 
 	@Before
 	public void setUp() {
-		recetaParaNoVeganos = new Receta("No Veganos", Arrays.asList("chori", "lechuga"),
-				Arrays.asList(mayonesa), null, 0);
-		recetaParaTodos = new Receta("Para Todos y Todas", Arrays.asList("lechuga"),
-				Arrays.asList(mayonesa), null, 0);
-		recetaParaNoDiabeticos = new Receta("No Diabeticos", Arrays.asList("lechuga"),
-				Arrays.asList(mayonesa, azucar), null, 0);
-		recetaParaNoHipertensos = new Receta("No Hipertensos", Arrays.asList("lechuga"),
-				Arrays.asList(mayonesa, sal), null, 0);
+		recetaParaNoVeganos = new Receta("No Veganos", Arrays.asList("chori",
+				"lechuga"), Arrays.asList(mayonesa), null, 0);
+		recetaParaTodos = new Receta("Para Todos y Todas",
+				Arrays.asList("lechuga"), Arrays.asList(mayonesa), null, 0);
+		recetaParaNoDiabeticos = new Receta("No Diabeticos",
+				Arrays.asList("lechuga"), Arrays.asList(mayonesa, azucar),
+				null, 0);
+		recetaParaNoHipertensos = new Receta("No Hipertensos",
+				Arrays.asList("lechuga"), Arrays.asList(mayonesa, sal), null, 0);
 	}
 
 	@Test
 	public void recetaParaNoDiabeticosInadecuadaSoloParaDiabeticos() {
 		Collection<ICondicionDeSalud> coleccionConDiabetico;
-		coleccionConDiabetico = ICondicionDeSalud.condicionesExistentes.stream()
+		coleccionConDiabetico = ICondicionDeSalud.condicionesExistentes
+				.stream()
 				.filter(condicion -> condicion.getClass() == Diabetico.class)
 				.collect(Collectors.toList());
 
