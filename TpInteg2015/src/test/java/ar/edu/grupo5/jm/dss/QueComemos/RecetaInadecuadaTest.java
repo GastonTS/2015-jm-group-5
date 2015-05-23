@@ -21,7 +21,7 @@ public class RecetaInadecuadaTest {
 	private Condimentacion mayonesa = new Condimentacion("mayonesa", 200);;
 	private Condimentacion azucar = new Condimentacion("Azucar", 300);
 
-	private Collection<CondicionDeSalud> condicionesInadecuadas;
+	private Collection<ICondicionDeSalud> condicionesInadecuadas;
 
 	@Before
 	public void setUp() {
@@ -37,8 +37,8 @@ public class RecetaInadecuadaTest {
 
 	@Test
 	public void recetaParaNoDiabeticosInadecuadaSoloParaDiabeticos() {
-		Collection<CondicionDeSalud> coleccionConDiabetico;
-		coleccionConDiabetico = CondicionDeSalud.condicionesExistentes.stream()
+		Collection<ICondicionDeSalud> coleccionConDiabetico;
+		coleccionConDiabetico = ICondicionDeSalud.condicionesExistentes.stream()
 				.filter(condicion -> condicion.getClass() == Diabetico.class)
 				.collect(Collectors.toList());
 
@@ -49,8 +49,8 @@ public class RecetaInadecuadaTest {
 
 	@Test
 	public void recetaParaNoVeganosInadecuadaSoloParaVeganos() {
-		Collection<CondicionDeSalud> condicionesConVegano;
-		condicionesConVegano = CondicionDeSalud.condicionesExistentes.stream()
+		Collection<ICondicionDeSalud> condicionesConVegano;
+		condicionesConVegano = ICondicionDeSalud.condicionesExistentes.stream()
 				.filter(condicion -> condicion.getClass() == Vegano.class)
 				.collect(Collectors.toList());
 
@@ -61,8 +61,8 @@ public class RecetaInadecuadaTest {
 
 	@Test
 	public void recetaParaNoHipertensosInadecuadaSoloParaHipertensos() {
-		Collection<CondicionDeSalud> condicionesConHipertenso;
-		condicionesConHipertenso = CondicionDeSalud.condicionesExistentes
+		Collection<ICondicionDeSalud> condicionesConHipertenso;
+		condicionesConHipertenso = ICondicionDeSalud.condicionesExistentes
 				.stream()
 				.filter(condicion -> condicion.getClass() == Hipertenso.class)
 				.collect(Collectors.toList());
@@ -74,7 +74,7 @@ public class RecetaInadecuadaTest {
 
 	@Test
 	public void recetaParaTodosInadecuadaParaNadie() {
-		Collection<CondicionDeSalud> condicionesVacia = new ArrayList<CondicionDeSalud>();
+		Collection<ICondicionDeSalud> condicionesVacia = new ArrayList<ICondicionDeSalud>();
 
 		condicionesInadecuadas = recetaParaTodos
 				.condicionesALasQueEsInadecuada();

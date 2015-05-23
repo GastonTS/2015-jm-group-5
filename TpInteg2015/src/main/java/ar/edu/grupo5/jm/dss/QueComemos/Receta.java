@@ -110,8 +110,8 @@ public class Receta {
 	}
 
 	// Punto 3.b
-	public Collection<CondicionDeSalud> condicionesALasQueEsInadecuada() {
-		return CondicionDeSalud.condicionesExistentes.stream()
+	public Collection<ICondicionDeSalud> condicionesALasQueEsInadecuada() {
+		return ICondicionDeSalud.condicionesExistentes.stream()
 				.filter(condicion -> condicion.esInadecuada(this))
 				.collect(Collectors.toList());
 	}

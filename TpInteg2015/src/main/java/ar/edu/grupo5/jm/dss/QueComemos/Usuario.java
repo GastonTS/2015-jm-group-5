@@ -8,7 +8,7 @@ public class Usuario {
 	private DatosPersonales datosPersonales;
 	private Collection<String> preferenciasAlimenticias;
 	private Collection<String> disgustosAlimenticios;
-	private Collection<CondicionDeSalud> condicionesDeSalud;
+	private Collection<ICondicionDeSalud> condicionesDeSalud;
 	private Collection<Grupo> grupos;
 
 	public enum Rutina {
@@ -26,7 +26,7 @@ public class Usuario {
 			Collection<String> unasPreferenciasAlimenticias,
 			Collection<String> unosDisgustosAlimenticios,
 			Collection<Receta> unasRecetasPropias,
-			Collection<CondicionDeSalud> unasCondicionesDeSalud,
+			Collection<ICondicionDeSalud> unasCondicionesDeSalud,
 			Rutina unaRutina) {
 
 		datosPersonales = unosDatosPersonales;
@@ -54,7 +54,7 @@ public class Usuario {
 		if (unasCondicionesDeSalud != null) {
 			condicionesDeSalud = unasCondicionesDeSalud;
 		} else {
-			condicionesDeSalud = new ArrayList<CondicionDeSalud>();
+			condicionesDeSalud = new ArrayList<ICondicionDeSalud>();
 		}
 		rutina = unaRutina;
 	}
