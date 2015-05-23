@@ -16,7 +16,14 @@ public class Grupo {
 		integrantes = unosIntegrantes;
 	}
 
-	public boolean puedeSugerirse(Receta unaReceta){
-		return true;
+	public boolean puedeSugerirse(Receta unaReceta) {
+		return unaReceta.tieneAlgunIngredienteDeEstos(preferenciasAlimenticias)
+				&& esApropiadaParaTodosSusIntegrantes(unaReceta);
+	}
+
+	private boolean esApropiadaParaTodosSusIntegrantes(Receta unaReceta) {
+		return integrantes.stream().allMatch(
+				unIntegrante -> unIntegrante
+						.sosRecetaInadecuadaParaMi(unaReceta));
 	}
 }
