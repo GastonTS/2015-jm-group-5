@@ -25,29 +25,14 @@ public class Receta {
 	public Receta(String nombreReceta, Collection<String> unosIngredientes,
 			Collection<Condimentacion> unasCondimentaciones,
 			Collection<Receta> unasSubRecetas, double unasCantCalorias) {
-		if (nombreReceta != null) {
-			nombre = nombreReceta;
-		} else {
-			nombre = "";
-		}
 
-		if (unosIngredientes != null) {
-			ingredientes = unosIngredientes;
-		} else {
-			ingredientes = new ArrayList<String>();
-		}
-
-		if (unasCondimentaciones != null) {
-			condimentaciones = unasCondimentaciones;
-		} else {
-			condimentaciones = new ArrayList<Condimentacion>();
-		}
-
-		if (unasSubRecetas != null) {
-			subRecetas = unasSubRecetas;
-		} else {
-			subRecetas = new ArrayList<Receta>();
-		}
+		nombre = (nombreReceta != null) ? nombreReceta : "";
+		ingredientes = (unosIngredientes != null) ? unosIngredientes
+				: new ArrayList<String>();
+		condimentaciones = (unasCondimentaciones != null) ? unasCondimentaciones
+				: new ArrayList<Condimentacion>();
+		subRecetas = (unasSubRecetas != null) ? unasSubRecetas
+				: new ArrayList<Receta>();
 
 		cantCalorias = unasCantCalorias;
 
@@ -102,11 +87,10 @@ public class Receta {
 		return subRecetas.stream().flatMap(
 				subReceta -> subReceta.getCondimentacionesTotales().stream());
 	}
-	
+
 	private Collection<Condimentacion> getCondimentacionesTotales() {
-		return Stream
-				.concat(condimentaciones.stream(), getCondimentacionesSubRecetas())
-				.collect(Collectors.toList());
+		return Stream.concat(condimentaciones.stream(),
+				getCondimentacionesSubRecetas()).collect(Collectors.toList());
 	}
 
 	public void agregarSubRecetas(Collection<Receta> unasSubRecetas) {

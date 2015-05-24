@@ -27,15 +27,14 @@ public class FiltroTest {
 	private SinFiltro sinFiltro = new SinFiltro();
 	private ExcesoDeCalorias excesoDeCalorias = new ExcesoDeCalorias(sinFiltro);
 	private SegunCondicionesDeUsuario segunCondicionesDelusuario = new SegunCondicionesDeUsuario(
-			sinFiltro, usuarioMock);
+			sinFiltro);
 	private PreparacionBarata preparacionBarata = new PreparacionBarata(
 			sinFiltro);
-	private LeGustaAlUsuario leGustaAlUsuario = new LeGustaAlUsuario(sinFiltro,
-			usuarioMock);
+	private LeGustaAlUsuario leGustaAlUsuario = new LeGustaAlUsuario(sinFiltro);
 
 	private ExcesoDeCalorias superPreFiltro = new ExcesoDeCalorias(
 			new SegunCondicionesDeUsuario(new PreparacionBarata(
-					new LeGustaAlUsuario(sinFiltro, usuarioMock)), usuarioMock));
+					new LeGustaAlUsuario(sinFiltro))));
 
 	private Primeros10 primeros10 = new Primeros10(sinFiltro);
 	private SoloPares soloPares = new SoloPares(sinFiltro);
@@ -51,9 +50,12 @@ public class FiltroTest {
 
 	private SoloPares combinacionPostProcesadoConPre = new SoloPares(
 			new ExcesoDeCalorias(sinFiltro));
-	
+
 	private ExcesoDeCalorias combinacionPreProcesadoConPost = new ExcesoDeCalorias(
 			new SoloPares(sinFiltro));
+
+	private Collection<String> ingredientesCaros = Arrays.asList("lechon",
+			"lomo", "salmon", "alcaparras");
 
 	@Before
 	public void setUp() {
@@ -65,7 +67,7 @@ public class FiltroTest {
 
 	@Test
 	public void sinFiltroDevuelveLoMismo() {
-		assertEquals(sinFiltro.filtrarRecetas(recetas), recetas);
+		assertEquals(sinFiltro.filtrarRecetas(recetas, null), recetas);
 	}
 
 	@Test
@@ -79,7 +81,7 @@ public class FiltroTest {
 		menosDe500Calorias.add(ensaladaMock);
 		menosDe500Calorias.add(vegetarianaMock);
 
-		assertEquals(excesoDeCalorias.filtrarRecetas(recetas),
+		assertEquals(excesoDeCalorias.filtrarRecetas(recetas, null),
 				menosDe500Calorias);
 
 		verify(guisoMock, times(1)).getCantCalorias();
@@ -102,7 +104,8 @@ public class FiltroTest {
 		sonAdecuadasParaUsuario.add(ensaladaMock);
 		sonAdecuadasParaUsuario.add(vegetarianaMock);
 
-		assertEquals(segunCondicionesDelusuario.filtrarRecetas(recetas),
+		assertEquals(
+				segunCondicionesDelusuario.filtrarRecetas(recetas, usuarioMock),
 				sonAdecuadasParaUsuario);
 
 		verify(usuarioMock, times(1)).sosRecetaInadecuadaParaMi(guisoMock);
@@ -124,7 +127,7 @@ public class FiltroTest {
 		sonAdecuadasParaUsuario.add(guisoMock);
 		sonAdecuadasParaUsuario.add(panchoMock);
 
-		assertEquals(leGustaAlUsuario.filtrarRecetas(recetas),
+		assertEquals(leGustaAlUsuario.filtrarRecetas(recetas, usuarioMock),
 				sonAdecuadasParaUsuario);
 
 		verify(usuarioMock, times(1)).noLeDisgusta(guisoMock);
@@ -136,35 +139,29 @@ public class FiltroTest {
 
 	@Test
 	public void siEsCaraSuPreparacionNoLaDevuelve() {
-		when(
-				guisoMock.tieneAlgunIngredienteDeEstos(Arrays.asList("lechon",
-						"lomo", "salmon", "alcaparras"))).thenReturn(true);
-		when(
-				ensaladaMock.tieneAlgunIngredienteDeEstos(Arrays.asList(
-						"lechon", "lomo", "salmon", "alcaparras"))).thenReturn(
-				false);
-		when(
-				panchoMock.tieneAlgunIngredienteDeEstos(Arrays.asList("lechon",
-						"lomo", "salmon", "alcaparras"))).thenReturn(false);
-		when(
-				vegetarianaMock.tieneAlgunIngredienteDeEstos(Arrays.asList(
-						"lechon", "lomo", "salmon", "alcaparras"))).thenReturn(
-				true);
+		when(guisoMock.tieneAlgunIngredienteDeEstos(ingredientesCaros))
+				.thenReturn(true);
+		when(ensaladaMock.tieneAlgunIngredienteDeEstos(ingredientesCaros))
+				.thenReturn(false);
+		when(panchoMock.tieneAlgunIngredienteDeEstos(ingredientesCaros))
+				.thenReturn(false);
+		when(vegetarianaMock.tieneAlgunIngredienteDeEstos(ingredientesCaros))
+				.thenReturn(true);
 
-		Collection<Receta> recetasBaratas = new ArrayList<Receta>();
-		recetasBaratas.add(ensaladaMock);
-		recetasBaratas.add(panchoMock);
+		Collection<Receta> recetasBaratas = Arrays.asList(ensaladaMock,
+				panchoMock);
 
-		assertEquals(preparacionBarata.filtrarRecetas(recetas), recetasBaratas);
+		assertEquals(preparacionBarata.filtrarRecetas(recetas, null),
+				recetasBaratas);
 
 		verify(guisoMock, times(1)).tieneAlgunIngredienteDeEstos(
-				Arrays.asList("lechon", "lomo", "salmon", "alcaparras"));
+				ingredientesCaros);
 		verify(ensaladaMock, times(1)).tieneAlgunIngredienteDeEstos(
-				Arrays.asList("lechon", "lomo", "salmon", "alcaparras"));
+				ingredientesCaros);
 		verify(panchoMock, times(1)).tieneAlgunIngredienteDeEstos(
-				Arrays.asList("lechon", "lomo", "salmon", "alcaparras"));
+				ingredientesCaros);
 		verify(vegetarianaMock, times(1)).tieneAlgunIngredienteDeEstos(
-				Arrays.asList("lechon", "lomo", "salmon", "alcaparras"));
+				ingredientesCaros);
 	}
 
 	@Test
@@ -181,15 +178,13 @@ public class FiltroTest {
 		when(usuarioMock.sosRecetaInadecuadaParaMi(vegetarianaMock))
 				.thenReturn(false);
 
-		when(
-				ensaladaMock.tieneAlgunIngredienteDeEstos(Arrays.asList(
-						"lechon", "lomo", "salmon", "alcaparras"))).thenReturn(
-				false);
+		when(ensaladaMock.tieneAlgunIngredienteDeEstos(ingredientesCaros))
+				.thenReturn(false);
 
-		Collection<Receta> recetasFiltradas = new ArrayList<Receta>();
-		recetasFiltradas.add(ensaladaMock);
+		Collection<Receta> recetasFiltradas = Arrays.asList(ensaladaMock);
 
-		assertEquals(superPreFiltro.filtrarRecetas(recetas), recetasFiltradas);
+		assertEquals(superPreFiltro.filtrarRecetas(recetas, usuarioMock),
+				recetasFiltradas);
 
 		verify(guisoMock, times(1)).getCantCalorias();
 		verify(ensaladaMock, times(1)).getCantCalorias();
@@ -204,39 +199,30 @@ public class FiltroTest {
 		verify(usuarioMock, times(1)).noLeDisgusta(vegetarianaMock);
 
 		verify(ensaladaMock, times(1)).tieneAlgunIngredienteDeEstos(
-				Arrays.asList("lechon", "lomo", "salmon", "alcaparras"));
+				ingredientesCaros);
 	}
 
 	@Test
 	public void primeros10() {
-		Collection<Receta> receta10Elementos = new ArrayList<Receta>();
-		receta10Elementos.add(guisoMock);
-		receta10Elementos.add(panchoMock);
-		receta10Elementos.add(guisoMock);
-		receta10Elementos.add(panchoMock);
-		receta10Elementos.add(guisoMock);
-		receta10Elementos.add(panchoMock);
-		receta10Elementos.add(guisoMock);
-		receta10Elementos.add(panchoMock);
-		receta10Elementos.add(guisoMock);
-		receta10Elementos.add(panchoMock);
+		Collection<Receta> receta10Elementos = Arrays.asList(guisoMock,
+				panchoMock, guisoMock, panchoMock, guisoMock, panchoMock,
+				guisoMock, panchoMock, guisoMock, panchoMock);
+
 		Collection<Receta> receta12Elementos = new ArrayList<Receta>();
 		receta12Elementos.addAll(receta10Elementos);
 		receta12Elementos.add(ensaladaMock);
 		receta12Elementos.add(vegetarianaMock);
 
-		assertEquals(primeros10.filtrarRecetas(receta12Elementos),
+		assertEquals(primeros10.filtrarRecetas(receta12Elementos, null),
 				receta10Elementos);
-
 	}
 
 	@Test
 	public void soloPares() {
-		Collection<Receta> recetaSoloPares = new ArrayList<Receta>();
-		recetaSoloPares.add(ensaladaMock);
-		recetaSoloPares.add(vegetarianaMock);
+		Collection<Receta> recetaSoloPares = Arrays.asList(ensaladaMock,
+				vegetarianaMock);
 
-		assertEquals(soloPares.filtrarRecetas(recetas), recetaSoloPares);
+		assertEquals(soloPares.filtrarRecetas(recetas, null), recetaSoloPares);
 	}
 
 	@Test
@@ -246,13 +232,10 @@ public class FiltroTest {
 		when(panchoMock.getCantCalorias()).thenReturn((double) 500);
 		when(vegetarianaMock.getCantCalorias()).thenReturn((double) 400);
 
-		Collection<Receta> recetasPorCalorias = new ArrayList<Receta>();
-		recetasPorCalorias.add(ensaladaMock);
-		recetasPorCalorias.add(vegetarianaMock);
-		recetasPorCalorias.add(panchoMock);
-		recetasPorCalorias.add(guisoMock);
+		Collection<Receta> recetasPorCalorias = Arrays.asList(ensaladaMock,
+				vegetarianaMock, panchoMock, guisoMock);
 
-		assertEquals(ordenadosPorCalorias.filtrarRecetas(recetas),
+		assertEquals(ordenadosPorCalorias.filtrarRecetas(recetas, null),
 				recetasPorCalorias);
 
 		verify(guisoMock, times(2)).getCantCalorias();
@@ -268,13 +251,10 @@ public class FiltroTest {
 		when(panchoMock.getNombre()).thenReturn("Pancho");
 		when(vegetarianaMock.getNombre()).thenReturn("Vegetariana");
 
-		Collection<Receta> recetasPorCalorias = new ArrayList<Receta>();
-		recetasPorCalorias.add(ensaladaMock);
-		recetasPorCalorias.add(guisoMock);
-		recetasPorCalorias.add(panchoMock);
-		recetasPorCalorias.add(vegetarianaMock);
+		Collection<Receta> recetasPorCalorias = Arrays.asList(ensaladaMock,
+				guisoMock, panchoMock, vegetarianaMock);
 
-		assertEquals(ordenadosAlfabeticamente.filtrarRecetas(recetas),
+		assertEquals(ordenadosAlfabeticamente.filtrarRecetas(recetas, null),
 				recetasPorCalorias);
 
 		verify(guisoMock, times(3)).getNombre();
@@ -293,9 +273,10 @@ public class FiltroTest {
 		Collection<Receta> paresDeMenosDe500Calorias = new ArrayList<Receta>();
 		paresDeMenosDe500Calorias.add(vegetarianaMock);
 
-		assertEquals(combinacionPostProcesadoConPre.filtrarRecetas(recetas),
-				paresDeMenosDe500Calorias);
-		assertEquals(combinacionPreProcesadoConPost.filtrarRecetas(recetas),
+		assertEquals(combinacionPostProcesadoConPre.filtrarRecetas(recetas,
+				usuarioMock), paresDeMenosDe500Calorias);
+		assertEquals(
+				combinacionPreProcesadoConPost.filtrarRecetas(recetas, null),
 				paresDeMenosDe500Calorias);
 
 		verify(guisoMock, times(2)).getCantCalorias();

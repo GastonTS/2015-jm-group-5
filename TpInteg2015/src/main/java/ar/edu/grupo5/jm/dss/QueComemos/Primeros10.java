@@ -10,8 +10,9 @@ public class Primeros10 extends Filtro {
 	}
 
 	@Override
-	public Collection<Receta> filtrarRecetas(Collection<Receta> recetas) {
-		Collection<Receta> recetasParciales = subFiltro.filtrarRecetas(recetas);
+	public Collection<Receta> filtrarRecetas(Collection<Receta> recetas,
+			Usuario unUsuario) {
+		Collection<Receta> recetasParciales = subFiltro.filtrarRecetas(recetas, unUsuario);
 
 		return recetasParciales.stream().limit(10).collect(Collectors.toList());
 	}

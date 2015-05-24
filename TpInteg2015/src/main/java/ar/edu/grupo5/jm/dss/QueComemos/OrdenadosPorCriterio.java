@@ -16,9 +16,10 @@ public class OrdenadosPorCriterio extends Filtro {
 	}
 
 	@Override
-	public Collection<Receta> filtrarRecetas(Collection<Receta> recetas) {
+	public Collection<Receta> filtrarRecetas(Collection<Receta> recetas,
+			Usuario unUsuario) {
 		List<Receta> recetasParciales = (List<Receta>) subFiltro
-				.filtrarRecetas(recetas);
+				.filtrarRecetas(recetas, unUsuario);
 
 		Collections.sort(recetasParciales, criterio);
 

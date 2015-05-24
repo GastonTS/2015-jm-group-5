@@ -7,32 +7,31 @@ import java.util.List;
 public class Filtrado {
 
 	private List<IFiltroStrategy> filtros;
-	
-	public Filtrado(List<IFiltroStrategy> unosFiltros) {
-		if(filtros == null) {
-			filtros = new ArrayList<IFiltroStrategy>();
-		} else {
-			filtros = unosFiltros;
-		}
+	private List<IFiltroStrategy> postProcesamientos;
+
+	public Filtrado(List<IFiltroStrategy> unosFiltros,
+			List<IFiltroStrategy> unosPostProcesamientos) {
+		filtros = (unosFiltros != null) ? unosFiltros
+				: new ArrayList<IFiltroStrategy>();
+		postProcesamientos = (unosPostProcesamientos != null) ? unosPostProcesamientos
+				: new ArrayList<IFiltroStrategy>();
 	}
-	
-	public void agregarFiltro(IFiltroStrategy unFiltro) {
-		filtros.add(unFiltro);
-	}
-	
-	public void quitarFiltro(IFiltroStrategy unFiltro) {
-		filtros.remove(unFiltro);
-	}
-	
-	public Collection<Receta> aplicarFiltros(Collection<Receta> unasRecetas, Usuario unUsuario) {
-		Collection<Receta> recetasRestantes = new ArrayList<Receta>();
-	
+
+	public Collection<Receta> aplicarFiltros(Collection<Receta> unasRecetas,
+			Usuario unUsuario) {
+		Collection<Receta> recetasRestantes = unasRecetas;
+
 		for (IFiltroStrategy filtro : filtros) {
-			recetasRestantes = filtro.filtrarRecetas(recetasRestantes,unUsuario);
+			recetasRestantes = filtro.filtrarRecetas(recetasRestantes,
+					unUsuario);
 		}
-		
+
+		for (IFiltroStrategy procesamiento : postProcesamientos) {
+			recetasRestantes = procesamiento.filtrarRecetas(recetasRestantes,
+					unUsuario);
+		}
+
 		return recetasRestantes;
 	}
-	
-	
+
 }

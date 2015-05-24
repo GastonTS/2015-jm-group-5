@@ -5,19 +5,20 @@ import java.util.stream.Collectors;
 
 public class SegunCondicionesDeUsuario extends Filtro {
 
-	public SegunCondicionesDeUsuario(IFiltro unFiltro, Usuario unUsuario) {
-		super(unFiltro, unUsuario);
+	public SegunCondicionesDeUsuario(IFiltro unFiltro) {
+		super(unFiltro);
 	}
 
 	@Override
-	public Collection<Receta> filtrarRecetas(Collection<Receta> recetas) {
+	public Collection<Receta> filtrarRecetas(Collection<Receta> recetas,
+			Usuario unUsuario) {
 		Collection<Receta> recetasParciales = recetas
 				.stream()
-				.filter((unaReceta -> !usuarioAConsiderar
+				.filter((unaReceta -> !unUsuario
 						.sosRecetaInadecuadaParaMi(unaReceta)))
 				.collect(Collectors.toList());
 
-		return subFiltro.filtrarRecetas(recetasParciales);
+		return subFiltro.filtrarRecetas(recetasParciales, unUsuario);
 	}
 
 }

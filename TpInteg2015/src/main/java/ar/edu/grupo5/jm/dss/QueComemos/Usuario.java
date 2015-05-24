@@ -25,7 +25,6 @@ public class Usuario {
 
 	private static Collection<Receta> recetasPublicas;
 
-	// XXX long parameter list
 	public Usuario(DatosPersonales unosDatosPersonales,
 			Complexion unaComplexion,
 			Collection<String> unasPreferenciasAlimenticias,
@@ -38,29 +37,16 @@ public class Usuario {
 		complexion = unaComplexion;
 		grupos = new ArrayList<Grupo>();
 		recetasFavoritas = new ArrayList<Receta>();
-		if (unasPreferenciasAlimenticias != null) {
-			preferenciasAlimenticias = unasPreferenciasAlimenticias;
-		} else {
-			preferenciasAlimenticias = new ArrayList<String>();
-		}
 
-		if (unosDisgustosAlimenticios != null) {
-			disgustosAlimenticios = unosDisgustosAlimenticios;
-		} else {
-			disgustosAlimenticios = new ArrayList<String>();
-		}
+		preferenciasAlimenticias = (unasPreferenciasAlimenticias != null) ? unasPreferenciasAlimenticias
+				: new ArrayList<String>();
+		disgustosAlimenticios = (unosDisgustosAlimenticios != null) ? unosDisgustosAlimenticios
+				: new ArrayList<String>();
+		recetasPropias = (unasRecetasPropias != null) ? unasRecetasPropias
+				: new ArrayList<Receta>();
+		condicionesDeSalud = (unasCondicionesDeSalud != null) ? unasCondicionesDeSalud
+				: new ArrayList<CondicionDeSalud>();
 
-		if (unasRecetasPropias != null) {
-			recetasPropias = unasRecetasPropias;
-		} else {
-			recetasPropias = new ArrayList<Receta>();
-		}
-
-		if (unasCondicionesDeSalud != null) {
-			condicionesDeSalud = unasCondicionesDeSalud;
-		} else {
-			condicionesDeSalud = new ArrayList<CondicionDeSalud>();
-		}
 		rutina = unaRutina;
 	}
 
@@ -109,8 +95,6 @@ public class Usuario {
 	}
 
 	private boolean subsanaTodasLasCondiciones() {
-		if (condicionesDeSalud == null)
-			return true; // FIXME asegurarse de que no sea null
 		return condicionesDeSalud.stream().allMatch(
 				condicion -> condicion.subsanaCondicion(this));
 	}
@@ -227,7 +211,16 @@ public class Usuario {
 		resultadoConsulta.addAll(consultarRecetasDeLosGrupos());
 		resultadoConsulta.addAll(recetasPublicas);
 
-		return unFiltro.filtrarRecetas(resultadoConsulta);
+		return unFiltro.filtrarRecetas(resultadoConsulta, this);
+	}
+
+	public Collection<Receta> consultarRecetasSt(Filtrado unFiltrado) {
+		Collection<Receta> resultadoConsulta = new ArrayList<Receta>();
+		resultadoConsulta.addAll(recetasPropias);
+		resultadoConsulta.addAll(consultarRecetasDeLosGrupos());
+		resultadoConsulta.addAll(recetasPublicas);
+
+		return unFiltrado.aplicarFiltros(resultadoConsulta, this);
 	}
 
 	public boolean noLeDisgusta(Receta unaReceta) {
