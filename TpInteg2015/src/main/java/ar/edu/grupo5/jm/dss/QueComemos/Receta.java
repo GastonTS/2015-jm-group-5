@@ -2,6 +2,7 @@ package ar.edu.grupo5.jm.dss.QueComemos;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import java.util.ArrayList;
 
 public class Receta {
@@ -82,27 +83,30 @@ public class Receta {
 
 	public boolean tieneAlgunIngredienteDeEstos(
 			Collection<String> ingredientesProhibidas) {
-
 		return getIngredientesTotales().stream().anyMatch(
 				ingrediente -> ingredientesProhibidas.contains(ingrediente));
 	}
 
-	private Collection<String> getIngredientesTotales() {
-		Collection<String> auxIngredientes = new ArrayList<String>();
-		subRecetas.stream().forEach(
-				subReceta -> auxIngredientes.addAll(subReceta
-						.getIngredientesTotales()));
-		auxIngredientes.addAll(ingredientes);
-		return auxIngredientes;
+	private Stream<String> getIngredientesSubRecetas() {
+		return subRecetas.stream().flatMap(
+				subReceta -> subReceta.getIngredientesTotales().stream());
 	}
 
+	private Collection<String> getIngredientesTotales() {
+		return Stream
+				.concat(ingredientes.stream(), getIngredientesSubRecetas())
+				.collect(Collectors.toList());
+	}
+
+	private Stream<Condimentacion> getCondimentacionesSubRecetas() {
+		return subRecetas.stream().flatMap(
+				subReceta -> subReceta.getCondimentacionesTotales().stream());
+	}
+	
 	private Collection<Condimentacion> getCondimentacionesTotales() {
-		Collection<Condimentacion> auxCondimentaciones = new ArrayList<Condimentacion>();
-		subRecetas.stream().forEach(
-				subReceta -> auxCondimentaciones.addAll(subReceta
-						.getCondimentacionesTotales()));
-		auxCondimentaciones.addAll(condimentaciones);
-		return auxCondimentaciones;
+		return Stream
+				.concat(condimentaciones.stream(), getCondimentacionesSubRecetas())
+				.collect(Collectors.toList());
 	}
 
 	public void agregarSubRecetas(Collection<Receta> unasSubRecetas) {
