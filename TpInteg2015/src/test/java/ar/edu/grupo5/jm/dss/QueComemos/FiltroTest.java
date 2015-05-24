@@ -51,6 +51,9 @@ public class FiltroTest {
 
 	private SoloPares combinacionPostProcesadoConPre = new SoloPares(
 			new ExcesoDeCalorias(sinFiltro));
+	
+	private ExcesoDeCalorias combinacionPreProcesadoConPost = new ExcesoDeCalorias(
+			new SoloPares(sinFiltro));
 
 	@Before
 	public void setUp() {
@@ -281,7 +284,7 @@ public class FiltroTest {
 	}
 
 	@Test
-	public void soloParesConPocasCalorias() {
+	public void sinImportarElOrdenEntrePostprocesadoYPreProcesado() {
 		when(guisoMock.getCantCalorias()).thenReturn((double) 550);
 		when(ensaladaMock.getCantCalorias()).thenReturn((double) 200);
 		when(panchoMock.getCantCalorias()).thenReturn((double) 500);
@@ -292,11 +295,13 @@ public class FiltroTest {
 
 		assertEquals(combinacionPostProcesadoConPre.filtrarRecetas(recetas),
 				paresDeMenosDe500Calorias);
+		assertEquals(combinacionPreProcesadoConPost.filtrarRecetas(recetas),
+				paresDeMenosDe500Calorias);
 
-		verify(guisoMock, times(1)).getCantCalorias();
-		verify(ensaladaMock, times(1)).getCantCalorias();
-		verify(panchoMock, times(1)).getCantCalorias();
-		verify(vegetarianaMock, times(1)).getCantCalorias();
+		verify(guisoMock, times(2)).getCantCalorias();
+		verify(ensaladaMock, times(2)).getCantCalorias();
+		verify(panchoMock, times(2)).getCantCalorias();
+		verify(vegetarianaMock, times(2)).getCantCalorias();
 	}
 
 }
