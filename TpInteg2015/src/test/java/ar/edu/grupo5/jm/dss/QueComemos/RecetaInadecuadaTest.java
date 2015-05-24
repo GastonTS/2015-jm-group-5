@@ -1,86 +1,67 @@
 package ar.edu.grupo5.jm.dss.QueComemos;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.stream.Collectors;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 public class RecetaInadecuadaTest {
 
-	private Receta recetaParaNoVeganos;
-	private Receta recetaParaTodos;
-	private Receta recetaParaNoDiabeticos;
-	private Receta recetaParaNoHipertensos;
+	private Receta recetaMock = mock(Receta.class);
 
-	private Condimentacion sal = new Condimentacion("sal", 200);
-	private Condimentacion mayonesa = new Condimentacion("mayonesa", 200);;
-	private Condimentacion azucar = new Condimentacion("Azucar", 300);
+	private Collection<CondicionDeSalud> condicionesInadecuadas;
 
-	private Collection<ICondicionDeSalud> condicionesInadecuadas;
+	@Test
+	public void InadecuadaParaDiabeticosSiTieneMasDeCondimentoProhibido() {
+		when(recetaMock.tenesMasDe(Diabetico.condimentoProhibido)).thenReturn(
+				true);
 
-	@Before
-	public void setUp() {
-		recetaParaNoVeganos = new Receta("No Veganos", Arrays.asList("chori",
-				"lechuga"), Arrays.asList(mayonesa), null, 0);
-		recetaParaTodos = new Receta("Para Todos y Todas",
-				Arrays.asList("lechuga"), Arrays.asList(mayonesa), null, 0);
-		recetaParaNoDiabeticos = new Receta("No Diabeticos",
-				Arrays.asList("lechuga"), Arrays.asList(mayonesa, azucar),
-				null, 0);
-		recetaParaNoHipertensos = new Receta("No Hipertensos",
-				Arrays.asList("lechuga"), Arrays.asList(mayonesa, sal), null, 0);
+		condicionesInadecuadas = CondicionDeSalud
+				.condicionesALasQueEsInadecuada(recetaMock);
+		assertTrue(condicionesInadecuadas.stream().anyMatch(
+				condicion -> condicion instanceof Diabetico));
+
+		verify(recetaMock, times(1)).tenesMasDe(Diabetico.condimentoProhibido);
 	}
 
 	@Test
-	public void recetaParaNoDiabeticosInadecuadaSoloParaDiabeticos() {
-		Collection<ICondicionDeSalud> coleccionConDiabetico;
-		coleccionConDiabetico = ICondicionDeSalud.condicionesExistentes
-				.stream()
-				.filter(condicion -> condicion.getClass() == Diabetico.class)
-				.collect(Collectors.toList());
+	public void InadecuadaParaVeganosSiTieneAlgunIngredienteProhibido() {
+		when(recetaMock.tieneAlgunIngredienteDeEstos(Vegano.preferenciasProhibidas)).thenReturn(
+				true);
 
-		condicionesInadecuadas = recetaParaNoDiabeticos
-				.condicionesALasQueEsInadecuada();
-		assertEquals(coleccionConDiabetico, condicionesInadecuadas);
+		condicionesInadecuadas = CondicionDeSalud
+				.condicionesALasQueEsInadecuada(recetaMock);
+		assertTrue(condicionesInadecuadas.stream().anyMatch(
+				condicion -> condicion instanceof Vegano));
+
+		verify(recetaMock, times(1)).tieneAlgunIngredienteDeEstos(Vegano.preferenciasProhibidas);
 	}
 
 	@Test
-	public void recetaParaNoVeganosInadecuadaSoloParaVeganos() {
-		Collection<ICondicionDeSalud> condicionesConVegano;
-		condicionesConVegano = ICondicionDeSalud.condicionesExistentes.stream()
-				.filter(condicion -> condicion.getClass() == Vegano.class)
-				.collect(Collectors.toList());
+	public void InadecuadaParaHipertensosSiTieneAlgunoDeLosCondimentosProhibidos() {
+		when(recetaMock.tenesAlgoDe(Hipertenso.condimentosProhibidos)).thenReturn(
+				true);
 
-		condicionesInadecuadas = recetaParaNoVeganos
-				.condicionesALasQueEsInadecuada();
-		assertEquals(condicionesConVegano, condicionesInadecuadas);
+		condicionesInadecuadas = CondicionDeSalud
+				.condicionesALasQueEsInadecuada(recetaMock);
+		assertTrue(condicionesInadecuadas.stream().anyMatch(
+				condicion -> condicion instanceof Hipertenso));
+
+		verify(recetaMock, times(1)).tenesAlgoDe(Hipertenso.condimentosProhibidos);
 	}
 
 	@Test
-	public void recetaParaNoHipertensosInadecuadaSoloParaHipertensos() {
-		Collection<ICondicionDeSalud> condicionesConHipertenso;
-		condicionesConHipertenso = ICondicionDeSalud.condicionesExistentes
-				.stream()
-				.filter(condicion -> condicion.getClass() == Hipertenso.class)
-				.collect(Collectors.toList());
-
-		condicionesInadecuadas = recetaParaNoHipertensos
-				.condicionesALasQueEsInadecuada();
-		assertEquals(condicionesConHipertenso, condicionesInadecuadas);
-	}
-
-	@Test
-	public void recetaParaTodosInadecuadaParaNadie() {
-		Collection<ICondicionDeSalud> condicionesVacia = new ArrayList<ICondicionDeSalud>();
-
-		condicionesInadecuadas = recetaParaTodos
-				.condicionesALasQueEsInadecuada();
-		assertEquals(condicionesVacia, condicionesInadecuadas);
+	public void NingunaRecetaEsInadecuadaParaCeliaco() {
+		condicionesInadecuadas = CondicionDeSalud
+				.condicionesALasQueEsInadecuada(recetaMock);
+		assertTrue(condicionesInadecuadas.stream().allMatch(
+				condicion -> !(condicion instanceof Celiaco)));
 	}
 
 }

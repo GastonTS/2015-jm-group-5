@@ -3,9 +3,9 @@ package ar.edu.grupo5.jm.dss.QueComemos;
 import java.util.Arrays;
 import java.util.Collection;
 
-public class Vegano implements ICondicionDeSalud {
+public class Vegano extends CondicionDeSalud {
 
-	private static final Collection<String> preferenciasProhibidas = Arrays
+	public static final Collection<String> preferenciasProhibidas = Arrays
 			.asList("pollo", "chori", "carne", "chivito");
 
 	public static Collection<String> getPreferenciasProhibidas() {

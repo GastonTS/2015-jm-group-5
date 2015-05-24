@@ -32,9 +32,9 @@ public class UsuarioTest {
 	private Collection<String> preferenciaFruta = new ArrayList<String>();
 	private Collection<String> preferenciasVariadas = new ArrayList<String>();
 
-	private Collection<ICondicionDeSalud> condiciones = new ArrayList<ICondicionDeSalud>();
-	private ICondicionDeSalud hippie = mock(ICondicionDeSalud.class);
-	private ICondicionDeSalud corporativo = mock(ICondicionDeSalud.class);
+	private Collection<CondicionDeSalud> condiciones = new ArrayList<CondicionDeSalud>();
+	private CondicionDeSalud hippie = mock(CondicionDeSalud.class);
+	private CondicionDeSalud corporativo = mock(CondicionDeSalud.class);
 
 	private Receta recetaMock = mock(Receta.class);
 	private Receta panchoMock = mock(Receta.class);

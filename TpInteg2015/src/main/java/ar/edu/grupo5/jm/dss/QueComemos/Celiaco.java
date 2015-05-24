@@ -1,6 +1,6 @@
 package ar.edu.grupo5.jm.dss.QueComemos;
 
-public class Celiaco implements ICondicionDeSalud {
+public class Celiaco extends CondicionDeSalud {
 
 	@Override
 	public boolean subsanaCondicion(Usuario unUsuario) {
@@ -16,5 +16,4 @@ public class Celiaco implements ICondicionDeSalud {
 	public boolean esUsuarioValido(Usuario unUsuario) {
 		return true;
 	}
-
 }

@@ -1,7 +1,7 @@
 package ar.edu.grupo5.jm.dss.QueComemos;
 
-public class Diabetico implements ICondicionDeSalud {
-	private static Condimentacion condimentoProhibido = new Condimentacion(
+public class Diabetico extends CondicionDeSalud {
+	public static Condimentacion condimentoProhibido = new Condimentacion(
 			"Azucar", 100);
 
 	@Override

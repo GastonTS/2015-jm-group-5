@@ -113,10 +113,4 @@ public class Receta {
 		subRecetas.addAll(unasSubRecetas);
 	}
 
-	// Punto 3.b
-	public Collection<ICondicionDeSalud> condicionesALasQueEsInadecuada() {
-		return ICondicionDeSalud.condicionesExistentes.stream()
-				.filter(condicion -> condicion.esInadecuada(this))
-				.collect(Collectors.toList());
-	}
 }

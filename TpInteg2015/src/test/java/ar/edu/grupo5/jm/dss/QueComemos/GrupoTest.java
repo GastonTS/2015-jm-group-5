@@ -27,8 +27,8 @@ public class GrupoTest {
 
 	private Collection<Receta> recetasGaston = new ArrayList<Receta>();
 
-	private Collection<ICondicionDeSalud> condicionHipertenso = new ArrayList<ICondicionDeSalud>();
-	private Collection<ICondicionDeSalud> condicionSinNada = new ArrayList<ICondicionDeSalud>();
+	private Collection<CondicionDeSalud> condicionHipertenso = new ArrayList<CondicionDeSalud>();
+	private Collection<CondicionDeSalud> condicionSinNada = new ArrayList<CondicionDeSalud>();
 
 	private Receta recetaMock = mock(Receta.class);
 
