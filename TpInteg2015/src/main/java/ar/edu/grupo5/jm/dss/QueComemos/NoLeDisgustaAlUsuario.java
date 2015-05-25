@@ -3,9 +3,9 @@ package ar.edu.grupo5.jm.dss.QueComemos;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-public class LeGustaAlUsuario extends Filtro {
+public class NoLeDisgustaAlUsuario extends Filtro {
 
-	public LeGustaAlUsuario(IFiltro unFiltro) {
+	public NoLeDisgustaAlUsuario(IFiltro unFiltro) {
 		super(unFiltro);
 	}
 

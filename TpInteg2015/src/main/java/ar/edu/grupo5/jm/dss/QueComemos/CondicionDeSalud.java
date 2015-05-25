@@ -14,9 +14,10 @@ public abstract class CondicionDeSalud {
 	public abstract boolean esInadecuada(Receta unaReceta);
 
 	public abstract boolean esUsuarioValido(Usuario unUsuario);
-	
+
 	// Punto 3.b
-	static public Collection<CondicionDeSalud> condicionesALasQueEsInadecuada(Receta unaReceta) {
+	static public Collection<CondicionDeSalud> condicionesALasQueEsInadecuada(
+			Receta unaReceta) {
 		return CondicionDeSalud.condicionesExistentes.stream()
 				.filter(condicion -> condicion.esInadecuada(unaReceta))
 				.collect(Collectors.toList());

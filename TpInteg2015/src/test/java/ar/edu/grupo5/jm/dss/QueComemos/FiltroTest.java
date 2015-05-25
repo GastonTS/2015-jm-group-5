@@ -30,11 +30,12 @@ public class FiltroTest {
 			sinFiltro);
 	private PreparacionBarata preparacionBarata = new PreparacionBarata(
 			sinFiltro);
-	private LeGustaAlUsuario leGustaAlUsuario = new LeGustaAlUsuario(sinFiltro);
+	private NoLeDisgustaAlUsuario leGustaAlUsuario = new NoLeDisgustaAlUsuario(
+			sinFiltro);
 
 	private ExcesoDeCalorias superPreFiltro = new ExcesoDeCalorias(
 			new SegunCondicionesDeUsuario(new PreparacionBarata(
-					new LeGustaAlUsuario(sinFiltro))));
+					new NoLeDisgustaAlUsuario(sinFiltro))));
 
 	private Primeros10 primeros10 = new Primeros10(sinFiltro);
 	private SoloPares soloPares = new SoloPares(sinFiltro);
@@ -77,9 +78,8 @@ public class FiltroTest {
 		when(panchoMock.getCantCaloriasTotales()).thenReturn((double) 500);
 		when(vegetarianaMock.getCantCaloriasTotales()).thenReturn((double) 400);
 
-		Collection<Receta> menosDe500Calorias = new ArrayList<Receta>();
-		menosDe500Calorias.add(ensaladaMock);
-		menosDe500Calorias.add(vegetarianaMock);
+		Collection<Receta> menosDe500Calorias = Arrays.asList(ensaladaMock,
+				vegetarianaMock);
 
 		assertEquals(excesoDeCalorias.filtrarRecetas(recetas, null),
 				menosDe500Calorias);
@@ -100,9 +100,8 @@ public class FiltroTest {
 		when(usuarioMock.sosRecetaInadecuadaParaMi(vegetarianaMock))
 				.thenReturn(false);
 
-		Collection<Receta> sonAdecuadasParaUsuario = new ArrayList<Receta>();
-		sonAdecuadasParaUsuario.add(ensaladaMock);
-		sonAdecuadasParaUsuario.add(vegetarianaMock);
+		Collection<Receta> sonAdecuadasParaUsuario = Arrays.asList(
+				ensaladaMock, vegetarianaMock);
 
 		assertEquals(
 				segunCondicionesDelusuario.filtrarRecetas(recetas, usuarioMock),
@@ -123,9 +122,8 @@ public class FiltroTest {
 		when(usuarioMock.noLeDisgusta(panchoMock)).thenReturn(true);
 		when(usuarioMock.noLeDisgusta(vegetarianaMock)).thenReturn(false);
 
-		Collection<Receta> sonAdecuadasParaUsuario = new ArrayList<Receta>();
-		sonAdecuadasParaUsuario.add(guisoMock);
-		sonAdecuadasParaUsuario.add(panchoMock);
+		Collection<Receta> sonAdecuadasParaUsuario = Arrays.asList(guisoMock,
+				panchoMock);
 
 		assertEquals(leGustaAlUsuario.filtrarRecetas(recetas, usuarioMock),
 				sonAdecuadasParaUsuario);

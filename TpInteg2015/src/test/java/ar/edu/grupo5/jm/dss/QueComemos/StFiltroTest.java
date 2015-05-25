@@ -26,9 +26,9 @@ public class StFiltroTest {
 	private StExcesoDeCalorias excesoDeCalorias = new StExcesoDeCalorias();
 	private StSegunCondicionesDeUsuario segunCondicionesDelusuario = new StSegunCondicionesDeUsuario();
 	private StPreparacionBarata preparacionBarata = new StPreparacionBarata();
-	private StLeGustaAlUsuario leGustaAlUsuario = new StLeGustaAlUsuario();
+	private StNoLeDisgustaAlUsuario leGustaAlUsuario = new StNoLeDisgustaAlUsuario();
 
-	private Filtrado superPreFiltro = new Filtrado(Arrays.asList(
+	private StFiltro superPreFiltro = new StFiltro(Arrays.asList(
 			excesoDeCalorias, segunCondicionesDelusuario, preparacionBarata,
 			leGustaAlUsuario), null);
 
@@ -42,7 +42,7 @@ public class StFiltroTest {
 			((receta1, receta2) -> (receta1.getNombre()).compareTo(receta2
 					.getNombre())));
 
-	private Filtrado combinacionPostProcesadoConPre = new Filtrado(
+	private StFiltro combinacionPostProcesadoConPre = new StFiltro(
 			Arrays.asList(excesoDeCalorias), Arrays.asList(soloPares));
 
 	private Collection<String> ingredientesCaros = Arrays.asList("lechon",
