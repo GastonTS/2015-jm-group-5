@@ -6,9 +6,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.mockito.Matchers.any;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 
 import org.junit.Before;
@@ -16,104 +15,72 @@ import org.junit.Test;
 
 public class GrupoTest {
 
-	private Usuario gaston;
-	private Usuario juanchi;
-
-	private DatosPersonales datosPersonalesMock = mock(DatosPersonales.class);
-
-	private Complexion complexionMock = mock(Complexion.class);
-
-	private Hipertenso hipertensoMock = mock(Hipertenso.class);
-
-	private Collection<Receta> recetasGaston = new ArrayList<Receta>();
-
-	private Collection<CondicionDeSalud> condicionHipertenso = new ArrayList<CondicionDeSalud>();
-	private Collection<CondicionDeSalud> condicionSinNada = new ArrayList<CondicionDeSalud>();
+	private Usuario gaston = mock(Usuario.class);
+	private Usuario juanchi = mock(Usuario.class);
 
 	private Receta recetaMock = mock(Receta.class);
 
 	private Grupo grupoConPreferenciasVariadas;
-	private Grupo grupoSoloPreferenciaPapa;
-	private Collection<Usuario> integrantesGrupo = new ArrayList<Usuario>();
-	private Collection<Usuario> integrantesGrupoSinGaston = new ArrayList<Usuario>();
-
-	private Collection<String> preferenciaPapa = new ArrayList<String>();
-	private Collection<String> preferenciasVariadas = new ArrayList<String>();
+	private Collection<String> preferenciasVariadas = Arrays.asList("fruta","semillas","queso");
 
 	@Before
 	public void setUp() {
 		;
 
-		preferenciasVariadas.add("fruta");
-		preferenciasVariadas.add("semillas");
-		preferenciasVariadas.add("queso");
-
-		preferenciaPapa.add("papas");
-
-		condicionHipertenso.add(hipertensoMock);
-
-		recetasGaston.add(recetaMock);
-
-		gaston = new Usuario(datosPersonalesMock, complexionMock, null, null,
-				recetasGaston, condicionSinNada, null);
-		juanchi = new Usuario(datosPersonalesMock, complexionMock, null, null,
-				null, condicionHipertenso, null);
-
-		integrantesGrupo.add(gaston);
-		integrantesGrupo.add(juanchi);
-		integrantesGrupoSinGaston.add(juanchi);
-
 		grupoConPreferenciasVariadas = new Grupo(preferenciasVariadas,
-				integrantesGrupo);
-		grupoSoloPreferenciaPapa = new Grupo(preferenciaPapa,
-				integrantesGrupoSinGaston);
+				Arrays.asList(gaston,juanchi));
 	}
 
 	@Test
-	public void noPuedeSugerirUnaRecetaPorSalAHipertenso() {
-		when(recetaMock.tieneAlgunIngredienteDeEstos(preferenciasVariadas))
-				.thenReturn(true);
-		when(hipertensoMock.esInadecuada(any(Receta.class))).thenReturn(true);
+	public void alguienTieneUnaRecetaSiUnMiembroEsElDueño() {
+		when(recetaMock.esElDueño(gaston)).thenReturn(false);
+		when(recetaMock.esElDueño(juanchi)).thenReturn(true);
 
-		assertFalse(grupoConPreferenciasVariadas.puedeSugerirse(recetaMock));
+		assertTrue(grupoConPreferenciasVariadas.alguienTiene(recetaMock));
 
-		verify(hipertensoMock, times(1)).esInadecuada(any(Receta.class));
-		verify(recetaMock, times(1)).tieneAlgunIngredienteDeEstos(
-				preferenciasVariadas);
+		verify(recetaMock, times(1)).esElDueño(gaston);
+		verify(recetaMock, times(1)).esElDueño(juanchi);
 	}
 
 	@Test
-	public void noPuedeSugerirAlNoTenerIngredientesPreferidos() {
-		when(recetaMock.tieneAlgunIngredienteDeEstos(preferenciaPapa))
-				.thenReturn(false);
-
-		assertFalse(grupoSoloPreferenciaPapa.puedeSugerirse(recetaMock));
-
-		verify(recetaMock, times(1)).tieneAlgunIngredienteDeEstos(
-				preferenciaPapa);
-	}
-
-	@Test
-	public void puedeSugerirUnaReseta() {
-		when(recetaMock.tieneAlgunIngredienteDeEstos(preferenciasVariadas))
-				.thenReturn(true);
-		when(hipertensoMock.esInadecuada(any(Receta.class))).thenReturn(false);
+	public void puedeSugerirseSiNoEsInadecuadaParaNingunIntegranteYTieneIngredientesPreferentes() {
+		when(recetaMock.esElDueño(gaston)).thenReturn(true);
+		when(juanchi.sosRecetaInadecuadaParaMi(recetaMock)).thenReturn(false);
+		when(gaston.sosRecetaInadecuadaParaMi(recetaMock)).thenReturn(false);
+		when(recetaMock.tieneAlgunIngredienteDeEstos(preferenciasVariadas)).thenReturn(true);
 
 		assertTrue(grupoConPreferenciasVariadas.puedeSugerirse(recetaMock));
 
-		verify(hipertensoMock, times(1)).esInadecuada(any(Receta.class));
-		verify(recetaMock, times(1)).tieneAlgunIngredienteDeEstos(
-				preferenciasVariadas);
+		verify(recetaMock, times(1)).esElDueño(gaston);
+		verify(juanchi, times(1)).sosRecetaInadecuadaParaMi(recetaMock);
+		verify(gaston, times(1)).sosRecetaInadecuadaParaMi(recetaMock);
+		verify(recetaMock, times(1)).tieneAlgunIngredienteDeEstos(preferenciasVariadas);
 	}
 
 	@Test
-	public void alguienTieneAReceta() {
-		assertTrue(grupoConPreferenciasVariadas.alguienTiene(recetaMock));
+	public void noPuedeSugerirseSiEsInadecuadaParaAlgunIntegrante() {
+		when(recetaMock.esElDueño(gaston)).thenReturn(true);
+		when(juanchi.sosRecetaInadecuadaParaMi(recetaMock)).thenReturn(true);
+		when(gaston.sosRecetaInadecuadaParaMi(recetaMock)).thenReturn(false);
+		when(recetaMock.tieneAlgunIngredienteDeEstos(preferenciasVariadas)).thenReturn(true);
+
+		assertFalse(grupoConPreferenciasVariadas.puedeSugerirse(recetaMock));
+
+		verify(recetaMock, times(1)).esElDueño(gaston);
+		verify(juanchi, times(1)).sosRecetaInadecuadaParaMi(recetaMock);
+		verify(gaston, times(1)).sosRecetaInadecuadaParaMi(recetaMock);
+		verify(recetaMock, times(1)).tieneAlgunIngredienteDeEstos(preferenciasVariadas);
 	}
 
 	@Test
-	public void nadieTieneAReceta() {
-		assertFalse(grupoSoloPreferenciaPapa.alguienTiene(recetaMock));
+	public void noPuedeSugerirseSiNoTieneIngredientesPreferentes() {
+		when(recetaMock.esElDueño(gaston)).thenReturn(true);
+		when(recetaMock.tieneAlgunIngredienteDeEstos(preferenciasVariadas)).thenReturn(false);
+
+		assertFalse(grupoConPreferenciasVariadas.puedeSugerirse(recetaMock));
+
+		verify(recetaMock, times(1)).esElDueño(gaston);
+		verify(recetaMock, times(1)).tieneAlgunIngredienteDeEstos(preferenciasVariadas);
 	}
 
 }

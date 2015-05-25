@@ -13,7 +13,7 @@ public class ExcesoDeCalorias extends Filtro {
 	public Collection<Receta> filtrarRecetas(Collection<Receta> recetas,
 			Usuario unUsuario) {
 		Collection<Receta> recetasParciales = recetas.stream()
-				.filter((unaReceta -> unaReceta.getCantCalorias() < 500))
+				.filter((unaReceta -> unaReceta.getCantCaloriasTotales() < 500))
 				.collect(Collectors.toList());
 
 		return subFiltro.filtrarRecetas(recetasParciales, unUsuario);

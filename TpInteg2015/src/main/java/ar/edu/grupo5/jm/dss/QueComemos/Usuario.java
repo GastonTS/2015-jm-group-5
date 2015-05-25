@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class Usuario {
+
+	static private RepositorioRecetas repositorio = new RepositorioRecetas();
+	
 	private Complexion complexion;
 	private DatosPersonales datosPersonales;
 	private Collection<String> preferenciasAlimenticias;
@@ -16,20 +19,16 @@ public class Usuario {
 	}
 
 	private Rutina rutina;
-	private Collection<Receta> recetasPropias;
 	private Collection<Receta> recetasFavoritas;
 
 	public Collection<Receta> getRecetasFavoritas() {
 		return recetasFavoritas;
 	}
 
-	private static Collection<Receta> recetasPublicas;
-
 	public Usuario(DatosPersonales unosDatosPersonales,
 			Complexion unaComplexion,
 			Collection<String> unasPreferenciasAlimenticias,
 			Collection<String> unosDisgustosAlimenticios,
-			Collection<Receta> unasRecetasPropias,
 			Collection<CondicionDeSalud> unasCondicionesDeSalud,
 			Rutina unaRutina) {
 
@@ -42,21 +41,18 @@ public class Usuario {
 				: new ArrayList<String>();
 		disgustosAlimenticios = (unosDisgustosAlimenticios != null) ? unosDisgustosAlimenticios
 				: new ArrayList<String>();
-		recetasPropias = (unasRecetasPropias != null) ? unasRecetasPropias
-				: new ArrayList<Receta>();
 		condicionesDeSalud = (unasCondicionesDeSalud != null) ? unasCondicionesDeSalud
 				: new ArrayList<CondicionDeSalud>();
 
 		rutina = unaRutina;
 	}
 
+	static public void setRepositorio(RepositorioRecetas unRepositorio) {
+		repositorio = unRepositorio;
+	}
+	
 	public void agregarGrupo(Grupo unGrupo) {
 		grupos.add(unGrupo);
-	}
-
-	// Setter de variable de clase recetasPublicas
-	public static void setRecetasPublicas(Collection<Receta> recetas) {
-		recetasPublicas = recetas;
 	}
 
 	public double getPeso() {
@@ -65,10 +61,6 @@ public class Usuario {
 
 	public boolean indicaSexo() {
 		return datosPersonales.indicaSexo();
-	}
-
-	public Collection<Receta> getRecetasPropias() {
-		return recetasPropias;
 	}
 
 	// Punto 1
@@ -117,26 +109,10 @@ public class Usuario {
 				preferencia -> preferencias.contains(preferencia));
 	}
 
-	// Punto 3.a
-	public void crearReceta(Receta unaReceta) {
-		if (!unaReceta.esValida()) {
-			throw new RecetaNoValidaException(
-					"No se Puede agregar una receta no válida!!!",
-					new RuntimeException());
-		}
-		recetasPropias.add(unaReceta);
-	}
-
 	// Punto 3.b en receta
 	public boolean sosRecetaInadecuadaParaMi(Receta unaReceta) {
 		return condicionesDeSalud.stream().anyMatch(
 				condicion -> condicion.esInadecuada(unaReceta));
-	}// si no tiene condiciones devuelve false por lo tanto no es inadecuada
-
-	// Punto 4.a y 4.b
-	public boolean puedeAcceder(Receta unaReceta) {
-		return esRecetaPropia(unaReceta) || esRecetaPublica(unaReceta)
-				|| esRecetaDeGrupo(unaReceta);
 	}
 
 	public boolean esRecetaDeGrupo(Receta unaReceta) {
@@ -144,83 +120,19 @@ public class Usuario {
 				unGrupo -> unGrupo.alguienTiene(unaReceta));
 	}
 
-	public boolean esRecetaPropia(Receta unaReceta) {
-		return recetasPropias.contains(unaReceta);
-	}
-
-	private boolean esRecetaPublica(Receta unaReceta) {
-		return recetasPublicas.contains(unaReceta);
-	}
-
-	// Punto 4.c
-	public void modificarReceta(Receta viejaReceta, Receta nuevaReceta) {
-		if (!puedeAcceder(viejaReceta)) {
-			throw new NoPuedeAccederARecetaException(
-					"No tiene permiso para acceder a esa receta",
-					new RuntimeException());
-		}
-
-		if (esRecetaPropia(viejaReceta)) {
-			modificarRecetaPropia(viejaReceta, nuevaReceta);
-		} else {
-			crearReceta(nuevaReceta);
-		}
-	}
-
-	private void modificarRecetaPropia(Receta viejaReceta, Receta nuevaReceta) {
-		eliminarRecetaPropia(viejaReceta);
-		crearReceta(nuevaReceta);
-	}
-
-	public void eliminarRecetaPropia(Receta unaReceta) {
-		if (recetasFavoritas.contains(unaReceta))
-			recetasFavoritas.remove(unaReceta);
-		recetasPropias.remove(unaReceta);
-	}
-
-	// Punto 5
-	public void crearRecetaConSubRecetas(Receta unaReceta,
-			Collection<Receta> unasSubRecetas) {
-		if (unasSubRecetas.stream().allMatch(
-				unaSubReceta -> puedeAcceder(unaSubReceta))) {
-			unaReceta.agregarSubRecetas(unasSubRecetas);
-			crearReceta(unaReceta);
-		} else {
-			throw new NoPuedeAccederARecetaException(
-					"No puede agregar subrecetas a las que no tenga permiso de acceder",
-					new RuntimeException());
-		}
-
-	}
-
 	public boolean puedeSugerirse(Receta unaReceta) {
-		return noLeDisgusta(unaReceta) && !sosRecetaInadecuadaParaMi(unaReceta);
-	}
-
-	public Collection<Receta> consultarRecetasDeLosGrupos() {
-		Collection<Receta> resultadoConsulta = new ArrayList<Receta>();
-		grupos.forEach(unGrupo -> resultadoConsulta.addAll(unGrupo
-				.consultarRecetas()));
-
-		return resultadoConsulta;
+		return noLeDisgusta(unaReceta) && !sosRecetaInadecuadaParaMi(unaReceta)
+				&& puedeAccederA(unaReceta);
 	}
 
 	public Collection<Receta> consultarRecetas(IFiltro unFiltro) {
-		Collection<Receta> resultadoConsulta = new ArrayList<Receta>();
-		resultadoConsulta.addAll(recetasPropias);
-		resultadoConsulta.addAll(consultarRecetasDeLosGrupos());
-		resultadoConsulta.addAll(recetasPublicas);
-
-		return unFiltro.filtrarRecetas(resultadoConsulta, this);
+		return unFiltro.filtrarRecetas(
+				repositorio.listarTodasPuedeAcceder(this), this);
 	}
 
 	public Collection<Receta> consultarRecetasSt(Filtrado unFiltrado) {
-		Collection<Receta> resultadoConsulta = new ArrayList<Receta>();
-		resultadoConsulta.addAll(recetasPropias);
-		resultadoConsulta.addAll(consultarRecetasDeLosGrupos());
-		resultadoConsulta.addAll(recetasPublicas);
-
-		return unFiltrado.aplicarFiltros(resultadoConsulta, this);
+		return unFiltrado.aplicarFiltros(
+				repositorio.listarTodasPuedeAcceder(this), this);
 	}
 
 	public boolean noLeDisgusta(Receta unaReceta) {
@@ -229,5 +141,63 @@ public class Usuario {
 
 	public void agregarAFavorita(Receta unaReceta) {
 		recetasFavoritas.add(unaReceta);
+	}
+
+	public void quitarRecetaFavorita(Receta unaReceta) {
+		recetasFavoritas.remove(unaReceta);
+	}
+	
+	public void crearReceta(Receta unaReceta) {
+		if (!unaReceta.esValida()) {
+			throw new RecetaNoValidaException(
+					"No se Puede agregar una receta no válida!!!",
+					new RuntimeException());
+		}
+			
+		unaReceta.setDueño(this);
+		repositorio.agregarReceta(unaReceta);
+	}
+	
+	public void eliminarReceta(Receta unaReceta) {
+		if (!unaReceta.esElDueño(this)) {
+			throw new NoPuedeEliminarRecetaExeption(
+					"No puede eliminar una receta que no creó",
+					new RuntimeException());
+		}
+		repositorio.quitarReceta(unaReceta);
+		quitarRecetaFavorita(unaReceta);
+	}
+	
+	public boolean puedeAccederA(Receta unaReceta) {
+		return unaReceta.esPublica() || unaReceta.esElDueño(this)
+				|| esRecetaDeGrupo(unaReceta);
+	}
+	
+	public void modificarReceta(Receta viejaReceta, Receta nuevaReceta) {
+		if (!puedeAccederA(viejaReceta)) {
+			throw new NoPuedeAccederARecetaException(
+					"No tiene permiso para acceder a esa receta",
+					new RuntimeException());
+		}
+
+		if (viejaReceta.esElDueño(this)) {
+			eliminarReceta(viejaReceta);
+			crearReceta(nuevaReceta);
+		} else {
+			crearReceta(nuevaReceta);
+		}
+	}
+	
+	// Punto 5
+	public void crearRecetaConSubRecetas(Receta unaReceta,
+			Collection<Receta> unasSubRecetas) {
+		if (unasSubRecetas.stream().anyMatch(
+				unaSubReceta -> !puedeAccederA(unaSubReceta))) {
+			throw new NoPuedeAccederARecetaException(
+					"No puede agregar subrecetas a las que no tenga permiso de acceder",
+					new RuntimeException());
+		}
+		unaReceta.agregarSubRecetas(unasSubRecetas);
+		crearReceta(unaReceta);
 	}
 }

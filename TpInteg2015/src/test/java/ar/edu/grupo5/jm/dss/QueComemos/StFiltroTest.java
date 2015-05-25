@@ -35,8 +35,8 @@ public class StFiltroTest {
 	private StPrimeros10 primeros10 = new StPrimeros10();
 	private StSoloPares soloPares = new StSoloPares();
 	private StOrdenadosPorCriterio ordenadosPorCalorias = new StOrdenadosPorCriterio(
-			((receta1, receta2) -> ((Double) receta1.getCantCalorias())
-					.compareTo((Double) receta2.getCantCalorias())));
+			((receta1, receta2) -> ((Double) receta1.getCantCaloriasTotales())
+					.compareTo((Double) receta2.getCantCaloriasTotales())));
 
 	private StOrdenadosPorCriterio ordenadosAlfabeticamente = new StOrdenadosPorCriterio(
 			((receta1, receta2) -> (receta1.getNombre()).compareTo(receta2
@@ -58,10 +58,10 @@ public class StFiltroTest {
 
 	@Test
 	public void excesoDeCaloriasDevuelveLasQueTenganMenosDe500() {
-		when(guisoMock.getCantCalorias()).thenReturn((double) 550);
-		when(ensaladaMock.getCantCalorias()).thenReturn((double) 200);
-		when(panchoMock.getCantCalorias()).thenReturn((double) 500);
-		when(vegetarianaMock.getCantCalorias()).thenReturn((double) 400);
+		when(guisoMock.getCantCaloriasTotales()).thenReturn((double) 550);
+		when(ensaladaMock.getCantCaloriasTotales()).thenReturn((double) 200);
+		when(panchoMock.getCantCaloriasTotales()).thenReturn((double) 500);
+		when(vegetarianaMock.getCantCaloriasTotales()).thenReturn((double) 400);
 
 		Collection<Receta> menosDe500Calorias = Arrays.asList(ensaladaMock,
 				vegetarianaMock);
@@ -69,10 +69,10 @@ public class StFiltroTest {
 		assertEquals(excesoDeCalorias.filtrarRecetas(recetas, null),
 				menosDe500Calorias);
 
-		verify(guisoMock, times(1)).getCantCalorias();
-		verify(ensaladaMock, times(1)).getCantCalorias();
-		verify(panchoMock, times(1)).getCantCalorias();
-		verify(vegetarianaMock, times(1)).getCantCalorias();
+		verify(guisoMock, times(1)).getCantCaloriasTotales();
+		verify(ensaladaMock, times(1)).getCantCaloriasTotales();
+		verify(panchoMock, times(1)).getCantCaloriasTotales();
+		verify(vegetarianaMock, times(1)).getCantCaloriasTotales();
 	}
 
 	@Test
@@ -149,10 +149,10 @@ public class StFiltroTest {
 
 	@Test
 	public void superFiltroAplicaTodosLosFiltrosEnOrden() {
-		when(guisoMock.getCantCalorias()).thenReturn((double) 550);
-		when(ensaladaMock.getCantCalorias()).thenReturn((double) 200);
-		when(panchoMock.getCantCalorias()).thenReturn((double) 500);
-		when(vegetarianaMock.getCantCalorias()).thenReturn((double) 400);
+		when(guisoMock.getCantCaloriasTotales()).thenReturn((double) 550);
+		when(ensaladaMock.getCantCaloriasTotales()).thenReturn((double) 200);
+		when(panchoMock.getCantCaloriasTotales()).thenReturn((double) 500);
+		when(vegetarianaMock.getCantCaloriasTotales()).thenReturn((double) 400);
 		when(usuarioMock.noLeDisgusta(ensaladaMock)).thenReturn(true);
 		when(usuarioMock.noLeDisgusta(vegetarianaMock)).thenReturn(false);
 
@@ -169,10 +169,10 @@ public class StFiltroTest {
 		assertEquals(superPreFiltro.aplicarFiltros(recetas, usuarioMock),
 				recetasFiltradas);
 
-		verify(guisoMock, times(1)).getCantCalorias();
-		verify(ensaladaMock, times(1)).getCantCalorias();
-		verify(panchoMock, times(1)).getCantCalorias();
-		verify(vegetarianaMock, times(1)).getCantCalorias();
+		verify(guisoMock, times(1)).getCantCaloriasTotales();
+		verify(ensaladaMock, times(1)).getCantCaloriasTotales();
+		verify(panchoMock, times(1)).getCantCaloriasTotales();
+		verify(vegetarianaMock, times(1)).getCantCaloriasTotales();
 
 		verify(usuarioMock, times(1)).sosRecetaInadecuadaParaMi(ensaladaMock);
 		verify(usuarioMock, times(1))
@@ -211,10 +211,10 @@ public class StFiltroTest {
 
 	@Test
 	public void ordenadosPorCalorias() {
-		when(guisoMock.getCantCalorias()).thenReturn((double) 550);
-		when(ensaladaMock.getCantCalorias()).thenReturn((double) 200);
-		when(panchoMock.getCantCalorias()).thenReturn((double) 500);
-		when(vegetarianaMock.getCantCalorias()).thenReturn((double) 400);
+		when(guisoMock.getCantCaloriasTotales()).thenReturn((double) 550);
+		when(ensaladaMock.getCantCaloriasTotales()).thenReturn((double) 200);
+		when(panchoMock.getCantCaloriasTotales()).thenReturn((double) 500);
+		when(vegetarianaMock.getCantCaloriasTotales()).thenReturn((double) 400);
 
 		Collection<Receta> recetasPorCalorias = Arrays.asList(ensaladaMock,
 				vegetarianaMock, panchoMock, guisoMock);
@@ -222,10 +222,10 @@ public class StFiltroTest {
 		assertEquals(ordenadosPorCalorias.filtrarRecetas(recetas, null),
 				recetasPorCalorias);
 
-		verify(guisoMock, times(2)).getCantCalorias();
-		verify(ensaladaMock, times(4)).getCantCalorias();
-		verify(panchoMock, times(4)).getCantCalorias();
-		verify(vegetarianaMock, times(2)).getCantCalorias();
+		verify(guisoMock, times(2)).getCantCaloriasTotales();
+		verify(ensaladaMock, times(4)).getCantCaloriasTotales();
+		verify(panchoMock, times(4)).getCantCaloriasTotales();
+		verify(vegetarianaMock, times(2)).getCantCaloriasTotales();
 	}
 
 	@Test
@@ -249,10 +249,10 @@ public class StFiltroTest {
 
 	@Test
 	public void FitradoPorPostprocesadoYPreProcesado() {
-		when(guisoMock.getCantCalorias()).thenReturn((double) 550);
-		when(ensaladaMock.getCantCalorias()).thenReturn((double) 200);
-		when(panchoMock.getCantCalorias()).thenReturn((double) 500);
-		when(vegetarianaMock.getCantCalorias()).thenReturn((double) 400);
+		when(guisoMock.getCantCaloriasTotales()).thenReturn((double) 550);
+		when(ensaladaMock.getCantCaloriasTotales()).thenReturn((double) 200);
+		when(panchoMock.getCantCaloriasTotales()).thenReturn((double) 500);
+		when(vegetarianaMock.getCantCaloriasTotales()).thenReturn((double) 400);
 
 		Collection<Receta> paresDeMenosDe500Calorias = new ArrayList<Receta>();
 		paresDeMenosDe500Calorias.add(vegetarianaMock);
@@ -260,9 +260,9 @@ public class StFiltroTest {
 		assertEquals(combinacionPostProcesadoConPre.aplicarFiltros(recetas,
 				usuarioMock), paresDeMenosDe500Calorias);
 
-		verify(guisoMock, times(1)).getCantCalorias();
-		verify(ensaladaMock, times(1)).getCantCalorias();
-		verify(panchoMock, times(1)).getCantCalorias();
-		verify(vegetarianaMock, times(1)).getCantCalorias();
+		verify(guisoMock, times(1)).getCantCaloriasTotales();
+		verify(ensaladaMock, times(1)).getCantCaloriasTotales();
+		verify(panchoMock, times(1)).getCantCaloriasTotales();
+		verify(vegetarianaMock, times(1)).getCantCaloriasTotales();
 	}
 }

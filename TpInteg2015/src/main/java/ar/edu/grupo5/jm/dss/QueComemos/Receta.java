@@ -1,26 +1,21 @@
 package ar.edu.grupo5.jm.dss.QueComemos;
 
 import java.util.Collection;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.ArrayList;
 
 public class Receta {
-	private String nombre;
 
-	public String getNombre() {
-		return nombre;
-	}
+	private String nombre;
 
 	private Collection<String> ingredientes;
 	private Collection<Condimentacion> condimentaciones;
 	private double cantCalorias;
 
-	public double getCantCalorias() {
-		return cantCalorias;
-	}
-
 	private Collection<Receta> subRecetas;
+	private Optional<Usuario> dueño = Optional.empty();
 
 	public Receta(String nombreReceta, Collection<String> unosIngredientes,
 			Collection<Condimentacion> unasCondimentaciones,
@@ -35,13 +30,29 @@ public class Receta {
 				: new ArrayList<Receta>();
 
 		cantCalorias = unasCantCalorias;
+	}
 
+	public String getNombre() {
+		return nombre;
 	}
 
 	public Collection<Receta> getSubRecetas() {
 		return subRecetas;
 	}
+	
+	public void setDueño(Usuario unUsuario) {
+		dueño = Optional.of(unUsuario);
+	}
+	
+	public boolean esElDueño(Usuario unUsuario) {
+		return dueño.isPresent() ? dueño.get().equals(unUsuario) : false;
+	}
 
+	public boolean esPublica() {
+		return !dueño.isPresent();
+	}
+	
+	
 	public boolean esValida() {
 		return tieneAlMenosUnIngrediente() && totalCaloriasEntre(10, 5000);
 	}
@@ -51,7 +62,8 @@ public class Receta {
 	}
 
 	private boolean totalCaloriasEntre(int minimo, int maximo) {
-		return cantCalorias >= minimo && cantCalorias <= maximo;
+		return getCantCaloriasTotales() >= minimo
+				&& getCantCaloriasTotales() <= maximo;
 	}
 
 	public boolean tenesAlgoDe(Collection<String> condimentosProhibidos) {
@@ -70,6 +82,16 @@ public class Receta {
 			Collection<String> ingredientesProhibidas) {
 		return getIngredientesTotales().stream().anyMatch(
 				ingrediente -> ingredientesProhibidas.contains(ingrediente));
+	}
+
+	private double getCantCaloriasSubRecetas() {
+		return subRecetas.stream()
+				.mapToDouble(subReceta -> subReceta.getCantCaloriasTotales())
+				.sum();
+	}
+
+	public double getCantCaloriasTotales() {
+		return cantCalorias + getCantCaloriasSubRecetas();
 	}
 
 	private Stream<String> getIngredientesSubRecetas() {
