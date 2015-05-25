@@ -45,12 +45,6 @@ public class UsuarioTest {
 
 	private RepositorioRecetas repositorioMock = mock(RepositorioRecetas.class);
 	
-	
-//	private Collection<Receta> recetasGaston = new ArrayList<Receta>();
-//	private Collection<Receta> recetasGustavo = new ArrayList<Receta>();
-//	// Juanchi queda sin recetas
-//	private Collection<Receta> recetasJuanchi = new ArrayList<Receta>();
-
 	private Grupo grupoMock = mock(Grupo.class);
 
 	private IFiltro filtroMock = mock(IFiltro.class);
@@ -61,24 +55,12 @@ public class UsuarioTest {
 		condiciones.add(hippie);
 		condiciones.add(corporativo);
 
-//		recetasPublicas.add(ensaladaMock);
-//		recetasGustavo.add(choripanMock);
-//		recetasGaston.add(panchoMock);
-
 		disgustosGustavo.add("McDonalds");
 		preferenciaFruta.add("fruta");
 		preferenciasVariadas.add("fruta");
 		preferenciasVariadas.add("semillas");
 		preferenciasVariadas.add("champignones");
 
-//		Usuario.setRecetasPublicas(recetasPublicas);
-//		gustavo = new Usuario(datosPersonalesMock, complexionMock, null,
-//				disgustosGustavo, recetasGustavo, condiciones, Rutina.MEDIANA);
-//		gaston = new Usuario(datosPersonalesMock, complexionMock, null, null,
-//				recetasGaston, null, null);
-//		juanchi = new Usuario(datosPersonalesMock, complexionMock,
-//				preferenciaFruta, null, recetasJuanchi, null, null);
-		
 		Usuario.setRepositorio(repositorioMock);
 		
 		gustavo = new Usuario(datosPersonalesMock, complexionMock, null,
