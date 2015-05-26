@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class Filtrado {
+public class StFiltro {
 
 	private List<IFiltroStrategy> filtros;
 	private List<IFiltroStrategy> postProcesamientos;
 
-	public Filtrado(List<IFiltroStrategy> unosFiltros,
+	public StFiltro(List<IFiltroStrategy> unosFiltros,
 			List<IFiltroStrategy> unosPostProcesamientos) {
 		filtros = (unosFiltros != null) ? unosFiltros
 				: new ArrayList<IFiltroStrategy>();

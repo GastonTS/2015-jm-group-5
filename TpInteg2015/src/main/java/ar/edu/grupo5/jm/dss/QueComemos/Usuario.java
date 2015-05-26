@@ -6,7 +6,7 @@ import java.util.Collection;
 public class Usuario {
 
 	static private RepositorioRecetas repositorio = new RepositorioRecetas();
-	
+
 	private Complexion complexion;
 	private DatosPersonales datosPersonales;
 	private Collection<String> preferenciasAlimenticias;
@@ -50,7 +50,7 @@ public class Usuario {
 	static public void setRepositorio(RepositorioRecetas unRepositorio) {
 		repositorio = unRepositorio;
 	}
-	
+
 	public void agregarGrupo(Grupo unGrupo) {
 		grupos.add(unGrupo);
 	}
@@ -130,7 +130,7 @@ public class Usuario {
 				repositorio.listarTodasPuedeAcceder(this), this);
 	}
 
-	public Collection<Receta> consultarRecetasSt(Filtrado unFiltrado) {
+	public Collection<Receta> consultarRecetasSt(StFiltro unFiltrado) {
 		return unFiltrado.aplicarFiltros(
 				repositorio.listarTodasPuedeAcceder(this), this);
 	}
@@ -146,18 +146,18 @@ public class Usuario {
 	public void quitarRecetaFavorita(Receta unaReceta) {
 		recetasFavoritas.remove(unaReceta);
 	}
-	
+
 	public void crearReceta(Receta unaReceta) {
 		if (!unaReceta.esValida()) {
 			throw new RecetaNoValidaException(
 					"No se Puede agregar una receta no válida!!!",
 					new RuntimeException());
 		}
-			
+
 		unaReceta.setDueño(this);
 		repositorio.agregarReceta(unaReceta);
 	}
-	
+
 	public void eliminarReceta(Receta unaReceta) {
 		if (!unaReceta.esElDueño(this)) {
 			throw new NoPuedeEliminarRecetaExeption(
@@ -167,12 +167,12 @@ public class Usuario {
 		repositorio.quitarReceta(unaReceta);
 		quitarRecetaFavorita(unaReceta);
 	}
-	
+
 	public boolean puedeAccederA(Receta unaReceta) {
 		return unaReceta.esPublica() || unaReceta.esElDueño(this)
 				|| esRecetaDeGrupo(unaReceta);
 	}
-	
+
 	public void modificarReceta(Receta viejaReceta, Receta nuevaReceta) {
 		if (!puedeAccederA(viejaReceta)) {
 			throw new NoPuedeAccederARecetaException(
@@ -187,7 +187,7 @@ public class Usuario {
 			crearReceta(nuevaReceta);
 		}
 	}
-	
+
 	// Punto 5
 	public void crearRecetaConSubRecetas(Receta unaReceta,
 			Collection<Receta> unasSubRecetas) {

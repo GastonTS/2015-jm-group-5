@@ -39,11 +39,11 @@ public class Receta {
 	public Collection<Receta> getSubRecetas() {
 		return subRecetas;
 	}
-	
+
 	public void setDueño(Usuario unUsuario) {
 		dueño = Optional.of(unUsuario);
 	}
-	
+
 	public boolean esElDueño(Usuario unUsuario) {
 		return dueño.isPresent() ? dueño.get().equals(unUsuario) : false;
 	}
@@ -51,8 +51,7 @@ public class Receta {
 	public boolean esPublica() {
 		return !dueño.isPresent();
 	}
-	
-	
+
 	public boolean esValida() {
 		return tieneAlMenosUnIngrediente() && totalCaloriasEntre(10, 5000);
 	}

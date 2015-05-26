@@ -4,6 +4,7 @@ import java.util.Collection;
 
 public interface IFiltroStrategy {
 
-	public Collection<Receta> filtrarRecetas(Collection<Receta> unasRecetas, Usuario unUsuario);
-	
+	public Collection<Receta> filtrarRecetas(Collection<Receta> unasRecetas,
+			Usuario unUsuario);
+
 }

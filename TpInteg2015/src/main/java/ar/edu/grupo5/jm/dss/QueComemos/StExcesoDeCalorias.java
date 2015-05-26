@@ -9,7 +9,8 @@ public class StExcesoDeCalorias implements IFiltroStrategy {
 	public Collection<Receta> filtrarRecetas(Collection<Receta> unasRecetas,
 			Usuario unUsuario) {
 
-		return unasRecetas.stream()
+		return unasRecetas
+				.stream()
 				.filter((unaReceta -> unaReceta.getCantCaloriasTotales() < 500))
 				.collect(Collectors.toList());
 	}

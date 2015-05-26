@@ -10,8 +10,10 @@ public class SoloPares extends Filtro {
 	}
 
 	@Override
-	public Collection<Receta> filtrarRecetas(Collection<Receta> recetas, Usuario unUsuario) {
-		Collection<Receta> recetasParciales = subFiltro.filtrarRecetas(recetas, unUsuario);
+	public Collection<Receta> filtrarRecetas(Collection<Receta> recetas,
+			Usuario unUsuario) {
+		Collection<Receta> recetasParciales = subFiltro.filtrarRecetas(recetas,
+				unUsuario);
 
 		boolean esPar = false;
 		Collection<Receta> recetasTotales = new ArrayList<Receta>();
