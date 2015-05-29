@@ -38,13 +38,9 @@ public class Usuario {
 		recetasFavoritas = new ArrayList<Receta>();
 
 		//FIXME asumir no nulos
-		preferenciasAlimenticias = (unasPreferenciasAlimenticias != null) ? unasPreferenciasAlimenticias
-				: new ArrayList<String>();
-		disgustosAlimenticios = (unosDisgustosAlimenticios != null) ? unosDisgustosAlimenticios
-				: new ArrayList<String>();
-		condicionesDeSalud = (unasCondicionesDeSalud != null) ? unasCondicionesDeSalud
-				: new ArrayList<CondicionDeSalud>();
-
+		preferenciasAlimenticias = unasPreferenciasAlimenticias;
+		disgustosAlimenticios = unosDisgustosAlimenticios;
+		condicionesDeSalud = unasCondicionesDeSalud;
 		rutina = unaRutina;
 	}
 
