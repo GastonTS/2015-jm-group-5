@@ -2,7 +2,7 @@ language: java
 jdk:
   - oraclejdk8
 
-before_build: cd TpInteg2015
+before_install: cd TpInteg2015
 
 notification_settings:
   mail:
