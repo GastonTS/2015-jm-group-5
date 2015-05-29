@@ -4,12 +4,12 @@ jdk:
 
 before_install: cd TpInteg2015
 
-notification_settings:
-  mail:
-	- flbulgarelli@gmail.com
-	- crespi.gustavo@gmail.com
-	- juanchirios.jmr@gmail.com
-	- leanrodri2093@gmail.com
-	- gastonsantoalla@gmail.com
-	- ramirov93@gmail.com
+notifications:
+  email:
+   - flbulgarelli@gmail.com
+   - crespi.gustavo@gmail.com
+   - juanchirios.jmr@gmail.com
+   - leanrodri2093@gmail.com
+   - gastonsantoalla@gmail.com
+   - ramirov93@gmail.com
 
