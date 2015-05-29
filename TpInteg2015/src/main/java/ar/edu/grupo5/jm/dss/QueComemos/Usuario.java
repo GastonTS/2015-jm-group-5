@@ -130,7 +130,7 @@ public class Usuario {
 				repositorio.listarTodasPuedeAcceder(this), this);
 	}
 
-	public Collection<Receta> consultarRecetasSt(StFiltro unFiltrado) {
+	public Collection<Receta> consultarRecetasSt(GestorDeConsultas unFiltrado) {
 		return unFiltrado.aplicarFiltros(
 				repositorio.listarTodasPuedeAcceder(this), this);
 	}

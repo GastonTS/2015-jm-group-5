@@ -9,6 +9,8 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -23,14 +25,17 @@ public class StFiltroTest {
 
 	private Collection<Receta> recetas = new ArrayList<Receta>();
 
-	private StExcesoDeCalorias excesoDeCalorias = new StExcesoDeCalorias();
-	private StSegunCondicionesDeUsuario segunCondicionesDelusuario = new StSegunCondicionesDeUsuario();
-	private StPreparacionBarata preparacionBarata = new StPreparacionBarata();
-	private StNoLeDisgustaAlUsuario leGustaAlUsuario = new StNoLeDisgustaAlUsuario();
+	private Collection<String> ingredientesCaros = Arrays.asList("lechon",
+			"lomo", "salmon", "alcaparras");
 
-	private StFiltro superPreFiltro = new StFiltro(Arrays.asList(
-			excesoDeCalorias, segunCondicionesDelusuario, preparacionBarata,
-			leGustaAlUsuario), null);
+	private Predicate<Receta> excesoDeCalorias = (unaReceta -> unaReceta
+			.getCantCaloriasTotales() < 500);
+	private Predicate<Receta> segunCondicionesDelusuario = (unaReceta -> !usuarioMock
+			.sosRecetaInadecuadaParaMi(unaReceta));
+	private Predicate<Receta> preparacionBarata = (unaReceta -> !unaReceta
+			.tieneAlgunIngredienteDeEstos(ingredientesCaros));
+	private Predicate<Receta> leGustaAlUsuario = (unaReceta -> usuarioMock
+			.noLeDisgusta(unaReceta));
 
 	private StPrimeros10 primeros10 = new StPrimeros10();
 	private StSoloPares soloPares = new StSoloPares();
@@ -42,11 +47,12 @@ public class StFiltroTest {
 			((receta1, receta2) -> (receta1.getNombre()).compareTo(receta2
 					.getNombre())));
 
-	private StFiltro combinacionPostProcesadoConPre = new StFiltro(
+	private GestorDeConsultas combinacionPostProcesadoConFiltro = new GestorDeConsultas(
 			Arrays.asList(excesoDeCalorias), Arrays.asList(soloPares));
 
-	private Collection<String> ingredientesCaros = Arrays.asList("lechon",
-			"lomo", "salmon", "alcaparras");
+	private GestorDeConsultas superPreFiltro = new GestorDeConsultas(
+			Arrays.asList(excesoDeCalorias, segunCondicionesDelusuario,
+					preparacionBarata, leGustaAlUsuario), null);
 
 	@Before
 	public void setUp() {
@@ -63,11 +69,15 @@ public class StFiltroTest {
 		when(panchoMock.getCantCaloriasTotales()).thenReturn((double) 500);
 		when(vegetarianaMock.getCantCaloriasTotales()).thenReturn((double) 400);
 
+		Collection<Receta> todasLasRecetas = Arrays.asList(guisoMock,
+				ensaladaMock, panchoMock, vegetarianaMock);
+
 		Collection<Receta> menosDe500Calorias = Arrays.asList(ensaladaMock,
 				vegetarianaMock);
 
-		assertEquals(excesoDeCalorias.filtrarRecetas(recetas, null),
-				menosDe500Calorias);
+		assertEquals(
+				todasLasRecetas.stream().filter(excesoDeCalorias)
+						.collect(Collectors.toList()), menosDe500Calorias);
 
 		verify(guisoMock, times(1)).getCantCaloriasTotales();
 		verify(ensaladaMock, times(1)).getCantCaloriasTotales();
@@ -85,12 +95,15 @@ public class StFiltroTest {
 		when(usuarioMock.sosRecetaInadecuadaParaMi(vegetarianaMock))
 				.thenReturn(false);
 
+		Collection<Receta> todasLasRecetas = Arrays.asList(guisoMock,
+				ensaladaMock, panchoMock, vegetarianaMock);
+
 		Collection<Receta> sonAdecuadasParaUsuario = Arrays.asList(
 				ensaladaMock, vegetarianaMock);
 
-		assertEquals(
-				segunCondicionesDelusuario.filtrarRecetas(recetas, usuarioMock),
-				sonAdecuadasParaUsuario);
+		assertEquals(todasLasRecetas.stream()
+				.filter(segunCondicionesDelusuario)
+				.collect(Collectors.toList()), sonAdecuadasParaUsuario);
 
 		verify(usuarioMock, times(1)).sosRecetaInadecuadaParaMi(guisoMock);
 		verify(usuarioMock, times(1)).sosRecetaInadecuadaParaMi(ensaladaMock);
@@ -107,11 +120,15 @@ public class StFiltroTest {
 		when(usuarioMock.noLeDisgusta(panchoMock)).thenReturn(true);
 		when(usuarioMock.noLeDisgusta(vegetarianaMock)).thenReturn(false);
 
+		Collection<Receta> todasLasRecetas = Arrays.asList(guisoMock,
+				ensaladaMock, panchoMock, vegetarianaMock);
+
 		Collection<Receta> noLeDisgustanAlUsuario = Arrays.asList(guisoMock,
 				panchoMock);
 
-		assertEquals(leGustaAlUsuario.filtrarRecetas(recetas, usuarioMock),
-				noLeDisgustanAlUsuario);
+		assertEquals(
+				todasLasRecetas.stream().filter(leGustaAlUsuario)
+						.collect(Collectors.toList()), noLeDisgustanAlUsuario);
 
 		verify(usuarioMock, times(1)).noLeDisgusta(guisoMock);
 		verify(usuarioMock, times(1)).noLeDisgusta(ensaladaMock);
@@ -131,11 +148,14 @@ public class StFiltroTest {
 		when(vegetarianaMock.tieneAlgunIngredienteDeEstos(ingredientesCaros))
 				.thenReturn(true);
 
+		Collection<Receta> todasLasRecetas = Arrays.asList(guisoMock,
+				ensaladaMock, panchoMock, vegetarianaMock);
+
 		Collection<Receta> recetasBaratas = Arrays.asList(ensaladaMock,
 				panchoMock);
 
-		assertEquals(preparacionBarata.filtrarRecetas(recetas, null),
-				recetasBaratas);
+		assertEquals(todasLasRecetas.stream().filter(preparacionBarata)
+				.collect(Collectors.toList()), recetasBaratas);
 
 		verify(guisoMock, times(1)).tieneAlgunIngredienteDeEstos(
 				ingredientesCaros);
@@ -164,9 +184,13 @@ public class StFiltroTest {
 		when(ensaladaMock.tieneAlgunIngredienteDeEstos(ingredientesCaros))
 				.thenReturn(false);
 
+		Collection<Receta> todasLasRecetas = Arrays.asList(guisoMock,
+				ensaladaMock, panchoMock, vegetarianaMock);
+
 		Collection<Receta> recetasFiltradas = Arrays.asList(ensaladaMock);
 
-		assertEquals(superPreFiltro.aplicarFiltros(recetas, usuarioMock),
+		assertEquals(
+				superPreFiltro.aplicarFiltros(todasLasRecetas, usuarioMock),
 				recetasFiltradas);
 
 		verify(guisoMock, times(1)).getCantCaloriasTotales();
@@ -196,7 +220,7 @@ public class StFiltroTest {
 		receta12Elementos.add(ensaladaMock);
 		receta12Elementos.add(vegetarianaMock);
 
-		assertEquals(primeros10.filtrarRecetas(receta12Elementos, null),
+		assertEquals(primeros10.procesarRecetas(receta12Elementos),
 				receta10Elementos);
 
 	}
@@ -206,7 +230,7 @@ public class StFiltroTest {
 		Collection<Receta> recetaSoloPares = Arrays.asList(ensaladaMock,
 				vegetarianaMock);
 
-		assertEquals(soloPares.filtrarRecetas(recetas, null), recetaSoloPares);
+		assertEquals(soloPares.procesarRecetas(recetas), recetaSoloPares);
 	}
 
 	@Test
@@ -219,7 +243,7 @@ public class StFiltroTest {
 		Collection<Receta> recetasPorCalorias = Arrays.asList(ensaladaMock,
 				vegetarianaMock, panchoMock, guisoMock);
 
-		assertEquals(ordenadosPorCalorias.filtrarRecetas(recetas, null),
+		assertEquals(ordenadosPorCalorias.procesarRecetas(recetas),
 				recetasPorCalorias);
 
 		verify(guisoMock, times(2)).getCantCaloriasTotales();
@@ -238,7 +262,7 @@ public class StFiltroTest {
 		Collection<Receta> recetasPorCalorias = Arrays.asList(ensaladaMock,
 				guisoMock, panchoMock, vegetarianaMock);
 
-		assertEquals(ordenadosAlfabeticamente.filtrarRecetas(recetas, null),
+		assertEquals(ordenadosAlfabeticamente.procesarRecetas(recetas),
 				recetasPorCalorias);
 
 		verify(guisoMock, times(3)).getNombre();
@@ -257,8 +281,9 @@ public class StFiltroTest {
 		Collection<Receta> paresDeMenosDe500Calorias = new ArrayList<Receta>();
 		paresDeMenosDe500Calorias.add(vegetarianaMock);
 
-		assertEquals(combinacionPostProcesadoConPre.aplicarFiltros(recetas,
-				usuarioMock), paresDeMenosDe500Calorias);
+		assertEquals(
+				combinacionPostProcesadoConFiltro.aplicar(recetas, usuarioMock),
+				paresDeMenosDe500Calorias);
 
 		verify(guisoMock, times(1)).getCantCaloriasTotales();
 		verify(ensaladaMock, times(1)).getCantCaloriasTotales();

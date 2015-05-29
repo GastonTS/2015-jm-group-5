@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class StOrdenadosPorCriterio implements IFiltroStrategy {
+public class StOrdenadosPorCriterio implements PostProcesamiento {
 
 	private Comparator<Receta> criterio;
 
@@ -14,8 +14,7 @@ public class StOrdenadosPorCriterio implements IFiltroStrategy {
 	}
 
 	@Override
-	public Collection<Receta> filtrarRecetas(Collection<Receta> unasRecetas,
-			Usuario unUsuario) {
+	public Collection<Receta> procesarRecetas(Collection<Receta> unasRecetas) {
 		List<Receta> resultadoRecetas = (List<Receta>) unasRecetas;
 
 		Collections.sort(resultadoRecetas, criterio);

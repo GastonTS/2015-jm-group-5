@@ -48,7 +48,7 @@ public class UsuarioTest {
 	private Grupo grupoMock = mock(Grupo.class);
 
 	private IFiltro filtroMock = mock(IFiltro.class);
-	private StFiltro filtroStMock = mock(StFiltro.class);
+	private GestorDeConsultas filtroStMock = mock(GestorDeConsultas.class);
 
 	@Before
 	public void setUp() {
