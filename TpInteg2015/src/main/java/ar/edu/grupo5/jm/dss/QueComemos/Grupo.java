@@ -12,6 +12,10 @@ public class Grupo {
 		preferenciasAlimenticias = unasPreferenciasAlimenticias;
 		integrantes = unosIntegrantes;
 	}
+	
+	public void añadirIntegrante (Usuario unUsuario) {
+		integrantes.add(unUsuario);
+	}
 
 	public boolean alguienTiene(Receta unaReceta) {
 		return integrantes.stream().anyMatch(

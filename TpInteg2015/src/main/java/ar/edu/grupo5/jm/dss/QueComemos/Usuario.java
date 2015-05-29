@@ -54,6 +54,7 @@ public class Usuario {
 
 	public void agregarGrupo(Grupo unGrupo) {
 		grupos.add(unGrupo);
+		unGrupo.añadirIntegrante(this);
 		//FIXME agregar integrante en grupo
 	}
 
