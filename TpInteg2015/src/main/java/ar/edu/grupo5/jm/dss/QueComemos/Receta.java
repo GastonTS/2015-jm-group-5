@@ -21,6 +21,7 @@ public class Receta {
 			Collection<Condimentacion> unasCondimentaciones,
 			Collection<Receta> unasSubRecetas, double unasCantCalorias) {
 
+		//FIXME no sean HDPS
 		nombre = (nombreReceta != null) ? nombreReceta : "";
 		ingredientes = (unosIngredientes != null) ? unosIngredientes
 				: new ArrayList<String>();
@@ -45,7 +46,7 @@ public class Receta {
 	}
 
 	public boolean esElDueño(Usuario unUsuario) {
-		return dueño.isPresent() ? dueño.get().equals(unUsuario) : false;
+		return dueño.isPresent() && dueño.get().equals(unUsuario);
 	}
 
 	public boolean esPublica() {

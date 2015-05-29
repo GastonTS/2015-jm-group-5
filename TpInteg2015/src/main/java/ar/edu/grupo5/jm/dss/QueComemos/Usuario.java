@@ -37,6 +37,7 @@ public class Usuario {
 		grupos = new ArrayList<Grupo>();
 		recetasFavoritas = new ArrayList<Receta>();
 
+		//FIXME asumir no nulos
 		preferenciasAlimenticias = (unasPreferenciasAlimenticias != null) ? unasPreferenciasAlimenticias
 				: new ArrayList<String>();
 		disgustosAlimenticios = (unosDisgustosAlimenticios != null) ? unosDisgustosAlimenticios
@@ -53,6 +54,7 @@ public class Usuario {
 
 	public void agregarGrupo(Grupo unGrupo) {
 		grupos.add(unGrupo);
+		//FIXME agregar integrante en grupo
 	}
 
 	public double getPeso() {
@@ -67,6 +69,7 @@ public class Usuario {
 	// XXX esto podria no ser facil de extender
 	public boolean esUsuarioValido() {
 		return datosPersonales.sonValidos() && complexion.esComplexionValida()
+				//FIXME ser consistentes en el uso de null u optional
 				&& rutina != null && esUsuarioValidoParaSusCondiciones();
 	}
 
@@ -126,7 +129,7 @@ public class Usuario {
 	}
 
 	public Collection<Receta> consultarRecetas(IFiltro unFiltro) {
-		return unFiltro.filtrarRecetas(
+		return unFiltro.filtrarRecetas(//FIXME tener una instancia de clase publica en el recetario
 				repositorio.listarTodasPuedeAcceder(this), this);
 	}
 
@@ -147,11 +150,11 @@ public class Usuario {
 		recetasFavoritas.remove(unaReceta);
 	}
 
+	//TODO seria mejor en el recetario
 	public void crearReceta(Receta unaReceta) {
 		if (!unaReceta.esValida()) {
 			throw new RecetaNoValidaException(
-					"No se Puede agregar una receta no válida!!!",
-					new RuntimeException());
+					"No se Puede agregar una receta no válida!!!");
 		}
 
 		unaReceta.setDueño(this);
@@ -161,8 +164,9 @@ public class Usuario {
 	public void eliminarReceta(Receta unaReceta) {
 		if (!unaReceta.esElDueño(this)) {
 			throw new NoPuedeEliminarRecetaExeption(
-					"No puede eliminar una receta que no creó",
-					new RuntimeException());
+					//FIXME no es necesario poner una causa
+					"No puede eliminar una receta que no creó");
+			
 		}
 		repositorio.quitarReceta(unaReceta);
 		quitarRecetaFavorita(unaReceta);
@@ -176,16 +180,13 @@ public class Usuario {
 	public void modificarReceta(Receta viejaReceta, Receta nuevaReceta) {
 		if (!puedeAccederA(viejaReceta)) {
 			throw new NoPuedeAccederARecetaException(
-					"No tiene permiso para acceder a esa receta",
-					new RuntimeException());
+					"No tiene permiso para acceder a esa receta");
 		}
 
 		if (viejaReceta.esElDueño(this)) {
 			eliminarReceta(viejaReceta);
-			crearReceta(nuevaReceta);
-		} else {
-			crearReceta(nuevaReceta);
-		}
+		} 
+		crearReceta(nuevaReceta);
 	}
 
 	// Punto 5
@@ -194,8 +195,7 @@ public class Usuario {
 		if (unasSubRecetas.stream().anyMatch(
 				unaSubReceta -> !puedeAccederA(unaSubReceta))) {
 			throw new NoPuedeAccederARecetaException(
-					"No puede agregar subrecetas a las que no tenga permiso de acceder",
-					new RuntimeException());
+					"No puede agregar subrecetas a las que no tenga permiso de acceder");
 		}
 		unaReceta.agregarSubRecetas(unasSubRecetas);
 		crearReceta(unaReceta);

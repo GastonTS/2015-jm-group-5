@@ -13,6 +13,8 @@ public abstract class Filtro implements IFiltro {
 	@Override
 	public Collection<Receta> filtrarRecetas(Collection<Receta> recetas,
 			Usuario unUsuario) {
+		//recetasPostProcesadas = postprocesamiento(recetya, unUsuario)
+//		return subFiltro.filtrarRecetas(recetasPostProcesadas, unUsuario);
 		return subFiltro.filtrarRecetas(recetas, unUsuario);
 	}
 }

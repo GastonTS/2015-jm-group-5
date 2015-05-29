@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-public class RepositorioRecetas {
+public class RepositorioRecetas { //FIXME renombrar a recetario
+	
+	public static RepositorioRecetas instancia = new RepositorioRecetas();
 
-	static private Collection<Receta> recetasTotales = new ArrayList<Receta>();
+	//FIXME deberia ser de instancia
+	private static Collection<Receta> recetasTotales = new ArrayList<Receta>();
 
-	static public void setRecetasTotales(Collection<Receta> unasRecetas) {
+	public static void setRecetasTotales(Collection<Receta> unasRecetas) {
 		recetasTotales = unasRecetas;
 	}
 
