@@ -27,9 +27,9 @@ public class RecetaTest {
 	public void setUp() {
 
 		recetaConMuchasCalorias = new Receta("Muy calorica",
-				Arrays.asList("Algo super calorico"), null, null, 99999);
+				Arrays.asList("Algo super calorico"), new ArrayList<Condimentacion>(), new ArrayList<Receta>(), 99999);
 		recetaSinIngredientes = new Receta("Sin Ingredientes",
-				new ArrayList<String>(), null, null, 1000);
+				new ArrayList<String>(), new ArrayList<Condimentacion>(), new ArrayList<Receta>(), 1000);
 		pure = new Receta("Pure", Arrays.asList("papas 2kg", "manteca 200gr"),
 				Arrays.asList(sal, pimienta, nuezMoscada),
 				new ArrayList<Receta>(), 400);

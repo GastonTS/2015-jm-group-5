@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import java.util.ArrayList;
+
 
 public class Receta {
 
@@ -22,14 +22,10 @@ public class Receta {
 			Collection<Receta> unasSubRecetas, double unasCantCalorias) {
 
 		//FIXME no sean HDPS
-		nombre = (nombreReceta != null) ? nombreReceta : "";
-		ingredientes = (unosIngredientes != null) ? unosIngredientes
-				: new ArrayList<String>();
-		condimentaciones = (unasCondimentaciones != null) ? unasCondimentaciones
-				: new ArrayList<Condimentacion>();
-		subRecetas = (unasSubRecetas != null) ? unasSubRecetas
-				: new ArrayList<Receta>();
-
+		nombre = nombreReceta;
+		ingredientes =  unosIngredientes; 
+		condimentaciones = unasCondimentaciones; 	
+		subRecetas = unasSubRecetas; 
 		cantCalorias = unasCantCalorias;
 	}
 
