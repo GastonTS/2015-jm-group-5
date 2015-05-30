@@ -2,14 +2,13 @@ package ar.edu.grupo5.jm.dss.QueComemos;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class GestorDeConsultas {
-	private List<Predicate<Receta>> filtros;
+	private List<StFiltro> filtros;
 	private List<PostProcesamiento> postProcesamientos;
 
-	public GestorDeConsultas(List<Predicate<Receta>> unosFiltros,
+	public GestorDeConsultas(List<StFiltro> unosFiltros,
 			List<PostProcesamiento> unosPostProcesamientos) {
 		filtros = unosFiltros;
 		postProcesamientos = unosPostProcesamientos;
@@ -24,8 +23,9 @@ public class GestorDeConsultas {
 			Usuario unUsuario) {
 		Collection<Receta> recetasRestantes = unasRecetas;
 
-		for (Predicate<Receta> filtro : filtros) {
-			recetasRestantes = recetasRestantes.stream().filter(filtro)
+		for (StFiltro filtro : filtros) {
+			recetasRestantes = recetasRestantes.stream()
+					.filter(unaReceta -> filtro.filtrar(unaReceta, unUsuario))
 					.collect(Collectors.toList());
 		}
 
