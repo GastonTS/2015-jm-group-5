@@ -197,4 +197,14 @@ public class Usuario {
 		unaReceta.agregarSubRecetas(unasSubRecetas);
 		crearReceta(unaReceta);
 	}
+	//GETTERS FEOS Y MALOS para punto 1 entrega 3
+
+	public String getNombre() {
+		return datosPersonales.getNombre();
+	}
+	
+	public Collection<CondicionDeSalud> getCondicionesDeSalud() {
+		return condicionesDeSalud;
+	}
+	//Fin de getter feos y malos
 }

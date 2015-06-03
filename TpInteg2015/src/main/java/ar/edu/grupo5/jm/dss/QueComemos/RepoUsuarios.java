@@ -1,6 +1,8 @@
 package ar.edu.grupo5.jm.dss.QueComemos;
 
 import java.util.Collection;
+import java.util.Optional;
+import java.util.stream.Stream;
 
 public class RepoUsuarios {
 	private Collection<Usuario> usuarios;
@@ -14,7 +16,7 @@ public class RepoUsuarios {
 			throw new RecetaNoValidaException(
 					"No se Puede agregar una receta no válida!!!");
 		}
-		
+
 		usuarios.remove(unUsuario);
 	}
 
@@ -22,13 +24,31 @@ public class RepoUsuarios {
 		remove(unUsuario);
 		add(unUsuario);
 	}
-	/*
-	 * update(Usuario) get(Usuario): devuelve un usuario haciendo la búsqueda
-	 * por el nombre del usuario que se pase como parámetro list(Usuario):
-	 * devuelve una lista de usuarios cuyo nombre contenga el nombre del usuario
-	 * ingresado como parámetro. En caso de ingresar condiciones preexistentes,
-	 * devuelve todos los usuarios que cumplen con la condición del nombre
-	 * anteriormente descrita y que además cumplan todas las condiciones
-	 * preexistentes, ej: todos los diabéticos.
-	 */
+
+	public Optional<Usuario> get(Usuario unUsuario) {
+		return list(unUsuario).findFirst();
+	}
+
+	public Stream<Usuario> list(Usuario unUsuario) {
+		return  usuarios.stream().filter(
+				usuarioPosta -> searchByName(unUsuario, usuarioPosta));
+	}
+	
+	private Boolean searchByName(Usuario usuarioBuscado, Usuario usuarioPosta) {
+		return tienenMismoNombre(usuarioBuscado,usuarioPosta) || 
+				tienenMismasCondicionesDeSalud(usuarioBuscado,usuarioPosta);
+	}
+	
+	private Boolean tienenMismoNombre(Usuario usuario1, Usuario usuario2) {
+		return sonIgualesONull(usuario1.getNombre(), usuario2.getNombre());
+	}
+	
+	private Boolean tienenMismasCondicionesDeSalud(Usuario usuario1, Usuario usuario2) {
+		return sonIgualesONull(usuario1.getCondicionesDeSalud(), usuario2.getCondicionesDeSalud());
+	}
+	
+	private Boolean sonIgualesONull(Object objeto1, Object objeto2) {
+		return objeto1 == null ||objeto1 == null || objeto1 == objeto2;
+	}
+
 }

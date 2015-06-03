@@ -31,5 +31,9 @@ public class DatosPersonales {
 	public boolean fechaDeNacimientoAnteriorAHoy() {
 		return fechaDeNacimiento.isBefore(LocalDate.now());
 	}
+	
+	public String getNombre() {
+		return nombre;
+	}
 
 }
