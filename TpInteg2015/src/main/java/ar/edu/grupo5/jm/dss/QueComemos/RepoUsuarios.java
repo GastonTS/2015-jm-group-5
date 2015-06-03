@@ -6,6 +6,14 @@ import java.util.stream.Stream;
 
 public class RepoUsuarios {
 	private Collection<Usuario> usuarios;
+//getter solo para test
+	public Collection<Usuario> getUsuarios() {
+		return usuarios;
+	}
+	
+	public RepoUsuarios(Collection<Usuario> unosUsuarios) {
+		usuarios = unosUsuarios;
+	}
 
 	public void add(Usuario unUsuario) {
 		usuarios.add(unUsuario);
@@ -13,8 +21,8 @@ public class RepoUsuarios {
 
 	public void remove(Usuario unUsuario) {
 		if (!usuarios.contains(unUsuario)) {
-			throw new RecetaNoValidaException(
-					"No se Puede agregar una receta no válida!!!");
+			throw new UsuarioIngresadoNoExisteException(
+					"No se encontro usuario en el repositorio de usuarios");
 		}
 
 		usuarios.remove(unUsuario);
