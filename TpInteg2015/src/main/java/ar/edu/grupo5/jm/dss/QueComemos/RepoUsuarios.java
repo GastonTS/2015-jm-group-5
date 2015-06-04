@@ -1,9 +1,7 @@
 package ar.edu.grupo5.jm.dss.QueComemos;
 
 import java.util.Collection;
-import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class RepoUsuarios {
 	private Collection<Usuario> usuarios;
@@ -30,12 +28,9 @@ public class RepoUsuarios {
 		usuarios.remove(unUsuario);
 	}
 
-	public void update(Usuario unUsuario) {// FIXME Segun que key se
-											// actualiza??? porque se puede
-											// tener 2 usuarios con nombres
-											// iguales
-		remove(unUsuario);
-		add(unUsuario);
+	public void update(Usuario usuarioViejo, Usuario usuarioNuevo) {
+		remove(usuarioViejo);
+		add(usuarioNuevo);
 	}
 
 	public Usuario get(Usuario unUsuario) {
@@ -53,17 +48,18 @@ public class RepoUsuarios {
 				^ tienenMismasCondicionesDeSalud(usuarioBuscado, usuarioPosta);
 	}
 
-	private Boolean tienenMismoNombre(Usuario usuario1, Usuario usuario2) {
-		return usuario1.getNombre() == usuario2.getNombre();
+	private Boolean tienenMismoNombre(Usuario usuarioBuscado,
+			Usuario usuarioPosta) {
+		return usuarioPosta.getNombre().equals(usuarioBuscado.getNombre());
 	}
 
-	private Boolean tienenMismasCondicionesDeSalud(Usuario usuario1,
-			Usuario usuario2) {
-		if (usuario1.getCondicionesDeSalud() == null) {
+	private Boolean tienenMismasCondicionesDeSalud(Usuario usuarioBuscado,
+			Usuario usuarioPosta) {
+		if (usuarioBuscado.getCondicionesDeSalud() == null) {
 			return false;
 		}
-		return usuario2.getCondicionesDeSalud().containsAll(
-				usuario1.getCondicionesDeSalud());
+		return usuarioPosta.getCondicionesDeSalud().containsAll(
+				usuarioBuscado.getCondicionesDeSalud());
 	}
 
 }
