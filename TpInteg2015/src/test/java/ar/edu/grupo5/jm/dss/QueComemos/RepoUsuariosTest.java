@@ -11,6 +11,7 @@ import static org.mockito.Matchers.any;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.stream.Stream;
 
 import org.junit.Before;
 import org.junit.Ignore;
@@ -18,10 +19,10 @@ import org.junit.Test;
 
 public class RepoUsuariosTest {
 
-	private Usuario gustavo;
-	private Usuario gaston;
-	private Usuario juanchi;
-	private Usuario franco;
+	private Usuario gustavo = mock(Usuario.class);
+	private Usuario gaston = mock(Usuario.class);
+	private Usuario juanchi = mock(Usuario.class);
+	private Usuario franco = mock(Usuario.class);
 
 	private RepoUsuarios repoUsuarios;
 
@@ -39,14 +40,6 @@ public class RepoUsuariosTest {
 		condicionesGustavo.add(corporativo);
 		condicionesGaston.add(corporativo);
 		condicionesJuanchi.add(hippie);
-
-		gustavo = new Usuario(datosPersonalesMock, null, null, null,
-				condicionesGustavo, null);
-		gaston = new Usuario(datosPersonalesMock, null, null, null,
-				condicionesGaston, null);
-		juanchi = new Usuario(datosPersonalesMock, null, null, null,
-				condicionesJuanchi, null);
-		franco = new Usuario(null, null, null, null, null, null);
 
 		repoUsuarios = new RepoUsuarios(new ArrayList<Usuario>());
 
@@ -83,34 +76,77 @@ public class RepoUsuariosTest {
 	}
 
 	@Ignore
-	// comportamiento erratico en metodo :O
 	@Test
 	public void buscarJuanchiPorNombre() {
 		when(juanchi.getNombre()).thenReturn("juanchi");
 		when(gustavo.getNombre()).thenReturn("gustavo");
 		when(gaston.getNombre()).thenReturn("gaston");
+		when(juanchi.getCondicionesDeSalud()).thenReturn(condicionesJuanchi);
+		when(gustavo.getCondicionesDeSalud()).thenReturn(condicionesGustavo);
+		when(gaston.getCondicionesDeSalud()).thenReturn(condicionesGaston);
 		DatosPersonales datosPersonales = new DatosPersonales("juanchi", null,
 				null);
+		Collection<CondicionDeSalud> condicionesVacias = new ArrayList<CondicionDeSalud>();
 		Usuario juanchiConNombre = new Usuario(datosPersonales, null, null,
-				null, null, null);
+				null, condicionesVacias, null);
 		assertEquals(repoUsuarios.get(juanchiConNombre), juanchi);
+		// explota porque el containsAll explota si es null
 	}
 
-	@Ignore
-	// comportamiento erratico en metodo :O
 	@Test
 	public void buscarGusPorCondicionesDeSalud() {
-		when(gustavo.getNombre()).thenReturn("gustavo");
 		when(juanchi.getNombre()).thenReturn("juanchi");
+		when(gustavo.getNombre()).thenReturn("gustavo");
 		when(gaston.getNombre()).thenReturn("gaston");
+		when(juanchi.getCondicionesDeSalud()).thenReturn(condicionesJuanchi);
+		when(gustavo.getCondicionesDeSalud()).thenReturn(condicionesGustavo);
+		when(gaston.getCondicionesDeSalud()).thenReturn(condicionesGaston);
+
 		DatosPersonales datosPersonalesGus = new DatosPersonales(null, null,
 				null);
-		Collection<CondicionDeSalud> condiciones = new ArrayList<CondicionDeSalud>();
-		condiciones.add(corporativo);
-		condiciones.add(hippie);
 		Usuario gustavoConCondiciones = new Usuario(datosPersonalesGus, null,
-				null, null, condiciones, null);
+				null, null, condicionesGustavo, null);
 		assertEquals(repoUsuarios.get(gustavoConCondiciones), gustavo);
+	}
+
+	@Test
+	public void buscarHippiesGusYJuanchi() {
+		when(juanchi.getNombre()).thenReturn("juanchi");
+		when(gustavo.getNombre()).thenReturn("gustavo");
+		when(gaston.getNombre()).thenReturn("gaston");
+		when(juanchi.getCondicionesDeSalud()).thenReturn(condicionesJuanchi);
+		when(gustavo.getCondicionesDeSalud()).thenReturn(condicionesGustavo);
+		when(gaston.getCondicionesDeSalud()).thenReturn(condicionesGaston);
+
+		DatosPersonales datosPersonalesHippies = new DatosPersonales(null,
+				null, null);
+		Usuario usuarioHippies = new Usuario(datosPersonalesHippies, null,
+				null, null, condicionesJuanchi, null);
+		Collection<Usuario> usuariosHippies = new ArrayList<Usuario>();
+		usuariosHippies = repoUsuarios.list(usuarioHippies);
+		assertTrue(usuariosHippies.contains(juanchi));
+		assertTrue(usuariosHippies.contains(gustavo));
+		assertEquals(usuariosHippies.size(), 2);
+	}
+
+	@Test
+	public void buscarCorporativosGusYGaston() {
+		when(juanchi.getNombre()).thenReturn("juanchi");
+		when(gustavo.getNombre()).thenReturn("gustavo");
+		when(gaston.getNombre()).thenReturn("gaston");
+		when(juanchi.getCondicionesDeSalud()).thenReturn(condicionesJuanchi);
+		when(gustavo.getCondicionesDeSalud()).thenReturn(condicionesGustavo);
+		when(gaston.getCondicionesDeSalud()).thenReturn(condicionesGaston);
+
+		DatosPersonales datosPersonalesHippies = new DatosPersonales(null,
+				null, null);
+		Usuario usuarioHippies = new Usuario(datosPersonalesHippies, null,
+				null, null, condicionesGaston, null);
+		Collection<Usuario> usuariosCorporativos = new ArrayList<Usuario>();
+		usuariosCorporativos = repoUsuarios.list(usuarioHippies);
+		assertTrue(usuariosCorporativos.contains(gaston));
+		assertTrue(usuariosCorporativos.contains(gustavo));
+		assertEquals(usuariosCorporativos.size(), 2);
 	}
 
 }

@@ -2,6 +2,7 @@ package ar.edu.grupo5.jm.dss.QueComemos;
 
 import java.util.Collection;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class RepoUsuarios {
@@ -38,12 +39,13 @@ public class RepoUsuarios {
 	}
 
 	public Usuario get(Usuario unUsuario) {
-		return list(unUsuario).findFirst().get();
+		return list(unUsuario).stream().findFirst().get();
 	}
 
-	public Stream<Usuario> list(Usuario unUsuario) {
-		return usuarios.stream().filter(
-				usuarioPosta -> searchByName(unUsuario, usuarioPosta));
+	public Collection<Usuario> list(Usuario unUsuario) {
+		return usuarios.stream()
+				.filter(usuarioPosta -> searchByName(unUsuario, usuarioPosta))
+				.collect(Collectors.toList());
 	}
 
 	private Boolean searchByName(Usuario usuarioBuscado, Usuario usuarioPosta) {
@@ -52,17 +54,16 @@ public class RepoUsuarios {
 	}
 
 	private Boolean tienenMismoNombre(Usuario usuario1, Usuario usuario2) {
-		return sonIgualesONull(usuario1.getNombre(), usuario2.getNombre());
+		return usuario1.getNombre() == usuario2.getNombre();
 	}
 
 	private Boolean tienenMismasCondicionesDeSalud(Usuario usuario1,
 			Usuario usuario2) {
-		return sonIgualesONull(usuario1.getCondicionesDeSalud(),
-				usuario2.getCondicionesDeSalud());
-	}
-
-	private Boolean sonIgualesONull(Object objetoBuscado, Object objetoPosta) {
-		return objetoBuscado == null || objetoBuscado == objetoPosta;
+		if (usuario1.getCondicionesDeSalud() == null) {
+			return false;
+		}
+		return usuario2.getCondicionesDeSalud().containsAll(
+				usuario1.getCondicionesDeSalud());
 	}
 
 }
