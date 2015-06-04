@@ -6,11 +6,12 @@ import java.util.stream.Stream;
 
 public class RepoUsuarios {
 	private Collection<Usuario> usuarios;
-//getter solo para test
+
+	// getter solo para test
 	public Collection<Usuario> getUsuarios() {
 		return usuarios;
 	}
-	
+
 	public RepoUsuarios(Collection<Usuario> unosUsuarios) {
 		usuarios = unosUsuarios;
 	}
@@ -28,13 +29,16 @@ public class RepoUsuarios {
 		usuarios.remove(unUsuario);
 	}
 
-	public void update(Usuario unUsuario) {
+	public void update(Usuario unUsuario) {// FIXME Segun que key se
+											// actualiza??? porque se puede
+											// tener 2 usuarios con nombres
+											// iguales
 		remove(unUsuario);
 		add(unUsuario);
 	}
 
-	public Optional<Usuario> get(Usuario unUsuario) {
-		return list(unUsuario).findFirst();
+	public Usuario get(Usuario unUsuario) {
+		return list(unUsuario).findFirst().get();
 	}
 
 	public Stream<Usuario> list(Usuario unUsuario) {
@@ -44,7 +48,7 @@ public class RepoUsuarios {
 
 	private Boolean searchByName(Usuario usuarioBuscado, Usuario usuarioPosta) {
 		return tienenMismoNombre(usuarioBuscado, usuarioPosta)
-				|| tienenMismasCondicionesDeSalud(usuarioBuscado, usuarioPosta);
+				^ tienenMismasCondicionesDeSalud(usuarioBuscado, usuarioPosta);
 	}
 
 	private Boolean tienenMismoNombre(Usuario usuario1, Usuario usuario2) {
@@ -57,8 +61,8 @@ public class RepoUsuarios {
 				usuario2.getCondicionesDeSalud());
 	}
 
-	private Boolean sonIgualesONull(Object objeto1, Object objeto2) {
-		return objeto1 == null || objeto1 == null || objeto1 == objeto2;
+	private Boolean sonIgualesONull(Object objetoBuscado, Object objetoPosta) {
+		return objetoBuscado == null || objetoBuscado == objetoPosta;
 	}
 
 }

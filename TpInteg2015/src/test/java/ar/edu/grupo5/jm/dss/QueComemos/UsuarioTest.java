@@ -63,12 +63,15 @@ public class UsuarioTest {
 
 		Usuario.setRepositorio(repositorioMock);
 
-		gustavo = new Usuario(datosPersonalesMock, complexionMock, new ArrayList<String>(),
-				disgustosGustavo, condiciones, Rutina.MEDIANA);
-		gaston = new Usuario(datosPersonalesMock, complexionMock, new ArrayList<String>(), new ArrayList<String>(),
+		gustavo = new Usuario(datosPersonalesMock, complexionMock,
+				new ArrayList<String>(), disgustosGustavo, condiciones,
+				Rutina.MEDIANA);
+		gaston = new Usuario(datosPersonalesMock, complexionMock,
+				new ArrayList<String>(), new ArrayList<String>(),
 				new ArrayList<CondicionDeSalud>(), null);
 		juanchi = new Usuario(datosPersonalesMock, complexionMock,
-				preferenciaFruta, new ArrayList<String>(), new ArrayList<CondicionDeSalud>(), null);
+				preferenciaFruta, new ArrayList<String>(),
+				new ArrayList<CondicionDeSalud>(), null);
 
 		juanchi.agregarGrupo(grupoMock);
 	}
