@@ -32,4 +32,8 @@ public class DatosPersonales {
 		return fechaDeNacimiento.isBefore(LocalDate.now());
 	}
 
+	public String getNombre() {
+		return nombre;
+	}
+
 }

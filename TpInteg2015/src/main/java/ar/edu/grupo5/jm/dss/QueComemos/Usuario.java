@@ -5,7 +5,7 @@ import java.util.Collection;
 
 public class Usuario {
 
-	static private RepositorioRecetas repositorio = new RepositorioRecetas();
+	static private Recetario repositorio = new Recetario();
 
 	private Complexion complexion;
 	private DatosPersonales datosPersonales;
@@ -37,21 +37,21 @@ public class Usuario {
 		grupos = new ArrayList<Grupo>();
 		recetasFavoritas = new ArrayList<Receta>();
 
-		//FIXME asumir no nulos
+		// FIXME asumir no nulos
 		preferenciasAlimenticias = unasPreferenciasAlimenticias;
 		disgustosAlimenticios = unosDisgustosAlimenticios;
 		condicionesDeSalud = unasCondicionesDeSalud;
 		rutina = unaRutina;
 	}
 
-	static public void setRepositorio(RepositorioRecetas unRepositorio) {
+	static public void setRepositorio(Recetario unRepositorio) {
 		repositorio = unRepositorio;
 	}
 
 	public void agregarGrupo(Grupo unGrupo) {
 		grupos.add(unGrupo);
 		unGrupo.añadirIntegrante(this);
-		//FIXME agregar integrante en grupo
+		// FIXME agregar integrante en grupo
 	}
 
 	public double getPeso() {
@@ -66,7 +66,7 @@ public class Usuario {
 	// XXX esto podria no ser facil de extender
 	public boolean esUsuarioValido() {
 		return datosPersonales.sonValidos() && complexion.esComplexionValida()
-				//FIXME ser consistentes en el uso de null u optional
+		// FIXME ser consistentes en el uso de null u optional
 				&& rutina != null && esUsuarioValidoParaSusCondiciones();
 	}
 
@@ -126,7 +126,8 @@ public class Usuario {
 	}
 
 	public Collection<Receta> consultarRecetas(IFiltro unFiltro) {
-		return unFiltro.filtrarRecetas(//FIXME tener una instancia de clase publica en el recetario
+		return unFiltro.filtrarRecetas(// FIXME tener una instancia de clase
+										// publica en el recetario
 				repositorio.listarTodasPuedeAcceder(this), this);
 	}
 
@@ -147,7 +148,7 @@ public class Usuario {
 		recetasFavoritas.remove(unaReceta);
 	}
 
-	//TODO seria mejor en el recetario
+	// TODO seria mejor en el recetario
 	public void crearReceta(Receta unaReceta) {
 		if (!unaReceta.esValida()) {
 			throw new RecetaNoValidaException(
@@ -161,9 +162,9 @@ public class Usuario {
 	public void eliminarReceta(Receta unaReceta) {
 		if (!unaReceta.esElDueño(this)) {
 			throw new NoPuedeEliminarRecetaExeption(
-					//FIXME no es necesario poner una causa
+			// FIXME no es necesario poner una causa
 					"No puede eliminar una receta que no creó");
-			
+
 		}
 		repositorio.quitarReceta(unaReceta);
 		quitarRecetaFavorita(unaReceta);
@@ -182,7 +183,7 @@ public class Usuario {
 
 		if (viejaReceta.esElDueño(this)) {
 			eliminarReceta(viejaReceta);
-		} 
+		}
 		crearReceta(nuevaReceta);
 	}
 
@@ -197,4 +198,15 @@ public class Usuario {
 		unaReceta.agregarSubRecetas(unasSubRecetas);
 		crearReceta(unaReceta);
 	}
+
+	// GETTERS FEOS Y MALOS para punto 1 entrega 3
+
+	public String getNombre() {
+		return datosPersonales.getNombre();
+	}
+
+	public Collection<CondicionDeSalud> getCondicionesDeSalud() {
+		return condicionesDeSalud;
+	}
+	// Fin de getter feos y malos
 }
