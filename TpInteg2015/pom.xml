@@ -40,5 +40,10 @@
     	<artifactId>mockito-all</artifactId>
     	<version>1.9.5</version>
     </dependency>
+    <dependency>
+	  <groupId>org.uqbar-project</groupId>
+	    <artifactId>queComemos-repoRecetas-entrega3</artifactId>
+	    <version>0.0.2</version>
+	</dependency>
   </dependencies>
 </project>
