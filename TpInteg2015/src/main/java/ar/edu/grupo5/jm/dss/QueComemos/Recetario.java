@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-public class RepositorioRecetas { //FIXME renombrar a recetario
+public class Recetario { //FIXME renombrar a recetario
 	
-	public static RepositorioRecetas instancia = new RepositorioRecetas();
+	public static Recetario instancia = new Recetario();
 
 	//FIXME deberia ser de instancia
 	private static Collection<Receta> recetasTotales = new ArrayList<Receta>();

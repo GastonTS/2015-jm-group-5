@@ -43,7 +43,7 @@ public class UsuarioTest {
 	private Receta choripanMock = mock(Receta.class);
 	private Receta choriConChimiMock = mock(Receta.class);
 
-	private RepositorioRecetas repositorioMock = mock(RepositorioRecetas.class);
+	private Recetario repositorioMock = mock(Recetario.class);
 
 	private Grupo grupoMock = mock(Grupo.class);
 

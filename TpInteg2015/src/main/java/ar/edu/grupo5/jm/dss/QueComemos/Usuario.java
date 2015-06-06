@@ -5,7 +5,7 @@ import java.util.Collection;
 
 public class Usuario {
 
-	static private RepositorioRecetas repositorio = new RepositorioRecetas();
+	static private Recetario repositorio = new Recetario();
 
 	private Complexion complexion;
 	private DatosPersonales datosPersonales;
@@ -44,7 +44,7 @@ public class Usuario {
 		rutina = unaRutina;
 	}
 
-	static public void setRepositorio(RepositorioRecetas unRepositorio) {
+	static public void setRepositorio(Recetario unRepositorio) {
 		repositorio = unRepositorio;
 	}
 
