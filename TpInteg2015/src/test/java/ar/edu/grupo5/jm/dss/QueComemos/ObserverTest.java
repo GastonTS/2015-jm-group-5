@@ -74,7 +74,7 @@ public class ObserverTest {
 		observerRecetaMasConsultada.notificar(usuarioMock, recetasDePanchoYEnsalada);
 		
 		assertEquals(observerRecetaMasConsultada.nombreRecetaMasConsultada(), Optional.of("pancho"));
-		//assertEquals(observerRecetaMasConsultada.cantidadDeConsultasDeRecetaMAsConsultada(), 3);
+		assertEquals(observerRecetaMasConsultada.cantidadDeConsultasDeRecetaMAsConsultada(), 3);
 		
 		verify(guisoMock, times(2)).getNombre();
 		verify(ensaladaMock, times(2)).getNombre();

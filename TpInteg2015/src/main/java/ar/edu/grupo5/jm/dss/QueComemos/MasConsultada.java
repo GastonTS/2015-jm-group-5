@@ -3,7 +3,6 @@ package ar.edu.grupo5.jm.dss.QueComemos;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Optional;
 
 public class MasConsultada implements ObservadorConsultas {
@@ -24,14 +23,16 @@ public class MasConsultada implements ObservadorConsultas {
 	// debería agregar un getter de recetaMap para saber que
 	// funciona correctamente, lo que luego se probaría en un test
 	public Optional<String> nombreRecetaMasConsultada() {
-		return nombreRecetasConsultadas.stream().max((unNombre, otroNombre) -> cantidadDeConsultas(unNombre) - cantidadDeConsultas(otroNombre));
+		return nombreRecetasConsultadas.stream().max(
+				(unNombre, otroNombre) -> cantidadDeConsultas(unNombre)
+						- cantidadDeConsultas(otroNombre));
 	}
-	
-	private int cantidadDeConsultas(String nombreDeReceta){
+
+	private int cantidadDeConsultas(String nombreDeReceta) {
 		return Collections.frequency(nombreRecetasConsultadas, nombreDeReceta);
 	}
-	
+
 	public int cantidadDeConsultasDeRecetaMAsConsultada() {
-		return cantidadDeConsultas(nombreRecetaMasConsultada().toString());
+		return Collections.frequency(nombreRecetasConsultadas, nombreRecetaMasConsultada().get());
 	}
 }
