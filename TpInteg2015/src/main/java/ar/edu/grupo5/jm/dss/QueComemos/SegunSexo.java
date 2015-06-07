@@ -1,29 +1,40 @@
 package ar.edu.grupo5.jm.dss.QueComemos;
 
 import java.util.Collection;
+import java.util.Optional;
+
 
 public class SegunSexo implements ObservadorConsultas {
 	
-	private int consultasMasculinas =0;
-	private int consultasFemeninas = 0;
-	
+	private MasConsultada consultasHombres = new MasConsultada();
+	private MasConsultada consultasMujeres = new MasConsultada();
 
 	@Override
 	public void notificar(Usuario unUsuario,
 			Collection<Receta> recetasConsultadas) {
-
 		if (unUsuario.esDeSexo("Masculino")){
-           consultasMasculinas = consultasMasculinas + recetasConsultadas.size();
+        
+           consultasHombres.notificar(unUsuario, recetasConsultadas);
 		} else if (unUsuario.esDeSexo("Femenino")){
-           consultasFemeninas = consultasFemeninas + recetasConsultadas.size();
+      
+           consultasMujeres.notificar(unUsuario, recetasConsultadas);
 		}
 	}
 	
-	public int getConsultasMasculinas (){
-		return consultasMasculinas;
+	public int cantidadRecetaMasConsultadaHombre() {
+		return consultasHombres.cantidadDeConsultasDeRecetaMAsConsultada();
 	}
 
-	public int getConsultasFemeninas (){
-		return consultasFemeninas;
+	public int cantidadRecetaMasConsultadaMujer() {
+		return consultasMujeres.cantidadDeConsultasDeRecetaMAsConsultada();
 	}
+	
+	public Optional<String> nombreRecetaHombre() {
+		return consultasHombres.nombreRecetaMasConsultada();
+	}
+	
+	public Optional<String> nombreRecetaMujer() {
+		return consultasMujeres.nombreRecetaMasConsultada();
+	}
+
 }
