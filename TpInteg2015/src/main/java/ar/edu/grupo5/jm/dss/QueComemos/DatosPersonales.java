@@ -35,5 +35,9 @@ public class DatosPersonales {
 	public String getNombre() {
 		return nombre;
 	}
+	
+	public String getSexo(){
+		return sexo;
+	}
 
 }

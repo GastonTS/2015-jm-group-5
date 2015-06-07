@@ -214,4 +214,8 @@ public class Usuario {
 	public boolean tieneCondicionDeSalud (CondicionDeSalud unaCondicion) {
 		return condicionesDeSalud.contains(unaCondicion);
 	}
+	public boolean esDeSexo (String sexo){
+		return datosPersonales.getSexo().equals(sexo);
+	}
+	
 }

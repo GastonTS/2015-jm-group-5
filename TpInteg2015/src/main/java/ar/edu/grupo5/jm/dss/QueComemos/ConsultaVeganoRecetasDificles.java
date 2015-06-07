@@ -1,6 +1,7 @@
 package ar.edu.grupo5.jm.dss.QueComemos;
 
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 public class ConsultaVeganoRecetasDificles implements ObservadorConsultas {
 
@@ -18,6 +19,10 @@ public class ConsultaVeganoRecetasDificles implements ObservadorConsultas {
 	}
 	
 	public Collection<Receta> filtrarRecetasDificiles (Collection<Receta> unasRecetas){
+		
+		//	Collection<Receta> recetasParciales = unasRecetas
+		//.stream().filter((unaReceta -> unaReceta.esRecetaDificl()))
+		//.collect(Collectors.toList());
 		
 		return unasRecetas;
 	}

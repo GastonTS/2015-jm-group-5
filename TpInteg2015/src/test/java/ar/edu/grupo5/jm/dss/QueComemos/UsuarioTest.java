@@ -434,4 +434,13 @@ public class UsuarioTest {
 
 		assertEquals(gustavo.getRecetasFavoritas(), Arrays.asList(choripanMock));
 	}
+	
+	@Test
+	public void gustavoEsMasculino() {
+		when(datosPersonalesMock.getSexo()).thenReturn("Masculino");
+		assertTrue(gustavo.esDeSexo("Masculino"));
+		verify(datosPersonalesMock, times(1)).getSexo();
+
+
+	}
 }

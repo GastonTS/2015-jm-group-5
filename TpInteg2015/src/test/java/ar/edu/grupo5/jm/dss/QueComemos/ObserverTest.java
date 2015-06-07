@@ -2,6 +2,9 @@ package ar.edu.grupo5.jm.dss.QueComemos;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -22,6 +25,7 @@ public class ObserverTest {
 	private Collection<Receta> recetas = new ArrayList<Receta>();
 
 	PorHoraDelDia observerPorHoraDelDia = new PorHoraDelDia();
+	SegunSexo observerSegunSexo = new SegunSexo();
 
 	@Before
 	public void setUp() {
@@ -43,5 +47,14 @@ public class ObserverTest {
 				observerPorHoraDelDia
 						.getConsultasPorHoraDelDia(Calendar.HOUR_OF_DAY + 1),
 				0);
+	}
+	
+	@Test
+	public void usuarioMasculinoConsulta4Recetas() {
+		when(usuarioMock.esDeSexo("Masculino")).thenReturn(true);
+		observerSegunSexo.notificar(usuarioMock, recetas);
+		assertEquals(observerSegunSexo.getConsultasMasculinas(),4);
+		assertEquals(observerSegunSexo.getConsultasFemeninas(),0);
+		verify(usuarioMock, times(1)).esDeSexo("Masculino");
 	}
 }
