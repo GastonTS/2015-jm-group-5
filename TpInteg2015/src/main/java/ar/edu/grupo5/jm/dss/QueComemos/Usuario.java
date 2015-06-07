@@ -209,4 +209,9 @@ public class Usuario {
 		return condicionesDeSalud;
 	}
 	// Fin de getter feos y malos
+	
+	
+	public boolean tieneCondicionDeSalud (CondicionDeSalud unaCondicion) {
+		return condicionesDeSalud.contains(unaCondicion);
+	}
 }
