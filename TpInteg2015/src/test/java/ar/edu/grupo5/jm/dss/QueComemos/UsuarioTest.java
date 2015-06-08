@@ -388,13 +388,11 @@ public class UsuarioTest {
 	@Test
 	public void consultaRecetasDecorador() {
 		Collection<Receta> resultadoConsulta = Arrays.asList(panchoMock, ensaladaMock);
-		when(repositorioMock.listarTodasPuedeAcceder(gaston)).thenReturn(resultadoConsulta);
-		when(filtroMock.filtrarRecetas(resultadoConsulta, gaston)).thenReturn(resultadoConsulta);
+		when(repositorioMock.consultarRecetas(filtroMock, gaston)).thenReturn(resultadoConsulta);
 
 		assertEquals(gaston.consultarRecetas(filtroMock), resultadoConsulta);
 
-		verify(repositorioMock, times(1)).listarTodasPuedeAcceder(gaston);
-		verify(filtroMock, times(1)).filtrarRecetas(resultadoConsulta, gaston);
+		verify(repositorioMock, times(1)).consultarRecetas(filtroMock, gaston);
 	}
 
 	@Test

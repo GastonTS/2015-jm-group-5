@@ -122,9 +122,7 @@ public class Usuario {
 	}
 
 	public Collection<Receta> consultarRecetas(IFiltro unFiltro) {
-		return unFiltro.filtrarRecetas(// FIXME tener una instancia de clase
-										// publica en el recetario
-				repositorio.listarTodasPuedeAcceder(this), this);
+		return repositorio.consultarRecetas(unFiltro, this);
 	}
 
 	public Collection<Receta> consultarRecetasSt(GestorDeConsultas unFiltrado) {
