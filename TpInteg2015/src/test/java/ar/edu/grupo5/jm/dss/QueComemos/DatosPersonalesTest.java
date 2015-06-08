@@ -17,12 +17,9 @@ public class DatosPersonalesTest {
 
 	@Before
 	public void setUp() {
-		datosPersonalesValidos = new DatosPersonales("Pepito", "Masculino",
-				LocalDate.parse("2000-01-01"));
-		nombreCorto = new DatosPersonales("PP", "Masculino",
-				LocalDate.parse("2000-01-01"));
-		sinSexo = new DatosPersonales("Pepito", "",
-				LocalDate.parse("2000-01-01"));
+		datosPersonalesValidos = new DatosPersonales("Pepito", "Masculino", LocalDate.parse("2000-01-01"));
+		nombreCorto = new DatosPersonales("PP", "Masculino", LocalDate.parse("2000-01-01"));
+		sinSexo = new DatosPersonales("Pepito", "", LocalDate.parse("2000-01-01"));
 		nacidoHoy = new DatosPersonales("Pepito", "Masculino", LocalDate.now());
 
 	}

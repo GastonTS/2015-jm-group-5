@@ -25,12 +25,8 @@ public class Usuario {
 		return recetasFavoritas;
 	}
 
-	public Usuario(DatosPersonales unosDatosPersonales,
-			Complexion unaComplexion,
-			Collection<String> unasPreferenciasAlimenticias,
-			Collection<String> unosDisgustosAlimenticios,
-			Collection<CondicionDeSalud> unasCondicionesDeSalud,
-			Rutina unaRutina) {
+	public Usuario(DatosPersonales unosDatosPersonales, Complexion unaComplexion, Collection<String> unasPreferenciasAlimenticias,
+			Collection<String> unosDisgustosAlimenticios, Collection<CondicionDeSalud> unasCondicionesDeSalud, Rutina unaRutina) {
 
 		datosPersonales = unosDatosPersonales;
 		complexion = unaComplexion;
@@ -71,8 +67,7 @@ public class Usuario {
 	}
 
 	public boolean esUsuarioValidoParaSusCondiciones() {
-		return condicionesDeSalud.stream().allMatch(
-				condicion -> condicion.esUsuarioValido(this));
+		return condicionesDeSalud.stream().allMatch(condicion -> condicion.esUsuarioValido(this));
 	}
 
 	public boolean tieneAlgunaPreferencia() {
@@ -81,14 +76,11 @@ public class Usuario {
 
 	// Punto 2.b
 	public boolean sigueRutinaSaludable() {
-		return 18 <= complexion.indiceMasaCorporal()
-				&& complexion.indiceMasaCorporal() <= 30
-				&& this.subsanaTodasLasCondiciones();
+		return 18 <= complexion.indiceMasaCorporal() && complexion.indiceMasaCorporal() <= 30 && this.subsanaTodasLasCondiciones();
 	}
 
 	private boolean subsanaTodasLasCondiciones() {
-		return condicionesDeSalud.stream().allMatch(
-				condicion -> condicion.subsanaCondicion(this));
+		return condicionesDeSalud.stream().allMatch(condicion -> condicion.subsanaCondicion(this));
 	}
 
 	public boolean tieneRutinaActiva() {
@@ -103,26 +95,21 @@ public class Usuario {
 		return preferenciasAlimenticias.contains(preferencia);
 	}
 
-	public boolean tieneAlgunaDeEstasPreferencias(
-			Collection<String> preferencias) {
-		return preferenciasAlimenticias.stream().anyMatch(
-				preferencia -> preferencias.contains(preferencia));
+	public boolean tieneAlgunaDeEstasPreferencias(Collection<String> preferencias) {
+		return preferenciasAlimenticias.stream().anyMatch(preferencia -> preferencias.contains(preferencia));
 	}
 
 	// Punto 3.b en receta
 	public boolean sosRecetaInadecuadaParaMi(Receta unaReceta) {
-		return condicionesDeSalud.stream().anyMatch(
-				condicion -> condicion.esInadecuada(unaReceta));
+		return condicionesDeSalud.stream().anyMatch(condicion -> condicion.esInadecuada(unaReceta));
 	}
 
 	public boolean esRecetaDeGrupo(Receta unaReceta) {
-		return grupos.stream().anyMatch(
-				unGrupo -> unGrupo.alguienTiene(unaReceta));
+		return grupos.stream().anyMatch(unGrupo -> unGrupo.alguienTiene(unaReceta));
 	}
 
 	public boolean puedeSugerirse(Receta unaReceta) {
-		return noLeDisgusta(unaReceta) && !sosRecetaInadecuadaParaMi(unaReceta)
-				&& puedeAccederA(unaReceta);
+		return noLeDisgusta(unaReceta) && !sosRecetaInadecuadaParaMi(unaReceta) && puedeAccederA(unaReceta);
 	}
 
 	public Collection<Receta> consultarRecetas(IFiltro unFiltro) {
@@ -132,8 +119,7 @@ public class Usuario {
 	}
 
 	public Collection<Receta> consultarRecetasSt(GestorDeConsultas unFiltrado) {
-		return unFiltrado.aplicarFiltros(
-				repositorio.listarTodasPuedeAcceder(this), this);
+		return unFiltrado.aplicarFiltros(repositorio.listarTodasPuedeAcceder(this), this);
 	}
 
 	public boolean noLeDisgusta(Receta unaReceta) {
@@ -151,8 +137,7 @@ public class Usuario {
 	// TODO seria mejor en el recetario
 	public void crearReceta(Receta unaReceta) {
 		if (!unaReceta.esValida()) {
-			throw new RecetaNoValidaException(
-					"No se Puede agregar una receta no válida!!!");
+			throw new RecetaNoValidaException("No se Puede agregar una receta no válida!!!");
 		}
 
 		unaReceta.setDueño(this);
@@ -171,14 +156,12 @@ public class Usuario {
 	}
 
 	public boolean puedeAccederA(Receta unaReceta) {
-		return unaReceta.esPublica() || unaReceta.esElDueño(this)
-				|| esRecetaDeGrupo(unaReceta);
+		return unaReceta.esPublica() || unaReceta.esElDueño(this) || esRecetaDeGrupo(unaReceta);
 	}
 
 	public void modificarReceta(Receta viejaReceta, Receta nuevaReceta) {
 		if (!puedeAccederA(viejaReceta)) {
-			throw new NoPuedeAccederARecetaException(
-					"No tiene permiso para acceder a esa receta");
+			throw new NoPuedeAccederARecetaException("No tiene permiso para acceder a esa receta");
 		}
 
 		if (viejaReceta.esElDueño(this)) {
@@ -188,12 +171,9 @@ public class Usuario {
 	}
 
 	// Punto 5
-	public void crearRecetaConSubRecetas(Receta unaReceta,
-			Collection<Receta> unasSubRecetas) {
-		if (unasSubRecetas.stream().anyMatch(
-				unaSubReceta -> !puedeAccederA(unaSubReceta))) {
-			throw new NoPuedeAccederARecetaException(
-					"No puede agregar subrecetas a las que no tenga permiso de acceder");
+	public void crearRecetaConSubRecetas(Receta unaReceta, Collection<Receta> unasSubRecetas) {
+		if (unasSubRecetas.stream().anyMatch(unaSubReceta -> !puedeAccederA(unaSubReceta))) {
+			throw new NoPuedeAccederARecetaException("No puede agregar subrecetas a las que no tenga permiso de acceder");
 		}
 		unaReceta.agregarSubRecetas(unasSubRecetas);
 		crearReceta(unaReceta);
@@ -208,14 +188,15 @@ public class Usuario {
 	public Collection<CondicionDeSalud> getCondicionesDeSalud() {
 		return condicionesDeSalud;
 	}
+
 	// Fin de getter feos y malos
-	
-	
-	public boolean tieneCondicionDeSalud (CondicionDeSalud unaCondicion) {
+
+	public boolean tieneCondicionDeSalud(CondicionDeSalud unaCondicion) {
 		return condicionesDeSalud.contains(unaCondicion);
 	}
-	public boolean esDeSexo (String sexo){
+
+	public boolean esDeSexo(String sexo) {
 		return datosPersonales.getSexo().equals(sexo);
 	}
-	
+
 }

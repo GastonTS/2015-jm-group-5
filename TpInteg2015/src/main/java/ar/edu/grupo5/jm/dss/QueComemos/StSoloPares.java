@@ -3,7 +3,7 @@ package ar.edu.grupo5.jm.dss.QueComemos;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class StSoloPares implements PostProcesamiento {
+public class StSoloPares implements StPostProcesamiento {
 
 	@Override
 	public Collection<Receta> procesarRecetas(Collection<Receta> unasRecetas) {

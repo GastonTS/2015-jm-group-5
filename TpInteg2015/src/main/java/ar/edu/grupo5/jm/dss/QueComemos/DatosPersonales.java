@@ -8,16 +8,14 @@ public class DatosPersonales {
 	private String sexo;
 	private LocalDate fechaDeNacimiento;
 
-	public DatosPersonales(String unNombre, String unSexo,
-			LocalDate unaFechaDeNacimiento) {
+	public DatosPersonales(String unNombre, String unSexo, LocalDate unaFechaDeNacimiento) {
 		nombre = unNombre;
 		sexo = unSexo;
 		fechaDeNacimiento = unaFechaDeNacimiento;
 	}
 
 	public boolean sonValidos() {
-		return nombre != null && fechaDeNacimiento != null
-				&& !tieneNombreCorto() && fechaDeNacimientoAnteriorAHoy();
+		return nombre != null && fechaDeNacimiento != null && !tieneNombreCorto() && fechaDeNacimientoAnteriorAHoy();
 	}
 
 	public boolean tieneNombreCorto() {
@@ -35,8 +33,8 @@ public class DatosPersonales {
 	public String getNombre() {
 		return nombre;
 	}
-	
-	public String getSexo(){
+
+	public String getSexo() {
 		return sexo;
 	}
 

@@ -5,7 +5,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-
 public class Receta {
 
 	private String nombre;
@@ -17,15 +16,14 @@ public class Receta {
 	private Collection<Receta> subRecetas;
 	private Optional<Usuario> dueño = Optional.empty();
 
-	public Receta(String nombreReceta, Collection<String> unosIngredientes,
-			Collection<Condimentacion> unasCondimentaciones,
-			Collection<Receta> unasSubRecetas, double unasCantCalorias) {
+	public Receta(String nombreReceta, Collection<String> unosIngredientes, Collection<Condimentacion> unasCondimentaciones, Collection<Receta> unasSubRecetas,
+			double unasCantCalorias) {
 
-		//FIXME no sean HDPS
+		// FIXME no sean HDPS
 		nombre = nombreReceta;
-		ingredientes =  unosIngredientes; 
-		condimentaciones = unasCondimentaciones; 	
-		subRecetas = unasSubRecetas; 
+		ingredientes = unosIngredientes;
+		condimentaciones = unasCondimentaciones;
+		subRecetas = unasSubRecetas;
 		cantCalorias = unasCantCalorias;
 	}
 
@@ -58,32 +56,23 @@ public class Receta {
 	}
 
 	private boolean totalCaloriasEntre(int minimo, int maximo) {
-		return getCantCaloriasTotales() >= minimo
-				&& getCantCaloriasTotales() <= maximo;
+		return getCantCaloriasTotales() >= minimo && getCantCaloriasTotales() <= maximo;
 	}
 
 	public boolean tenesAlgoDe(Collection<String> condimentosProhibidos) {
-		return getCondimentacionesTotales().stream().anyMatch(
-				condimentacion -> condimentacion
-						.tieneCondimentoUnoDe(condimentosProhibidos));
+		return getCondimentacionesTotales().stream().anyMatch(condimentacion -> condimentacion.tieneCondimentoUnoDe(condimentosProhibidos));
 	}
 
 	public boolean tenesMasDe(Condimentacion unaCondimentacion) {
-		return getCondimentacionesTotales().stream().anyMatch(
-				condimentacion -> condimentacion
-						.mayorCantidadDeMismoCondimentoQue(unaCondimentacion));
+		return getCondimentacionesTotales().stream().anyMatch(condimentacion -> condimentacion.mayorCantidadDeMismoCondimentoQue(unaCondimentacion));
 	}
 
-	public boolean tieneAlgunIngredienteDeEstos(
-			Collection<String> ingredientesProhibidas) {
-		return getIngredientesTotales().stream().anyMatch(
-				ingrediente -> ingredientesProhibidas.contains(ingrediente));
+	public boolean tieneAlgunIngredienteDeEstos(Collection<String> ingredientesProhibidas) {
+		return getIngredientesTotales().stream().anyMatch(ingrediente -> ingredientesProhibidas.contains(ingrediente));
 	}
 
 	private double getCantCaloriasSubRecetas() {
-		return subRecetas.stream()
-				.mapToDouble(subReceta -> subReceta.getCantCaloriasTotales())
-				.sum();
+		return subRecetas.stream().mapToDouble(subReceta -> subReceta.getCantCaloriasTotales()).sum();
 	}
 
 	public double getCantCaloriasTotales() {
@@ -91,24 +80,19 @@ public class Receta {
 	}
 
 	private Stream<String> getIngredientesSubRecetas() {
-		return subRecetas.stream().flatMap(
-				subReceta -> subReceta.getIngredientesTotales().stream());
+		return subRecetas.stream().flatMap(subReceta -> subReceta.getIngredientesTotales().stream());
 	}
 
 	private Collection<String> getIngredientesTotales() {
-		return Stream
-				.concat(ingredientes.stream(), getIngredientesSubRecetas())
-				.collect(Collectors.toList());
+		return Stream.concat(ingredientes.stream(), getIngredientesSubRecetas()).collect(Collectors.toList());
 	}
 
 	private Stream<Condimentacion> getCondimentacionesSubRecetas() {
-		return subRecetas.stream().flatMap(
-				subReceta -> subReceta.getCondimentacionesTotales().stream());
+		return subRecetas.stream().flatMap(subReceta -> subReceta.getCondimentacionesTotales().stream());
 	}
 
 	private Collection<Condimentacion> getCondimentacionesTotales() {
-		return Stream.concat(condimentaciones.stream(),
-				getCondimentacionesSubRecetas()).collect(Collectors.toList());
+		return Stream.concat(condimentaciones.stream(), getCondimentacionesSubRecetas()).collect(Collectors.toList());
 	}
 
 	public void agregarSubRecetas(Collection<Receta> unasSubRecetas) {

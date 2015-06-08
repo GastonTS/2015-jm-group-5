@@ -1,24 +1,15 @@
 package ar.edu.grupo5.jm.dss.QueComemos;
 
-import java.util.Collection;
-import java.util.stream.Collectors;
+import java.util.function.Predicate;
 
-public class SegunCondicionesDeUsuario extends Filtro {
+public class SegunCondicionesDeUsuario extends PreProcesamiento {
 
 	public SegunCondicionesDeUsuario(IFiltro unFiltro) {
 		super(unFiltro);
 	}
 
 	@Override
-	public Collection<Receta> filtrarRecetas(Collection<Receta> recetas,
-			Usuario unUsuario) {
-		Collection<Receta> recetasParciales = recetas
-				.stream()
-				.filter((unaReceta -> !unUsuario
-						.sosRecetaInadecuadaParaMi(unaReceta)))
-				.collect(Collectors.toList());
-
-		return subFiltro.filtrarRecetas(recetasParciales, unUsuario);
+	protected Predicate<Receta> setCriterio() {
+		return (unaReceta -> !usuario.sosRecetaInadecuadaParaMi(unaReceta));
 	}
-
 }

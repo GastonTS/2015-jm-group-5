@@ -9,8 +9,7 @@ public class MasConsultada implements ObservadorConsultas {
 	Collection<String> nombreRecetasConsultadas = new ArrayList<String>();
 
 	@Override
-	public void notificar(Usuario unUsuario,
-			Collection<Receta> recetasConsultadas) {
+	public void notificar(Usuario unUsuario, Collection<Receta> recetasConsultadas) {
 		recetasConsultadas.forEach(unaReceta -> agregarUnaConsulta(unaReceta));
 	}
 
@@ -23,9 +22,7 @@ public class MasConsultada implements ObservadorConsultas {
 	// debería agregar un getter de recetaMap para saber que
 	// funciona correctamente, lo que luego se probaría en un test
 	public Optional<String> nombreRecetaMasConsultada() {
-		return nombreRecetasConsultadas.stream().max(
-				(unNombre, otroNombre) -> cantidadDeConsultas(unNombre)
-						- cantidadDeConsultas(otroNombre));
+		return nombreRecetasConsultadas.stream().max((unNombre, otroNombre) -> cantidadDeConsultas(unNombre) - cantidadDeConsultas(otroNombre));
 	}
 
 	private int cantidadDeConsultas(String nombreDeReceta) {

@@ -19,53 +19,38 @@ public class RecetaInadecuadaTest {
 
 	@Test
 	public void InadecuadaParaDiabeticosSiTieneMasDeCondimentoProhibido() {
-		when(recetaMock.tenesMasDe(Diabetico.condimentoProhibido)).thenReturn(
-				true);
+		when(recetaMock.tenesMasDe(Diabetico.condimentoProhibido)).thenReturn(true);
 
-		condicionesInadecuadas = CondicionDeSalud
-				.condicionesALasQueEsInadecuada(recetaMock);
-		assertTrue(condicionesInadecuadas.stream().anyMatch(
-				condicion -> condicion instanceof Diabetico));
+		condicionesInadecuadas = CondicionDeSalud.condicionesALasQueEsInadecuada(recetaMock);
+		assertTrue(condicionesInadecuadas.stream().anyMatch(condicion -> condicion instanceof Diabetico));
 
 		verify(recetaMock, times(1)).tenesMasDe(Diabetico.condimentoProhibido);
 	}
 
 	@Test
 	public void InadecuadaParaVeganosSiTieneAlgunIngredienteProhibido() {
-		when(
-				recetaMock
-						.tieneAlgunIngredienteDeEstos(Vegano.preferenciasProhibidas))
-				.thenReturn(true);
+		when(recetaMock.tieneAlgunIngredienteDeEstos(Vegano.preferenciasProhibidas)).thenReturn(true);
 
-		condicionesInadecuadas = CondicionDeSalud
-				.condicionesALasQueEsInadecuada(recetaMock);
-		assertTrue(condicionesInadecuadas.stream().anyMatch(
-				condicion -> condicion instanceof Vegano));
+		condicionesInadecuadas = CondicionDeSalud.condicionesALasQueEsInadecuada(recetaMock);
+		assertTrue(condicionesInadecuadas.stream().anyMatch(condicion -> condicion instanceof Vegano));
 
-		verify(recetaMock, times(1)).tieneAlgunIngredienteDeEstos(
-				Vegano.preferenciasProhibidas);
+		verify(recetaMock, times(1)).tieneAlgunIngredienteDeEstos(Vegano.preferenciasProhibidas);
 	}
 
 	@Test
 	public void InadecuadaParaHipertensosSiTieneAlgunoDeLosCondimentosProhibidos() {
-		when(recetaMock.tenesAlgoDe(Hipertenso.condimentosProhibidos))
-				.thenReturn(true);
+		when(recetaMock.tenesAlgoDe(Hipertenso.condimentosProhibidos)).thenReturn(true);
 
-		condicionesInadecuadas = CondicionDeSalud
-				.condicionesALasQueEsInadecuada(recetaMock);
-		assertTrue(condicionesInadecuadas.stream().anyMatch(
-				condicion -> condicion instanceof Hipertenso));
+		condicionesInadecuadas = CondicionDeSalud.condicionesALasQueEsInadecuada(recetaMock);
+		assertTrue(condicionesInadecuadas.stream().anyMatch(condicion -> condicion instanceof Hipertenso));
 
-		verify(recetaMock, times(1)).tenesAlgoDe(
-				Hipertenso.condimentosProhibidos);
+		verify(recetaMock, times(1)).tenesAlgoDe(Hipertenso.condimentosProhibidos);
 	}
 
 	@Test
 	public void NingunaRecetaEsInadecuadaParaCeliaco() {
-		condicionesInadecuadas = CondicionDeSalud
-				.condicionesALasQueEsInadecuada(recetaMock);
-		assertTrue(condicionesInadecuadas.stream().allMatch(
-				condicion -> !(condicion instanceof Celiaco)));
+		condicionesInadecuadas = CondicionDeSalud.condicionesALasQueEsInadecuada(recetaMock);
+		assertTrue(condicionesInadecuadas.stream().allMatch(condicion -> !(condicion instanceof Celiaco)));
 	}
 
 }

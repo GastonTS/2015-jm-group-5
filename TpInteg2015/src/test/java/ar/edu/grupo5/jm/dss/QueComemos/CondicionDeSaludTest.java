@@ -146,26 +146,20 @@ public class CondicionDeSaludTest {
 
 	@Test
 	public void UsuarioVeganoValido() {
-		when(
-				usuarioFalso.tieneAlgunaDeEstasPreferencias(Vegano
-						.getPreferenciasProhibidas())).thenReturn(false);
+		when(usuarioFalso.tieneAlgunaDeEstasPreferencias(Vegano.getPreferenciasProhibidas())).thenReturn(false);
 
 		assertTrue(vegano.esUsuarioValido(usuarioFalso));
 
-		verify(usuarioFalso, times(1)).tieneAlgunaDeEstasPreferencias(
-				Vegano.getPreferenciasProhibidas());
+		verify(usuarioFalso, times(1)).tieneAlgunaDeEstasPreferencias(Vegano.getPreferenciasProhibidas());
 	}
 
 	@Test
 	public void UsuarioVeganoNoEsValido() {
-		when(
-				usuarioFalso.tieneAlgunaDeEstasPreferencias(Vegano
-						.getPreferenciasProhibidas())).thenReturn(true);
+		when(usuarioFalso.tieneAlgunaDeEstasPreferencias(Vegano.getPreferenciasProhibidas())).thenReturn(true);
 
 		assertFalse(vegano.esUsuarioValido(usuarioFalso));
 
-		verify(usuarioFalso, times(1)).tieneAlgunaDeEstasPreferencias(
-				Vegano.getPreferenciasProhibidas());
+		verify(usuarioFalso, times(1)).tieneAlgunaDeEstasPreferencias(Vegano.getPreferenciasProhibidas());
 	}
 
 	// Tests de receta inadecuada para esa condicion
@@ -177,35 +171,28 @@ public class CondicionDeSaludTest {
 
 	@Test
 	public void recetaVeganaEsInadecuadaSiTieneIngredientesProhibidos() {
-		when(
-				recetaFalsa.tieneAlgunIngredienteDeEstos(Vegano
-						.getPreferenciasProhibidas())).thenReturn(true);
+		when(recetaFalsa.tieneAlgunIngredienteDeEstos(Vegano.getPreferenciasProhibidas())).thenReturn(true);
 
 		assertTrue(vegano.esInadecuada(recetaFalsa));
 
-		verify(recetaFalsa, times(1)).tieneAlgunIngredienteDeEstos(
-				Vegano.getPreferenciasProhibidas());
+		verify(recetaFalsa, times(1)).tieneAlgunIngredienteDeEstos(Vegano.getPreferenciasProhibidas());
 	}
 
 	@Test
 	public void recetaDiabeticaEsInadecuadaSiTieneCondimentosProhibidos() {
-		when(recetaFalsa.tenesMasDe(Diabetico.GetCondimentosProhibidos()))
-				.thenReturn(true);
+		when(recetaFalsa.tenesMasDe(Diabetico.GetCondimentosProhibidos())).thenReturn(true);
 
 		assertTrue(diabetico.esInadecuada(recetaFalsa));
 
-		verify(recetaFalsa, times(1)).tenesMasDe(
-				Diabetico.GetCondimentosProhibidos());
+		verify(recetaFalsa, times(1)).tenesMasDe(Diabetico.GetCondimentosProhibidos());
 	}
 
 	@Test
 	public void recetaHipertensaEsInadecuadaSiTieneCondimentosProhibidos() {
-		when(recetaFalsa.tenesAlgoDe(Hipertenso.getCondimentosProhibidos()))
-				.thenReturn(true);
+		when(recetaFalsa.tenesAlgoDe(Hipertenso.getCondimentosProhibidos())).thenReturn(true);
 
 		assertTrue(hipertenso.esInadecuada(recetaFalsa));
 
-		verify(recetaFalsa, times(1)).tenesAlgoDe(
-				Hipertenso.getCondimentosProhibidos());
+		verify(recetaFalsa, times(1)).tenesAlgoDe(Hipertenso.getCondimentosProhibidos());
 	}
 }

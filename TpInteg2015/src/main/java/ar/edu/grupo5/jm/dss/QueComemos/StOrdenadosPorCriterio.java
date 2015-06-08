@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class StOrdenadosPorCriterio implements PostProcesamiento {
+public class StOrdenadosPorCriterio implements StPostProcesamiento {
 
 	private Comparator<Receta> criterio;
 

@@ -6,37 +6,31 @@ import java.util.stream.Collectors;
 
 public class GestorDeConsultas {
 	private List<StFiltro> filtros;
-	private List<PostProcesamiento> postProcesamientos;
+	private List<StPostProcesamiento> postProcesamientos;
 
-	public GestorDeConsultas(List<StFiltro> unosFiltros,
-			List<PostProcesamiento> unosPostProcesamientos) {
+	public GestorDeConsultas(List<StFiltro> unosFiltros, List<StPostProcesamiento> unosPostProcesamientos) {
 		filtros = unosFiltros;
 		postProcesamientos = unosPostProcesamientos;
 	}
 
-	public Collection<Receta> aplicar(Collection<Receta> unasRecetas,
-			Usuario unUsuario) {
+	public Collection<Receta> aplicar(Collection<Receta> unasRecetas, Usuario unUsuario) {
 		return aplicarPostProcesamiento(aplicarFiltros(unasRecetas, unUsuario));
 	}
 
-	public Collection<Receta> aplicarFiltros(Collection<Receta> unasRecetas,
-			Usuario unUsuario) {
+	public Collection<Receta> aplicarFiltros(Collection<Receta> unasRecetas, Usuario unUsuario) {
 		Collection<Receta> recetasRestantes = unasRecetas;
 
 		for (StFiltro filtro : filtros) {
-			recetasRestantes = recetasRestantes.stream()
-					.filter(unaReceta -> filtro.filtrar(unaReceta, unUsuario))
-					.collect(Collectors.toList());
+			recetasRestantes = recetasRestantes.stream().filter(unaReceta -> filtro.filtrar(unaReceta, unUsuario)).collect(Collectors.toList());
 		}
 
 		return recetasRestantes;
 	}
 
-	public Collection<Receta> aplicarPostProcesamiento(
-			Collection<Receta> unasRecetas) {
+	public Collection<Receta> aplicarPostProcesamiento(Collection<Receta> unasRecetas) {
 		Collection<Receta> recetasRestantes = unasRecetas;
 
-		for (PostProcesamiento procesamiento : postProcesamientos) {
+		for (StPostProcesamiento procesamiento : postProcesamientos) {
 			recetasRestantes = procesamiento.procesarRecetas(recetasRestantes);
 		}
 

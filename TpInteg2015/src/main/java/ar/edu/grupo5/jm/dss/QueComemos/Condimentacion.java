@@ -13,17 +13,14 @@ public class Condimentacion {
 	}
 
 	public boolean tieneCondimentoUnoDe(Collection<String> unosCondimentos) {
-		return unosCondimentos.stream().anyMatch(
-				condimento -> tieneCondimento(condimento));
+		return unosCondimentos.stream().anyMatch(condimento -> tieneCondimento(condimento));
 	}
 
 	public boolean tieneCondimento(String unCondimento) {
 		return condimento.equals(unCondimento);
 	}
 
-	public boolean mayorCantidadDeMismoCondimentoQue(
-			Condimentacion unaCondimentacion) {
-		return tieneCondimento(unaCondimentacion.condimento)
-				&& cantidad > unaCondimentacion.cantidad;
+	public boolean mayorCantidadDeMismoCondimentoQue(Condimentacion unaCondimentacion) {
+		return tieneCondimento(unaCondimentacion.condimento) && cantidad > unaCondimentacion.cantidad;
 	}
 }

@@ -3,19 +3,15 @@ package ar.edu.grupo5.jm.dss.QueComemos;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-public class Primeros10 extends Filtro {
+public class Primeros10 extends PostProcesamiento {
 
 	public Primeros10(IFiltro unFiltro) {
 		super(unFiltro);
 	}
 
 	@Override
-	public Collection<Receta> filtrarRecetas(Collection<Receta> recetas,
-			Usuario unUsuario) {
-		Collection<Receta> recetasParciales = subFiltro.filtrarRecetas(recetas,
-				unUsuario);
-
-		return recetasParciales.stream().limit(10).collect(Collectors.toList());
+	protected Collection<Receta> procesar(Collection<Receta> recetas) {
+		return recetas.stream().limit(10).collect(Collectors.toList());
 	}
 
 }

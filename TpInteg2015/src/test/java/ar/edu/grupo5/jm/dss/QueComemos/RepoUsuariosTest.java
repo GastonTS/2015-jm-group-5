@@ -69,29 +69,23 @@ public class RepoUsuariosTest {
 
 	@Test
 	public void buscarJuanchiPorNombre() {
-		DatosPersonales datosPersonales = new DatosPersonales("juanchi", null,
-				null);
-		Usuario juanchiConNombre = new Usuario(datosPersonales, null, null,
-				null, null, null);
+		DatosPersonales datosPersonales = new DatosPersonales("juanchi", null, null);
+		Usuario juanchiConNombre = new Usuario(datosPersonales, null, null, null, null, null);
 		assertEquals(repoUsuarios.get(juanchiConNombre), juanchi);
 	}
 
 	@Test
 	public void buscarGusPorCondicionesDeSalud() {
-		DatosPersonales datosPersonalesGus = new DatosPersonales(null, null,
-				null);
-		Usuario gustavoConCondiciones = new Usuario(datosPersonalesGus, null,
-				null, null, condicionesGustavo, null);
+		DatosPersonales datosPersonalesGus = new DatosPersonales(null, null, null);
+		Usuario gustavoConCondiciones = new Usuario(datosPersonalesGus, null, null, null, condicionesGustavo, null);
 		assertEquals(repoUsuarios.list(gustavoConCondiciones).size(), 1);
 		assertEquals(repoUsuarios.get(gustavoConCondiciones), gustavo);
 	}
 
 	@Test
 	public void buscarHippiesGusYJuanchi() {
-		DatosPersonales datosPersonalesHippies = new DatosPersonales(null,
-				null, null);
-		Usuario usuarioHippies = new Usuario(datosPersonalesHippies, null,
-				null, null, condicionesJuanchi, null);
+		DatosPersonales datosPersonalesHippies = new DatosPersonales(null, null, null);
+		Usuario usuarioHippies = new Usuario(datosPersonalesHippies, null, null, null, condicionesJuanchi, null);
 		Collection<Usuario> usuariosHippies = new ArrayList<Usuario>();
 		usuariosHippies = repoUsuarios.list(usuarioHippies);
 		assertTrue(usuariosHippies.contains(juanchi));
@@ -101,10 +95,8 @@ public class RepoUsuariosTest {
 
 	@Test
 	public void buscarCorporativosGusYGaston() {
-		DatosPersonales datosPersonalesHippies = new DatosPersonales(null,
-				null, null);
-		Usuario usuarioHippies = new Usuario(datosPersonalesHippies, null,
-				null, null, condicionesGaston, null);
+		DatosPersonales datosPersonalesHippies = new DatosPersonales(null, null, null);
+		Usuario usuarioHippies = new Usuario(datosPersonalesHippies, null, null, null, condicionesGaston, null);
 		Collection<Usuario> usuariosCorporativos = new ArrayList<Usuario>();
 		usuariosCorporativos = repoUsuarios.list(usuarioHippies);
 		assertTrue(usuariosCorporativos.contains(gaston));

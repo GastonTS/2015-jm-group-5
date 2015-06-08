@@ -1,8 +1,7 @@
 package ar.edu.grupo5.jm.dss.QueComemos;
 
 public class Diabetico extends CondicionDeSalud {
-	public static Condimentacion condimentoProhibido = new Condimentacion(
-			"Azucar", 100);
+	public static Condimentacion condimentoProhibido = new Condimentacion("Azucar", 100);
 
 	@Override
 	public boolean subsanaCondicion(Usuario unUsuario) {

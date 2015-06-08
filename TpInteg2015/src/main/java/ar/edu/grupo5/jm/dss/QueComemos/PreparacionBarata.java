@@ -2,27 +2,18 @@ package ar.edu.grupo5.jm.dss.QueComemos;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.stream.Collectors;
+import java.util.function.Predicate;
 
-public class PreparacionBarata extends Filtro {
+public class PreparacionBarata extends PreProcesamiento {
 
-	private static final Collection<String> ingredientesCaros = Arrays.asList(
-			"lechon", "lomo", "salmon", "alcaparras");
+	private static final Collection<String> ingredientesCaros = Arrays.asList("lechon", "lomo", "salmon", "alcaparras");
 
 	public PreparacionBarata(IFiltro unFiltro) {
 		super(unFiltro);
 	}
 
 	@Override
-	public Collection<Receta> filtrarRecetas(Collection<Receta> recetas,
-			Usuario unUsuario) {
-		Collection<Receta> recetasParciales = recetas
-				.stream()
-				.filter((unaReceta -> !unaReceta
-						.tieneAlgunIngredienteDeEstos(ingredientesCaros)))
-				.collect(Collectors.toList());
-
-		return subFiltro.filtrarRecetas(recetasParciales, unUsuario);
+	protected Predicate<Receta> setCriterio() {
+		return (unaReceta -> !unaReceta.tieneAlgunIngredienteDeEstos(ingredientesCaros));
 	}
-
 }

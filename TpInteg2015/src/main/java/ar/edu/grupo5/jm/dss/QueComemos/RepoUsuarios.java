@@ -21,8 +21,7 @@ public class RepoUsuarios {
 
 	public void remove(Usuario unUsuario) {
 		if (!usuarios.contains(unUsuario)) {
-			throw new UsuarioIngresadoNoExisteException(
-					"No se encontro usuario en el repositorio de usuarios");
+			throw new UsuarioIngresadoNoExisteException("No se encontro usuario en el repositorio de usuarios");
 		}
 
 		usuarios.remove(unUsuario);
@@ -38,28 +37,22 @@ public class RepoUsuarios {
 	}
 
 	public Collection<Usuario> list(Usuario unUsuario) {
-		return usuarios.stream()
-				.filter(usuarioPosta -> searchByName(unUsuario, usuarioPosta))
-				.collect(Collectors.toList());
+		return usuarios.stream().filter(usuarioPosta -> searchByName(unUsuario, usuarioPosta)).collect(Collectors.toList());
 	}
 
 	private Boolean searchByName(Usuario usuarioBuscado, Usuario usuarioPosta) {
-		return tienenMismoNombre(usuarioBuscado, usuarioPosta)
-				^ tienenMismasCondicionesDeSalud(usuarioBuscado, usuarioPosta);
+		return tienenMismoNombre(usuarioBuscado, usuarioPosta) ^ tienenMismasCondicionesDeSalud(usuarioBuscado, usuarioPosta);
 	}
 
-	private Boolean tienenMismoNombre(Usuario usuarioBuscado,
-			Usuario usuarioPosta) {
+	private Boolean tienenMismoNombre(Usuario usuarioBuscado, Usuario usuarioPosta) {
 		return usuarioPosta.getNombre().equals(usuarioBuscado.getNombre());
 	}
 
-	private Boolean tienenMismasCondicionesDeSalud(Usuario usuarioBuscado,
-			Usuario usuarioPosta) {
+	private Boolean tienenMismasCondicionesDeSalud(Usuario usuarioBuscado, Usuario usuarioPosta) {
 		if (usuarioBuscado.getCondicionesDeSalud() == null) {
 			return false;
 		}
-		return usuarioPosta.getCondicionesDeSalud().containsAll(
-				usuarioBuscado.getCondicionesDeSalud());
+		return usuarioPosta.getCondicionesDeSalud().containsAll(usuarioBuscado.getCondicionesDeSalud());
 	}
 
 }
