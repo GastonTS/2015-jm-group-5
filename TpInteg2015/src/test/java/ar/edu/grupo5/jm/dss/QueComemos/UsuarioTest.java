@@ -16,7 +16,16 @@ import java.util.Collection;
 import org.junit.Before;
 import org.junit.Test;
 
-import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Rutina;
+import ar.edu.grupo5.jm.dss.QueComemos.DecoratorFilter.IFiltro;
+import ar.edu.grupo5.jm.dss.QueComemos.Receta.NoPuedeAccederARecetaException;
+import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
+import ar.edu.grupo5.jm.dss.QueComemos.Receta.RecetaNoValidaException;
+import ar.edu.grupo5.jm.dss.QueComemos.StrategyFilter.GestorDeConsultas;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Complexion;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.CondicionDeSalud;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.DatosPersonales;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario.Rutina;
 
 public class UsuarioTest {
 
@@ -63,15 +72,9 @@ public class UsuarioTest {
 
 		Usuario.setRepositorio(repositorioMock);
 
-		gustavo = new Usuario(datosPersonalesMock, complexionMock,
-				new ArrayList<String>(), disgustosGustavo, condiciones,
-				Rutina.MEDIANA);
-		gaston = new Usuario(datosPersonalesMock, complexionMock,
-				new ArrayList<String>(), new ArrayList<String>(),
-				new ArrayList<CondicionDeSalud>(), null);
-		juanchi = new Usuario(datosPersonalesMock, complexionMock,
-				preferenciaFruta, new ArrayList<String>(),
-				new ArrayList<CondicionDeSalud>(), null);
+		gustavo = new Usuario(datosPersonalesMock, complexionMock, new ArrayList<String>(), disgustosGustavo, condiciones, Rutina.MEDIANA);
+		gaston = new Usuario(datosPersonalesMock, complexionMock, new ArrayList<String>(), new ArrayList<String>(), new ArrayList<CondicionDeSalud>(), null);
+		juanchi = new Usuario(datosPersonalesMock, complexionMock, preferenciaFruta, new ArrayList<String>(), new ArrayList<CondicionDeSalud>(), null);
 
 		juanchi.agregarGrupo(grupoMock);
 	}
@@ -143,8 +146,7 @@ public class UsuarioTest {
 	public void noSigueRutinaSaludableSiNoSubsanaUnaCondicion() {
 		when(complexionMock.indiceMasaCorporal()).thenReturn(20.0);
 		when(hippie.subsanaCondicion(any(Usuario.class))).thenReturn(true);
-		when(corporativo.subsanaCondicion(any(Usuario.class)))
-				.thenReturn(false);
+		when(corporativo.subsanaCondicion(any(Usuario.class))).thenReturn(false);
 
 		assertFalse(gustavo.sigueRutinaSaludable());
 
@@ -196,8 +198,7 @@ public class UsuarioTest {
 		when(panchoMock.esElDueño(gustavo)).thenReturn(false);
 		when(ensaladaMock.esElDueño(gustavo)).thenReturn(true);
 
-		gustavo.crearRecetaConSubRecetas(recetaMock,
-				Arrays.asList(panchoMock, ensaladaMock));
+		gustavo.crearRecetaConSubRecetas(recetaMock, Arrays.asList(panchoMock, ensaladaMock));
 
 		verify(panchoMock, times(1)).esElDueño(gustavo);
 		verify(ensaladaMock, times(1)).esElDueño(gustavo);
@@ -210,8 +211,7 @@ public class UsuarioTest {
 		when(choripanMock.esElDueño(gustavo)).thenReturn(true);
 		when(ensaladaMock.esElDueño(gustavo)).thenReturn(true);
 
-		gustavo.crearRecetaConSubRecetas(recetaMock,
-				Arrays.asList(choripanMock, ensaladaMock));
+		gustavo.crearRecetaConSubRecetas(recetaMock, Arrays.asList(choripanMock, ensaladaMock));
 
 		verify(recetaMock, times(1)).esValida();
 		verify(choripanMock, times(1)).esElDueño(gustavo);
@@ -323,65 +323,55 @@ public class UsuarioTest {
 	// Test de Sugerencias
 	@Test
 	public void unaRecetaNoDisgusta() {
-		when(recetaMock.tieneAlgunIngredienteDeEstos(disgustosGustavo))
-				.thenReturn(false);
+		when(recetaMock.tieneAlgunIngredienteDeEstos(disgustosGustavo)).thenReturn(false);
 
 		assertTrue(gustavo.noLeDisgusta(recetaMock));
 
-		verify(recetaMock, times(1)).tieneAlgunIngredienteDeEstos(
-				disgustosGustavo);
+		verify(recetaMock, times(1)).tieneAlgunIngredienteDeEstos(disgustosGustavo);
 	}
 
 	@Test
 	public void unaRecetaDisgusta() {
-		when(recetaMock.tieneAlgunIngredienteDeEstos(disgustosGustavo))
-				.thenReturn(true);
+		when(recetaMock.tieneAlgunIngredienteDeEstos(disgustosGustavo)).thenReturn(true);
 
 		assertFalse(gustavo.noLeDisgusta(recetaMock));
 
-		verify(recetaMock, times(1)).tieneAlgunIngredienteDeEstos(
-				disgustosGustavo);
+		verify(recetaMock, times(1)).tieneAlgunIngredienteDeEstos(disgustosGustavo);
 	}
 
 	@Test
 	public void seSugiereUnaRecetaSiNoDisgustaYEsAdecauda() {
 		when(hippie.esInadecuada(recetaMock)).thenReturn(false);
 		when(corporativo.esInadecuada(recetaMock)).thenReturn(false);
-		when(recetaMock.tieneAlgunIngredienteDeEstos(disgustosGustavo))
-				.thenReturn(false);
+		when(recetaMock.tieneAlgunIngredienteDeEstos(disgustosGustavo)).thenReturn(false);
 		when(recetaMock.esPublica()).thenReturn(true);
 
 		assertTrue(gustavo.puedeSugerirse(recetaMock));
 
 		verify(hippie, times(1)).esInadecuada(recetaMock);
 		verify(corporativo, times(1)).esInadecuada(recetaMock);
-		verify(recetaMock, times(1)).tieneAlgunIngredienteDeEstos(
-				disgustosGustavo);
+		verify(recetaMock, times(1)).tieneAlgunIngredienteDeEstos(disgustosGustavo);
 		verify(recetaMock, times(1)).esPublica();
 	}
 
 	@Test
 	public void noSeSugiereRecetaSiDisgusta() {
-		when(recetaMock.tieneAlgunIngredienteDeEstos(disgustosGustavo))
-				.thenReturn(true);
+		when(recetaMock.tieneAlgunIngredienteDeEstos(disgustosGustavo)).thenReturn(true);
 
 		assertFalse(gustavo.puedeSugerirse(recetaMock));
 
-		verify(recetaMock, times(1)).tieneAlgunIngredienteDeEstos(
-				disgustosGustavo);
+		verify(recetaMock, times(1)).tieneAlgunIngredienteDeEstos(disgustosGustavo);
 	}
 
 	@Test
 	public void noSeSugiereRecetaSiEsInadecuada() {
 		when(hippie.esInadecuada(recetaMock)).thenReturn(true);
-		when(recetaMock.tieneAlgunIngredienteDeEstos(disgustosGustavo))
-				.thenReturn(false);
+		when(recetaMock.tieneAlgunIngredienteDeEstos(disgustosGustavo)).thenReturn(false);
 
 		assertFalse(gustavo.puedeSugerirse(recetaMock));
 
 		verify(hippie, times(1)).esInadecuada(recetaMock);
-		verify(recetaMock, times(1)).tieneAlgunIngredienteDeEstos(
-				disgustosGustavo);
+		verify(recetaMock, times(1)).tieneAlgunIngredienteDeEstos(disgustosGustavo);
 	}
 
 	@Test
@@ -397,33 +387,24 @@ public class UsuarioTest {
 
 	@Test
 	public void consultaRecetasDecorador() {
-		Collection<Receta> resultadoConsulta = Arrays.asList(panchoMock,
-				ensaladaMock);
-		when(repositorioMock.listarTodasPuedeAcceder(gaston)).thenReturn(
-				resultadoConsulta);
-		when(filtroMock.filtrarRecetas(resultadoConsulta, gaston)).thenReturn(
-				resultadoConsulta);
+		Collection<Receta> resultadoConsulta = Arrays.asList(panchoMock, ensaladaMock);
+		when(repositorioMock.consultarRecetas(filtroMock, gaston)).thenReturn(resultadoConsulta);
 
 		assertEquals(gaston.consultarRecetas(filtroMock), resultadoConsulta);
 
-		verify(repositorioMock, times(1)).listarTodasPuedeAcceder(gaston);
-		verify(filtroMock, times(1)).filtrarRecetas(resultadoConsulta, gaston);
+		verify(repositorioMock, times(1)).consultarRecetas(filtroMock, gaston);
 	}
 
 	@Test
 	public void consultaRecetasStrategy() {
-		Collection<Receta> resultadoConsulta = Arrays.asList(panchoMock,
-				ensaladaMock);
-		when(repositorioMock.listarTodasPuedeAcceder(gaston)).thenReturn(
-				resultadoConsulta);
-		when(filtroStMock.aplicarFiltros(resultadoConsulta, gaston))
-				.thenReturn(resultadoConsulta);
+		Collection<Receta> resultadoConsulta = Arrays.asList(panchoMock, ensaladaMock);
+		when(repositorioMock.listarTodasPuedeAcceder(gaston)).thenReturn(resultadoConsulta);
+		when(filtroStMock.aplicarFiltros(resultadoConsulta, gaston)).thenReturn(resultadoConsulta);
 
 		assertEquals(gaston.consultarRecetasSt(filtroStMock), resultadoConsulta);
 
 		verify(repositorioMock, times(1)).listarTodasPuedeAcceder(gaston);
-		verify(filtroStMock, times(1))
-				.aplicarFiltros(resultadoConsulta, gaston);
+		verify(filtroStMock, times(1)).aplicarFiltros(resultadoConsulta, gaston);
 	}
 
 	@Test
@@ -433,5 +414,13 @@ public class UsuarioTest {
 		gustavo.agregarAFavorita(choripanMock);
 
 		assertEquals(gustavo.getRecetasFavoritas(), Arrays.asList(choripanMock));
+	}
+
+	@Test
+	public void gustavoEsMasculino() {
+		when(datosPersonalesMock.getSexo()).thenReturn("Masculino");
+		assertTrue(gustavo.esDeSexo("Masculino"));
+		verify(datosPersonalesMock, times(1)).getSexo();
+
 	}
 }
