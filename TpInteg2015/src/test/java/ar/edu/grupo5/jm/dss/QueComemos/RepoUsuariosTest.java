@@ -11,6 +11,11 @@ import java.util.Collection;
 import org.junit.Before;
 import org.junit.Test;
 
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.CondicionDeSalud;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.DatosPersonales;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.UsuarioIngresadoNoExisteException;
+
 public class RepoUsuariosTest {
 
 	private Usuario gustavo = mock(Usuario.class);

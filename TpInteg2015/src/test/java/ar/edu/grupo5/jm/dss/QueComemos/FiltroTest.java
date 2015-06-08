@@ -7,6 +7,16 @@ import java.util.Collection;
 import org.junit.Before;
 import org.junit.Test;
 
+import ar.edu.grupo5.jm.dss.QueComemos.DecoratorFilter.ExcesoDeCalorias;
+import ar.edu.grupo5.jm.dss.QueComemos.DecoratorFilter.NoLeDisgustaAlUsuario;
+import ar.edu.grupo5.jm.dss.QueComemos.DecoratorFilter.OrdenadosPorCriterio;
+import ar.edu.grupo5.jm.dss.QueComemos.DecoratorFilter.PreparacionBarata;
+import ar.edu.grupo5.jm.dss.QueComemos.DecoratorFilter.Primeros10;
+import ar.edu.grupo5.jm.dss.QueComemos.DecoratorFilter.SegunCondicionesDeUsuario;
+import ar.edu.grupo5.jm.dss.QueComemos.DecoratorFilter.SinFiltro;
+import ar.edu.grupo5.jm.dss.QueComemos.DecoratorFilter.SoloPares;
+import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;

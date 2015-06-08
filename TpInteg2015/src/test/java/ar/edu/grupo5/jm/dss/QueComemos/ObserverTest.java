@@ -14,6 +14,9 @@ import java.util.Optional;
 import org.junit.Before;
 import org.junit.Test;
 
+import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
+
 public class ObserverTest {
 
 	private Usuario usuarioMock = mock(Usuario.class);

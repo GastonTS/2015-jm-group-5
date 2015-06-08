@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
+import ar.edu.grupo5.jm.dss.QueComemos.DecoratorFilter.IFiltro;
+import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
+
 public class Recetario { // FIXME renombrar a recetario
 
 	public static Recetario instancia = new Recetario();

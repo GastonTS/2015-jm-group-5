@@ -5,6 +5,9 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
 
+import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
+
 public class MasConsultada implements ObservadorConsultas {
 	Collection<String> nombreRecetasConsultadas = new ArrayList<String>();
 

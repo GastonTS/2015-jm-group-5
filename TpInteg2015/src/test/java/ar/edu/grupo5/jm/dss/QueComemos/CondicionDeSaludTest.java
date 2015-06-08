@@ -3,9 +3,14 @@ package ar.edu.grupo5.jm.dss.QueComemos;
 import org.junit.Before;
 import org.junit.Test;
 
+import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Celiaco;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Diabetico;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Hipertenso;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Vegano;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
-
 import static org.mockito.Mockito.*;
 
 public class CondicionDeSaludTest {

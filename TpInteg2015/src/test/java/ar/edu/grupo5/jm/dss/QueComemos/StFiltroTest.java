@@ -14,6 +14,17 @@ import java.util.stream.Collectors;
 import org.junit.Before;
 import org.junit.Test;
 
+import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
+import ar.edu.grupo5.jm.dss.QueComemos.StrategyFilter.GestorDeConsultas;
+import ar.edu.grupo5.jm.dss.QueComemos.StrategyFilter.StCondicionUsuario;
+import ar.edu.grupo5.jm.dss.QueComemos.StrategyFilter.StExcesoCalorias;
+import ar.edu.grupo5.jm.dss.QueComemos.StrategyFilter.StNoLeDisgustaAlUsuario;
+import ar.edu.grupo5.jm.dss.QueComemos.StrategyFilter.StOrdenadosPorCriterio;
+import ar.edu.grupo5.jm.dss.QueComemos.StrategyFilter.StPreparacionBarata;
+import ar.edu.grupo5.jm.dss.QueComemos.StrategyFilter.StPrimeros10;
+import ar.edu.grupo5.jm.dss.QueComemos.StrategyFilter.StSoloPares;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
+
 public class StFiltroTest {
 	private Usuario usuarioMock = mock(Usuario.class);
 

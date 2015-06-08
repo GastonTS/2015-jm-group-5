@@ -3,6 +3,9 @@ package ar.edu.grupo5.jm.dss.QueComemos;
 import java.util.Collection;
 import java.util.Optional;
 
+import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
+
 public class SegunSexo implements ObservadorConsultas {
 
 	private MasConsultada consultasHombres = new MasConsultada();

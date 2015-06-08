@@ -16,7 +16,16 @@ import java.util.Collection;
 import org.junit.Before;
 import org.junit.Test;
 
-import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Rutina;
+import ar.edu.grupo5.jm.dss.QueComemos.DecoratorFilter.IFiltro;
+import ar.edu.grupo5.jm.dss.QueComemos.Receta.NoPuedeAccederARecetaException;
+import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
+import ar.edu.grupo5.jm.dss.QueComemos.Receta.RecetaNoValidaException;
+import ar.edu.grupo5.jm.dss.QueComemos.StrategyFilter.GestorDeConsultas;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Complexion;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.CondicionDeSalud;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.DatosPersonales;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario.Rutina;
 
 public class UsuarioTest {
 

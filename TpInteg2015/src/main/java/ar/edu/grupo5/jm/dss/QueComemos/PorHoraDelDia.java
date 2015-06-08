@@ -3,6 +3,9 @@ package ar.edu.grupo5.jm.dss.QueComemos;
 import java.util.Calendar;
 import java.util.Collection;
 
+import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
+
 public class PorHoraDelDia implements ObservadorConsultas {
 	private int[] consultasPorHoraDelDia = new int[24];
 

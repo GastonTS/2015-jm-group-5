@@ -3,6 +3,10 @@ package ar.edu.grupo5.jm.dss.QueComemos;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
+import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Vegano;
+
 public class ConsultaVeganoRecetasDificles implements ObservadorConsultas {
 
 	private int cantidadConsultas = 0;

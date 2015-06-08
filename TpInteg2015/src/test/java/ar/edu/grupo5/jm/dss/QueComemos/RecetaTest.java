@@ -8,6 +8,9 @@ import java.util.Arrays;
 import org.junit.Before;
 import org.junit.Test;
 
+import ar.edu.grupo5.jm.dss.QueComemos.Receta.Condimentacion;
+import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
+
 public class RecetaTest {
 
 	private Receta recetaSinIngredientes;
