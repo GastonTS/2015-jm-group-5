@@ -7,6 +7,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Optional;
@@ -36,34 +37,28 @@ public class ObserverTest {
 	private Collection<Receta> recetaExtraEnsalada = new ArrayList<Receta>();
 
 	PorHoraDelDia observerPorHoraDelDia = new PorHoraDelDia();
-	int horaActual, horaSiguiente;
 	MasConsultada observerRecetaMasConsultada = new MasConsultada();
 	SegunSexo observerSegunSexo = new SegunSexo();
 
 	@Before
 	public void setUp() {
-		recetas.add(guisoMock);
-		recetas.add(ensaladaMock);
-		recetas.add(panchoMock);
-		recetas.add(vegetarianaMock);
-		recetasDeGuisoYPancho.add(guisoMock);
-		recetasDeGuisoYPancho.add(panchoMock);
-		recetasDePanchoYEnsalada.add(panchoMock);
-		recetasDePanchoYEnsalada.add(ensaladaMock);
-		recetaExtraEnsalada.add(ensaladaMock);
-		recetaExtraEnsalada.add(ensaladaMock);
-
-		horaActual = Calendar.HOUR_OF_DAY;
-		if (horaActual == 23)
-			horaSiguiente = 0;
-		else
-			horaSiguiente = horaActual + 1;
+		recetas = Arrays.asList(guisoMock,ensaladaMock,panchoMock,vegetarianaMock);
+		recetasDeGuisoYPancho = Arrays.asList(guisoMock,panchoMock);
+		recetasDePanchoYEnsalada = Arrays.asList(panchoMock,ensaladaMock);
+		recetaExtraEnsalada = Arrays.asList(ensaladaMock,ensaladaMock);
 	}
 
 	@Test
 	public void agregaCantidadDeConsultasALaHoraEnQueSeRealizan() {
+		int horaSiguiente, horaActual = Calendar.HOUR_OF_DAY;
+		if (horaActual == 23)
+			horaSiguiente = 0;
+		else
+			horaSiguiente =+ 1;
+		
 		observerPorHoraDelDia.notificar(usuarioMock, recetas);
-		observerPorHoraDelDia.notificar(usuarioMock, recetas);
+		observerPorHoraDelDia.notificar(usuarioMock, recetasDeGuisoYPancho);
+		
 		assertEquals(observerPorHoraDelDia.getConsultasPorHoraDelDia(horaActual), 2);
 		assertEquals(observerPorHoraDelDia.getConsultasPorHoraDelDia(horaSiguiente), 0);
 	}

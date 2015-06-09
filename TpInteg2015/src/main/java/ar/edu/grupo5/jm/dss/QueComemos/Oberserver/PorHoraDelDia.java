@@ -14,8 +14,6 @@ public class PorHoraDelDia implements ObservadorConsultas {
 		consultasPorHoraDelDia[Calendar.HOUR_OF_DAY]++;
 	}
 
-	// debería agregar un getter de consultasPorHoraDelDia para saber que
-	// funciona correctamente, lo que luego se probaría en un test
 	public int getConsultasPorHoraDelDia(int horaDelDia) {
 		return consultasPorHoraDelDia[horaDelDia];
 	}
