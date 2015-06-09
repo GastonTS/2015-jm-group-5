@@ -46,8 +46,6 @@ public class UsuarioTest {
 	private Receta ensaladaMock = mock(Receta.class);
 	private Receta choripanMock = mock(Receta.class);
 
-	private Recetario repositorioMock = mock(Recetario.class);
-
 	private Grupo grupoMock = mock(Grupo.class);
 
 	@Before
@@ -58,8 +56,6 @@ public class UsuarioTest {
 		disgustosGustavo.add("McDonalds");
 		preferenciaFruta.add("fruta");
 		preferenciasVariadas = Arrays.asList("fruta", "semillas", "campignones");
-
-		Usuario.setRepositorio(repositorioMock);
 
 		gustavo = new Usuario(datosPersonalesMock, complexionMock, new ArrayList<String>(), disgustosGustavo, condiciones, Rutina.MEDIANA);
 		gaston = new Usuario(datosPersonalesMock, complexionMock, new ArrayList<String>(), new ArrayList<String>(), new ArrayList<CondicionDeSalud>(), null);

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import ar.edu.grupo5.jm.dss.QueComemos.Grupo;
-import ar.edu.grupo5.jm.dss.QueComemos.Recetario;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 
 public class Usuario {
@@ -39,10 +38,6 @@ public class Usuario {
 		disgustosAlimenticios = unosDisgustosAlimenticios;
 		condicionesDeSalud = unasCondicionesDeSalud;
 		rutina = unaRutina;
-	}
-
-	static public void setRepositorio(Recetario unRepositorio) {
-		Recetario.instancia = unRepositorio;
 	}
 
 	public void agregarGrupo(Grupo unGrupo) {

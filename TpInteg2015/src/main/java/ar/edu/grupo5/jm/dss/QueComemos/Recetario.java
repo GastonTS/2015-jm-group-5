@@ -26,10 +26,6 @@ public class Recetario {
 		return recetasTotales;
 	}
 
-	public void agregarReceta(Receta unaReceta) {
-		recetasTotales.add(unaReceta);
-	}
-
 	public void quitarReceta(Receta unaReceta) {
 		recetasTotales.remove(unaReceta);
 	}
@@ -44,7 +40,7 @@ public class Recetario {
 		}
 
 		unaReceta.setDueño(unUsuario);
-		instancia.agregarReceta(unaReceta);
+		recetasTotales.add(unaReceta);
 	}
 
 	public void crearRecetaConSubRecetas(Receta unaReceta, Collection<Receta> unasSubRecetas, Usuario unUsuario) {
@@ -60,7 +56,7 @@ public class Recetario {
 			throw new NoPuedeEliminarRecetaExeption("No puede eliminar una receta que no creó");
 
 		}
-		instancia.quitarReceta(unaReceta);
+		recetasTotales.remove(unaReceta);
 		unUsuario.quitarRecetaFavorita(unaReceta);
 	}
 
@@ -81,7 +77,7 @@ public class Recetario {
 
 	public Collection<Receta> consultarRecetas(IFiltro unFiltro, Usuario unUsuario) {
 
-		Collection<Receta> recetasConsultadas = unFiltro.filtrarRecetas(Recetario.instancia.listarTodasPuedeAcceder(unUsuario), unUsuario);
+		Collection<Receta> recetasConsultadas = unFiltro.filtrarRecetas(listarTodasPuedeAcceder(unUsuario), unUsuario);
 
 		for (ObservadorConsultas observador : observadores) {
 			observador.notificar(unUsuario, recetasConsultadas);
@@ -91,7 +87,7 @@ public class Recetario {
 	}
 
 	public Collection<Receta> consultarRecetasSt(GestorDeConsultas unFiltrado, Usuario unUsuario) {
-		return unFiltrado.aplicarFiltros(Recetario.instancia.listarTodasPuedeAcceder(unUsuario), unUsuario);
+		return unFiltrado.aplicarFiltros(listarTodasPuedeAcceder(unUsuario), unUsuario);
 	}
 
 }
