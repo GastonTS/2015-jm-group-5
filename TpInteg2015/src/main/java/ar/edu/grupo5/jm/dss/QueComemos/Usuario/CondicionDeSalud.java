@@ -16,7 +16,8 @@ public abstract class CondicionDeSalud {
 
 	public abstract boolean esUsuarioValido(Usuario unUsuario);
 
-	// Punto 3.b
+	public abstract boolean deboNotificar();
+	
 	static public Collection<CondicionDeSalud> condicionesALasQueEsInadecuada(Receta unaReceta) {
 		return CondicionDeSalud.condicionesExistentes.stream().filter(condicion -> condicion.esInadecuada(unaReceta)).collect(Collectors.toList());
 	}

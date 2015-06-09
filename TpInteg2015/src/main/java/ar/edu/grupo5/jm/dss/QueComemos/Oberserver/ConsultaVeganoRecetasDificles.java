@@ -1,32 +1,35 @@
 package ar.edu.grupo5.jm.dss.QueComemos.Oberserver;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
-import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Vegano;
 
 public class ConsultaVeganoRecetasDificles implements ObservadorConsultas {
 
-	private int cantidadConsultas = 0;
+	private Collection<Usuario> veganosQueConsultaronDificiles = new ArrayList<Usuario>();
 
 	@Override
 	public void notificar(Usuario unUsuario, Collection<Receta> recetasConsultadas) {
-
-		if (unUsuario.tieneCondicionDeSalud(new Vegano())) {
-
-			Collection<Receta> consultasFiltradas = this.filtrarRecetasDificiles(recetasConsultadas);
-			cantidadConsultas = cantidadConsultas + consultasFiltradas.size();
+		if (recetasConsultadas.stream().anyMatch(receta -> receta.esDificil())) {
+			unUsuario.notificaA(this);
 		}
 	}
 
 	public Collection<Receta> filtrarRecetasDificiles(Collection<Receta> unasRecetas) {
+		return unasRecetas.stream().filter((unaReceta -> unaReceta.esDificil())).collect(Collectors.toList());
+	}
 
-		// Collection<Receta> recetasParciales = unasRecetas
-		// .stream().filter((unaReceta -> unaReceta.esRecetaDificl()))
-		// .collect(Collectors.toList());
+	public void sumame(Usuario unUsuario) {
+		if (!veganosQueConsultaronDificiles.contains(unUsuario)) {
+			veganosQueConsultaronDificiles.add(unUsuario);
+		}
+	}
 
-		return unasRecetas;
+	public int cantidadDeVeganos() {
+		return veganosQueConsultaronDificiles.size();
 	}
 
 }

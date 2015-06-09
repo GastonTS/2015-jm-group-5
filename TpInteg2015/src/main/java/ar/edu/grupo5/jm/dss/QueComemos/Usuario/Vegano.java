@@ -28,4 +28,9 @@ public class Vegano extends CondicionDeSalud {
 		return !(unUsuario.tieneAlgunaDeEstasPreferencias(preferenciasProhibidas));
 	}
 
+	@Override
+	public boolean deboNotificar() {
+		return true;
+	}
+
 }

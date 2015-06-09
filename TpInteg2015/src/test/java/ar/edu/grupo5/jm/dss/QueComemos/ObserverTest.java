@@ -25,6 +25,7 @@ public class ObserverTest {
 
 	private Usuario usuarioMock = mock(Usuario.class);
 	private Usuario usuraioMockFem = mock(Usuario.class);
+	private Usuario veganoMock = mock(Usuario.class);
 
 	private Receta guisoMock = mock(Receta.class);
 	private Receta ensaladaMock = mock(Receta.class);
@@ -42,10 +43,10 @@ public class ObserverTest {
 
 	@Before
 	public void setUp() {
-		recetas = Arrays.asList(guisoMock,ensaladaMock,panchoMock,vegetarianaMock);
-		recetasDeGuisoYPancho = Arrays.asList(guisoMock,panchoMock);
-		recetasDePanchoYEnsalada = Arrays.asList(panchoMock,ensaladaMock);
-		recetaExtraEnsalada = Arrays.asList(ensaladaMock,ensaladaMock);
+		recetas = Arrays.asList(guisoMock, ensaladaMock, panchoMock, vegetarianaMock);
+		recetasDeGuisoYPancho = Arrays.asList(guisoMock, panchoMock);
+		recetasDePanchoYEnsalada = Arrays.asList(panchoMock, ensaladaMock);
+		recetaExtraEnsalada = Arrays.asList(ensaladaMock, ensaladaMock);
 	}
 
 	@Test
@@ -54,11 +55,11 @@ public class ObserverTest {
 		if (horaActual == 23)
 			horaSiguiente = 0;
 		else
-			horaSiguiente =+ 1;
-		
+			horaSiguiente = +1;
+
 		observerPorHoraDelDia.notificar(usuarioMock, recetas);
 		observerPorHoraDelDia.notificar(usuarioMock, recetasDeGuisoYPancho);
-		
+
 		assertEquals(observerPorHoraDelDia.getConsultasPorHoraDelDia(horaActual), 2);
 		assertEquals(observerPorHoraDelDia.getConsultasPorHoraDelDia(horaSiguiente), 0);
 	}

@@ -28,4 +28,9 @@ public class Hipertenso extends CondicionDeSalud {
 		return unUsuario.tieneAlgunaPreferencia();
 	}
 
+	@Override
+	public boolean deboNotificar() {
+		return false;
+	}
+	
 }

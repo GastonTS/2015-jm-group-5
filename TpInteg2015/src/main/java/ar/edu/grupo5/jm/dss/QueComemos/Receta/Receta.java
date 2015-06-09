@@ -10,22 +10,26 @@ import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 public class Receta {
 
 	private String nombre;
-
 	private Collection<String> ingredientes;
 	private Collection<Condimentacion> condimentaciones;
 	private double cantCalorias;
-
 	private Collection<Receta> subRecetas;
 	private Optional<Usuario> dueño = Optional.empty();
+	private Dificultad dificultad;
+
+	public enum Dificultad {
+		BAJA, MEDIA, ALTA
+	}
 
 	public Receta(String nombreReceta, Collection<String> unosIngredientes, Collection<Condimentacion> unasCondimentaciones, Collection<Receta> unasSubRecetas,
-			double unasCantCalorias) {
+			double unasCantCalorias, Dificultad unaDificultad) {
 
 		nombre = nombreReceta;
 		ingredientes = unosIngredientes;
 		condimentaciones = unasCondimentaciones;
 		subRecetas = unasSubRecetas;
 		cantCalorias = unasCantCalorias;
+		dificultad = unaDificultad;
 	}
 
 	public String getNombre() {
@@ -100,4 +104,7 @@ public class Receta {
 		subRecetas.addAll(unasSubRecetas);
 	}
 
+	public boolean esDificil() {
+		return dificultad == Dificultad.ALTA;
+	}
 }
