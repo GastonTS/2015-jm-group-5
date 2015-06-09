@@ -71,7 +71,7 @@ public class ObserverTest {
 		observerRecetaMasConsultada.notificar(usuarioMock, recetasDeGuisoYPancho);
 		observerRecetaMasConsultada.notificar(usuarioMock, recetasDePanchoYEnsalada);
 
-		assertEquals(observerRecetaMasConsultada.nombreRecetaMasConsultada(), Optional.of(panchoMock));
+		assertEquals(observerRecetaMasConsultada.recetaMasConsultada(), Optional.of(panchoMock));
 		assertEquals(observerRecetaMasConsultada.cantidadDeConsultasDeRecetaMAsConsultada(), 3);
 
 	}
@@ -90,10 +90,10 @@ public class ObserverTest {
 		observerSegunSexo.notificar(usuraioMockFem, recetasDePanchoYEnsalada);
 		observerSegunSexo.notificar(usuraioMockFem, recetaExtraEnsalada);
 
-		assertEquals(observerSegunSexo.nombreRecetaHombre(), Optional.of(panchoMock));
+		assertEquals(observerSegunSexo.recetaHombre(), Optional.of(panchoMock));
 		assertEquals(observerSegunSexo.cantidadRecetaMasConsultadaHombre(), 3);
 
-		assertEquals(observerSegunSexo.nombreRecetaMujer(), Optional.of(ensaladaMock));
+		assertEquals(observerSegunSexo.recetaMujer(), Optional.of(ensaladaMock));
 		assertEquals(observerSegunSexo.cantidadRecetaMasConsultadaMujer(), 4);
 
 		verify(usuarioMock, times(3)).esDeSexo("Masculino");

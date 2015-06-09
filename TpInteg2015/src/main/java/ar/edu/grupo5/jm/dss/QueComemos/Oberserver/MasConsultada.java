@@ -9,7 +9,7 @@ import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
 public class MasConsultada implements ObservadorConsultas {
-	Collection<Receta> nombreRecetasConsultadas = new ArrayList<Receta>();
+	Collection<Receta> recetasConsultadas = new ArrayList<Receta>();
 
 	@Override
 	public void notificar(Usuario unUsuario, Collection<Receta> recetasConsultadas) {
@@ -17,18 +17,18 @@ public class MasConsultada implements ObservadorConsultas {
 	}
 
 	private void agregarUnaConsulta(Receta unaReceta) {
-		nombreRecetasConsultadas.add(unaReceta);
+		recetasConsultadas.add(unaReceta);
 	}
 
-	public Optional<Receta> nombreRecetaMasConsultada() {
-		return nombreRecetasConsultadas.stream().max((unNombre, otroNombre) -> cantidadDeConsultas(unNombre) - cantidadDeConsultas(otroNombre));
+	public Optional<Receta> recetaMasConsultada() {
+		return recetasConsultadas.stream().max((unNombre, otroNombre) -> cantidadDeConsultas(unNombre) - cantidadDeConsultas(otroNombre));
 	}
 
-	private int cantidadDeConsultas(Receta nombreDeReceta) {
-		return Collections.frequency(nombreRecetasConsultadas, nombreDeReceta);
+	private int cantidadDeConsultas(Receta unaReceta) {
+		return Collections.frequency(recetasConsultadas, unaReceta);
 	}
 
 	public int cantidadDeConsultasDeRecetaMAsConsultada() {
-		return Collections.frequency(nombreRecetasConsultadas, nombreRecetaMasConsultada().get());
+		return Collections.frequency(recetasConsultadas, recetaMasConsultada().get());
 	}
 }
