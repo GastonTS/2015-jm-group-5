@@ -14,6 +14,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ar.edu.grupo5.jm.dss.QueComemos.DecoratorFilter.IFiltro;
+import ar.edu.grupo5.jm.dss.QueComemos.Oberserver.MasConsultada;
+import ar.edu.grupo5.jm.dss.QueComemos.Oberserver.PorHoraDelDia;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.NoPuedeAccederARecetaException;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.NoPuedeEliminarRecetaExeption;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
@@ -38,12 +40,17 @@ public class RecetarioTest {
 	private IFiltro filtroMock = mock(IFiltro.class);
 	private GestorDeConsultas filtroStMock = mock(GestorDeConsultas.class);
 
+	private MasConsultada masConsultadaMock = mock(MasConsultada.class);
+	private PorHoraDelDia porHoraDelDiaMock = mock(PorHoraDelDia.class);
+
 	@Before
 	public void setUp() {
 
 		recetasTotales.add(ensaladaMock);
 		recetasTotales.add(panchoMock);
 		Recetario.instancia.setRecetasTotales(recetasTotales);
+		Recetario.instancia.agregarObservador(masConsultadaMock);
+		Recetario.instancia.agregarObservador(porHoraDelDiaMock);
 
 	}
 
@@ -72,7 +79,6 @@ public class RecetarioTest {
 		verify(recetaMock, times(1)).esValida();
 		verify(recetaMock, times(1)).setDueño(gustavo);
 	}
-	
 
 	@Test(expected = RecetaNoValidaException.class)
 	public void usuarioCreaRecetaFallida() {
@@ -103,7 +109,7 @@ public class RecetarioTest {
 		verify(gaston, times(1)).puedeAccederA(panchoMock);
 		verify(gaston, times(1)).puedeAccederA(ensaladaMock);
 	}
-	
+
 	@Test
 	public void eliminarUnaReceta() {
 		when(panchoMock.esElDueño(gaston)).thenReturn(true);
@@ -115,7 +121,7 @@ public class RecetarioTest {
 	}
 
 	@Test(expected = NoPuedeEliminarRecetaExeption.class)
-	public void noPuedeEliminarUnaRecetaQueNoCreo() {		
+	public void noPuedeEliminarUnaRecetaQueNoCreo() {
 		Recetario.instancia.eliminarReceta(panchoMock, gaston);
 	}
 
@@ -146,6 +152,8 @@ public class RecetarioTest {
 		assertEquals(Recetario.instancia.consultarRecetas(filtroMock, gaston), resultadoConsulta);
 
 		verify(filtroMock, times(1)).filtrarRecetas(Recetario.instancia.listarTodasPuedeAcceder(gaston), gaston);
+		verify(masConsultadaMock, times(1)).notificar(gaston, resultadoConsulta);
+		verify(porHoraDelDiaMock, times(1)).notificar(gaston, resultadoConsulta);
 	}
 
 	@Test
