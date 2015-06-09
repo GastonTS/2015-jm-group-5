@@ -9,26 +9,22 @@ import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
 public class MasConsultada implements ObservadorConsultas {
-	Collection<String> nombreRecetasConsultadas = new ArrayList<String>();
+	Collection<Receta> nombreRecetasConsultadas = new ArrayList<Receta>();
 
 	@Override
 	public void notificar(Usuario unUsuario, Collection<Receta> recetasConsultadas) {
 		recetasConsultadas.forEach(unaReceta -> agregarUnaConsulta(unaReceta));
 	}
 
-	// VER: Qué utilizo para identificar a una Receta?? Su nombre, todo el
-	// objeto en sí, otras?
 	private void agregarUnaConsulta(Receta unaReceta) {
-		nombreRecetasConsultadas.add(unaReceta.getNombre());
+		nombreRecetasConsultadas.add(unaReceta);
 	}
 
-	// debería agregar un getter de recetaMap para saber que
-	// funciona correctamente, lo que luego se probaría en un test
-	public Optional<String> nombreRecetaMasConsultada() {
+	public Optional<Receta> nombreRecetaMasConsultada() {
 		return nombreRecetasConsultadas.stream().max((unNombre, otroNombre) -> cantidadDeConsultas(unNombre) - cantidadDeConsultas(otroNombre));
 	}
 
-	private int cantidadDeConsultas(String nombreDeReceta) {
+	private int cantidadDeConsultas(Receta nombreDeReceta) {
 		return Collections.frequency(nombreRecetasConsultadas, nombreDeReceta);
 	}
 

@@ -30,12 +30,11 @@ public class SegunSexo implements ObservadorConsultas {
 		return consultasMujeres.cantidadDeConsultasDeRecetaMAsConsultada();
 	}
 
-	public Optional<String> nombreRecetaHombre() {
+	public Optional<Receta> nombreRecetaHombre() {
 		return consultasHombres.nombreRecetaMasConsultada();
 	}
 
-	public Optional<String> nombreRecetaMujer() {
+	public Optional<Receta> nombreRecetaMujer() {
 		return consultasMujeres.nombreRecetaMasConsultada();
 	}
-
 }
