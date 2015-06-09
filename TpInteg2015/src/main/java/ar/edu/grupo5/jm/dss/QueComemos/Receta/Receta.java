@@ -21,7 +21,6 @@ public class Receta {
 	public Receta(String nombreReceta, Collection<String> unosIngredientes, Collection<Condimentacion> unasCondimentaciones, Collection<Receta> unasSubRecetas,
 			double unasCantCalorias) {
 
-		// FIXME no sean HDPS
 		nombre = nombreReceta;
 		ingredientes = unosIngredientes;
 		condimentaciones = unasCondimentaciones;

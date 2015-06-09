@@ -16,11 +16,7 @@ import java.util.Collection;
 import org.junit.Before;
 import org.junit.Test;
 
-import ar.edu.grupo5.jm.dss.QueComemos.DecoratorFilter.IFiltro;
-import ar.edu.grupo5.jm.dss.QueComemos.Receta.NoPuedeAccederARecetaException;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
-import ar.edu.grupo5.jm.dss.QueComemos.Receta.RecetaNoValidaException;
-import ar.edu.grupo5.jm.dss.QueComemos.StrategyFilter.GestorDeConsultas;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Complexion;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.CondicionDeSalud;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.DatosPersonales;
@@ -48,16 +44,11 @@ public class UsuarioTest {
 	private Receta recetaMock = mock(Receta.class);
 	private Receta panchoMock = mock(Receta.class);
 	private Receta ensaladaMock = mock(Receta.class);
-	private Receta nuevaEnsaladaMock = mock(Receta.class);
 	private Receta choripanMock = mock(Receta.class);
-	private Receta choriConChimiMock = mock(Receta.class);
 
 	private Recetario repositorioMock = mock(Recetario.class);
 
 	private Grupo grupoMock = mock(Grupo.class);
-
-	private IFiltro filtroMock = mock(IFiltro.class);
-	private GestorDeConsultas filtroStMock = mock(GestorDeConsultas.class);
 
 	@Before
 	public void setUp() {
@@ -66,9 +57,7 @@ public class UsuarioTest {
 
 		disgustosGustavo.add("McDonalds");
 		preferenciaFruta.add("fruta");
-		preferenciasVariadas.add("fruta");
-		preferenciasVariadas.add("semillas");
-		preferenciasVariadas.add("champignones");
+		preferenciasVariadas = Arrays.asList("fruta", "semillas", "campignones");
 
 		Usuario.setRepositorio(repositorioMock);
 
@@ -182,53 +171,6 @@ public class UsuarioTest {
 		assertTrue(juanchi.tienePreferencia("fruta"));
 	}
 
-	// Tests Creacion de Recetas
-	@Test
-	public void gustavoCreaRecetaExitosa() {
-		when(recetaMock.esValida()).thenReturn(true);
-
-		gustavo.crearReceta(recetaMock);
-
-		verify(recetaMock, times(1)).esValida();
-		verify(repositorioMock, times(1)).agregarReceta(recetaMock);
-	}
-
-	@Test(expected = NoPuedeAccederARecetaException.class)
-	public void noPuedeCrearRecetaConSubRecetasSinAccesoAEllas() {
-		when(panchoMock.esElDueño(gustavo)).thenReturn(false);
-		when(ensaladaMock.esElDueño(gustavo)).thenReturn(true);
-
-		gustavo.crearRecetaConSubRecetas(recetaMock, Arrays.asList(panchoMock, ensaladaMock));
-
-		verify(panchoMock, times(1)).esElDueño(gustavo);
-		verify(ensaladaMock, times(1)).esElDueño(gustavo);
-		verify(repositorioMock, times(0)).agregarReceta(recetaMock);
-	}
-
-	@Test
-	public void gustavoCreaRecetaConSubrecetas() {
-		when(recetaMock.esValida()).thenReturn(true);
-		when(choripanMock.esElDueño(gustavo)).thenReturn(true);
-		when(ensaladaMock.esElDueño(gustavo)).thenReturn(true);
-
-		gustavo.crearRecetaConSubRecetas(recetaMock, Arrays.asList(choripanMock, ensaladaMock));
-
-		verify(recetaMock, times(1)).esValida();
-		verify(choripanMock, times(1)).esElDueño(gustavo);
-		verify(ensaladaMock, times(1)).esElDueño(gustavo);
-		verify(repositorioMock, times(1)).agregarReceta(recetaMock);
-	}
-
-	@Test(expected = RecetaNoValidaException.class)
-	public void usuarioCreaRecetaFallida() {
-		when(recetaMock.esValida()).thenReturn(false);
-
-		gustavo.crearReceta(recetaMock);
-
-		verify(recetaMock, times(1)).esValida();
-		verify(repositorioMock, times(0)).agregarReceta(recetaMock);
-	}
-
 	@Test
 	public void accesoARecetas() {
 		when(choripanMock.esElDueño(gustavo)).thenReturn(true);
@@ -264,60 +206,6 @@ public class UsuarioTest {
 		verify(choripanMock, times(1)).esPublica();
 		verify(panchoMock, times(1)).esElDueño(juanchi);
 		verify(panchoMock, times(1)).esPublica();
-	}
-
-	// Tests Modificacion de Recetas
-
-	@Test
-	public void juanchiModificaRecetaPublica() {
-		when(ensaladaMock.esPublica()).thenReturn(true);
-		when(nuevaEnsaladaMock.esValida()).thenReturn(true);
-		when(ensaladaMock.esElDueño(juanchi)).thenReturn(false);
-
-		juanchi.modificarReceta(ensaladaMock, nuevaEnsaladaMock);
-
-		verify(ensaladaMock, times(1)).esPublica();
-		verify(nuevaEnsaladaMock, times(1)).esValida();
-		verify(ensaladaMock, times(1)).esElDueño(juanchi);
-		verify(repositorioMock, times(1)).agregarReceta(nuevaEnsaladaMock);
-		verify(nuevaEnsaladaMock, times(1)).setDueño(juanchi);
-	}
-
-	@Test(expected = NoPuedeAccederARecetaException.class)
-	public void gastonNoPuedeModificarUnaRecetaDeOtro() {
-		when(choripanMock.esElDueño(gaston)).thenReturn(false);
-		when(choripanMock.esPublica()).thenReturn(false);
-
-		gaston.modificarReceta(choripanMock, choriConChimiMock);
-
-		verify(choripanMock, times(1)).esPublica();
-		verify(choripanMock, times(1)).esElDueño(gaston);
-	}
-
-	@Test
-	public void gustavoModificaRecetaPropia() {
-		when(choripanMock.esElDueño(gustavo)).thenReturn(true);
-		when(choripanMock.esPublica()).thenReturn(false);
-		when(choriConChimiMock.esValida()).thenReturn(true);
-
-		gustavo.modificarReceta(choripanMock, choriConChimiMock);
-
-		verify(choriConChimiMock, times(1)).esValida();
-		verify(repositorioMock, times(1)).agregarReceta(choriConChimiMock);
-		verify(repositorioMock, times(1)).quitarReceta(choripanMock);
-		verify(choripanMock, times(3)).esElDueño(gustavo);
-		verify(choripanMock, times(1)).esPublica();
-	}
-
-	// Test Eliminar Recetas Propias
-	@Test
-	public void eliminarUnaRecetaPrivada() {
-		when(choripanMock.esElDueño(gustavo)).thenReturn(true);
-
-		gustavo.eliminarReceta(choripanMock);
-
-		verify(choripanMock, times(1)).esElDueño(gustavo);
-		verify(repositorioMock, times(1)).quitarReceta(choripanMock);
 	}
 
 	// Test de Sugerencias
@@ -383,28 +271,6 @@ public class UsuarioTest {
 
 		verify(recetaMock, times(1)).esPublica();
 		verify(recetaMock, times(1)).esElDueño(gustavo);
-	}
-
-	@Test
-	public void consultaRecetasDecorador() {
-		Collection<Receta> resultadoConsulta = Arrays.asList(panchoMock, ensaladaMock);
-		when(repositorioMock.consultarRecetas(filtroMock, gaston)).thenReturn(resultadoConsulta);
-
-		assertEquals(gaston.consultarRecetas(filtroMock), resultadoConsulta);
-
-		verify(repositorioMock, times(1)).consultarRecetas(filtroMock, gaston);
-	}
-
-	@Test
-	public void consultaRecetasStrategy() {
-		Collection<Receta> resultadoConsulta = Arrays.asList(panchoMock, ensaladaMock);
-		when(repositorioMock.listarTodasPuedeAcceder(gaston)).thenReturn(resultadoConsulta);
-		when(filtroStMock.aplicarFiltros(resultadoConsulta, gaston)).thenReturn(resultadoConsulta);
-
-		assertEquals(gaston.consultarRecetasSt(filtroStMock), resultadoConsulta);
-
-		verify(repositorioMock, times(1)).listarTodasPuedeAcceder(gaston);
-		verify(filtroStMock, times(1)).aplicarFiltros(resultadoConsulta, gaston);
 	}
 
 	@Test
