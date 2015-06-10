@@ -18,7 +18,10 @@ public class Receta {
 	private Dificultad dificultad;
 
 	public enum Dificultad {
-		BAJA, MEDIA, ALTA
+		BAJA, 
+		MEDIA, 
+		ALTA, 
+		OTRA
 	}
 
 	public Receta(String nombreReceta, Collection<String> unosIngredientes, Collection<Condimentacion> unasCondimentaciones, Collection<Receta> unasSubRecetas,
@@ -88,7 +91,7 @@ public class Receta {
 		return subRecetas.stream().flatMap(subReceta -> subReceta.getIngredientesTotales().stream());
 	}
 
-	private Collection<String> getIngredientesTotales() {
+	public Collection<String> getIngredientesTotales() {
 		return Stream.concat(ingredientes.stream(), getIngredientesSubRecetas()).collect(Collectors.toList());
 	}
 
@@ -107,4 +110,8 @@ public class Receta {
 	public boolean esDificil() {
 		return dificultad == Dificultad.ALTA;
 	}
-}
+
+	public Dificultad getDificultad() {
+		return dificultad;
+	}
+}	

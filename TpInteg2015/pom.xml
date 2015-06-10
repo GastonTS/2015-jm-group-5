@@ -41,9 +41,14 @@
     	<version>1.9.5</version>
     </dependency>
     <dependency>
-	  <groupId>org.uqbar-project</groupId>
-	    <artifactId>queComemos-repoRecetas-entrega3</artifactId>
-	    <version>0.0.2</version>
-	</dependency>
+	<groupId>org.uqbar-project</groupId>
+	<artifactId>queComemos-repoRecetas-entrega3</artifactId>
+	<version>0.0.2</version>
+    </dependency>
+    <dependency>
+        <groupId>com.eclipsesource.minimal-json</groupId>
+        <artifactId>minimal-json</artifactId>
+        <version>0.9.2</version>
+    </dependency>
   </dependencies>
 </project>
