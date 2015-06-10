@@ -8,6 +8,7 @@ import ar.edu.grupo5.jm.dss.QueComemos.Usuario.UsuarioIngresadoNoExisteException
 
 public class RepoUsuarios {
 	private Collection<Usuario> usuarios;
+	private Collection<Usuario> solicitudesDeIngreso;
 
 	// getter solo para test
 	public Collection<Usuario> getUsuarios() {
@@ -51,6 +52,8 @@ public class RepoUsuarios {
 		return usuarioPosta.getNombre().equals(usuarioBuscado.getNombre());
 	}
 
+	// pregunto por null para no modificar el tipo de condiciones de salud, al
+	// no poder ser null el containsAll si lo recibe como null => BOOM!
 	private Boolean tienenMismasCondicionesDeSalud(Usuario usuarioBuscado, Usuario usuarioPosta) {
 		if (usuarioBuscado.getCondicionesDeSalud() == null) {
 			return false;
@@ -58,4 +61,16 @@ public class RepoUsuarios {
 		return usuarioPosta.getCondicionesDeSalud().containsAll(usuarioBuscado.getCondicionesDeSalud());
 	}
 
+	private void solicitaIngreso(Usuario unUsuario) {
+		solicitudesDeIngreso.add(unUsuario);
+	}
+
+	private void apruebaSolicitud(Usuario unUsuario) {
+		add(unUsuario);
+	}
+	
+	private void rechazaSolicitud(Usuario unUsuario) {
+		solicitudesDeIngreso.remove(unUsuario);
+		//informar rechazo, no esta específicado que carajos informar. Así que no hago nada
+	}
 }
