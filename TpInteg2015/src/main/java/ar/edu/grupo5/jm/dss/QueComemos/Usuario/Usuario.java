@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import ar.edu.grupo5.jm.dss.QueComemos.Grupo;
-import ar.edu.grupo5.jm.dss.QueComemos.Oberserver.ConsultaVeganoRecetasDificles;
+import ar.edu.grupo5.jm.dss.QueComemos.Recetario;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 
 public class Usuario {
@@ -140,9 +140,9 @@ public class Usuario {
 		return datosPersonales.getSexo().equals(sexo);
 	}
 
-	public void notificaA(ConsultaVeganoRecetasDificles consultaVeganoRecetasDificles) {
-		if(condicionesDeSalud.stream().anyMatch(unaCondicion-> unaCondicion.deboNotificar())){
-			consultaVeganoRecetasDificles.sumame(this);
+	public void notificaA() {
+		if (condicionesDeSalud.stream().anyMatch(unaCondicion -> unaCondicion.deboNotificar())) {
+			Recetario.instancia.sumaAVeganosConsultaronDificil(this);
 		}
 	}
 

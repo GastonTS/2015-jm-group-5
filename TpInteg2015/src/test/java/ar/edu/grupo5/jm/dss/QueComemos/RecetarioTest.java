@@ -8,26 +8,31 @@ import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.Optional;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import ar.edu.grupo5.jm.dss.QueComemos.DecoratorFilter.IFiltro;
-import ar.edu.grupo5.jm.dss.QueComemos.Oberserver.MasConsultada;
-import ar.edu.grupo5.jm.dss.QueComemos.Oberserver.PorHoraDelDia;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.NoPuedeAccederARecetaException;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.NoPuedeEliminarRecetaExeption;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.RecetaNoValidaException;
 import ar.edu.grupo5.jm.dss.QueComemos.StrategyFilter.GestorDeConsultas;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.CondicionDeSalud;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.DatosPersonales;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Vegano;
 
 public class RecetarioTest {
 
 	private Usuario gustavo = mock(Usuario.class);
 	private Usuario gaston = mock(Usuario.class);
 	private Usuario juanchi = mock(Usuario.class);
+	private Vegano condicionMock = mock(Vegano.class);
+	private Collection<CondicionDeSalud> condicionesDeSalud = Arrays.asList(condicionMock);
 
 	private Collection<Receta> recetasTotales = new ArrayList<Receta>();
 
@@ -40,18 +45,14 @@ public class RecetarioTest {
 	private IFiltro filtroMock = mock(IFiltro.class);
 	private GestorDeConsultas filtroStMock = mock(GestorDeConsultas.class);
 
-	private MasConsultada masConsultadaMock = mock(MasConsultada.class);
-	private PorHoraDelDia porHoraDelDiaMock = mock(PorHoraDelDia.class);
+	Collection<Receta> resultadoConsulta = Arrays.asList(panchoMock, recetaMock);
+	Collection<Receta> otroResultadoConsulta = Arrays.asList(panchoMock);
 
 	@Before
 	public void setUp() {
-
 		recetasTotales.add(ensaladaMock);
 		recetasTotales.add(panchoMock);
 		Recetario.instancia.setRecetasTotales(recetasTotales);
-		Recetario.instancia.agregarObservador(masConsultadaMock);
-		Recetario.instancia.agregarObservador(porHoraDelDiaMock);
-
 	}
 
 	@Test
@@ -146,14 +147,83 @@ public class RecetarioTest {
 
 	@Test
 	public void consultaRecetasDecorador() {
-		Collection<Receta> resultadoConsulta = Arrays.asList(panchoMock, recetaMock);
 		when(filtroMock.filtrarRecetas(Recetario.instancia.listarTodasPuedeAcceder(gaston), gaston)).thenReturn(resultadoConsulta);
 
 		assertEquals(Recetario.instancia.consultarRecetas(filtroMock, gaston), resultadoConsulta);
 
 		verify(filtroMock, times(1)).filtrarRecetas(Recetario.instancia.listarTodasPuedeAcceder(gaston), gaston);
-		verify(masConsultadaMock, times(1)).notificar(gaston, resultadoConsulta);
-		verify(porHoraDelDiaMock, times(1)).notificar(gaston, resultadoConsulta);
+	}
+
+	@Test
+	public void consultasPorHora() {
+		int horaSiguiente, horaActual = Calendar.HOUR_OF_DAY;
+		if (horaActual == 23)
+			horaSiguiente = 0;
+		else
+			horaSiguiente = +1;
+
+		Recetario.instancia.consultarRecetas(filtroMock, gaston);
+		Recetario.instancia.consultarRecetas(filtroMock, gaston);
+
+		assertEquals(Recetario.instancia.getConsultasPorHoraDelDia(horaActual), 2);
+		assertEquals(Recetario.instancia.getConsultasPorHoraDelDia(horaSiguiente), 0);
+	}
+
+	@Test
+	public void devuelveNombreYCantidadDeConsultasDeRecetaMasConsultada() {
+		when(filtroMock.filtrarRecetas(Recetario.instancia.listarTodasPuedeAcceder(gaston), gaston)).thenReturn(resultadoConsulta);
+		when(filtroMock.filtrarRecetas(Recetario.instancia.listarTodasPuedeAcceder(gustavo), gustavo)).thenReturn(otroResultadoConsulta);
+
+		Recetario.instancia.consultarRecetas(filtroMock, gaston);
+		Recetario.instancia.consultarRecetas(filtroMock, gustavo);
+
+		assertEquals(Recetario.instancia.recetaMasConsultada(Recetario.instancia.getRecetasConsultadasTotales()), Optional.of(panchoMock));
+		assertEquals(Recetario.instancia.cantidadDeConsultasDeRecetaMAsConsultada(Recetario.instancia.getRecetasConsultadasTotales()), 2);
+	}
+
+	@Test
+	public void cantidadYNombreDeRecetasConsultadasDeHombresYMujeres() {
+		when(filtroMock.filtrarRecetas(Recetario.instancia.listarTodasPuedeAcceder(gaston), gaston)).thenReturn(resultadoConsulta);
+		when(filtroMock.filtrarRecetas(Recetario.instancia.listarTodasPuedeAcceder(gustavo), gustavo)).thenReturn(otroResultadoConsulta);
+		when(gaston.esDeSexo("Masculino")).thenReturn(true);
+		when(gustavo.esDeSexo("Masculino")).thenReturn(true);
+		when(gustavo.esDeSexo("Femenino")).thenReturn(true);
+
+		Recetario.instancia.consultarRecetas(filtroMock, gaston);
+		Recetario.instancia.consultarRecetas(filtroMock, gaston);
+		Recetario.instancia.consultarRecetas(filtroMock, gustavo);
+
+		assertEquals(Recetario.instancia.recetaMasConsultada(Recetario.instancia.getRecetasConsultadasTotalesHombres()), Optional.of(panchoMock));
+		assertEquals(Recetario.instancia.cantidadDeConsultasDeRecetaMAsConsultada(Recetario.instancia.getRecetasConsultadasTotalesHombres()), 3);
+
+		assertEquals(Recetario.instancia.recetaMasConsultada(Recetario.instancia.getRecetasConsultadasTotalesMujeres()), Optional.of(panchoMock));
+		assertEquals(Recetario.instancia.cantidadDeConsultasDeRecetaMAsConsultada(Recetario.instancia.getRecetasConsultadasTotalesMujeres()), 1);
+
+		verify(gaston, times(2)).esDeSexo("Masculino");
+		verify(gustavo, times(1)).esDeSexo("Masculino");
+		verify(gustavo, times(1)).esDeSexo("Femenino");
+	}
+
+	@Test
+	public void cantidadDeVeganosQueConsultanRecetasDificiles() {
+		DatosPersonales unosDatosPersonales = new DatosPersonales(null, "Masculino", null);
+		Usuario vegano = new Usuario(unosDatosPersonales, null, new ArrayList<String>(), new ArrayList<String>(), condicionesDeSalud, null);
+		Usuario otroVegano = new Usuario(unosDatosPersonales, null, new ArrayList<String>(), new ArrayList<String>(), condicionesDeSalud, null);
+		when(recetaMock.esDificil()).thenReturn(true);
+		when(filtroMock.filtrarRecetas(Recetario.instancia.listarTodasPuedeAcceder(gaston), gaston)).thenReturn(otroResultadoConsulta);
+		when(filtroMock.filtrarRecetas(Recetario.instancia.listarTodasPuedeAcceder(vegano), vegano)).thenReturn(resultadoConsulta);
+		when(filtroMock.filtrarRecetas(Recetario.instancia.listarTodasPuedeAcceder(otroVegano), otroVegano)).thenReturn(resultadoConsulta);
+		when(condicionMock.deboNotificar()).thenReturn(true);
+
+		Recetario.instancia.consultarRecetas(filtroMock, gaston);
+		Recetario.instancia.consultarRecetas(filtroMock, vegano);
+		Recetario.instancia.consultarRecetas(filtroMock, otroVegano);
+
+		assertEquals(Recetario.instancia.cantidadDeVeganosQueConsultaronDificiles(), 2);
+
+		verify(recetaMock, times(2)).esDificil();
+		verify(panchoMock, times(3)).esDificil();
+		verify(condicionMock, times(2)).deboNotificar();
 	}
 
 	@Test

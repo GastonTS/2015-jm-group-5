@@ -1,11 +1,13 @@
 package ar.edu.grupo5.jm.dss.QueComemos;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import ar.edu.grupo5.jm.dss.QueComemos.DecoratorFilter.IFiltro;
-import ar.edu.grupo5.jm.dss.QueComemos.Oberserver.ObservadorConsultas;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.NoPuedeAccederARecetaException;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.NoPuedeEliminarRecetaExeption;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
@@ -17,7 +19,25 @@ public class Recetario {
 
 	public static Recetario instancia = new Recetario();
 	private Collection<Receta> recetasTotales = new ArrayList<Receta>();
-	private Collection<ObservadorConsultas> observadores = new ArrayList<ObservadorConsultas>();
+
+	// Alternativa Observer
+	private Collection<Usuario> veganosQueConsultaronDificiles = new ArrayList<Usuario>();
+	private int[] consultasPorHoraDelDia = new int[24];
+	private Collection<Receta> recetasConsultadasTotales = new ArrayList<Receta>();
+	private Collection<Receta> recetasConsultadasTotalesHombres = new ArrayList<Receta>();
+	private Collection<Receta> recetasConsultadasTotalesMujeres = new ArrayList<Receta>();
+
+	public Collection<Receta> getRecetasConsultadasTotales() {
+		return recetasConsultadasTotales;
+	}
+
+	public Collection<Receta> getRecetasConsultadasTotalesHombres() {
+		return recetasConsultadasTotalesHombres;
+	}
+
+	public Collection<Receta> getRecetasConsultadasTotalesMujeres() {
+		return recetasConsultadasTotalesMujeres;
+	}
 
 	public void setRecetasTotales(Collection<Receta> unasRecetas) {
 		recetasTotales = unasRecetas;
@@ -72,19 +92,53 @@ public class Recetario {
 		crearReceta(nuevaReceta, unUsuario);
 	}
 
-	public void agregarObservador(ObservadorConsultas unObservador) {
-		observadores.add(unObservador);
-	}
-
 	public Collection<Receta> consultarRecetas(IFiltro unFiltro, Usuario unUsuario) {
 
 		Collection<Receta> recetasConsultadas = unFiltro.filtrarRecetas(listarTodasPuedeAcceder(unUsuario), unUsuario);
 
-		for (ObservadorConsultas observador : observadores) {
-			observador.notificar(unUsuario, recetasConsultadas);
+		if (recetasConsultadas.stream().anyMatch(receta -> receta.esDificil())) {
+			unUsuario.notificaA();
+		}
+
+		consultasPorHoraDelDia[Calendar.HOUR_OF_DAY]++;
+
+		recetasConsultadas.forEach(unaReceta -> recetasConsultadasTotales.add(unaReceta));
+
+		if (unUsuario.esDeSexo("Masculino")) {
+			recetasConsultadas.forEach(unaReceta -> recetasConsultadasTotalesHombres.add(unaReceta));
+		}
+
+		if (unUsuario.esDeSexo("Femenino")) {
+			recetasConsultadas.forEach(unaReceta -> recetasConsultadasTotalesMujeres.add(unaReceta));
 		}
 
 		return recetasConsultadas;
+	}
+
+	public void sumaAVeganosConsultaronDificil(Usuario unUsuario) {
+		if (!veganosQueConsultaronDificiles.contains(unUsuario)) {
+			veganosQueConsultaronDificiles.add(unUsuario);
+		}
+	}
+
+	public int cantidadDeVeganosQueConsultaronDificiles() {
+		return veganosQueConsultaronDificiles.size();
+	}
+
+	public int getConsultasPorHoraDelDia(int horaDelDia) {
+		return consultasPorHoraDelDia[horaDelDia];
+	}
+
+	public Optional<Receta> recetaMasConsultada(Collection<Receta> consultadas) {
+		return consultadas.stream().max((unNombre, otroNombre) -> cantidadDeConsultas(unNombre, consultadas) - cantidadDeConsultas(otroNombre, consultadas));
+	}
+
+	private int cantidadDeConsultas(Receta unaReceta, Collection<Receta> consultadas) {
+		return Collections.frequency(consultadas, unaReceta);
+	}
+
+	public int cantidadDeConsultasDeRecetaMAsConsultada(Collection<Receta> consultadas) {
+		return Collections.frequency(consultadas, recetaMasConsultada(consultadas).get());
 	}
 
 	public Collection<Receta> consultarRecetasSt(GestorDeConsultas unFiltrado, Usuario unUsuario) {
