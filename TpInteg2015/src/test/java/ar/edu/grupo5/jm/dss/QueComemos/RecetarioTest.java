@@ -13,14 +13,10 @@ import java.util.Collection;
 import org.junit.Before;
 import org.junit.Test;
 
-import ar.edu.grupo5.jm.dss.QueComemos.DecoratorFilter.IFiltro;
-import ar.edu.grupo5.jm.dss.QueComemos.Oberserver.MasConsultada;
-import ar.edu.grupo5.jm.dss.QueComemos.Oberserver.PorHoraDelDia;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.NoPuedeAccederARecetaException;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.NoPuedeEliminarRecetaExeption;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.RecetaNoValidaException;
-import ar.edu.grupo5.jm.dss.QueComemos.StrategyFilter.GestorDeConsultas;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
 public class RecetarioTest {
@@ -37,11 +33,6 @@ public class RecetarioTest {
 
 	private Receta nuevaEnsaladaMock = mock(Receta.class);
 
-	private IFiltro filtroMock = mock(IFiltro.class);
-	private GestorDeConsultas filtroStMock = mock(GestorDeConsultas.class);
-
-	private MasConsultada masConsultadaMock = mock(MasConsultada.class);
-	private PorHoraDelDia porHoraDelDiaMock = mock(PorHoraDelDia.class);
 
 	@Before
 	public void setUp() {
@@ -49,9 +40,6 @@ public class RecetarioTest {
 		recetasTotales.add(ensaladaMock);
 		recetasTotales.add(panchoMock);
 		Recetario.instancia.setRecetasTotales(recetasTotales);
-		Recetario.instancia.agregarObservador(masConsultadaMock);
-		Recetario.instancia.agregarObservador(porHoraDelDiaMock);
-
 	}
 
 	@Test
@@ -142,28 +130,6 @@ public class RecetarioTest {
 	@Test(expected = NoPuedeAccederARecetaException.class)
 	public void gastonNoPuedeModificarUnaRecetaDeOtro() {
 		Recetario.instancia.modificarReceta(ensaladaMock, nuevaEnsaladaMock, gaston);
-	}
-
-	@Test
-	public void consultaRecetasDecorador() {
-		Collection<Receta> resultadoConsulta = Arrays.asList(panchoMock, recetaMock);
-		when(filtroMock.filtrarRecetas(Recetario.instancia.listarTodasPuedeAcceder(gaston), gaston)).thenReturn(resultadoConsulta);
-
-		assertEquals(Recetario.instancia.consultarRecetas(filtroMock, gaston), resultadoConsulta);
-
-		verify(filtroMock, times(1)).filtrarRecetas(Recetario.instancia.listarTodasPuedeAcceder(gaston), gaston);
-		verify(masConsultadaMock, times(1)).notificar(gaston, resultadoConsulta);
-		verify(porHoraDelDiaMock, times(1)).notificar(gaston, resultadoConsulta);
-	}
-
-	@Test
-	public void consultaRecetasStrategy() {
-		Collection<Receta> resultadoConsulta = Arrays.asList(panchoMock, recetaMock);
-		when(filtroStMock.aplicarFiltros(Recetario.instancia.listarTodasPuedeAcceder(gaston), gaston)).thenReturn(resultadoConsulta);
-
-		assertEquals(Recetario.instancia.consultarRecetasSt(filtroStMock, gaston), resultadoConsulta);
-
-		verify(filtroStMock, times(1)).aplicarFiltros(Recetario.instancia.listarTodasPuedeAcceder(gaston), gaston);
 	}
 
 }

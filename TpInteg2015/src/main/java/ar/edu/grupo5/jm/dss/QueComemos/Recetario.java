@@ -4,20 +4,16 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-import ar.edu.grupo5.jm.dss.QueComemos.DecoratorFilter.IFiltro;
-import ar.edu.grupo5.jm.dss.QueComemos.Oberserver.ObservadorConsultas;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.NoPuedeAccederARecetaException;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.NoPuedeEliminarRecetaExeption;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.RecetaNoValidaException;
-import ar.edu.grupo5.jm.dss.QueComemos.StrategyFilter.GestorDeConsultas;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
-public class Recetario {
+public class Recetario implements ConsultorRecetas{
 
 	public static Recetario instancia = new Recetario();
 	private Collection<Receta> recetasTotales = new ArrayList<Receta>();
-	private Collection<ObservadorConsultas> observadores = new ArrayList<ObservadorConsultas>();
 
 	public void setRecetasTotales(Collection<Receta> unasRecetas) {
 		recetasTotales = unasRecetas;
@@ -72,23 +68,9 @@ public class Recetario {
 		crearReceta(nuevaReceta, unUsuario);
 	}
 
-	public void agregarObservador(ObservadorConsultas unObservador) {
-		observadores.add(unObservador);
-	}
-
-	public Collection<Receta> consultarRecetas(IFiltro unFiltro, Usuario unUsuario) {
-
-		Collection<Receta> recetasConsultadas = unFiltro.filtrarRecetas(listarTodasPuedeAcceder(unUsuario), unUsuario);
-
-		for (ObservadorConsultas observador : observadores) {
-			observador.notificar(unUsuario, recetasConsultadas);
-		}
-
-		return recetasConsultadas;
-	}
-
-	public Collection<Receta> consultarRecetasSt(GestorDeConsultas unFiltrado, Usuario unUsuario) {
-		return unFiltrado.aplicarFiltros(listarTodasPuedeAcceder(unUsuario), unUsuario);
+	@Override
+	public Collection<Receta> getRecetasAConsultar(Usuario unUsuario) {
+		return listarTodasPuedeAcceder(unUsuario);
 	}
 
 }

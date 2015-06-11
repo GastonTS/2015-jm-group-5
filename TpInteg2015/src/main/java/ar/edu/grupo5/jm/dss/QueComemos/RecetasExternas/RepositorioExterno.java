@@ -7,15 +7,17 @@ import com.eclipsesource.json.JsonArray;
 import com.eclipsesource.json.JsonObject;
 import com.eclipsesource.json.JsonValue;
 
+import ar.edu.grupo5.jm.dss.QueComemos.ConsultorRecetas;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Condimentacion;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta.Dificultad;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 import queComemos.entrega3.repositorio.RepoRecetas;
 import queComemos.entrega3.repositorio.BusquedaRecetas;
 
 ;
 
-public class RepositorioExterno {
+public class RepositorioExterno implements ConsultorRecetas{
 	
 	private RepoRecetas repositorio;
 	
@@ -23,7 +25,8 @@ public class RepositorioExterno {
 		repositorio = unRepositorio;
 	}
 
-	public Collection<Receta> getRecetas() {
+	@Override
+	public Collection<Receta> getRecetasAConsultar(Usuario unUsuario) {
 		String recetasJson = repositorio.getRecetas(new BusquedaRecetas());
 		return jsonStringToRecetasCollection(recetasJson);
 	}
@@ -66,4 +69,5 @@ public class RepositorioExterno {
 		}
 		return ingredientes;
 	}
+
 }

@@ -3,7 +3,6 @@ package ar.edu.grupo5.jm.dss.QueComemos.RecetasExternas;
 import java.util.Arrays;
 import java.util.Collection;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import com.eclipsesource.json.JsonArray;
@@ -20,11 +19,6 @@ public class RepoExternoTest {
 	RepoRecetas repoRecetasMock = mock(RepoRecetas.class);
 	RepositorioExterno repoExterno = new RepositorioExterno(repoRecetasMock);
 	
-	@Before
-	public void setUp() { 
-		
-	}
-
 	
 	@Test
 	public void recibeRecetasDeUnJsonString() {
