@@ -61,15 +61,15 @@ public class RepoUsuarios {
 		return usuarioPosta.getCondicionesDeSalud().containsAll(usuarioBuscado.getCondicionesDeSalud());
 	}
 
-	private void solicitaIngreso(Usuario unUsuario) {
+	public void solicitaIngreso(Usuario unUsuario) {
 		solicitudesDeIngreso.add(unUsuario);
 	}
 
-	private void apruebaSolicitud(Usuario unUsuario) {
+	public void apruebaSolicitud(Usuario unUsuario) {
 		add(unUsuario);
 	}
 	
-	private void rechazaSolicitud(Usuario unUsuario) {
+	public void rechazaSolicitud(Usuario unUsuario) {
 		solicitudesDeIngreso.remove(unUsuario);
 		//informar rechazo, no esta específicado que carajos informar. Así que no hago nada
 	}
