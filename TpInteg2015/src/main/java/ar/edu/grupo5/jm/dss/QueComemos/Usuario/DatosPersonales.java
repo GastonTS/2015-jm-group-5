@@ -12,8 +12,8 @@ public class DatosPersonales {
 		nombre = unNombre;
 		sexo = unSexo;
 		fechaDeNacimiento = unaFechaDeNacimiento;
-
-		if (!sonValidos()) {
+		
+		if(!sonValidos()) {
 			throw new DatosPersonalesNoValidosException("Los Datos Personales no son Validos!!!");
 		}
 	}

@@ -21,8 +21,7 @@ public class MasConsultada implements ObservadorConsultas {
 	}
 
 	public Optional<Receta> recetaMasConsultada() {
-		return recetasConsultadas.stream().max(
-				(unNombre, otroNombre) -> cantidadDeConsultas(unNombre) - cantidadDeConsultas(otroNombre));
+		return recetasConsultadas.stream().max((unNombre, otroNombre) -> cantidadDeConsultas(unNombre) - cantidadDeConsultas(otroNombre));
 	}
 
 	private int cantidadDeConsultas(Receta unaReceta) {

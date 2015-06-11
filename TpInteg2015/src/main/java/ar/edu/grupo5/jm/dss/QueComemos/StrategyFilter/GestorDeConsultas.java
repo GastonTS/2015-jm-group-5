@@ -24,8 +24,7 @@ public class GestorDeConsultas {
 		Collection<Receta> recetasRestantes = unasRecetas;
 
 		for (StFiltro filtro : filtros) {
-			recetasRestantes = recetasRestantes.stream().filter(unaReceta -> filtro.filtrar(unaReceta, unUsuario))
-					.collect(Collectors.toList());
+			recetasRestantes = recetasRestantes.stream().filter(unaReceta -> filtro.filtrar(unaReceta, unUsuario)).collect(Collectors.toList());
 		}
 
 		return recetasRestantes;

@@ -1,12 +1,16 @@
-package ar.edu.grupo5.jm.dss.QueComemos.Receta;
+package ar.edu.grupo5.jm.dss.QueComemos;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
+import ar.edu.grupo5.jm.dss.QueComemos.Receta.NoPuedeAccederARecetaException;
+import ar.edu.grupo5.jm.dss.QueComemos.Receta.NoPuedeEliminarRecetaExeption;
+import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
+import ar.edu.grupo5.jm.dss.QueComemos.Receta.RecetaNoValidaException;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
-public class Recetario implements ConsultorRecetas {
+public class Recetario implements ConsultorRecetas{
 
 	public static Recetario instancia = new Recetario();
 	private Collection<Receta> recetasTotales = new ArrayList<Receta>();

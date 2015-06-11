@@ -47,14 +47,13 @@ public class StFiltroTest {
 	private StOrdenadosPorCriterio ordenadosPorCalorias = new StOrdenadosPorCriterio(
 			((receta1, receta2) -> ((Double) receta1.getCantCaloriasTotales()).compareTo((Double) receta2.getCantCaloriasTotales())));
 
-	private StOrdenadosPorCriterio ordenadosAlfabeticamente = new StOrdenadosPorCriterio(
-			((receta1, receta2) -> (receta1.getNombre()).compareTo(receta2.getNombre())));
+	private StOrdenadosPorCriterio ordenadosAlfabeticamente = new StOrdenadosPorCriterio(((receta1, receta2) -> (receta1.getNombre()).compareTo(receta2
+			.getNombre())));
 
-	private GestorDeConsultas combinacionPostProcesadoConFiltro = new GestorDeConsultas(Arrays.asList(excesoDeCalorias),
-			Arrays.asList(soloPares));
+	private GestorDeConsultas combinacionPostProcesadoConFiltro = new GestorDeConsultas(Arrays.asList(excesoDeCalorias), Arrays.asList(soloPares));
 
-	private GestorDeConsultas superPreFiltro = new GestorDeConsultas(Arrays.asList(excesoDeCalorias, segunCondicionesDelusuario,
-			preparacionBarata, leGustaAlUsuario), null);
+	private GestorDeConsultas superPreFiltro = new GestorDeConsultas(Arrays.asList(excesoDeCalorias, segunCondicionesDelusuario, preparacionBarata,
+			leGustaAlUsuario), null);
 
 	@Before
 	public void setUp() {
@@ -75,9 +74,8 @@ public class StFiltroTest {
 
 		Collection<Receta> menosDe500Calorias = Arrays.asList(ensaladaMock, vegetarianaMock);
 
-		assertEquals(
-				todasLasRecetas.stream().filter(unaReceta -> excesoDeCalorias.filtrar(unaReceta, usuarioMock))
-						.collect(Collectors.toList()), menosDe500Calorias);
+		assertEquals(todasLasRecetas.stream().filter(unaReceta -> excesoDeCalorias.filtrar(unaReceta, usuarioMock)).collect(Collectors.toList()),
+				menosDe500Calorias);
 
 		verify(guisoMock, times(1)).getCantCaloriasTotales();
 		verify(ensaladaMock, times(1)).getCantCaloriasTotales();
@@ -96,9 +94,8 @@ public class StFiltroTest {
 
 		Collection<Receta> sonAdecuadasParaUsuario = Arrays.asList(ensaladaMock, vegetarianaMock);
 
-		assertEquals(
-				todasLasRecetas.stream().filter(unaReceta -> segunCondicionesDelusuario.filtrar(unaReceta, usuarioMock))
-						.collect(Collectors.toList()), sonAdecuadasParaUsuario);
+		assertEquals(todasLasRecetas.stream().filter(unaReceta -> segunCondicionesDelusuario.filtrar(unaReceta, usuarioMock)).collect(Collectors.toList()),
+				sonAdecuadasParaUsuario);
 
 		verify(usuarioMock, times(1)).sosRecetaInadecuadaParaMi(guisoMock);
 		verify(usuarioMock, times(1)).sosRecetaInadecuadaParaMi(ensaladaMock);
@@ -118,9 +115,8 @@ public class StFiltroTest {
 
 		Collection<Receta> noLeDisgustanAlUsuario = Arrays.asList(guisoMock, panchoMock);
 
-		assertEquals(
-				todasLasRecetas.stream().filter(unaReceta -> leGustaAlUsuario.filtrar(unaReceta, usuarioMock))
-						.collect(Collectors.toList()), noLeDisgustanAlUsuario);
+		assertEquals(todasLasRecetas.stream().filter(unaReceta -> leGustaAlUsuario.filtrar(unaReceta, usuarioMock)).collect(Collectors.toList()),
+				noLeDisgustanAlUsuario);
 
 		verify(usuarioMock, times(1)).noLeDisgusta(guisoMock);
 		verify(usuarioMock, times(1)).noLeDisgusta(ensaladaMock);
@@ -140,9 +136,8 @@ public class StFiltroTest {
 
 		Collection<Receta> recetasBaratas = Arrays.asList(ensaladaMock, panchoMock);
 
-		assertEquals(
-				todasLasRecetas.stream().filter(unaReceta -> preparacionBarata.filtrar(unaReceta, usuarioMock))
-						.collect(Collectors.toList()), recetasBaratas);
+		assertEquals(todasLasRecetas.stream().filter(unaReceta -> preparacionBarata.filtrar(unaReceta, usuarioMock)).collect(Collectors.toList()),
+				recetasBaratas);
 
 		verify(guisoMock, times(1)).tieneAlgunIngredienteDeEstos(ingredientesCaros);
 		verify(ensaladaMock, times(1)).tieneAlgunIngredienteDeEstos(ingredientesCaros);
@@ -186,8 +181,8 @@ public class StFiltroTest {
 
 	@Test
 	public void primeros10() {
-		Collection<Receta> receta10Elementos = Arrays.asList(guisoMock, panchoMock, guisoMock, panchoMock, guisoMock, panchoMock,
-				guisoMock, panchoMock, guisoMock, panchoMock);
+		Collection<Receta> receta10Elementos = Arrays.asList(guisoMock, panchoMock, guisoMock, panchoMock, guisoMock, panchoMock, guisoMock, panchoMock,
+				guisoMock, panchoMock);
 
 		Collection<Receta> receta12Elementos = new ArrayList<Receta>();
 		receta12Elementos.addAll(receta10Elementos);

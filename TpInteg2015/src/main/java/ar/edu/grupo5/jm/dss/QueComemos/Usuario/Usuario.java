@@ -3,6 +3,7 @@ package ar.edu.grupo5.jm.dss.QueComemos.Usuario;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import ar.edu.grupo5.jm.dss.QueComemos.Grupo;
 import ar.edu.grupo5.jm.dss.QueComemos.Oberserver.ConsultaVeganoRecetasDificles;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 
@@ -38,8 +39,9 @@ public class Usuario {
 		disgustosAlimenticios = unosDisgustosAlimenticios;
 		condicionesDeSalud = unasCondicionesDeSalud;
 		rutina = unaRutina;
-
-		if (!esUsuarioValido()) {
+		
+		
+		if(!esUsuarioValido()) {
 			throw new UsuarioNoValidoException("El Usuario no es Valido!!!");
 		}
 	}
@@ -60,7 +62,8 @@ public class Usuario {
 	// Punto 1
 	// XXX esto podria no ser facil de extender
 	public boolean esUsuarioValido() {
-		return datosPersonales != null && complexion != null && rutina != null && esUsuarioValidoParaSusCondiciones();
+		return datosPersonales!= null && complexion != null
+				&& rutina != null && esUsuarioValidoParaSusCondiciones();
 	}
 
 	public boolean esUsuarioValidoParaSusCondiciones() {
@@ -142,7 +145,7 @@ public class Usuario {
 	}
 
 	public void notificaA(ConsultaVeganoRecetasDificles consultaVeganoRecetasDificles) {
-		if (condicionesDeSalud.stream().anyMatch(unaCondicion -> unaCondicion.deboNotificar())) {
+		if(condicionesDeSalud.stream().anyMatch(unaCondicion-> unaCondicion.deboNotificar())){
 			consultaVeganoRecetasDificles.sumame(this);
 		}
 	}

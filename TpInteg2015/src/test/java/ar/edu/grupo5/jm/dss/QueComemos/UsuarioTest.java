@@ -20,12 +20,9 @@ import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Complexion;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.CondicionDeSalud;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.DatosPersonales;
-import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Grupo;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario.Rutina;
-import ar.edu.grupo5.jm.dss.QueComemos.Usuario.UsuarioNoValidoException;
-
-;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.UsuarioNoValidoException;;
 
 public class UsuarioTest {
 
@@ -55,50 +52,45 @@ public class UsuarioTest {
 	@Before
 	public void setUp() {
 		when(datosPersonalesMock.sonValidos()).thenReturn(true);
-
+		
 		condiciones.add(hippie);
 		condiciones.add(corporativo);
 		when(hippie.esUsuarioValido(any(Usuario.class))).thenReturn(true);
 		when(corporativo.esUsuarioValido(any(Usuario.class))).thenReturn(true);
-
+		
 		disgustosGustavo.add("McDonalds");
 		preferenciaFruta.add("fruta");
 		preferenciasVariadas = Arrays.asList("fruta", "semillas", "campignones");
 
-		gustavo = new Usuario(datosPersonalesMock, complexionMock, new ArrayList<String>(), disgustosGustavo, condiciones,
-				Rutina.MEDIANA);
-		gaston = new Usuario(datosPersonalesMock, complexionMock, new ArrayList<String>(), new ArrayList<String>(),
-				new ArrayList<CondicionDeSalud>(), Rutina.MEDIANA);
-		juanchi = new Usuario(datosPersonalesMock, complexionMock, preferenciaFruta, new ArrayList<String>(),
-				new ArrayList<CondicionDeSalud>(), Rutina.MEDIANA);
+		gustavo = new Usuario(datosPersonalesMock, complexionMock, new ArrayList<String>(), disgustosGustavo, condiciones, Rutina.MEDIANA);
+		gaston = new Usuario(datosPersonalesMock, complexionMock, new ArrayList<String>(), new ArrayList<String>(), new ArrayList<CondicionDeSalud>(), Rutina.MEDIANA);
+		juanchi = new Usuario(datosPersonalesMock, complexionMock, preferenciaFruta, new ArrayList<String>(), new ArrayList<CondicionDeSalud>(), Rutina.MEDIANA);
 
 		juanchi.agregarGrupo(grupoMock);
 	}
 
 	@Test(expected = UsuarioNoValidoException.class)
 	public void noEsValidoSiNoTieneDatosPersonales() {
-		new Usuario(null, complexionMock, new ArrayList<String>(), new ArrayList<String>(), new ArrayList<CondicionDeSalud>(),
-				Rutina.MEDIANA);
+		new Usuario(null, complexionMock, new ArrayList<String>(), new ArrayList<String>(), new ArrayList<CondicionDeSalud>(), Rutina.MEDIANA);
 	}
-
+	
 	@Test(expected = UsuarioNoValidoException.class)
 	public void noEsValidoSiNoTieneComplexion() {
-		new Usuario(datosPersonalesMock, null, new ArrayList<String>(), new ArrayList<String>(), new ArrayList<CondicionDeSalud>(),
-				Rutina.MEDIANA);
+		new Usuario(datosPersonalesMock, null, new ArrayList<String>(), new ArrayList<String>(), new ArrayList<CondicionDeSalud>(), Rutina.MEDIANA);
 	}
+
 
 	@Test(expected = UsuarioNoValidoException.class)
 	public void noEsValidoSiSusCondicionesNoLoPermiten() {
 		when(hippie.esUsuarioValido(any(Usuario.class))).thenReturn(true);
 		when(corporativo.esUsuarioValido(any(Usuario.class))).thenReturn(false);
 
-		new Usuario(datosPersonalesMock, complexionMock, new ArrayList<String>(), new ArrayList<String>(), condiciones, Rutina.MEDIANA);
+		new Usuario(datosPersonalesMock, complexionMock, new ArrayList<String>(),  new ArrayList<String>(), condiciones, Rutina.MEDIANA);
 	}
 
 	@Test(expected = UsuarioNoValidoException.class)
 	public void siNoTieneRutinaEsInvalidos() {
-		new Usuario(datosPersonalesMock, complexionMock, new ArrayList<String>(), new ArrayList<String>(),
-				new ArrayList<CondicionDeSalud>(), null);
+		new Usuario(datosPersonalesMock, complexionMock, new ArrayList<String>(), new ArrayList<String>(), new ArrayList<CondicionDeSalud>(), null);
 	}
 
 	// Test de Rutina saludable

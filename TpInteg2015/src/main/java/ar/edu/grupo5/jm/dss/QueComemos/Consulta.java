@@ -1,10 +1,11 @@
-package ar.edu.grupo5.jm.dss.QueComemos.Receta;
+package ar.edu.grupo5.jm.dss.QueComemos;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
 import ar.edu.grupo5.jm.dss.QueComemos.DecoratorFilter.IFiltro;
 import ar.edu.grupo5.jm.dss.QueComemos.Oberserver.ObservadorConsultas;
+import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.StrategyFilter.GestorDeConsultas;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
@@ -12,14 +13,15 @@ public class Consulta {
 
 	private ConsultorRecetas consultor;
 	private Collection<ObservadorConsultas> observadores = new ArrayList<ObservadorConsultas>();
-
+	
 	public Consulta(ConsultorRecetas unConsultor) {
 		consultor = unConsultor;
 	}
-
+	
 	public void setConsultor(ConsultorRecetas unConsultor) {
 		consultor = unConsultor;
 	}
+	
 
 	public void agregarObservador(ObservadorConsultas unObservador) {
 		observadores.add(unObservador);
@@ -39,5 +41,5 @@ public class Consulta {
 	public Collection<Receta> consultarRecetasSt(GestorDeConsultas unFiltrado, Usuario unUsuario) {
 		return unFiltrado.aplicarFiltros(consultor.getRecetasAConsultar(unUsuario), unUsuario);
 	}
-
+	
 }

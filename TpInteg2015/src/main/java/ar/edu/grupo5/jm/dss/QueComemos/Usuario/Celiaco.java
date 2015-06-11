@@ -18,7 +18,7 @@ public class Celiaco extends CondicionDeSalud {
 	public boolean esUsuarioValido(Usuario unUsuario) {
 		return true;
 	}
-
+	
 	@Override
 	public boolean deboNotificar() {
 		return false;

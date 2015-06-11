@@ -7,19 +7,21 @@ import com.eclipsesource.json.JsonArray;
 import com.eclipsesource.json.JsonObject;
 import com.eclipsesource.json.JsonValue;
 
+import ar.edu.grupo5.jm.dss.QueComemos.ConsultorRecetas;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Condimentacion;
-import ar.edu.grupo5.jm.dss.QueComemos.Receta.ConsultorRecetas;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta.Dificultad;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 import queComemos.entrega3.repositorio.RepoRecetas;
 import queComemos.entrega3.repositorio.BusquedaRecetas;
 
-public class RepositorioExterno implements ConsultorRecetas {
+;
 
+public class RepositorioExterno implements ConsultorRecetas{
+	
 	private RepoRecetas repositorio;
-
-	public RepositorioExterno(RepoRecetas unRepositorio) {
+	
+	public RepositorioExterno (RepoRecetas unRepositorio){
 		repositorio = unRepositorio;
 	}
 
@@ -48,18 +50,18 @@ public class RepositorioExterno implements ConsultorRecetas {
 	}
 
 	public Dificultad stringToDificultad(String dificultadString) {
-		switch (dificultadString) {
-		case "DIFICIL":
-			return Dificultad.ALTA;
-		case "MEDIANA":
-			return Dificultad.MEDIA;
-		case "FACIL":
-			return Dificultad.BAJA;
-		default:
-			return Dificultad.OTRA;
+		switch(dificultadString) {
+			case "DIFICIL": 
+				return Dificultad.ALTA;
+			case "MEDIANA":
+				return Dificultad.MEDIA;
+			case "FACIL":
+				return Dificultad.BAJA;
+			default:
+				return Dificultad.OTRA;
 		}
 	}
-
+	
 	public Collection<String> jsonArrayToStringCollection(JsonArray ingredientesArray) {
 		Collection<String> ingredientes = new ArrayList<String>();
 		for (JsonValue ingredienteValue : ingredientesArray) {

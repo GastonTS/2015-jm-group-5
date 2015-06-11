@@ -1,8 +1,9 @@
-package ar.edu.grupo5.jm.dss.QueComemos.Usuario;
+package ar.edu.grupo5.jm.dss.QueComemos;
 
 import java.util.Collection;
 
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
 public class Grupo {
 
@@ -23,8 +24,7 @@ public class Grupo {
 	}
 
 	public boolean puedeSugerirse(Receta unaReceta) {
-		return alguienTiene(unaReceta) && unaReceta.tieneAlgunIngredienteDeEstos(preferenciasAlimenticias)
-				&& esApropiadaParaTodosSusIntegrantes(unaReceta);
+		return alguienTiene(unaReceta) && unaReceta.tieneAlgunIngredienteDeEstos(preferenciasAlimenticias) && esApropiadaParaTodosSusIntegrantes(unaReceta);
 	}
 
 	private boolean esApropiadaParaTodosSusIntegrantes(Receta unaReceta) {

@@ -40,16 +40,15 @@ public class FiltroTest {
 	private PreparacionBarata preparacionBarata = new PreparacionBarata(sinFiltro);
 	private NoLeDisgustaAlUsuario leGustaAlUsuario = new NoLeDisgustaAlUsuario(sinFiltro);
 
-	private ExcesoDeCalorias superPreFiltro = new ExcesoDeCalorias(new SegunCondicionesDeUsuario(new PreparacionBarata(
-			new NoLeDisgustaAlUsuario(sinFiltro))));
+	private ExcesoDeCalorias superPreFiltro = new ExcesoDeCalorias(new SegunCondicionesDeUsuario(new PreparacionBarata(new NoLeDisgustaAlUsuario(sinFiltro))));
 
 	private Primeros10 primeros10 = new Primeros10(sinFiltro);
 	private SoloPares soloPares = new SoloPares(sinFiltro);
 	private OrdenadosPorCriterio ordenadosPorCalorias = new OrdenadosPorCriterio(sinFiltro,
 			((receta1, receta2) -> ((Double) receta1.getCantCaloriasTotales()).compareTo((Double) receta2.getCantCaloriasTotales())));
 
-	private OrdenadosPorCriterio ordenadosAlfabeticamente = new OrdenadosPorCriterio(sinFiltro,
-			((receta1, receta2) -> (receta1.getNombre()).compareTo(receta2.getNombre())));
+	private OrdenadosPorCriterio ordenadosAlfabeticamente = new OrdenadosPorCriterio(sinFiltro, ((receta1, receta2) -> (receta1.getNombre()).compareTo(receta2
+			.getNombre())));
 
 	private SoloPares combinacionPostProcesadoConPre = new SoloPares(new ExcesoDeCalorias(sinFiltro));
 
@@ -174,8 +173,8 @@ public class FiltroTest {
 
 	@Test
 	public void primeros10() {
-		Collection<Receta> receta10Elementos = Arrays.asList(guisoMock, panchoMock, guisoMock, panchoMock, guisoMock, panchoMock,
-				guisoMock, panchoMock, guisoMock, panchoMock);
+		Collection<Receta> receta10Elementos = Arrays.asList(guisoMock, panchoMock, guisoMock, panchoMock, guisoMock, panchoMock, guisoMock, panchoMock,
+				guisoMock, panchoMock);
 
 		Collection<Receta> receta12Elementos = new ArrayList<Receta>();
 		receta12Elementos.addAll(receta10Elementos);

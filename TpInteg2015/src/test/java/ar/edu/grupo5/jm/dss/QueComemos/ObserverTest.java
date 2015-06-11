@@ -7,6 +7,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.any;
 
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -29,7 +30,7 @@ import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario.Rutina;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Vegano;
 
 public class ObserverTest {
-
+	
 	private DatosPersonales datosPersonalesMock = mock(DatosPersonales.class);
 	private Complexion complexionMock = mock(Complexion.class);
 
@@ -37,7 +38,7 @@ public class ObserverTest {
 	private Usuario usuarioMockFem = mock(Usuario.class);
 	private Usuario vegano;
 	private Usuario otroVegano;
-
+	
 	private Receta guisoMock = mock(Receta.class);
 	private Receta ensaladaMock = mock(Receta.class);
 	private Receta panchoMock = mock(Receta.class);
@@ -50,7 +51,7 @@ public class ObserverTest {
 
 	private Vegano condicionMock = mock(Vegano.class);
 	private Collection<CondicionDeSalud> condicionesDeSalud = Arrays.asList(condicionMock);
-
+	
 	PorHoraDelDia observerPorHoraDelDia = new PorHoraDelDia();
 	MasConsultada observerRecetaMasConsultada = new MasConsultada();
 	SegunSexo observerSegunSexo = new SegunSexo();
@@ -59,16 +60,14 @@ public class ObserverTest {
 	@Before
 	public void setUp() {
 		when(condicionMock.esUsuarioValido(any(Usuario.class))).thenReturn(true);
-
+		
 		recetas = Arrays.asList(guisoMock, ensaladaMock, panchoMock, vegetarianaMock);
 		recetasDeGuisoYPancho = Arrays.asList(guisoMock, panchoMock);
 		recetasDePanchoYEnsalada = Arrays.asList(panchoMock, ensaladaMock);
 		recetaExtraEnsalada = Arrays.asList(ensaladaMock, ensaladaMock);
-
-		vegano = new Usuario(datosPersonalesMock, complexionMock, new ArrayList<String>(), new ArrayList<String>(),
-				condicionesDeSalud, Rutina.ALTA);
-		otroVegano = new Usuario(datosPersonalesMock, complexionMock, new ArrayList<String>(), new ArrayList<String>(),
-				condicionesDeSalud, Rutina.ALTA);
+		
+		vegano = new Usuario(datosPersonalesMock, complexionMock, new ArrayList<String>(), new ArrayList<String>(), condicionesDeSalud, Rutina.ALTA);
+		otroVegano = new Usuario(datosPersonalesMock, complexionMock, new ArrayList<String>(), new ArrayList<String>(), condicionesDeSalud, Rutina.ALTA);
 	}
 
 	@Test

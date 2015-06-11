@@ -1,8 +1,11 @@
-package ar.edu.grupo5.jm.dss.QueComemos.Usuario;
+package ar.edu.grupo5.jm.dss.QueComemos;
 
 import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.UsuarioIngresadoNoExisteException;
 
 public class RepoUsuarios {
 	private Collection<Usuario> usuarios;
@@ -60,7 +63,6 @@ public class RepoUsuarios {
 
 	public void apruebaSolicitud(Usuario unUsuario) {
 		add(unUsuario);
-		solicitudesDeIngreso.remove(unUsuario);
 	}
 
 	public void rechazaSolicitud(Usuario unUsuario) {
