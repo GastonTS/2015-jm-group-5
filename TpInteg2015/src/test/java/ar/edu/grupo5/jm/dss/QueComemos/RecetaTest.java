@@ -29,16 +29,16 @@ public class RecetaTest {
 	@Before
 	public void setUp() {
 
-		recetaConMuchasCalorias = new Receta("Muy calorica", Arrays.asList("Algo super calorico"), new ArrayList<Condimentacion>(), new ArrayList<Receta>(),
-				99999, Dificultad.ALTA);
-		recetaSinIngredientes = new Receta("Sin Ingredientes", new ArrayList<String>(), new ArrayList<Condimentacion>(), new ArrayList<Receta>(), 1000,
-				Dificultad.BAJA);
-		pure = new Receta("Pure", Arrays.asList("papas 2kg", "manteca 200gr"), Arrays.asList(sal, pimienta, nuezMoscada), new ArrayList<Receta>(), 400,
-				Dificultad.MEDIA);
-		ensalada = new Receta("Ensalada", Arrays.asList("Lechuga 2kg", "Cebolla 1.5kg", "Tomate 200gr"), Arrays.asList(sal, aceite), new ArrayList<Receta>(),
-				40, Dificultad.BAJA);
-		polloConPureOEnsalada = new Receta("Pollo Con Pure o Ensalada", Arrays.asList("pollo mediano"), Arrays.asList(sal, condimentoParaPollo),
-				new ArrayList<Receta>(), 3000, Dificultad.ALTA);
+		recetaConMuchasCalorias = new Receta("Muy calorica", Arrays.asList("Algo super calorico"), new ArrayList<Condimentacion>(),
+				new ArrayList<Receta>(), 99999, Dificultad.ALTA);
+		recetaSinIngredientes = new Receta("Sin Ingredientes", new ArrayList<String>(), new ArrayList<Condimentacion>(),
+				new ArrayList<Receta>(), 1000, Dificultad.BAJA);
+		pure = new Receta("Pure", Arrays.asList("papas 2kg", "manteca 200gr"), Arrays.asList(sal, pimienta, nuezMoscada),
+				new ArrayList<Receta>(), 400, Dificultad.MEDIA);
+		ensalada = new Receta("Ensalada", Arrays.asList("Lechuga 2kg", "Cebolla 1.5kg", "Tomate 200gr"), Arrays.asList(sal, aceite),
+				new ArrayList<Receta>(), 40, Dificultad.BAJA);
+		polloConPureOEnsalada = new Receta("Pollo Con Pure o Ensalada", Arrays.asList("pollo mediano"), Arrays.asList(sal,
+				condimentoParaPollo), new ArrayList<Receta>(), 3000, Dificultad.ALTA);
 
 	}
 

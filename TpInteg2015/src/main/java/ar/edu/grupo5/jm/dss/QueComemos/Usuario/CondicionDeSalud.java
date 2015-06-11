@@ -8,7 +8,8 @@ import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 
 public abstract class CondicionDeSalud {
 
-	static Collection<CondicionDeSalud> condicionesExistentes = Arrays.asList(new Diabetico(), new Celiaco(), new Hipertenso(), new Vegano());
+	static Collection<CondicionDeSalud> condicionesExistentes = Arrays.asList(new Diabetico(), new Celiaco(), new Hipertenso(),
+			new Vegano());
 
 	public abstract boolean subsanaCondicion(Usuario unUsuario);
 
@@ -17,8 +18,9 @@ public abstract class CondicionDeSalud {
 	public abstract boolean esUsuarioValido(Usuario unUsuario);
 
 	public abstract boolean deboNotificar();
-	
+
 	static public Collection<CondicionDeSalud> condicionesALasQueEsInadecuada(Receta unaReceta) {
-		return CondicionDeSalud.condicionesExistentes.stream().filter(condicion -> condicion.esInadecuada(unaReceta)).collect(Collectors.toList());
+		return CondicionDeSalud.condicionesExistentes.stream().filter(condicion -> condicion.esInadecuada(unaReceta))
+				.collect(Collectors.toList());
 	}
 }

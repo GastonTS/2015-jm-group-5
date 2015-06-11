@@ -17,6 +17,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.CondicionDeSalud;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.RepoUsuarios;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.UsuarioIngresadoNoExisteException;
 
@@ -27,9 +28,9 @@ public class RepoUsuariosTest {
 	private Usuario gaston = mock(Usuario.class);
 	private Usuario juanchi = mock(Usuario.class);
 	private Usuario franco = mock(Usuario.class);
-	
+
 	private Usuario usuarioMock = mock(Usuario.class);
-	
+
 	private RepoUsuarios repoUsuarios;
 
 	private Collection<CondicionDeSalud> condicionesGustavo = new ArrayList<CondicionDeSalud>();

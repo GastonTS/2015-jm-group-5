@@ -32,5 +32,5 @@ public class Hipertenso extends CondicionDeSalud {
 	public boolean deboNotificar() {
 		return false;
 	}
-	
+
 }

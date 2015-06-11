@@ -17,6 +17,7 @@ import ar.edu.grupo5.jm.dss.QueComemos.Receta.NoPuedeAccederARecetaException;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.NoPuedeEliminarRecetaExeption;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.RecetaNoValidaException;
+import ar.edu.grupo5.jm.dss.QueComemos.Receta.Recetario;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
 public class RecetarioTest {
@@ -32,7 +33,6 @@ public class RecetarioTest {
 	private Receta ensaladaMock = mock(Receta.class);
 
 	private Receta nuevaEnsaladaMock = mock(Receta.class);
-
 
 	@Before
 	public void setUp() {
