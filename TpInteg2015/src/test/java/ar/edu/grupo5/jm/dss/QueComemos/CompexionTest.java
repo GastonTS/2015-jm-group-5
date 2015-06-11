@@ -1,13 +1,13 @@
 package ar.edu.grupo5.jm.dss.QueComemos;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Complexion;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.ComplexionNoValidoException;
 
 public class CompexionTest {
 	private Complexion complexionGaston;
@@ -15,8 +15,6 @@ public class CompexionTest {
 	private Complexion complexionJuanchi;
 	private Complexion complexionLean;
 	private Complexion complexionRamiro;
-	private Complexion complexionSinPeso;
-	private Complexion complexionSinEstatura;
 
 	@Before
 	public void setUp() {
@@ -25,8 +23,6 @@ public class CompexionTest {
 		complexionJuanchi = new Complexion(70, 1.85);
 		complexionLean = new Complexion(79, 1.78);
 		complexionRamiro = new Complexion(63, 1.75);
-		complexionSinPeso = new Complexion(0, 1.83);
-		complexionSinEstatura = new Complexion(73, 0);
 	}
 
 	@Test
@@ -60,14 +56,14 @@ public class CompexionTest {
 		assertTrue(complexionGaston.esComplexionValida());
 	}
 
-	@Test
+	@Test(expected = ComplexionNoValidoException.class)
 	public void noEsComplexionValidaSinPeso() {
-		assertFalse(complexionSinPeso.esComplexionValida());
+		new Complexion(0, 1.83);
 	}
 
-	@Test
+	@Test(expected = ComplexionNoValidoException.class)
 	public void noEsComplexionValidaSinEstatura() {
-		assertFalse(complexionSinEstatura.esComplexionValida());
+		new Complexion(73, 0);
 	}
 
 }

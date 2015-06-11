@@ -1,28 +1,35 @@
 package ar.edu.grupo5.jm.dss.QueComemos;
 
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Optional;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.CondicionDeSalud;
-import ar.edu.grupo5.jm.dss.QueComemos.Usuario.DatosPersonales;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.UsuarioIngresadoNoExisteException;
 
 public class RepoUsuariosTest {
 
 	private Usuario gustavo = mock(Usuario.class);
+	private Usuario cerati = mock(Usuario.class);
 	private Usuario gaston = mock(Usuario.class);
 	private Usuario juanchi = mock(Usuario.class);
 	private Usuario franco = mock(Usuario.class);
-
+	
+	private Usuario usuarioMock = mock(Usuario.class);
+	
 	private RepoUsuarios repoUsuarios;
 
 	private Collection<CondicionDeSalud> condicionesGustavo = new ArrayList<CondicionDeSalud>();
@@ -43,23 +50,25 @@ public class RepoUsuariosTest {
 		repoUsuarios.add(juanchi);
 		repoUsuarios.add(gaston);
 		repoUsuarios.add(gustavo);
+		repoUsuarios.add(cerati);
 
 		when(juanchi.getNombre()).thenReturn("juanchi");
 		when(gustavo.getNombre()).thenReturn("gustavo");
+		when(cerati.getNombre()).thenReturn("gustavo");
 		when(gaston.getNombre()).thenReturn("gaston");
 		when(juanchi.getCondicionesDeSalud()).thenReturn(condicionesJuanchi);
 		when(gustavo.getCondicionesDeSalud()).thenReturn(condicionesGustavo);
 		when(gaston.getCondicionesDeSalud()).thenReturn(condicionesGaston);
-
+		when(cerati.getCondicionesDeSalud()).thenReturn(Arrays.asList(hippie));
 	}
 
 	// Testea que se agrega y se elimina bien
 
 	@Test
 	public void eliminoJuanchi() {
-		assertEquals(repoUsuarios.getUsuarios().size(), 3);
+		assertTrue(repoUsuarios.getUsuarios().contains(juanchi));
 		repoUsuarios.remove(juanchi);
-		assertEquals(repoUsuarios.getUsuarios().size(), 2);
+		assertFalse(repoUsuarios.getUsuarios().contains(juanchi));
 	}
 
 	@Test(expected = UsuarioIngresadoNoExisteException.class)
@@ -74,39 +83,27 @@ public class RepoUsuariosTest {
 
 	@Test
 	public void buscarJuanchiPorNombre() {
-		DatosPersonales datosPersonales = new DatosPersonales("juanchi", null, null);
-		Usuario juanchiConNombre = new Usuario(datosPersonales, null, null, null, null, null);
-		assertEquals(repoUsuarios.get(juanchiConNombre), juanchi);
+		when(usuarioMock.getNombre()).thenReturn("juanchi");
+		assertEquals(repoUsuarios.get(usuarioMock), Optional.of(juanchi));
+		verify(usuarioMock, times(1)).getNombre();
 	}
 
 	@Test
-	public void buscarGusPorCondicionesDeSalud() {
-		DatosPersonales datosPersonalesGus = new DatosPersonales(null, null, null);
-		Usuario gustavoConCondiciones = new Usuario(datosPersonalesGus, null, null, null, condicionesGustavo, null);
-		assertEquals(repoUsuarios.list(gustavoConCondiciones).size(), 1);
-		assertEquals(repoUsuarios.get(gustavoConCondiciones), gustavo);
+	public void buscarGustavosHippies() {
+		when(usuarioMock.getNombre()).thenReturn("gustavo");
+		when(usuarioMock.getCondicionesDeSalud()).thenReturn(condicionesGustavo);
+		assertEquals(repoUsuarios.list(usuarioMock), Arrays.asList(gustavo));
+		verify(usuarioMock, times(4)).getNombre();
+		verify(usuarioMock, times(2)).getCondicionesDeSalud();
 	}
 
 	@Test
-	public void buscarHippiesGusYJuanchi() {
-		DatosPersonales datosPersonalesHippies = new DatosPersonales(null, null, null);
-		Usuario usuarioHippies = new Usuario(datosPersonalesHippies, null, null, null, condicionesJuanchi, null);
-		Collection<Usuario> usuariosHippies = new ArrayList<Usuario>();
-		usuariosHippies = repoUsuarios.list(usuarioHippies);
-		assertTrue(usuariosHippies.contains(juanchi));
-		assertTrue(usuariosHippies.contains(gustavo));
-		assertEquals(usuariosHippies.size(), 2);
-	}
-
-	@Test
-	public void buscarCorporativosGusYGaston() {
-		DatosPersonales datosPersonalesHippies = new DatosPersonales(null, null, null);
-		Usuario usuarioHippies = new Usuario(datosPersonalesHippies, null, null, null, condicionesGaston, null);
-		Collection<Usuario> usuariosCorporativos = new ArrayList<Usuario>();
-		usuariosCorporativos = repoUsuarios.list(usuarioHippies);
-		assertTrue(usuariosCorporativos.contains(gaston));
-		assertTrue(usuariosCorporativos.contains(gustavo));
-		assertEquals(usuariosCorporativos.size(), 2);
+	public void buscarGustavosSinCondicion() {
+		when(usuarioMock.getNombre()).thenReturn("gustavo");
+		when(usuarioMock.getCondicionesDeSalud()).thenReturn(new ArrayList<CondicionDeSalud>());
+		assertEquals(repoUsuarios.list(usuarioMock), Arrays.asList(gustavo, cerati));
+		verify(usuarioMock, times(4)).getNombre();
+		verify(usuarioMock, times(2)).getCondicionesDeSalud();
 	}
 
 }

@@ -29,6 +29,7 @@ public class MasConsultada implements ObservadorConsultas {
 	}
 
 	public int cantidadDeConsultasDeRecetaMAsConsultada() {
-		return Collections.frequency(recetasConsultadas, recetaMasConsultada().get());
+		Optional<Receta> masConsultada = recetaMasConsultada();
+		return (masConsultada.isPresent()) ? Collections.frequency(recetasConsultadas, masConsultada.get()) : 0;
 	}
 }

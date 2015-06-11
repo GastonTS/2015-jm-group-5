@@ -5,6 +5,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.any;
+
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,11 +22,17 @@ import ar.edu.grupo5.jm.dss.QueComemos.Oberserver.MasConsultada;
 import ar.edu.grupo5.jm.dss.QueComemos.Oberserver.PorHoraDelDia;
 import ar.edu.grupo5.jm.dss.QueComemos.Oberserver.SegunSexo;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Complexion;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.CondicionDeSalud;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.DatosPersonales;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario.Rutina;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Vegano;
 
 public class ObserverTest {
+	
+	private DatosPersonales datosPersonalesMock = mock(DatosPersonales.class);
+	private Complexion complexionMock = mock(Complexion.class);
 
 	private Usuario usuarioMock = mock(Usuario.class);
 	private Usuario usuarioMockFem = mock(Usuario.class);
@@ -51,13 +59,15 @@ public class ObserverTest {
 
 	@Before
 	public void setUp() {
+		when(condicionMock.esUsuarioValido(any(Usuario.class))).thenReturn(true);
+		
 		recetas = Arrays.asList(guisoMock, ensaladaMock, panchoMock, vegetarianaMock);
 		recetasDeGuisoYPancho = Arrays.asList(guisoMock, panchoMock);
 		recetasDePanchoYEnsalada = Arrays.asList(panchoMock, ensaladaMock);
 		recetaExtraEnsalada = Arrays.asList(ensaladaMock, ensaladaMock);
 		
-		vegano = new Usuario(null, null, new ArrayList<String>(), new ArrayList<String>(), condicionesDeSalud, null);
-		otroVegano = new Usuario(null, null, new ArrayList<String>(), new ArrayList<String>(), condicionesDeSalud, null);
+		vegano = new Usuario(datosPersonalesMock, complexionMock, new ArrayList<String>(), new ArrayList<String>(), condicionesDeSalud, Rutina.ALTA);
+		otroVegano = new Usuario(datosPersonalesMock, complexionMock, new ArrayList<String>(), new ArrayList<String>(), condicionesDeSalud, Rutina.ALTA);
 	}
 
 	@Test

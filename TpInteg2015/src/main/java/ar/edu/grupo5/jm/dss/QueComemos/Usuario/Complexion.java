@@ -7,6 +7,10 @@ public class Complexion {
 	public Complexion(double unPeso, double unaEstatura) {
 		peso = unPeso;
 		estatura = unaEstatura;
+		
+		if(!esComplexionValida()) {
+			throw new ComplexionNoValidoException("La Complexion no es Valido!!!");
+		}
 	}
 
 	public double indiceMasaCorporal() {

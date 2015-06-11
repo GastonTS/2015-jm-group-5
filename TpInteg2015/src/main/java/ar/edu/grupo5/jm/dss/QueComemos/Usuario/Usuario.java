@@ -39,6 +39,11 @@ public class Usuario {
 		disgustosAlimenticios = unosDisgustosAlimenticios;
 		condicionesDeSalud = unasCondicionesDeSalud;
 		rutina = unaRutina;
+		
+		
+		if(!esUsuarioValido()) {
+			throw new UsuarioNoValidoException("El Usuario no es Valido!!!");
+		}
 	}
 
 	public void agregarGrupo(Grupo unGrupo) {
@@ -57,8 +62,7 @@ public class Usuario {
 	// Punto 1
 	// XXX esto podria no ser facil de extender
 	public boolean esUsuarioValido() {
-		return datosPersonales.sonValidos() && complexion.esComplexionValida()
-		// FIXME ser consistentes en el uso de null u optional
+		return datosPersonales!= null && complexion != null
 				&& rutina != null && esUsuarioValidoParaSusCondiciones();
 	}
 

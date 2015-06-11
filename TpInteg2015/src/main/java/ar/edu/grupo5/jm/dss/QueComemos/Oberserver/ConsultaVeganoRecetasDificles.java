@@ -2,7 +2,6 @@ package ar.edu.grupo5.jm.dss.QueComemos.Oberserver;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.stream.Collectors;
 
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
@@ -16,10 +15,6 @@ public class ConsultaVeganoRecetasDificles implements ObservadorConsultas {
 		if (recetasConsultadas.stream().anyMatch(receta -> receta.esDificil())) {
 			unUsuario.notificaA(this);
 		}
-	}
-
-	public Collection<Receta> filtrarRecetasDificiles(Collection<Receta> unasRecetas) {
-		return unasRecetas.stream().filter((unaReceta -> unaReceta.esDificil())).collect(Collectors.toList());
 	}
 
 	public void sumame(Usuario unUsuario) {

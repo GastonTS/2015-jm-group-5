@@ -1,6 +1,7 @@
 package ar.edu.grupo5.jm.dss.QueComemos;
 
 import java.util.Collection;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
@@ -36,8 +37,8 @@ public class RepoUsuarios {
 		add(usuarioNuevo);
 	}
 
-	public Usuario get(Usuario unUsuario) {
-		return list(unUsuario).stream().findFirst().get();
+	public Optional<Usuario> get(Usuario unUsuario) {
+		return usuarios.stream().filter(usuarioPosta -> tienenMismoNombre(unUsuario, usuarioPosta)).findFirst();
 	}
 
 	public Collection<Usuario> list(Usuario unUsuario) {
@@ -45,32 +46,28 @@ public class RepoUsuarios {
 	}
 
 	private Boolean searchByName(Usuario usuarioBuscado, Usuario usuarioPosta) {
-		return tienenMismoNombre(usuarioBuscado, usuarioPosta) ^ tienenMismasCondicionesDeSalud(usuarioBuscado, usuarioPosta);
+		return tienenMismoNombre(usuarioBuscado, usuarioPosta) && tieneTodasLasCondicionesDeSaludDe(usuarioBuscado, usuarioPosta);
 	}
 
 	private Boolean tienenMismoNombre(Usuario usuarioBuscado, Usuario usuarioPosta) {
 		return usuarioPosta.getNombre().equals(usuarioBuscado.getNombre());
 	}
 
-	// pregunto por null para no modificar el tipo de condiciones de salud, al
-	// no poder ser null el containsAll si lo recibe como null => BOOM!
-	private Boolean tienenMismasCondicionesDeSalud(Usuario usuarioBuscado, Usuario usuarioPosta) {
-		if (usuarioBuscado.getCondicionesDeSalud() == null) {
-			return false;
-		}
+	private Boolean tieneTodasLasCondicionesDeSaludDe(Usuario usuarioBuscado, Usuario usuarioPosta) {
 		return usuarioPosta.getCondicionesDeSalud().containsAll(usuarioBuscado.getCondicionesDeSalud());
 	}
 
-	private void solicitaIngreso(Usuario unUsuario) {
+	public void solicitaIngreso(Usuario unUsuario) {
 		solicitudesDeIngreso.add(unUsuario);
 	}
 
-	private void apruebaSolicitud(Usuario unUsuario) {
+	public void apruebaSolicitud(Usuario unUsuario) {
 		add(unUsuario);
 	}
-	
-	private void rechazaSolicitud(Usuario unUsuario) {
+
+	public void rechazaSolicitud(Usuario unUsuario) {
 		solicitudesDeIngreso.remove(unUsuario);
-		//informar rechazo, no esta específicado que carajos informar. Así que no hago nada
+		// informar rechazo, no esta específicado que carajos informar. Así que
+		// no hago nada
 	}
 }
