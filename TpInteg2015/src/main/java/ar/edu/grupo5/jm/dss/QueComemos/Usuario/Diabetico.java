@@ -25,9 +25,4 @@ public class Diabetico extends CondicionDeSalud {
 		return condimentoProhibido;
 	}
 
-	@Override
-	public boolean deboNotificar() {
-		return false;
-	}
-
 }

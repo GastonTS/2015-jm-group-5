@@ -19,8 +19,4 @@ public class Celiaco extends CondicionDeSalud {
 		return true;
 	}
 	
-	@Override
-	public boolean deboNotificar() {
-		return false;
-	}
 }

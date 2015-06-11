@@ -6,7 +6,7 @@ import java.util.Collection;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
-public class PorHoraDelDia implements ObservadorConsultas {
+public class PorHoraDelDia extends ObservadorConsultas {
 	private int[] consultasPorHoraDelDia = new int[24];
 
 	@Override

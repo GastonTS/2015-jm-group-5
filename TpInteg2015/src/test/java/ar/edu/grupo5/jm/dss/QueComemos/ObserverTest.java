@@ -7,7 +7,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.any;
 
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -19,11 +18,12 @@ import org.junit.Test;
 
 import ar.edu.grupo5.jm.dss.QueComemos.Oberserver.ConsultaVeganoRecetasDificles;
 import ar.edu.grupo5.jm.dss.QueComemos.Oberserver.MasConsultada;
+import ar.edu.grupo5.jm.dss.QueComemos.Oberserver.ObservadorConsultas;
 import ar.edu.grupo5.jm.dss.QueComemos.Oberserver.PorHoraDelDia;
 import ar.edu.grupo5.jm.dss.QueComemos.Oberserver.SegunSexo;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Celiaco;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Complexion;
-import ar.edu.grupo5.jm.dss.QueComemos.Usuario.CondicionDeSalud;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.DatosPersonales;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario.Rutina;
@@ -38,6 +38,7 @@ public class ObserverTest {
 	private Usuario usuarioMockFem = mock(Usuario.class);
 	private Usuario vegano;
 	private Usuario otroVegano;
+	private Usuario unNoVegano;
 	
 	private Receta guisoMock = mock(Receta.class);
 	private Receta ensaladaMock = mock(Receta.class);
@@ -50,7 +51,6 @@ public class ObserverTest {
 	private Collection<Receta> recetaExtraEnsalada = new ArrayList<Receta>();
 
 	private Vegano condicionMock = mock(Vegano.class);
-	private Collection<CondicionDeSalud> condicionesDeSalud = Arrays.asList(condicionMock);
 	
 	PorHoraDelDia observerPorHoraDelDia = new PorHoraDelDia();
 	MasConsultada observerRecetaMasConsultada = new MasConsultada();
@@ -66,8 +66,9 @@ public class ObserverTest {
 		recetasDePanchoYEnsalada = Arrays.asList(panchoMock, ensaladaMock);
 		recetaExtraEnsalada = Arrays.asList(ensaladaMock, ensaladaMock);
 		
-		vegano = new Usuario(datosPersonalesMock, complexionMock, new ArrayList<String>(), new ArrayList<String>(), condicionesDeSalud, Rutina.ALTA);
-		otroVegano = new Usuario(datosPersonalesMock, complexionMock, new ArrayList<String>(), new ArrayList<String>(), condicionesDeSalud, Rutina.ALTA);
+		vegano = new Usuario(datosPersonalesMock, complexionMock, new ArrayList<String>(), new ArrayList<String>(), Arrays.asList(new Vegano()), Rutina.ALTA);
+		otroVegano = new Usuario(datosPersonalesMock, complexionMock, new ArrayList<String>(), new ArrayList<String>(), Arrays.asList(new Vegano()), Rutina.ALTA);
+		unNoVegano =  new Usuario(datosPersonalesMock, complexionMock, new ArrayList<String>(), new ArrayList<String>(), Arrays.asList(new Celiaco()), Rutina.ALTA);
 	}
 
 	@Test
@@ -124,17 +125,18 @@ public class ObserverTest {
 	@Test
 	public void cantidadDeVeganosQueConsultanRecetasDificiles() {
 		when(guisoMock.esDificil()).thenReturn(true);
-		when(condicionMock.deboNotificar()).thenReturn(true);
+		when(panchoMock.esDificil()).thenReturn(false);
+		when(ensaladaMock.esDificil()).thenReturn(true);
 
-		observerConsultaVeganoRecetasDificiles.notificar(vegano, recetas);
-		observerConsultaVeganoRecetasDificiles.notificar(otroVegano, recetasDeGuisoYPancho);
-		observerConsultaVeganoRecetasDificiles.notificar(usuarioMock, recetasDePanchoYEnsalada);
-
+		Collection<ObservadorConsultas> observadores = Arrays.asList(observerConsultaVeganoRecetasDificiles);
+		
+		vegano.notificar(observadores, recetas);
+		otroVegano.notificar(observadores, recetasDePanchoYEnsalada);
+		unNoVegano.notificar(observadores, recetasDeGuisoYPancho);
 		assertEquals(observerConsultaVeganoRecetasDificiles.cantidadDeVeganos(), 2);
 
-		verify(guisoMock, times(2)).esDificil();
+		verify(guisoMock, times(1)).esDificil();
 		verify(panchoMock, times(1)).esDificil();
 		verify(ensaladaMock, times(1)).esDificil();
-		verify(condicionMock, times(2)).deboNotificar();
 	}
 }

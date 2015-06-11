@@ -28,13 +28,8 @@ public class Consulta {
 	}
 
 	public Collection<Receta> consultarRecetas(IFiltro unFiltro, Usuario unUsuario) {
-
 		Collection<Receta> recetasConsultadas = unFiltro.filtrarRecetas(consultor.getRecetasAConsultar(unUsuario), unUsuario);
-
-		for (ObservadorConsultas observador : observadores) {
-			observador.notificar(unUsuario, recetasConsultadas);
-		}
-
+		unUsuario.notificar(observadores, recetasConsultadas);
 		return recetasConsultadas;
 	}
 

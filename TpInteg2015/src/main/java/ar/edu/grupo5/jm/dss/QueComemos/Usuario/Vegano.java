@@ -3,6 +3,7 @@ package ar.edu.grupo5.jm.dss.QueComemos.Usuario;
 import java.util.Arrays;
 import java.util.Collection;
 
+import ar.edu.grupo5.jm.dss.QueComemos.Oberserver.ObservadorConsultas;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 
 public class Vegano extends CondicionDeSalud {
@@ -29,8 +30,10 @@ public class Vegano extends CondicionDeSalud {
 	}
 
 	@Override
-	public boolean deboNotificar() {
-		return true;
+	public void informarCondicion(Collection<ObservadorConsultas> observadores, Collection<Receta> recetas, Usuario unUsuario) {
+		for (ObservadorConsultas observador : observadores) {
+			observador.notificarVegano(unUsuario, recetas);
+		}
 	}
 
 }

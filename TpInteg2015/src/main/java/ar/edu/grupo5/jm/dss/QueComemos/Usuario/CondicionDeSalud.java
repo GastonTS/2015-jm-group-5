@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
+import ar.edu.grupo5.jm.dss.QueComemos.Oberserver.ObservadorConsultas;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 
 public abstract class CondicionDeSalud {
@@ -16,9 +17,10 @@ public abstract class CondicionDeSalud {
 
 	public abstract boolean esUsuarioValido(Usuario unUsuario);
 
-	public abstract boolean deboNotificar();
-	
 	static public Collection<CondicionDeSalud> condicionesALasQueEsInadecuada(Receta unaReceta) {
 		return CondicionDeSalud.condicionesExistentes.stream().filter(condicion -> condicion.esInadecuada(unaReceta)).collect(Collectors.toList());
+	}
+
+	public void informarCondicion(Collection<ObservadorConsultas> observadores, Collection<Receta> recetas, Usuario unUsuario) {
 	}
 }
