@@ -15,7 +15,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
-import ar.edu.grupo5.jm.dss.QueComemos.StrategyFilter.GestorDeConsultas;
+import ar.edu.grupo5.jm.dss.QueComemos.StrategyFilter.StGestorDeConsultas;
 import ar.edu.grupo5.jm.dss.QueComemos.StrategyFilter.StCondicionUsuario;
 import ar.edu.grupo5.jm.dss.QueComemos.StrategyFilter.StExcesoCalorias;
 import ar.edu.grupo5.jm.dss.QueComemos.StrategyFilter.StNoLeDisgustaAlUsuario;
@@ -50,9 +50,9 @@ public class StFiltroTest {
 	private StOrdenadosPorCriterio ordenadosAlfabeticamente = new StOrdenadosPorCriterio(((receta1, receta2) -> (receta1.getNombre()).compareTo(receta2
 			.getNombre())));
 
-	private GestorDeConsultas combinacionPostProcesadoConFiltro = new GestorDeConsultas(Arrays.asList(excesoDeCalorias), Arrays.asList(soloPares));
+	private StGestorDeConsultas combinacionPostProcesadoConFiltro = new StGestorDeConsultas(Arrays.asList(excesoDeCalorias), Arrays.asList(soloPares));
 
-	private GestorDeConsultas superPreFiltro = new GestorDeConsultas(Arrays.asList(excesoDeCalorias, segunCondicionesDelusuario, preparacionBarata,
+	private StGestorDeConsultas superPreFiltro = new StGestorDeConsultas(Arrays.asList(excesoDeCalorias, segunCondicionesDelusuario, preparacionBarata,
 			leGustaAlUsuario), null);
 
 	@Before
