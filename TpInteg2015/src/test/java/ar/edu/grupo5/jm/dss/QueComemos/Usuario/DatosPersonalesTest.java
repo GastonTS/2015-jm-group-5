@@ -1,4 +1,4 @@
-package ar.edu.grupo5.jm.dss.QueComemos;
+package ar.edu.grupo5.jm.dss.QueComemos.Usuario;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;

@@ -27,6 +27,7 @@ import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Complexion;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.DatosPersonales;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario.Rutina;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.UsuarioBuilder;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Vegano;
 
 public class ObserverTest {
@@ -66,9 +67,26 @@ public class ObserverTest {
 		recetasDePanchoYEnsalada = Arrays.asList(panchoMock, ensaladaMock);
 		recetaExtraEnsalada = Arrays.asList(ensaladaMock, ensaladaMock);
 		
-		vegano = new Usuario(datosPersonalesMock, complexionMock, new ArrayList<String>(), new ArrayList<String>(), Arrays.asList(new Vegano()), Rutina.ALTA);
-		otroVegano = new Usuario(datosPersonalesMock, complexionMock, new ArrayList<String>(), new ArrayList<String>(), Arrays.asList(new Vegano()), Rutina.ALTA);
-		unNoVegano =  new Usuario(datosPersonalesMock, complexionMock, new ArrayList<String>(), new ArrayList<String>(), Arrays.asList(new Celiaco()), Rutina.ALTA);
+		vegano = new UsuarioBuilder()
+				.setDatosPersonales(datosPersonalesMock)
+				.setComplexion(complexionMock)
+				.agregarCondicionesDeSalud(new Vegano())
+				.setRutina(Rutina.ALTA)
+				.construirUsuario();
+				
+		otroVegano = new UsuarioBuilder()
+				.setDatosPersonales(datosPersonalesMock)
+				.setComplexion(complexionMock)
+				.agregarCondicionesDeSalud(new Vegano())
+				.setRutina(Rutina.ALTA)
+				.construirUsuario();
+				
+		unNoVegano = new UsuarioBuilder()
+				.setDatosPersonales(datosPersonalesMock)
+				.setComplexion(complexionMock)
+				.agregarCondicionesDeSalud(new Celiaco())
+				.setRutina(Rutina.ALTA)
+				.construirUsuario();
 	}
 
 	@Test

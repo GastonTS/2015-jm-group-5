@@ -1,4 +1,4 @@
-package ar.edu.grupo5.jm.dss.QueComemos;
+package ar.edu.grupo5.jm.dss.QueComemos.Usuario;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -9,7 +9,7 @@ import org.junit.Test;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Complexion;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.ComplexionNoValidoException;
 
-public class CompexionTest {
+public class ComplexionTest {
 	private Complexion complexionGaston;
 	private Complexion complexionGustavo;
 	private Complexion complexionJuanchi;
