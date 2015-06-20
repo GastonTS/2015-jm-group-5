@@ -39,11 +39,6 @@ public class Usuario {
 		disgustosAlimenticios = unosDisgustosAlimenticios;
 		condicionesDeSalud = unasCondicionesDeSalud;
 		rutina = unaRutina;
-		
-		
-		if(!esUsuarioValido()) {
-			throw new UsuarioNoValidoException("El Usuario no es Valido!!!");
-		}
 	}
 
 	public void agregarGrupo(Grupo unGrupo) {
@@ -57,17 +52,6 @@ public class Usuario {
 
 	public boolean indicaSexo() {
 		return datosPersonales.indicaSexo();
-	}
-
-	// Punto 1
-	// XXX esto podria no ser facil de extender
-	public boolean esUsuarioValido() {
-		return datosPersonales!= null && complexion != null
-				&& rutina != null && esUsuarioValidoParaSusCondiciones();
-	}
-
-	public boolean esUsuarioValidoParaSusCondiciones() {
-		return condicionesDeSalud.stream().allMatch(condicion -> condicion.esUsuarioValido(this));
 	}
 
 	public boolean tieneAlgunaPreferencia() {

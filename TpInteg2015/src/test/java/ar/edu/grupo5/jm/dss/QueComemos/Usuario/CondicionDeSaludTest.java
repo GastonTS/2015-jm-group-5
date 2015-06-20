@@ -1,4 +1,4 @@
-package ar.edu.grupo5.jm.dss.QueComemos;
+package ar.edu.grupo5.jm.dss.QueComemos.Usuario;
 
 import org.junit.Before;
 import org.junit.Test;

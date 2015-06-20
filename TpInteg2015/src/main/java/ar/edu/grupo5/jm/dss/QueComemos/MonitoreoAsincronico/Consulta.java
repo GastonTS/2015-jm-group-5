@@ -13,11 +13,21 @@ public class Consulta {
 	public Collection<Receta> recetasConsultadas;
 
 	public Consulta(IFiltro unFiltro, Usuario unUsuario, Collection<Receta> unasRecetasConsultadas) {
-
 		filtro = unFiltro;
 		usuario = unUsuario;
 		recetasConsultadas = unasRecetasConsultadas;
-
 	}
-
+	
+	public boolean tieneMasDe100(){
+		return cantidadConsultas()> 100;
+	}
+	
+	public String getNombre(){
+		return usuario.getNombre();
+	}
+	
+	public int cantidadConsultas(){
+		return recetasConsultadas.size();
+	}
+	
 }
