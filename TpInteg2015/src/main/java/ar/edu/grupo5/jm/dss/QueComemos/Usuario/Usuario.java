@@ -128,7 +128,7 @@ public class Usuario {
 		return datosPersonales.getSexo().equals(sexo);
 	}
 
-	public void notificar(Collection<ObservadorConsultas> observadores,Collection<Receta> recetasConsultadas) {
+	public void notificar(Collection<ObservadorConsultas> observadores, Collection<Receta> recetasConsultadas) {
 		for (ObservadorConsultas observador : observadores) {
 			observador.notificar(this, recetasConsultadas);
 		}

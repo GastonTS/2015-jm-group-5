@@ -16,7 +16,6 @@ import org.junit.Test;
 
 import ar.edu.grupo5.jm.dss.QueComemos.MonitoreoAsincronico.*;
 
-
 public class MonitoreoConsultasTest {
 
 	private Consulta consultaMock = mock(Consulta.class);
@@ -25,22 +24,20 @@ public class MonitoreoConsultasTest {
 	private Receta receta2Mock = mock(Receta.class);
 	private Receta receta3Mock = mock(Receta.class);
 	private Usuario juanchi = mock(Usuario.class);
-	
-	
-	
+
 	LogearConsultasMasDe100 monitorMayor100 = new LogearConsultasMasDe100();
 	AgregarRecetasAFavoritas monitorRecetasFavoritas = new AgregarRecetasAFavoritas();
-	
+
 	@Before
 	public void setUp() {
 		recetasMock.add(receta1Mock);
 		recetasMock.add(receta2Mock);
 		recetasMock.add(receta3Mock);
 	}
-	
+
 	@Test
 	public void leanConsultomuchasRecetas() {
-	
+
 		when(consultaMock.getNombre()).thenReturn("leandro");
 		when(consultaMock.cantidadConsultas()).thenReturn(125);
 		when(consultaMock.tieneMasDe100()).thenReturn(true);
@@ -51,10 +48,10 @@ public class MonitoreoConsultasTest {
 		verify(consultaMock, times(1)).cantidadConsultas();
 		verify(consultaMock, times(1)).tieneMasDe100();
 	}
-	
+
 	@Test
 	public void juanchiAgrega3AfavoritasQueHabiaConsultado() {
-	
+
 		when(consultaMock.getRecetasConsultadas()).thenReturn(recetasMock);
 		when(consultaMock.getUsuario()).thenReturn(juanchi);
 
@@ -64,6 +61,5 @@ public class MonitoreoConsultasTest {
 		verify(juanchi, times(1)).agregarAFavorita(receta2Mock);
 		verify(juanchi, times(1)).agregarAFavorita(receta3Mock);
 
-		
 	}
 }

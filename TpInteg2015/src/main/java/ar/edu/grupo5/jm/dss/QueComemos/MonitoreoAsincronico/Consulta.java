@@ -17,7 +17,7 @@ public class Consulta {
 		usuario = unUsuario;
 		recetasConsultadas = unasRecetasConsultadas;
 	}
-	
+
 	public Usuario getUsuario() {
 		return usuario;
 	}
@@ -26,15 +26,15 @@ public class Consulta {
 		return recetasConsultadas;
 	}
 
-	public boolean tieneMasDe100(){
-		return cantidadConsultas()> 100;
+	public boolean tieneMasDe100() {
+		return cantidadConsultas() > 100;
 	}
-	
-	public String getNombre(){
+
+	public String getNombre() {
 		return usuario.getNombre();
 	}
-	
-	public int cantidadConsultas(){
+
+	public int cantidadConsultas() {
 		return recetasConsultadas.size();
 	}
 

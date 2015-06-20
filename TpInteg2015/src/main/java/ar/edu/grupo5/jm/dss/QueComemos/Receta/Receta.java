@@ -18,14 +18,11 @@ public class Receta {
 	private Dificultad dificultad;
 
 	public enum Dificultad {
-		BAJA, 
-		MEDIA, 
-		ALTA, 
-		OTRA
+		BAJA, MEDIA, ALTA, OTRA
 	}
 
-	public Receta(String nombreReceta, Collection<String> unosIngredientes, Collection<Condimentacion> unasCondimentaciones, Collection<Receta> unasSubRecetas,
-			double unasCantCalorias, Dificultad unaDificultad) {
+	public Receta(String nombreReceta, Collection<String> unosIngredientes, Collection<Condimentacion> unasCondimentaciones,
+			Collection<Receta> unasSubRecetas, double unasCantCalorias, Dificultad unaDificultad) {
 
 		nombre = nombreReceta;
 		ingredientes = unosIngredientes;
@@ -56,11 +53,13 @@ public class Receta {
 	}
 
 	public boolean tenesAlgoDe(Collection<String> condimentosProhibidos) {
-		return getCondimentacionesTotales().stream().anyMatch(condimentacion -> condimentacion.tieneCondimentoUnoDe(condimentosProhibidos));
+		return getCondimentacionesTotales().stream().anyMatch(
+				condimentacion -> condimentacion.tieneCondimentoUnoDe(condimentosProhibidos));
 	}
 
 	public boolean tenesMasDe(Condimentacion unaCondimentacion) {
-		return getCondimentacionesTotales().stream().anyMatch(condimentacion -> condimentacion.mayorCantidadDeMismoCondimentoQue(unaCondimentacion));
+		return getCondimentacionesTotales().stream().anyMatch(
+				condimentacion -> condimentacion.mayorCantidadDeMismoCondimentoQue(unaCondimentacion));
 	}
 
 	public boolean tieneAlgunIngredienteDeEstos(Collection<String> ingredientesProhibidas) {
@@ -102,4 +101,4 @@ public class Receta {
 	public Dificultad getDificultad() {
 		return dificultad;
 	}
-}	
+}
