@@ -55,18 +55,6 @@ public class Receta {
 		return !dueño.isPresent();
 	}
 
-	public boolean esValida() {
-		return tieneAlMenosUnIngrediente() && totalCaloriasEntre(10, 5000);
-	}
-
-	private boolean tieneAlMenosUnIngrediente() {
-		return !getIngredientesTotales().isEmpty();
-	}
-
-	private boolean totalCaloriasEntre(int minimo, int maximo) {
-		return getCantCaloriasTotales() >= minimo && getCantCaloriasTotales() <= maximo;
-	}
-
 	public boolean tenesAlgoDe(Collection<String> condimentosProhibidos) {
 		return getCondimentacionesTotales().stream().anyMatch(condimentacion -> condimentacion.tieneCondimentoUnoDe(condimentosProhibidos));
 	}

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta.Dificultad;
-import ar.edu.grupo5.jm.dss.QueComemos.Usuario.UsuarioNoValidoException;
 
 public class RecetaBuilder {
 
@@ -51,16 +50,24 @@ public class RecetaBuilder {
 	}
 
 	public Receta construirReceta() {
-		if(!esValidaReceta()) {
-			throw new UsuarioNoValidoException("La Receta No es Válida!!!");
+		if(!esRecetaValida()) {
+			throw new RecetaNoValidaException("La Receta No es Válida!!!");
 		}
 		
 		return new Receta(nombre, ingredientes, condimentaciones, subRecetas, cantCalorias, dificultad);
 	}
 
-	private boolean esValidaReceta() {
-		// TODO Auto-generated method stub
-		return true;
+	private boolean esRecetaValida() {
+		return tieneAlMenosUnIngrediente() && 
+				caloriasEntre(10, 5000);
+	}
+	
+	private boolean tieneAlMenosUnIngrediente() {
+		return !ingredientes.isEmpty();
 	}
 
+	private boolean caloriasEntre(int minimo, int maximo) {
+		return cantCalorias >= minimo && cantCalorias <= maximo;
+	}
+	
 }

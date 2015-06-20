@@ -16,7 +16,6 @@ import org.junit.Test;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.NoPuedeAccederARecetaException;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.NoPuedeEliminarRecetaExeption;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
-import ar.edu.grupo5.jm.dss.QueComemos.Receta.RecetaNoValidaException;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
 public class RecetarioTest {
@@ -58,32 +57,20 @@ public class RecetarioTest {
 
 	@Test
 	public void gastonCreaRecetaExitosa() {
-		when(recetaMock.esValida()).thenReturn(true);
-
 		Recetario.instancia.crearReceta(recetaMock, gustavo);
-
 		assertTrue(Recetario.instancia.getRecetasTotales().contains(recetaMock));
-
-		verify(recetaMock, times(1)).esValida();
 		verify(recetaMock, times(1)).setDueño(gustavo);
-	}
-
-	@Test(expected = RecetaNoValidaException.class)
-	public void usuarioCreaRecetaFallida() {
-		Recetario.instancia.crearReceta(recetaMock, gaston);
 	}
 
 	@Test
 	public void gastonCreaRecetaConSubrecetas() {
 		when(gaston.puedeAccederA(panchoMock)).thenReturn(true);
 		when(gaston.puedeAccederA(ensaladaMock)).thenReturn(true);
-		when(recetaMock.esValida()).thenReturn(true);
 
 		Recetario.instancia.crearRecetaConSubRecetas(recetaMock, Arrays.asList(panchoMock, ensaladaMock), gaston);
 
 		verify(gaston, times(1)).puedeAccederA(panchoMock);
 		verify(gaston, times(1)).puedeAccederA(ensaladaMock);
-		verify(recetaMock, times(1)).esValida();
 		verify(recetaMock, times(1)).agregarSubRecetas(Arrays.asList(panchoMock, ensaladaMock));
 	}
 
@@ -112,18 +99,16 @@ public class RecetarioTest {
 	public void noPuedeEliminarUnaRecetaQueNoCreo() {
 		Recetario.instancia.eliminarReceta(panchoMock, gaston);
 	}
-
+ 
 	@Test
 	public void juanchiModificaReceta() {
 		when(juanchi.puedeAccederA(ensaladaMock)).thenReturn(true);
 		when(ensaladaMock.esElDueño(juanchi)).thenReturn(false);
-		when(nuevaEnsaladaMock.esValida()).thenReturn(true);
 
 		Recetario.instancia.modificarReceta(ensaladaMock, nuevaEnsaladaMock, juanchi);
 
 		verify(juanchi, times(1)).puedeAccederA(ensaladaMock);
 		verify(ensaladaMock, times(1)).esElDueño(juanchi);
-		verify(nuevaEnsaladaMock, times(1)).esValida();
 		verify(nuevaEnsaladaMock, times(1)).setDueño(juanchi);
 	}
 

@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.NoPuedeAccederARecetaException;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.NoPuedeEliminarRecetaExeption;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
-import ar.edu.grupo5.jm.dss.QueComemos.Receta.RecetaNoValidaException;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
 public class Recetario implements ConsultorRecetas{
@@ -32,10 +31,6 @@ public class Recetario implements ConsultorRecetas{
 	}
 
 	public void crearReceta(Receta unaReceta, Usuario unUsuario) {
-		if (!unaReceta.esValida()) {
-			throw new RecetaNoValidaException("No se Puede agregar una receta no válida!!!");
-		}
-
 		unaReceta.setDueño(unUsuario);
 		recetasTotales.add(unaReceta);
 	}

@@ -14,11 +14,10 @@ import ar.edu.grupo5.jm.dss.QueComemos.Receta.RecetaBuilder;
 
 public class RecetaTest {
 
-	private Receta recetaSinIngredientes;
-	private Receta recetaConMuchasCalorias;
 	private Receta polloConPureOEnsalada;
 	private Receta pure;
 	private Receta ensalada;
+	private Receta recetaDificil;
 
 	private Condimentacion sal = new Condimentacion("sal fina", 100);
 	private Condimentacion pimienta = new Condimentacion("pimienta molida", 50);
@@ -28,20 +27,13 @@ public class RecetaTest {
 
 	@Before
 	public void setUp() {
-
-		recetaConMuchasCalorias = new RecetaBuilder()
-				.setNombre("Muy calorica")
-				.agregarIngrediente("Algo super calorico")
-				.setCantCalorias(99999)
-				.setDificultad(Dificultad.ALTA)
-				.construirReceta();
-				
-		recetaSinIngredientes = new RecetaBuilder()
-				.setNombre("Sin Ingredientes")
-				.setCantCalorias(1000)
-				.setDificultad(Dificultad.BAJA)
-				.construirReceta();
 		
+		recetaDificil = new RecetaBuilder()
+			.setCantCalorias(20)
+			.agregarIngrediente("Ingrediente dificil")
+			.setDificultad(Dificultad.ALTA)
+			.construirReceta();
+			
 		pure = new RecetaBuilder()
 				.setNombre("Pure")
 				.agregarIngrediente("papas 2kg")
@@ -75,19 +67,8 @@ public class RecetaTest {
 		
 	}
 
-	@Test
-	public void recetaValida() {
-		assertTrue(pure.esValida());
-		assertTrue(ensalada.esValida());
-		assertTrue(polloConPureOEnsalada.esValida());
-	}
-
-	@Test
-	public void recetasNoValida() {
-		assertFalse(recetaSinIngredientes.esValida());
-		assertFalse(recetaConMuchasCalorias.esValida());
-	}
-
+	//XXX Faltan más tests de Receta
+	
 	@Test
 	public void agregarSubrecetas() {
 		polloConPureOEnsalada.agregarSubRecetas(Arrays.asList(pure, ensalada));
@@ -98,11 +79,8 @@ public class RecetaTest {
 
 	@Test
 	public void esDificilUnaReceta() {
-
-		assertTrue(recetaConMuchasCalorias.esDificil());
+		assertTrue(recetaDificil.esDificil());
 		assertFalse(pure.esDificil());
-		assertFalse(recetaSinIngredientes.esDificil());
-
 	}
 
 }
