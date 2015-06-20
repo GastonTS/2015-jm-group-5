@@ -1,4 +1,4 @@
-package ar.edu.grupo5.jm.dss.QueComemos;
+package ar.edu.grupo5.jm.dss.QueComemos.RecetaTest;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
@@ -13,6 +13,7 @@ import java.util.Collection;
 import org.junit.Before;
 import org.junit.Test;
 
+import ar.edu.grupo5.jm.dss.QueComemos.Recetario;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.NoPuedeAccederARecetaException;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.NoPuedeEliminarRecetaExeption;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;

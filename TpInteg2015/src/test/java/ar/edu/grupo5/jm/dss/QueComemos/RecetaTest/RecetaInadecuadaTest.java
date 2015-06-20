@@ -1,4 +1,4 @@
-package ar.edu.grupo5.jm.dss.QueComemos;
+package ar.edu.grupo5.jm.dss.QueComemos.RecetaTest;
 
 import java.util.Collection;
 

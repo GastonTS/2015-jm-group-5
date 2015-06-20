@@ -1,4 +1,4 @@
-package ar.edu.grupo5.jm.dss.QueComemos;
+package ar.edu.grupo5.jm.dss.QueComemos.Usuario;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
@@ -16,6 +16,7 @@ import java.util.Optional;
 import org.junit.Before;
 import org.junit.Test;
 
+import ar.edu.grupo5.jm.dss.QueComemos.RepoUsuarios;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.CondicionDeSalud;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.UsuarioIngresadoNoExisteException;

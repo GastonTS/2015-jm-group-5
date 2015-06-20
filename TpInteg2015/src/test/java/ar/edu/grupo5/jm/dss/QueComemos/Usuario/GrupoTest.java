@@ -1,4 +1,4 @@
-package ar.edu.grupo5.jm.dss.QueComemos;
+package ar.edu.grupo5.jm.dss.QueComemos.Usuario;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -13,6 +13,7 @@ import java.util.Collection;
 import org.junit.Before;
 import org.junit.Test;
 
+import ar.edu.grupo5.jm.dss.QueComemos.Grupo;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
