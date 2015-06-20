@@ -7,9 +7,17 @@ import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
 public class Consulta {
-	
-	public IFiltro unFiltro;
+
+	public IFiltro filtro;
 	public Usuario usuario;
 	public Collection<Receta> recetasConsultadas;
+
+	public Consulta(IFiltro unFiltro, Usuario unUsuario, Collection<Receta> unasRecetasConsultadas) {
+
+		filtro = unFiltro;
+		usuario = unUsuario;
+		recetasConsultadas = unasRecetasConsultadas;
+
+	}
 
 }

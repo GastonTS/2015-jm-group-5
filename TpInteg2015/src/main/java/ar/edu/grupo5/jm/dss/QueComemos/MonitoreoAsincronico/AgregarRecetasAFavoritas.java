@@ -5,6 +5,6 @@ public class AgregarRecetasAFavoritas implements ProcesoAsincronico {
 	@Override
 	public void procesarConsulta(Consulta unaConsulta) {
 		// TODO Implementar
-		
+
 	}
 }
