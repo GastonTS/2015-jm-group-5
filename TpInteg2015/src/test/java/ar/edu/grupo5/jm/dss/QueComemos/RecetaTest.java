@@ -2,7 +2,6 @@ package ar.edu.grupo5.jm.dss.QueComemos;
 
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.junit.Before;
@@ -11,6 +10,7 @@ import org.junit.Test;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Condimentacion;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta.Dificultad;
+import ar.edu.grupo5.jm.dss.QueComemos.Receta.RecetaBuilder;
 
 public class RecetaTest {
 
@@ -29,17 +29,50 @@ public class RecetaTest {
 	@Before
 	public void setUp() {
 
-		recetaConMuchasCalorias = new Receta("Muy calorica", Arrays.asList("Algo super calorico"), new ArrayList<Condimentacion>(), new ArrayList<Receta>(),
-				99999, Dificultad.ALTA);
-		recetaSinIngredientes = new Receta("Sin Ingredientes", new ArrayList<String>(), new ArrayList<Condimentacion>(), new ArrayList<Receta>(), 1000,
-				Dificultad.BAJA);
-		pure = new Receta("Pure", Arrays.asList("papas 2kg", "manteca 200gr"), Arrays.asList(sal, pimienta, nuezMoscada), new ArrayList<Receta>(), 400,
-				Dificultad.MEDIA);
-		ensalada = new Receta("Ensalada", Arrays.asList("Lechuga 2kg", "Cebolla 1.5kg", "Tomate 200gr"), Arrays.asList(sal, aceite), new ArrayList<Receta>(),
-				40, Dificultad.BAJA);
-		polloConPureOEnsalada = new Receta("Pollo Con Pure o Ensalada", Arrays.asList("pollo mediano"), Arrays.asList(sal, condimentoParaPollo),
-				new ArrayList<Receta>(), 3000, Dificultad.ALTA);
-
+		recetaConMuchasCalorias = new RecetaBuilder()
+				.setNombre("Muy calorica")
+				.agregarIngrediente("Algo super calorico")
+				.setCantCalorias(99999)
+				.setDificultad(Dificultad.ALTA)
+				.construirReceta();
+				
+		recetaSinIngredientes = new RecetaBuilder()
+				.setNombre("Sin Ingredientes")
+				.setCantCalorias(1000)
+				.setDificultad(Dificultad.BAJA)
+				.construirReceta();
+		
+		pure = new RecetaBuilder()
+				.setNombre("Pure")
+				.agregarIngrediente("papas 2kg")
+				.agregarIngrediente("manteca 200gr")
+				.agregarCondimentaciones(sal)
+				.agregarCondimentaciones(pimienta)
+				.agregarCondimentaciones(nuezMoscada)
+				.setCantCalorias(400)
+				.setDificultad(Dificultad.MEDIA)
+				.construirReceta();
+		
+		ensalada = new RecetaBuilder()
+				.setNombre("Ensalada")
+				.agregarIngrediente("Lechuga 2kg")
+				.agregarIngrediente("Cebolla 1.5kg")
+				.agregarIngrediente("Tomate 200gr")
+				.agregarCondimentaciones(sal)
+				.agregarCondimentaciones(aceite)
+				.setCantCalorias(40)
+				.setDificultad(Dificultad.BAJA)
+				.construirReceta();
+		
+		polloConPureOEnsalada = new RecetaBuilder()
+				.setNombre("Pollo Con Pure o Ensalada")
+				.agregarIngrediente("pollo mediano")
+				.agregarCondimentaciones(sal)
+				.agregarCondimentaciones(condimentoParaPollo)
+				.setCantCalorias(3000)
+				.setDificultad(Dificultad.ALTA)
+				.construirReceta();
+		
 	}
 
 	@Test

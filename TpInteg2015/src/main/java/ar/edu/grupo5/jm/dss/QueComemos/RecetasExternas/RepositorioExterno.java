@@ -8,9 +8,9 @@ import com.eclipsesource.json.JsonObject;
 import com.eclipsesource.json.JsonValue;
 
 import ar.edu.grupo5.jm.dss.QueComemos.ConsultorRecetas;
-import ar.edu.grupo5.jm.dss.QueComemos.Receta.Condimentacion;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta.Dificultad;
+import ar.edu.grupo5.jm.dss.QueComemos.Receta.RecetaBuilder;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 import queComemos.entrega3.repositorio.RepoRecetas;
 import queComemos.entrega3.repositorio.BusquedaRecetas;
@@ -41,12 +41,13 @@ public class RepositorioExterno implements ConsultorRecetas{
 	}
 
 	public Receta jsonObjectToReceta(JsonObject recetaObject) {
-		String nombre = recetaObject.get("nombre").asString();
 		JsonArray ingredientesArray = recetaObject.get("ingredientes").asArray();
-		Collection<String> ingredientes = jsonArrayToStringCollection(ingredientesArray);
-		double cantCalorias = recetaObject.get("totalCalorias").asDouble();
-		Dificultad dificultad = stringToDificultad(recetaObject.get("dificultadReceta").asString());
-		return new Receta(nombre, ingredientes, new ArrayList<Condimentacion>(), new ArrayList<Receta>(), cantCalorias, dificultad);
+		
+		return 	new RecetaBuilder().setNombre(recetaObject.get("nombre").asString())
+				.agregarTodosLosIngredientes(jsonArrayToStringCollection(ingredientesArray))
+				.setCantCalorias(recetaObject.get("totalCalorias").asDouble())
+				.setDificultad(stringToDificultad(recetaObject.get("dificultadReceta").asString()))
+				.construirReceta();
 	}
 
 	public Dificultad stringToDificultad(String dificultadString) {
