@@ -7,11 +7,11 @@ import java.util.stream.Collectors;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
-public class GestorDeConsultas {
+public class StGestorDeConsultas {
 	private List<StFiltro> filtros;
 	private List<StPostProcesamiento> postProcesamientos;
 
-	public GestorDeConsultas(List<StFiltro> unosFiltros, List<StPostProcesamiento> unosPostProcesamientos) {
+	public StGestorDeConsultas(List<StFiltro> unosFiltros, List<StPostProcesamiento> unosPostProcesamientos) {
 		filtros = unosFiltros;
 		postProcesamientos = unosPostProcesamientos;
 	}

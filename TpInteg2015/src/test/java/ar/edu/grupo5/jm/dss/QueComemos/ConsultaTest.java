@@ -17,13 +17,13 @@ import ar.edu.grupo5.jm.dss.QueComemos.Oberserver.MasConsultada;
 import ar.edu.grupo5.jm.dss.QueComemos.Oberserver.ObservadorConsultas;
 import ar.edu.grupo5.jm.dss.QueComemos.Oberserver.PorHoraDelDia;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
-import ar.edu.grupo5.jm.dss.QueComemos.StrategyFilter.GestorDeConsultas;
+import ar.edu.grupo5.jm.dss.QueComemos.StrategyFilter.StGestorDeConsultas;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
 public class ConsultaTest {
 
 	ConsultorRecetas consultorMock = mock(ConsultorRecetas.class);
-	Consulta consulta = new Consulta(consultorMock);
+	GestorDeConsultas consulta = new GestorDeConsultas(consultorMock);
 	
 	private Usuario gaston = mock(Usuario.class);
 	
@@ -35,7 +35,7 @@ public class ConsultaTest {
 	private Receta ensaladaMock = mock(Receta.class);
 	
 	private IFiltro filtroMock = mock(IFiltro.class);
-	private GestorDeConsultas filtroStMock = mock(GestorDeConsultas.class);
+	private StGestorDeConsultas filtroStMock = mock(StGestorDeConsultas.class);
 	
 	@Before
 	public void setUp() {
