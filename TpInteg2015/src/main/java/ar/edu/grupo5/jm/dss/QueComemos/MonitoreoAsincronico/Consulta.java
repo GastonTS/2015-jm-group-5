@@ -26,6 +26,9 @@ public class Consulta {
 		return recetasConsultadas;
 	}
 
+	public IFiltro getFiltro(){
+		return filtro;
+	}
 	public boolean tieneMasDe100() {
 		return cantidadConsultas() > 100;
 	}
