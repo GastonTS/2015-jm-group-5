@@ -18,6 +18,14 @@ public class Consulta {
 		recetasConsultadas = unasRecetasConsultadas;
 	}
 	
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public Collection<Receta> getRecetasConsultadas() {
+		return recetasConsultadas;
+	}
+
 	public boolean tieneMasDe100(){
 		return cantidadConsultas()> 100;
 	}
@@ -29,5 +37,5 @@ public class Consulta {
 	public int cantidadConsultas(){
 		return recetasConsultadas.size();
 	}
-	
+
 }
