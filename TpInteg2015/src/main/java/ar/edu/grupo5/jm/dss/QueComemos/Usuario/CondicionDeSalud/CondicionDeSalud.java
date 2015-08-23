@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-import ar.edu.grupo5.jm.dss.QueComemos.Oberserver.ObservadorConsultas;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
@@ -22,6 +21,7 @@ public abstract class CondicionDeSalud {
 		return CondicionDeSalud.condicionesExistentes.stream().filter(condicion -> condicion.esInadecuada(unaReceta)).collect(Collectors.toList());
 	}
 
-	public void informarCondicion(Collection<ObservadorConsultas> observadores, Collection<Receta> recetas, Usuario unUsuario) {
+	public boolean esCondicionVegana() {
+		return false;
 	}
 }

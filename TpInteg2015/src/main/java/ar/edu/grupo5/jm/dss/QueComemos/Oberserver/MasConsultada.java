@@ -8,7 +8,7 @@ import java.util.Optional;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
-public class MasConsultada extends ObservadorConsultas {
+public class MasConsultada implements ObservadorConsultas {
 	Collection<Receta> recetasConsultadas = new ArrayList<Receta>();
 
 	@Override
