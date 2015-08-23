@@ -30,10 +30,16 @@ public class GestorDeConsultas {
 
 	public Collection<Receta> consultarRecetas(IFiltro unFiltro, Usuario unUsuario) {
 		Collection<Receta> recetasConsultadas = unFiltro.filtrarRecetas(consultor.getRecetasAConsultar(unUsuario), unUsuario);
-		unUsuario.notificar(observadores, recetasConsultadas);
+		this.notificarObservadores(observadores, unUsuario, recetasConsultadas);
 		Consulta consulta = new Consulta(unFiltro, unUsuario, recetasConsultadas);
 		BufferDeConsultas.instancia.agregarConsulta(consulta);
 		return recetasConsultadas;
+	}
+	
+	public void notificarObservadores(Collection<ObservadorConsultas> observadores, Usuario unUsuario, Collection<Receta> recetasConsultadas) {
+		for (ObservadorConsultas observador : observadores) {
+			observador.notificar(unUsuario, recetasConsultadas);
+		}
 	}
 
 	public Collection<Receta> consultarRecetasSt(StGestorDeConsultas unFiltrado, Usuario unUsuario) {

@@ -14,7 +14,6 @@ import org.junit.Test;
 
 import ar.edu.grupo5.jm.dss.QueComemos.DecoratorFilter.IFiltro;
 import ar.edu.grupo5.jm.dss.QueComemos.Oberserver.MasConsultada;
-import ar.edu.grupo5.jm.dss.QueComemos.Oberserver.ObservadorConsultas;
 import ar.edu.grupo5.jm.dss.QueComemos.Oberserver.PorHoraDelDia;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.StrategyFilter.StGestorDeConsultas;
@@ -45,7 +44,6 @@ public class ConsultaTest {
 
 	@Test
 	public void consultaRecetasDecorador() {
-		Collection<ObservadorConsultas> observadores = Arrays.asList(masConsultadaMock,porHoraDelDiaMock);
 		Collection<Receta> recetasAConsultar = Arrays.asList(panchoMock, recetaMock, ensaladaMock);
 		Collection<Receta> resultadoConsulta = Arrays.asList(panchoMock, recetaMock);
 		when(consultorMock.getRecetasAConsultar(gaston)).thenReturn(recetasAConsultar);
@@ -55,7 +53,8 @@ public class ConsultaTest {
 
 		verify(consultorMock, times(1)).getRecetasAConsultar(gaston);
 		verify(filtroMock, times(1)).filtrarRecetas(recetasAConsultar, gaston);
-		verify(gaston, times(1)).notificar(observadores, resultadoConsulta);
+		verify(masConsultadaMock, times(1)).notificar(gaston, resultadoConsulta);
+		verify(porHoraDelDiaMock, times(1)).notificar(gaston, resultadoConsulta);
 	}
 
 
