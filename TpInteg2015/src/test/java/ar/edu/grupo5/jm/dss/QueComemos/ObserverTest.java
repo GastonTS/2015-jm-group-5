@@ -22,13 +22,13 @@ import ar.edu.grupo5.jm.dss.QueComemos.Oberserver.ObservadorConsultas;
 import ar.edu.grupo5.jm.dss.QueComemos.Oberserver.PorHoraDelDia;
 import ar.edu.grupo5.jm.dss.QueComemos.Oberserver.SegunSexo;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
-import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Celiaco;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Complexion;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.DatosPersonales;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.CondicionDeSalud.Celiaco;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.CondicionDeSalud.Vegano;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario.Rutina;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.UsuarioBuilder;
-import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Vegano;
 
 public class ObserverTest {
 	

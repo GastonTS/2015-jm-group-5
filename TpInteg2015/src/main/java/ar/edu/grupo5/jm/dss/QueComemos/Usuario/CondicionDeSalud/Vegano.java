@@ -1,10 +1,11 @@
-package ar.edu.grupo5.jm.dss.QueComemos.Usuario;
+package ar.edu.grupo5.jm.dss.QueComemos.Usuario.CondicionDeSalud;
 
 import java.util.Arrays;
 import java.util.Collection;
 
 import ar.edu.grupo5.jm.dss.QueComemos.Oberserver.ObservadorConsultas;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
 public class Vegano extends CondicionDeSalud {
 

@@ -1,4 +1,4 @@
-package ar.edu.grupo5.jm.dss.QueComemos.Usuario;
+package ar.edu.grupo5.jm.dss.QueComemos.Usuario.CondicionDeSalud;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import ar.edu.grupo5.jm.dss.QueComemos.Oberserver.ObservadorConsultas;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
 public abstract class CondicionDeSalud {
 

@@ -5,11 +5,11 @@ import java.util.Collection;
 import org.junit.Test;
 
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
-import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Celiaco;
-import ar.edu.grupo5.jm.dss.QueComemos.Usuario.CondicionDeSalud;
-import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Diabetico;
-import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Hipertenso;
-import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Vegano;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.CondicionDeSalud.Celiaco;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.CondicionDeSalud.CondicionDeSalud;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.CondicionDeSalud.Diabetico;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.CondicionDeSalud.Hipertenso;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.CondicionDeSalud.Vegano;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;

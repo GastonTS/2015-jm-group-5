@@ -3,6 +3,7 @@ package ar.edu.grupo5.jm.dss.QueComemos.Usuario;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.CondicionDeSalud.CondicionDeSalud;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario.Rutina;
 
 public class UsuarioBuilder {

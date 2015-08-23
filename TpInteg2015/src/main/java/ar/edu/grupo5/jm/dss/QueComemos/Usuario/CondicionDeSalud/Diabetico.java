@@ -1,7 +1,8 @@
-package ar.edu.grupo5.jm.dss.QueComemos.Usuario;
+package ar.edu.grupo5.jm.dss.QueComemos.Usuario.CondicionDeSalud;
 
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Condimentacion;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
 public class Diabetico extends CondicionDeSalud {
 	public static Condimentacion condimentoProhibido = new Condimentacion("Azucar", 100);
