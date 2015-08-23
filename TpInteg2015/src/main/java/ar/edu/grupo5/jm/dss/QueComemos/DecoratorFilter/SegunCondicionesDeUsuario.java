@@ -1,17 +1,16 @@
 package ar.edu.grupo5.jm.dss.QueComemos.DecoratorFilter;
 
-import java.util.function.Predicate;
-
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
 public class SegunCondicionesDeUsuario extends PreProcesamiento {
 
-	public SegunCondicionesDeUsuario(IFiltro unFiltro) {
+	public SegunCondicionesDeUsuario(Filtro unFiltro) {
 		super(unFiltro);
 	}
 
 	@Override
-	protected Predicate<Receta> setCriterio() {
-		return (unaReceta -> !usuario.sosRecetaInadecuadaParaMi(unaReceta));
+	protected boolean cumpleCriterio(Receta unaReceta, Usuario unUsuario) {
+		return !unUsuario.sosRecetaInadecuadaParaMi(unaReceta);
 	}
 }

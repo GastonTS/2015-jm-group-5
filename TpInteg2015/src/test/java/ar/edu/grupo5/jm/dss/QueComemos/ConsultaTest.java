@@ -12,7 +12,7 @@ import java.util.Collection;
 import org.junit.Before;
 import org.junit.Test;
 
-import ar.edu.grupo5.jm.dss.QueComemos.DecoratorFilter.IFiltro;
+import ar.edu.grupo5.jm.dss.QueComemos.DecoratorFilter.Filtro;
 import ar.edu.grupo5.jm.dss.QueComemos.Oberserver.MasConsultada;
 import ar.edu.grupo5.jm.dss.QueComemos.Oberserver.ObservadorConsultas;
 import ar.edu.grupo5.jm.dss.QueComemos.Oberserver.PorHoraDelDia;
@@ -34,7 +34,7 @@ public class ConsultaTest {
 	private Receta panchoMock = mock(Receta.class);
 	private Receta ensaladaMock = mock(Receta.class);
 	
-	private IFiltro filtroMock = mock(IFiltro.class);
+	private Filtro filtroMock = mock(Filtro.class);
 	private StGestorDeConsultas filtroStMock = mock(StGestorDeConsultas.class);
 	
 	@Before

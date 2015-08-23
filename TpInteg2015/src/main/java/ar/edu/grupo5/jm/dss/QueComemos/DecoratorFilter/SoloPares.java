@@ -7,7 +7,7 @@ import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 
 public class SoloPares extends PostProcesamiento {
 
-	public SoloPares(IFiltro unFiltro) {
+	public SoloPares(Filtro unFiltro) {
 		super(unFiltro);
 	}
 

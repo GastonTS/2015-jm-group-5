@@ -7,24 +7,20 @@ import java.util.stream.Collectors;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
-public abstract class PreProcesamiento implements IFiltro {
+public abstract class PreProcesamiento implements Filtro {
 
-	protected IFiltro subFiltro;
+	protected Filtro subFiltro;
 	protected Predicate<Receta> criterio;
 
-	protected Usuario usuario;
-
-	public PreProcesamiento(IFiltro unFiltro) {
+	public PreProcesamiento(Filtro unFiltro) {
 		subFiltro = unFiltro;
 	}
 
-	protected abstract Predicate<Receta> setCriterio();
+	protected abstract boolean cumpleCriterio(Receta unaReceta, Usuario unUsuario);
 
 	@Override
 	public Collection<Receta> filtrarRecetas(Collection<Receta> recetas, Usuario unUsuario) {
-		usuario = unUsuario;
-		criterio = setCriterio();
-		Collection<Receta> recetasFiltradas = recetas.stream().filter(criterio).collect(Collectors.toList());
+		Collection<Receta> recetasFiltradas = recetas.stream().filter(receta -> this.cumpleCriterio(receta, unUsuario)).collect(Collectors.toList());
 		return subFiltro.filtrarRecetas(recetasFiltradas, unUsuario);
 	}
 }

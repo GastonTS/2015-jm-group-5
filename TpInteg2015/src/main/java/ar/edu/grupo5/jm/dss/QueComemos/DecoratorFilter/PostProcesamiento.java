@@ -6,11 +6,11 @@ import java.util.List;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
-public abstract class PostProcesamiento implements IFiltro {
+public abstract class PostProcesamiento implements Filtro {
 
-	protected IFiltro subFiltro;
+	protected Filtro subFiltro;
 
-	public PostProcesamiento(IFiltro unFiltro) {
+	public PostProcesamiento(Filtro unFiltro) {
 		subFiltro = unFiltro;
 	}
 

@@ -15,7 +15,7 @@ import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 import org.junit.Before;
 import org.junit.Test;
 
-import ar.edu.grupo5.jm.dss.QueComemos.DecoratorFilter.IFiltro;
+import ar.edu.grupo5.jm.dss.QueComemos.DecoratorFilter.Filtro;
 import ar.edu.grupo5.jm.dss.QueComemos.MonitoreoAsincronico.*;
 
 public class MonitoreoConsultasTest {
@@ -29,7 +29,7 @@ public class MonitoreoConsultasTest {
 	
 	private Usuario leanMock = mock(Usuario.class);
 	private Usuario gusMock = mock(Usuario.class);
-	private IFiltro unFiltroMock = mock(IFiltro.class);
+	private Filtro unFiltroMock = mock(Filtro.class);
 	Collection<Usuario> usuariosConOpcionMandarMail;
 	MailSender mailSenderMock = mock(MailSender.class);
 	

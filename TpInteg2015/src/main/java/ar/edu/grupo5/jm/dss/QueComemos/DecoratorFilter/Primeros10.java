@@ -7,7 +7,7 @@ import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 
 public class Primeros10 extends PostProcesamiento {
 
-	public Primeros10(IFiltro unFiltro) {
+	public Primeros10(Filtro unFiltro) {
 		super(unFiltro);
 	}
 

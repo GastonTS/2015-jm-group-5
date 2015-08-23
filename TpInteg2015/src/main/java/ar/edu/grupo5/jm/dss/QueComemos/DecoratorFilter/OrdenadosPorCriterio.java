@@ -11,7 +11,7 @@ public class OrdenadosPorCriterio extends PostProcesamiento {
 
 	private Comparator<Receta> criterio;
 
-	public OrdenadosPorCriterio(IFiltro unFiltro, Comparator<Receta> unComparador) {
+	public OrdenadosPorCriterio(Filtro unFiltro, Comparator<Receta> unComparador) {
 		super(unFiltro);
 		criterio = unComparador;
 	}

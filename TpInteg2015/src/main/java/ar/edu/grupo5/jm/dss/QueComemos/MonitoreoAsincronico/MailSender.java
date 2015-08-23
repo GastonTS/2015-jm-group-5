@@ -1,10 +1,10 @@
 package ar.edu.grupo5.jm.dss.QueComemos.MonitoreoAsincronico;
 
-import ar.edu.grupo5.jm.dss.QueComemos.DecoratorFilter.IFiltro;
+import ar.edu.grupo5.jm.dss.QueComemos.DecoratorFilter.Filtro;
 
 public class MailSender {
 
-	public void enviarMail(String nombreUsuario, IFiltro unFiltro, int cantidadDeResultados){
+	public void enviarMail(String nombreUsuario, Filtro unFiltro, int cantidadDeResultados){
 		//Por ahora le mando el objeto Filtro, pero podría mandarle el nombre del filtro o alguna
 		//otra característica del mismo no especificada en el enunciado. Así con el objeto entero queda raro
 		

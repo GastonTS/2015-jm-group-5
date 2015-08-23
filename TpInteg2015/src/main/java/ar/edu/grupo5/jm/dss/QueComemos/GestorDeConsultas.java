@@ -3,7 +3,7 @@ package ar.edu.grupo5.jm.dss.QueComemos;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import ar.edu.grupo5.jm.dss.QueComemos.DecoratorFilter.IFiltro;
+import ar.edu.grupo5.jm.dss.QueComemos.DecoratorFilter.Filtro;
 import ar.edu.grupo5.jm.dss.QueComemos.MonitoreoAsincronico.BufferDeConsultas;
 import ar.edu.grupo5.jm.dss.QueComemos.MonitoreoAsincronico.Consulta;
 import ar.edu.grupo5.jm.dss.QueComemos.Oberserver.ObservadorConsultas;
@@ -28,7 +28,7 @@ public class GestorDeConsultas {
 		observadores.add(unObservador);
 	}
 
-	public Collection<Receta> consultarRecetas(IFiltro unFiltro, Usuario unUsuario) {
+	public Collection<Receta> consultarRecetas(Filtro unFiltro, Usuario unUsuario) {
 		Collection<Receta> recetasConsultadas = unFiltro.filtrarRecetas(consultor.getRecetasAConsultar(unUsuario), unUsuario);
 		unUsuario.notificar(observadores, recetasConsultadas);
 		Consulta consulta = new Consulta(unFiltro, unUsuario, recetasConsultadas);
