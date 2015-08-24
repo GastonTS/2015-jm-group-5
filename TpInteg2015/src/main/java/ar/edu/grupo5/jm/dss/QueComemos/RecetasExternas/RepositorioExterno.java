@@ -59,7 +59,7 @@ public class RepositorioExterno implements ConsultorRecetas{
 			case "FACIL":
 				return Dificultad.BAJA;
 			default:
-				return Dificultad.OTRA;
+				throw new DificultadDeRepoExternoNoValidaException(dificultadString);
 		}
 	}
 	

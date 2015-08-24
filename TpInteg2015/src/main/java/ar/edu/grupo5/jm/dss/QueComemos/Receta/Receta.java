@@ -18,7 +18,7 @@ public class Receta {
 	private Dificultad dificultad;
 
 	public enum Dificultad {
-		BAJA, MEDIA, ALTA, OTRA
+		BAJA, MEDIA, ALTA
 	}
 
 	public Receta(String nombreReceta, Collection<String> unosIngredientes, Collection<Condimentacion> unasCondimentaciones,

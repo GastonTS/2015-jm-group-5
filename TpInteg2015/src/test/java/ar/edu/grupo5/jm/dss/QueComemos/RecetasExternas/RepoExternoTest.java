@@ -57,9 +57,9 @@ public class RepoExternoTest {
 		assertTrue(repoExterno.stringToDificultad("FACIL").equals(Dificultad.BAJA));
 	}
 	
-	@Test
-	public void otraDificultadEsOtra() {
-		assertTrue(repoExterno.stringToDificultad("UNADIFICULTADDISTINTA").equals(Dificultad.OTRA));
+	@Test(expected = DificultadDeRepoExternoNoValidaException.class)
+	public void otraDificultadLanzaExcepcion() {
+		repoExterno.stringToDificultad("UNADIFICULTADDISTINTA");
 	}
 	
 	
