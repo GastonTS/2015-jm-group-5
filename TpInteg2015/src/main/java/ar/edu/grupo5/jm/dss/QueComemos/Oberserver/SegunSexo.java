@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Optional;
 
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.DatosPersonales.Sexo;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
 public class SegunSexo extends ObservadorConsultas {
@@ -13,10 +14,10 @@ public class SegunSexo extends ObservadorConsultas {
 
 	@Override
 	public void notificar(Usuario unUsuario, Collection<Receta> recetasConsultadas) {
-		if (unUsuario.esDeSexo("Masculino")) {
+		if (unUsuario.esDeSexo(Sexo.MASCULINO)) {
 
 			consultasHombres.notificar(unUsuario, recetasConsultadas);
-		} else if (unUsuario.esDeSexo("Femenino")) {
+		} else if (unUsuario.esDeSexo(Sexo.FEMENINO)) {
 
 			consultasMujeres.notificar(unUsuario, recetasConsultadas);
 		}

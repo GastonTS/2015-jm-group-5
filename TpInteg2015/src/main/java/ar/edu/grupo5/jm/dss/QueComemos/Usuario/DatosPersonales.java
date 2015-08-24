@@ -4,16 +4,20 @@ import java.time.LocalDate;
 
 public class DatosPersonales {
 
+	public enum Sexo {
+		MASCULINO, FEMENINO
+	}
+
 	private String nombre;
-	private String sexo;
+	private Sexo sexo;
 	private LocalDate fechaDeNacimiento;
 
-	public DatosPersonales(String unNombre, String unSexo, LocalDate unaFechaDeNacimiento) {
+	public DatosPersonales(String unNombre, Sexo unSexo, LocalDate unaFechaDeNacimiento) {
 		nombre = unNombre;
 		sexo = unSexo;
 		fechaDeNacimiento = unaFechaDeNacimiento;
-		
-		if(!sonValidos()) {
+
+		if (!sonValidos()) {
 			throw new DatosPersonalesNoValidosException("Los Datos Personales no son Validos!!!");
 		}
 	}
@@ -27,7 +31,7 @@ public class DatosPersonales {
 	}
 
 	public boolean indicaSexo() {
-		return sexo != null && !(sexo.equals(""));
+		return sexo != null;
 	}
 
 	public boolean fechaDeNacimientoAnteriorAHoy() {
@@ -38,8 +42,8 @@ public class DatosPersonales {
 		return nombre;
 	}
 
-	public String getSexo() {
-		return sexo;
+	public boolean esDeSexo(Sexo unSexo) {
+		return sexo.equals(unSexo);
 	}
 
 }

@@ -20,6 +20,7 @@ import ar.edu.grupo5.jm.dss.QueComemos.Grupo;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Complexion;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.DatosPersonales;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.DatosPersonales.Sexo;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.CondicionDeSalud.CondicionDeSalud;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario.Rutina;
@@ -239,9 +240,9 @@ public class UsuarioTest {
 
 	@Test
 	public void gustavoEsMasculino() {
-		when(datosPersonalesMock.getSexo()).thenReturn("Masculino");
-		assertTrue(gustavo.esDeSexo("Masculino"));
-		verify(datosPersonalesMock, times(1)).getSexo();
+		when(datosPersonalesMock.esDeSexo(Sexo.MASCULINO)).thenReturn(true);
+		assertTrue(gustavo.esDeSexo(Sexo.MASCULINO));
+		verify(datosPersonalesMock, times(1)).esDeSexo(Sexo.MASCULINO);
 
 	}
 }

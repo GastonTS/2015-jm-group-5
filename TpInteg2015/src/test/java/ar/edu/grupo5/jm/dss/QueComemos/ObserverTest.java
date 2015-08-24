@@ -27,6 +27,7 @@ import ar.edu.grupo5.jm.dss.QueComemos.Usuario.DatosPersonales;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.CondicionDeSalud.Celiaco;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.CondicionDeSalud.Vegano;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.DatosPersonales.Sexo;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario.Rutina;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.UsuarioBuilder;
 
@@ -119,8 +120,8 @@ public class ObserverTest {
 	@Test
 	public void cantidadYNombreDeRecetasConsultadasDeHombresYMujeres() {
 
-		when(usuarioMock.esDeSexo("Masculino")).thenReturn(true);
-		when(usuarioMockFem.esDeSexo("Femenino")).thenReturn(true);
+		when(usuarioMock.esDeSexo(Sexo.MASCULINO)).thenReturn(true);
+		when(usuarioMockFem.esDeSexo(Sexo.FEMENINO)).thenReturn(true);
 
 		observerSegunSexo.notificar(usuarioMock, recetas);
 		observerSegunSexo.notificar(usuarioMock, recetasDeGuisoYPancho);
@@ -136,8 +137,8 @@ public class ObserverTest {
 		assertEquals(observerSegunSexo.recetaMujer(), Optional.of(ensaladaMock));
 		assertEquals(observerSegunSexo.cantidadRecetaMasConsultadaMujer(), 4);
 
-		verify(usuarioMock, times(3)).esDeSexo("Masculino");
-		verify(usuarioMockFem, times(3)).esDeSexo("Femenino");
+		verify(usuarioMock, times(3)).esDeSexo(Sexo.MASCULINO);
+		verify(usuarioMockFem, times(3)).esDeSexo(Sexo.FEMENINO);
 	}
 
 	@Test

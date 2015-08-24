@@ -6,6 +6,7 @@ import java.util.Collection;
 import ar.edu.grupo5.jm.dss.QueComemos.Grupo;
 import ar.edu.grupo5.jm.dss.QueComemos.Oberserver.ObservadorConsultas;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.DatosPersonales.Sexo;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.CondicionDeSalud.CondicionDeSalud;
 
 public class Usuario {
@@ -125,8 +126,8 @@ public class Usuario {
 		return condicionesDeSalud.contains(unaCondicion);
 	}
 
-	public boolean esDeSexo(String sexo) {
-		return datosPersonales.getSexo().equals(sexo);
+	public boolean esDeSexo(Sexo sexo) {
+		return datosPersonales.esDeSexo(sexo);
 	}
 
 	public void notificar(Collection<ObservadorConsultas> observadores, Collection<Receta> recetasConsultadas) {

@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.DatosPersonales;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.DatosPersonalesNoValidosException;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.DatosPersonales.Sexo;
 
 public class DatosPersonalesTest {
 
@@ -18,8 +19,8 @@ public class DatosPersonalesTest {
 
 	@Before
 	public void setUp() {
-		datosPersonalesValidos = new DatosPersonales("Pepito", "Masculino", LocalDate.parse("2000-01-01"));
-		sinSexo = new DatosPersonales("Pepito", "", LocalDate.parse("2000-01-01"));
+		datosPersonalesValidos = new DatosPersonales("Pepito", Sexo.MASCULINO, LocalDate.parse("2000-01-01"));
+		sinSexo = new DatosPersonales("Pepito", null, LocalDate.parse("2000-01-01"));
 	}
 
 	@Test
@@ -29,7 +30,7 @@ public class DatosPersonalesTest {
 
 	@Test(expected = DatosPersonalesNoValidosException.class)
 	public void esNombreCorto() {
-		new DatosPersonales("PP", "Masculino", LocalDate.parse("2000-01-01"));
+		new DatosPersonales("PP", Sexo.MASCULINO, LocalDate.parse("2000-01-01"));
 	}
 
 	@Test
@@ -39,7 +40,7 @@ public class DatosPersonalesTest {
 
 	@Test(expected = DatosPersonalesNoValidosException.class)
 	public void noTieneFechaDeNacimientoAnteriorAHoy() {
-		new DatosPersonales("Pepito", "Masculino", LocalDate.now());
+		new DatosPersonales("Pepito", Sexo.MASCULINO, LocalDate.now());
 	}
 
 }
