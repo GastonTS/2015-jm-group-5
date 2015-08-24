@@ -21,13 +21,11 @@ public class StGestorDeConsultas {
 	}
 
 	public Collection<Receta> aplicarFiltros(Collection<Receta> unasRecetas, Usuario unUsuario) {
-		Collection<Receta> recetasRestantes = unasRecetas;
-
-		for (StFiltro filtro : filtros) {
-			recetasRestantes = recetasRestantes.stream().filter(unaReceta -> filtro.filtrar(unaReceta, unUsuario)).collect(Collectors.toList());
-		}
-
-		return recetasRestantes;
+		return unasRecetas.stream().filter(unaReceta -> cumpleTodosLosCriterios(unaReceta, unUsuario)).collect(Collectors.toList());
+	}
+	
+	public boolean cumpleTodosLosCriterios(Receta unaReceta, Usuario unUsuario) {
+		return filtros.stream().allMatch(filtro -> filtro.filtrar(unaReceta, unUsuario));
 	}
 
 	public Collection<Receta> aplicarPostProcesamiento(Collection<Receta> unasRecetas) {

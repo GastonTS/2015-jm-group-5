@@ -5,7 +5,7 @@ import java.util.Collection;
 
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
-public class EnviarConsultaPorMail implements ProcesoAsincronico {
+public class EnviarConsultaPorMail extends ProcesoAsincronico {
 
 	private Collection<Usuario> usuariosPorLosQueSeMandanMail = new ArrayList<Usuario>();
 	private MailSender mailSender;

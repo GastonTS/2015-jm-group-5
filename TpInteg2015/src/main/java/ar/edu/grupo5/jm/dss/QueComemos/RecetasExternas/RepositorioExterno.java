@@ -1,11 +1,10 @@
 package ar.edu.grupo5.jm.dss.QueComemos.RecetasExternas;
 
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 import com.eclipsesource.json.JsonArray;
 import com.eclipsesource.json.JsonObject;
-import com.eclipsesource.json.JsonValue;
 
 import ar.edu.grupo5.jm.dss.QueComemos.ConsultorRecetas;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
@@ -30,14 +29,10 @@ public class RepositorioExterno implements ConsultorRecetas{
 		String recetasJson = repositorio.getRecetas(new BusquedaRecetas());
 		return jsonStringToRecetasCollection(recetasJson);
 	}
-
+	
 	public Collection<Receta> jsonStringToRecetasCollection(String recetasJson) {
 		JsonArray recetasArray = JsonArray.readFrom(recetasJson);
-		Collection<Receta> recetas = new ArrayList<Receta>();
-		for (JsonValue recetaValue : recetasArray) {
-			recetas.add(jsonObjectToReceta(recetaValue.asObject()));
-		}
-		return recetas;
+		return recetasArray.values().stream().map((recetaValue -> jsonObjectToReceta(recetaValue.asObject()))).collect(Collectors.toList());
 	}
 
 	public Receta jsonObjectToReceta(JsonObject recetaObject) {
@@ -64,11 +59,7 @@ public class RepositorioExterno implements ConsultorRecetas{
 	}
 	
 	public Collection<String> jsonArrayToStringCollection(JsonArray ingredientesArray) {
-		Collection<String> ingredientes = new ArrayList<String>();
-		for (JsonValue ingredienteValue : ingredientesArray) {
-			ingredientes.add(ingredienteValue.asString());
-		}
-		return ingredientes;
+		return ingredientesArray.values().stream().map((ingredienteValue -> ingredienteValue.asString())).collect(Collectors.toList());
 	}
 
 }

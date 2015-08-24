@@ -1,7 +1,8 @@
 package ar.edu.grupo5.jm.dss.QueComemos.DecoratorFilter;
 
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 
@@ -13,14 +14,6 @@ public class SoloPares extends PostProcesamiento {
 
 	@Override
 	protected Collection<Receta> procesar(Collection<Receta> recetas) {
-		boolean esPar = false;
-		Collection<Receta> recetasTotales = new ArrayList<Receta>();
-		for (Receta receta : recetas) {
-			if (esPar) {
-				recetasTotales.add(receta);
-			}
-			esPar = !esPar;
-		}
-		return recetasTotales;
+		return recetas.stream().filter(receta -> ((List<Receta>) recetas).indexOf(receta) % 2 == 1).collect(Collectors.toList());
 	}
 }

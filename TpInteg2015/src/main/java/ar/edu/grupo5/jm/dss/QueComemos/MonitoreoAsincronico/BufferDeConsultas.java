@@ -14,8 +14,6 @@ public class BufferDeConsultas {
 	}
 
 	public void procesarConsultas() {
-		for (ProcesoAsincronico proceso : procesosARealizar) {
-			consultasRealizadas.forEach(unaConsulta -> proceso.procesarConsulta(unaConsulta));
-		}
+		procesosARealizar.forEach(proceso -> proceso.procesarConsultas(consultasRealizadas));
 	}
 }
