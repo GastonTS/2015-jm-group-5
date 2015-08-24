@@ -7,7 +7,7 @@ import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.DatosPersonales.Sexo;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
-public class SegunSexo extends ObservadorConsultas {
+public class SegunSexo implements ObservadorConsultas {
 
 	private MasConsultada consultasHombres = new MasConsultada();
 	private MasConsultada consultasMujeres = new MasConsultada();

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import ar.edu.grupo5.jm.dss.QueComemos.Grupo;
-import ar.edu.grupo5.jm.dss.QueComemos.Oberserver.ObservadorConsultas;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.DatosPersonales.Sexo;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.CondicionDeSalud.CondicionDeSalud;
@@ -130,10 +129,7 @@ public class Usuario {
 		return datosPersonales.esDeSexo(sexo);
 	}
 
-	public void notificar(Collection<ObservadorConsultas> observadores, Collection<Receta> recetasConsultadas) {
-		for (ObservadorConsultas observador : observadores) {
-			observador.notificar(this, recetasConsultadas);
-		}
-		condicionesDeSalud.stream().forEach(condicion -> condicion.informarCondicion(observadores, recetasConsultadas, this));
+	public boolean esVegano() {
+		return condicionesDeSalud.stream().anyMatch(condicion -> condicion.esCondicionVegana());
 	}
 }
