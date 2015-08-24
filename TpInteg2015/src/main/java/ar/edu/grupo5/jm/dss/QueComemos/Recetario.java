@@ -64,7 +64,7 @@ public class Recetario implements ConsultorRecetas{
 	}
 
 	@Override
-	public Collection<Receta> getRecetasAConsultar(Usuario unUsuario) {
+	public Collection<Receta> getRecetas(Usuario unUsuario) {
 		return listarTodasPuedeAcceder(unUsuario);
 	}
 

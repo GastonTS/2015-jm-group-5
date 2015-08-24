@@ -29,7 +29,7 @@ public class GestorDeConsultas {
 	}
 
 	public Collection<Receta> consultarRecetas(Filtro unFiltro, Usuario unUsuario) {
-		Collection<Receta> recetasConsultadas = unFiltro.filtrarRecetas(consultor.getRecetasAConsultar(unUsuario), unUsuario);
+		Collection<Receta> recetasConsultadas = unFiltro.filtrarRecetas(consultor.getRecetas(unUsuario), unUsuario);
 		this.notificarObservadores(observadores, unUsuario, recetasConsultadas);
 		Consulta consulta = new Consulta(unFiltro, unUsuario, recetasConsultadas);
 		BufferDeConsultas.instancia.agregarConsulta(consulta);
@@ -43,7 +43,7 @@ public class GestorDeConsultas {
 	}
 
 	public Collection<Receta> consultarRecetasSt(StGestorDeConsultas unFiltrado, Usuario unUsuario) {
-		return unFiltrado.aplicarFiltros(consultor.getRecetasAConsultar(unUsuario), unUsuario);
+		return unFiltrado.aplicarFiltros(consultor.getRecetas(unUsuario), unUsuario);
 	}
 
 }

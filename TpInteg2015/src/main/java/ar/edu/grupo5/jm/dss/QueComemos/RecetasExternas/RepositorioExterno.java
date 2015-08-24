@@ -26,7 +26,7 @@ public class RepositorioExterno implements ConsultorRecetas{
 	}
 
 	@Override
-	public Collection<Receta> getRecetasAConsultar(Usuario unUsuario) {
+	public Collection<Receta> getRecetas(Usuario unUsuario) {
 		String recetasJson = repositorio.getRecetas(new BusquedaRecetas());
 		return jsonStringToRecetasCollection(recetasJson);
 	}

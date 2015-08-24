@@ -46,12 +46,12 @@ public class ConsultaTest {
 	public void consultaRecetasDecorador() {
 		Collection<Receta> recetasAConsultar = Arrays.asList(panchoMock, recetaMock, ensaladaMock);
 		Collection<Receta> resultadoConsulta = Arrays.asList(panchoMock, recetaMock);
-		when(consultorMock.getRecetasAConsultar(gaston)).thenReturn(recetasAConsultar);
+		when(consultorMock.getRecetas(gaston)).thenReturn(recetasAConsultar);
 		when(filtroMock.filtrarRecetas(recetasAConsultar, gaston)).thenReturn(resultadoConsulta);
 
 		assertEquals(consulta.consultarRecetas(filtroMock, gaston), resultadoConsulta);
 
-		verify(consultorMock, times(1)).getRecetasAConsultar(gaston);
+		verify(consultorMock, times(1)).getRecetas(gaston);
 		verify(filtroMock, times(1)).filtrarRecetas(recetasAConsultar, gaston);
 		verify(masConsultadaMock, times(1)).notificar(gaston, resultadoConsulta);
 		verify(porHoraDelDiaMock, times(1)).notificar(gaston, resultadoConsulta);
@@ -62,12 +62,12 @@ public class ConsultaTest {
 	public void consultaRecetasStrategy() {
 		Collection<Receta> recetasAConsultar = Arrays.asList(panchoMock, recetaMock, ensaladaMock);
 		Collection<Receta> resultadoConsulta = Arrays.asList(panchoMock, recetaMock);
-		when(consultorMock.getRecetasAConsultar(gaston)).thenReturn(recetasAConsultar);
+		when(consultorMock.getRecetas(gaston)).thenReturn(recetasAConsultar);
 		when(filtroStMock.aplicarFiltros(recetasAConsultar, gaston)).thenReturn(resultadoConsulta);
 
 		assertEquals(consulta.consultarRecetasSt(filtroStMock, gaston), resultadoConsulta);
 
-		verify(consultorMock, times(1)).getRecetasAConsultar(gaston);
+		verify(consultorMock, times(1)).getRecetas(gaston);
 		verify(filtroStMock, times(1)).aplicarFiltros(recetasAConsultar, gaston);
 	}
 	
