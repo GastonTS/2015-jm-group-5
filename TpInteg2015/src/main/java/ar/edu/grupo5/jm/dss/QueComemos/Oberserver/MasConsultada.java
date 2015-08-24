@@ -12,7 +12,7 @@ public class MasConsultada implements ObservadorConsultas {
 	Collection<Receta> recetasConsultadas = new ArrayList<Receta>();
 
 	@Override
-	public void notificar(Usuario unUsuario, Collection<Receta> recetasConsultadas) {
+	public void notificarConsulta(Usuario unUsuario, Collection<Receta> recetasConsultadas) {
 		recetasConsultadas.forEach(unaReceta -> agregarUnaConsulta(unaReceta));
 	}
 

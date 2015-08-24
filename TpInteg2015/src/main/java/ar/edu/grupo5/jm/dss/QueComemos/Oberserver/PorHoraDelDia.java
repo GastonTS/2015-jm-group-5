@@ -10,7 +10,7 @@ public class PorHoraDelDia implements ObservadorConsultas {
 	private int[] consultasPorHoraDelDia = new int[24];
 
 	@Override
-	public void notificar(Usuario unUsuario, Collection<Receta> recetasConsultadas) {
+	public void notificarConsulta(Usuario unUsuario, Collection<Receta> recetasConsultadas) {
 		consultasPorHoraDelDia[Calendar.HOUR_OF_DAY]++;
 	}
 

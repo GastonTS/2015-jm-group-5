@@ -11,7 +11,7 @@ public class ConsultaVeganoRecetasDificles implements ObservadorConsultas {
 	private Collection<Usuario> veganosQueConsultaronDificiles = new ArrayList<Usuario>();
 
 	@Override
-	public void notificar(Usuario unUsuario, Collection<Receta> recetasConsultadas) {
+	public void notificarConsulta(Usuario unUsuario, Collection<Receta> recetasConsultadas) {
 		if(unUsuario.esVegano()) {
 			this.notificarVegano(unUsuario, recetasConsultadas); 
 		}

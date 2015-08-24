@@ -13,13 +13,13 @@ public class SegunSexo implements ObservadorConsultas {
 	private MasConsultada consultasMujeres = new MasConsultada();
 
 	@Override
-	public void notificar(Usuario unUsuario, Collection<Receta> recetasConsultadas) {
+	public void notificarConsulta(Usuario unUsuario, Collection<Receta> recetasConsultadas) {
 		if (unUsuario.esDeSexo(Sexo.MASCULINO)) {
 
-			consultasHombres.notificar(unUsuario, recetasConsultadas);
+			consultasHombres.notificarConsulta(unUsuario, recetasConsultadas);
 		} else if (unUsuario.esDeSexo(Sexo.FEMENINO)) {
 
-			consultasMujeres.notificar(unUsuario, recetasConsultadas);
+			consultasMujeres.notificarConsulta(unUsuario, recetasConsultadas);
 		}
 	}
 

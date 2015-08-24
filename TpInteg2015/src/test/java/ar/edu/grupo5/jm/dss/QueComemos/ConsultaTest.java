@@ -53,8 +53,8 @@ public class ConsultaTest {
 
 		verify(consultorMock, times(1)).getRecetas(gaston);
 		verify(filtroMock, times(1)).filtrarRecetas(recetasAConsultar, gaston);
-		verify(masConsultadaMock, times(1)).notificar(gaston, resultadoConsulta);
-		verify(porHoraDelDiaMock, times(1)).notificar(gaston, resultadoConsulta);
+		verify(masConsultadaMock, times(1)).notificarConsulta(gaston, resultadoConsulta);
+		verify(porHoraDelDiaMock, times(1)).notificarConsulta(gaston, resultadoConsulta);
 	}
 
 

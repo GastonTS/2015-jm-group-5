@@ -38,7 +38,7 @@ public class GestorDeConsultas {
 	
 	public void notificarObservadores(Collection<ObservadorConsultas> observadores, Usuario unUsuario, Collection<Receta> recetasConsultadas) {
 		for (ObservadorConsultas observador : observadores) {
-			observador.notificar(unUsuario, recetasConsultadas);
+			observador.notificarConsulta(unUsuario, recetasConsultadas);
 		}
 	}
 

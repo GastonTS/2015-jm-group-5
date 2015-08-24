@@ -71,8 +71,8 @@ public class ObserverTest {
 		else
 			horaSiguiente = +1;
 
-		observerPorHoraDelDia.notificar(usuarioMock, recetas);
-		observerPorHoraDelDia.notificar(usuarioMock, recetasDeGuisoYPancho);
+		observerPorHoraDelDia.notificarConsulta(usuarioMock, recetas);
+		observerPorHoraDelDia.notificarConsulta(usuarioMock, recetasDeGuisoYPancho);
 
 		assertEquals(observerPorHoraDelDia.getConsultasPorHoraDelDia(horaActual), 2);
 		assertEquals(observerPorHoraDelDia.getConsultasPorHoraDelDia(horaSiguiente), 0);
@@ -81,9 +81,9 @@ public class ObserverTest {
 	@Test
 	public void devuelveNombreYCantidadDeConsultasDeRecetaMasConsultada() {
 
-		observerRecetaMasConsultada.notificar(usuarioMock, recetas);
-		observerRecetaMasConsultada.notificar(usuarioMock, recetasDeGuisoYPancho);
-		observerRecetaMasConsultada.notificar(usuarioMock, recetasDePanchoYEnsalada);
+		observerRecetaMasConsultada.notificarConsulta(usuarioMock, recetas);
+		observerRecetaMasConsultada.notificarConsulta(usuarioMock, recetasDeGuisoYPancho);
+		observerRecetaMasConsultada.notificarConsulta(usuarioMock, recetasDePanchoYEnsalada);
 
 		assertEquals(observerRecetaMasConsultada.recetaMasConsultada(), Optional.of(panchoMock));
 		assertEquals(observerRecetaMasConsultada.cantidadDeConsultasDeRecetaMAsConsultada(), 3);
@@ -96,13 +96,13 @@ public class ObserverTest {
 		when(usuarioMock.esDeSexo(Sexo.MASCULINO)).thenReturn(true);
 		when(usuarioMockFem.esDeSexo(Sexo.FEMENINO)).thenReturn(true);
 
-		observerSegunSexo.notificar(usuarioMock, recetas);
-		observerSegunSexo.notificar(usuarioMock, recetasDeGuisoYPancho);
-		observerSegunSexo.notificar(usuarioMock, recetasDePanchoYEnsalada);
+		observerSegunSexo.notificarConsulta(usuarioMock, recetas);
+		observerSegunSexo.notificarConsulta(usuarioMock, recetasDeGuisoYPancho);
+		observerSegunSexo.notificarConsulta(usuarioMock, recetasDePanchoYEnsalada);
 
-		observerSegunSexo.notificar(usuarioMockFem, recetas);
-		observerSegunSexo.notificar(usuarioMockFem, recetasDePanchoYEnsalada);
-		observerSegunSexo.notificar(usuarioMockFem, recetaExtraEnsalada);
+		observerSegunSexo.notificarConsulta(usuarioMockFem, recetas);
+		observerSegunSexo.notificarConsulta(usuarioMockFem, recetasDePanchoYEnsalada);
+		observerSegunSexo.notificarConsulta(usuarioMockFem, recetaExtraEnsalada);
 
 		assertEquals(observerSegunSexo.recetaHombre(), Optional.of(panchoMock));
 		assertEquals(observerSegunSexo.cantidadRecetaMasConsultadaHombre(), 3);
@@ -120,10 +120,10 @@ public class ObserverTest {
 		when(panchoMock.esDificil()).thenReturn(false);
 		when(ensaladaMock.esDificil()).thenReturn(true);
 
-		observerConsultaVeganoRecetasDificiles.notificar(veganoMock, recetas);
-		observerConsultaVeganoRecetasDificiles.notificar(veganoMock, recetasDePanchoYEnsalada);
-		observerConsultaVeganoRecetasDificiles.notificar(otroVeganoMock, recetasDePanchoYEnsalada);
-		observerConsultaVeganoRecetasDificiles.notificar(noVeganoMock, recetasDeGuisoYPancho);
+		observerConsultaVeganoRecetasDificiles.notificarConsulta(veganoMock, recetas);
+		observerConsultaVeganoRecetasDificiles.notificarConsulta(veganoMock, recetasDePanchoYEnsalada);
+		observerConsultaVeganoRecetasDificiles.notificarConsulta(otroVeganoMock, recetasDePanchoYEnsalada);
+		observerConsultaVeganoRecetasDificiles.notificarConsulta(noVeganoMock, recetasDeGuisoYPancho);
 		
 		assertEquals(observerConsultaVeganoRecetasDificiles.cantidadDeVeganos(), 2);
 

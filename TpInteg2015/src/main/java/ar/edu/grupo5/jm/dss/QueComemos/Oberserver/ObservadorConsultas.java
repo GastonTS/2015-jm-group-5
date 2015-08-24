@@ -7,6 +7,6 @@ import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
 public interface ObservadorConsultas {
 
-	public abstract void notificar(Usuario unUsuario, Collection<Receta> recetasConsultadas);
+	public abstract void notificarConsulta(Usuario unUsuario, Collection<Receta> recetasConsultadas);
 
 }
