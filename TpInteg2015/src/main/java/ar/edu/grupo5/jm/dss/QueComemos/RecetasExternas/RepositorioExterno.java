@@ -1,6 +1,8 @@
 package ar.edu.grupo5.jm.dss.QueComemos.RecetasExternas;
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import com.eclipsesource.json.JsonArray;
@@ -16,11 +18,20 @@ import queComemos.entrega3.repositorio.BusquedaRecetas;
 
 ;
 
-public class RepositorioExterno implements ConsultorRecetas{
-	
+public class RepositorioExterno implements ConsultorRecetas {
+
 	private RepoRecetas repositorio;
-	
-	public RepositorioExterno (RepoRecetas unRepositorio){
+
+	private static final Map<String, Dificultad> dificultades;
+	static {
+		dificultades = new HashMap<String, Dificultad>();
+
+		dificultades.put("DIFICIL", Dificultad.ALTA);
+		dificultades.put("MEDIANA", Dificultad.MEDIA);
+		dificultades.put("FACIL", Dificultad.BAJA);
+	}
+
+	public RepositorioExterno(RepoRecetas unRepositorio) {
 		repositorio = unRepositorio;
 	}
 
@@ -29,7 +40,7 @@ public class RepositorioExterno implements ConsultorRecetas{
 		String recetasJson = repositorio.getRecetas(new BusquedaRecetas());
 		return jsonStringToRecetasCollection(recetasJson);
 	}
-	
+
 	public Collection<Receta> jsonStringToRecetasCollection(String recetasJson) {
 		JsonArray recetasArray = JsonArray.readFrom(recetasJson);
 		return recetasArray.values().stream().map((recetaValue -> jsonObjectToReceta(recetaValue.asObject()))).collect(Collectors.toList());
@@ -37,27 +48,19 @@ public class RepositorioExterno implements ConsultorRecetas{
 
 	public Receta jsonObjectToReceta(JsonObject recetaObject) {
 		JsonArray ingredientesArray = recetaObject.get("ingredientes").asArray();
-		
-		return 	new RecetaBuilder().setNombre(recetaObject.get("nombre").asString())
-				.agregarTodosLosIngredientes(jsonArrayToStringCollection(ingredientesArray))
+
+		return new RecetaBuilder().setNombre(recetaObject.get("nombre").asString()).agregarTodosLosIngredientes(jsonArrayToStringCollection(ingredientesArray))
 				.setCantCalorias(recetaObject.get("totalCalorias").asDouble())
-				.setDificultad(stringToDificultad(recetaObject.get("dificultadReceta").asString()))
-				.construirReceta();
+				.setDificultad(stringToDificultad(recetaObject.get("dificultadReceta").asString())).construirReceta();
 	}
 
 	public Dificultad stringToDificultad(String dificultadString) {
-		switch(dificultadString) {
-			case "DIFICIL": 
-				return Dificultad.ALTA;
-			case "MEDIANA":
-				return Dificultad.MEDIA;
-			case "FACIL":
-				return Dificultad.BAJA;
-			default:
-				throw new DificultadDeRepoExternoNoValidaException(dificultadString);
+		if (!dificultades.containsKey(dificultadString)) {
+			throw new DificultadDeRepoExternoNoValidaException(dificultadString);
 		}
+		return dificultades.get(dificultadString);
 	}
-	
+
 	public Collection<String> jsonArrayToStringCollection(JsonArray ingredientesArray) {
 		return ingredientesArray.values().stream().map((ingredienteValue -> ingredienteValue.asString())).collect(Collectors.toList());
 	}
