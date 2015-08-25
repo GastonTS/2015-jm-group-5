@@ -46,7 +46,7 @@ public class ObserverTest {
 
 	private Vegano condicionMock = mock(Vegano.class);
 	
-	PorHoraDelDia observerPorHoraDelDia = new PorHoraDelDia(Clock.systemDefaultZone());
+	PorHoraDelDia observerPorHoraDelDia = new PorHoraDelDia(Clock.system(ZoneId.of("America/Argentina/Buenos_Aires")));
 	MasConsultada observerRecetaMasConsultada = new MasConsultada();
 	SegunSexo observerSegunSexo = new SegunSexo();
 	ConsultaVeganoRecetasDificles observerConsultaVeganoRecetasDificiles = new ConsultaVeganoRecetasDificles();
@@ -68,13 +68,13 @@ public class ObserverTest {
 	@Test
 	public void agregaCantidadDeConsultasALaHoraEnQueSeRealizan() {
 		
-		observerPorHoraDelDia.setReloj(Clock.fixed(Instant.parse("2007-12-03T10:03:30.00Z"), ZoneId.systemDefault()));
+		observerPorHoraDelDia.setReloj(Clock.fixed(Instant.parse("2007-12-03T10:03:30.00Z"), ZoneId.of("America/Argentina/Buenos_Aires")));
 		observerPorHoraDelDia.notificarConsulta(usuarioMock, recetas);
 		
-		observerPorHoraDelDia.setReloj(Clock.fixed(Instant.parse("2007-12-03T11:04:30.00Z"), ZoneId.systemDefault()));
+		observerPorHoraDelDia.setReloj(Clock.fixed(Instant.parse("2007-12-03T11:04:30.00Z"), ZoneId.of("America/Argentina/Buenos_Aires")));
 		observerPorHoraDelDia.notificarConsulta(usuarioMock, recetasDeGuisoYPancho);
 		
-		observerPorHoraDelDia.setReloj(Clock.fixed(Instant.parse("2007-12-03T11:10:30.00Z"), ZoneId.systemDefault()));
+		observerPorHoraDelDia.setReloj(Clock.fixed(Instant.parse("2007-12-03T11:10:30.00Z"), ZoneId.of("America/Argentina/Buenos_Aires")));
 		observerPorHoraDelDia.notificarConsulta(usuarioMock, recetaExtraEnsalada);
 
 		assertEquals(observerPorHoraDelDia.getConsultasPorHoraDelDia(7), 1);
