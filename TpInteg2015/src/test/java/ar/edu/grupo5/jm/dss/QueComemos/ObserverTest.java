@@ -7,9 +7,11 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.any;
 
+import java.time.Clock;
+import java.time.Instant;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -44,7 +46,7 @@ public class ObserverTest {
 
 	private Vegano condicionMock = mock(Vegano.class);
 	
-	PorHoraDelDia observerPorHoraDelDia = new PorHoraDelDia();
+	PorHoraDelDia observerPorHoraDelDia = new PorHoraDelDia(Clock.systemDefaultZone());
 	MasConsultada observerRecetaMasConsultada = new MasConsultada();
 	SegunSexo observerSegunSexo = new SegunSexo();
 	ConsultaVeganoRecetasDificles observerConsultaVeganoRecetasDificiles = new ConsultaVeganoRecetasDificles();
@@ -65,19 +67,21 @@ public class ObserverTest {
 
 	@Test
 	public void agregaCantidadDeConsultasALaHoraEnQueSeRealizan() {
-		int horaSiguiente, horaActual = Calendar.HOUR_OF_DAY;
-		if (horaActual == 23)
-			horaSiguiente = 0;
-		else
-			horaSiguiente = +1;
-
+		
+		observerPorHoraDelDia.setReloj(Clock.fixed(Instant.parse("2007-12-03T10:03:30.00Z"), ZoneId.systemDefault()));
 		observerPorHoraDelDia.notificarConsulta(usuarioMock, recetas);
+		
+		observerPorHoraDelDia.setReloj(Clock.fixed(Instant.parse("2007-12-03T11:04:30.00Z"), ZoneId.systemDefault()));
 		observerPorHoraDelDia.notificarConsulta(usuarioMock, recetasDeGuisoYPancho);
+		
+		observerPorHoraDelDia.setReloj(Clock.fixed(Instant.parse("2007-12-03T11:10:30.00Z"), ZoneId.systemDefault()));
+		observerPorHoraDelDia.notificarConsulta(usuarioMock, recetaExtraEnsalada);
 
-		assertEquals(observerPorHoraDelDia.getConsultasPorHoraDelDia(horaActual), 2);
-		assertEquals(observerPorHoraDelDia.getConsultasPorHoraDelDia(horaSiguiente), 0);
+		assertEquals(observerPorHoraDelDia.getConsultasPorHoraDelDia(7), 1);
+		assertEquals(observerPorHoraDelDia.getConsultasPorHoraDelDia(8), 2);
+		assertEquals(observerPorHoraDelDia.getConsultasPorHoraDelDia(9), 0);
 	}
-
+	
 	@Test
 	public void devuelveNombreYCantidadDeConsultasDeRecetaMasConsultada() {
 
