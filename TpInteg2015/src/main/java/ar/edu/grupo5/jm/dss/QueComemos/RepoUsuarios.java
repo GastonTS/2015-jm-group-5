@@ -1,5 +1,6 @@
 package ar.edu.grupo5.jm.dss.QueComemos;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -15,9 +16,13 @@ public class RepoUsuarios {
 	public Collection<Usuario> getUsuarios() {
 		return usuarios;
 	}
+	public Collection<Usuario> getSolicitudesDeIngreso() {
+		return solicitudesDeIngreso;
+	}
 
 	public RepoUsuarios(Collection<Usuario> unosUsuarios) {
 		usuarios = unosUsuarios;
+		solicitudesDeIngreso = new ArrayList<Usuario>();
 	}
 
 	public void add(Usuario unUsuario) {
