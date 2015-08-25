@@ -68,6 +68,7 @@ public class RepoUsuarios {
 
 	public void apruebaSolicitud(Usuario unUsuario) {
 		add(unUsuario);
+		solicitudesDeIngreso.remove(unUsuario);
 	}
 
 	public void rechazaSolicitud(Usuario unUsuario) {
