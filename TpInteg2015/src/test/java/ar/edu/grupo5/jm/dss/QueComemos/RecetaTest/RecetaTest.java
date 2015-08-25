@@ -67,8 +67,6 @@ public class RecetaTest {
 		
 	}
 
-	//XXX Faltan más tests de Receta
-	
 	@Test
 	public void agregarSubrecetas() {
 		polloConPureOEnsalada.agregarSubRecetas(Arrays.asList(pure, ensalada));

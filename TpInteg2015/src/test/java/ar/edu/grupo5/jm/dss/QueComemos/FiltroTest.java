@@ -95,7 +95,7 @@ public class FiltroTest {
 
 		Collection<Receta> sonAdecuadasParaUsuario = Arrays.asList(ensaladaMock, vegetarianaMock);
 
-		assertEquals(segunCondicionesDelusuario.filtrarRecetas(recetas, usuarioMock), sonAdecuadasParaUsuario);//FIXME
+		assertEquals(segunCondicionesDelusuario.filtrarRecetas(recetas, usuarioMock), sonAdecuadasParaUsuario);
 
 		verify(usuarioMock, times(1)).sosRecetaInadecuadaParaMi(guisoMock);
 		verify(usuarioMock, times(1)).sosRecetaInadecuadaParaMi(ensaladaMock);
@@ -155,7 +155,7 @@ public class FiltroTest {
 
 		Collection<Receta> recetasFiltradas = Arrays.asList(ensaladaMock);
 
-		assertEquals(superPreFiltro.filtrarRecetas(recetas, usuarioMock), recetasFiltradas);//FIXME
+		assertEquals(superPreFiltro.filtrarRecetas(recetas, usuarioMock), recetasFiltradas);
 
 		verify(guisoMock, times(1)).getCantCaloriasTotales();
 		verify(ensaladaMock, times(1)).getCantCaloriasTotales();
