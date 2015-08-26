@@ -67,13 +67,21 @@ public class RepoUsuarios {
 	}
 
 	public void apruebaSolicitud(Usuario unUsuario) {
+		if(!solicitudesDeIngreso.contains(unUsuario)){
+			throw new UsuarioSinSolicitudDeIngresoExeption("No se puede aprobar la solicitud del usuario!");
+		}
+		
 		add(unUsuario);
 		solicitudesDeIngreso.remove(unUsuario);
 	}
 
 	public void rechazaSolicitud(Usuario unUsuario) {
+		if(!solicitudesDeIngreso.contains(unUsuario)){
+			throw new UsuarioSinSolicitudDeIngresoExeption("No se puede rechazar la solicitud del usuario!");
+		}
+		
 		solicitudesDeIngreso.remove(unUsuario);
-		// informar rechazo, no esta específicado que carajos informar. Así que
+		// informar rechazo, no esta específicado que informar. Así que
 		// no hago nada
 	}
 }

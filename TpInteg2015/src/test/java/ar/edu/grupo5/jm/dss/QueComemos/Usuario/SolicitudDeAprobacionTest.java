@@ -5,10 +5,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+
 import org.junit.Before;
 import org.junit.Test;
 
 import ar.edu.grupo5.jm.dss.QueComemos.RepoUsuarios;
+import ar.edu.grupo5.jm.dss.QueComemos.UsuarioSinSolicitudDeIngresoExeption;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
 public class SolicitudDeAprobacionTest {
@@ -17,6 +19,7 @@ public class SolicitudDeAprobacionTest {
 	private Usuario alf = mock(Usuario.class);
 	private Usuario zaffa = mock(Usuario.class);
 	private Usuario quique = mock(Usuario.class);
+	private Usuario beltra = mock(Usuario.class);
 	
 	private RepoUsuarios repoUsuarios;
 	
@@ -42,7 +45,7 @@ public class SolicitudDeAprobacionTest {
 	}
 	
 	@Test
-	public void alEliminarUnUsuarioLoEliminaDeLasSolicitudes() {
+	public void alRechazarUnUsuarioLoEliminaDeLasSolicitudes() {
 		repoUsuarios.rechazaSolicitud(quique);
 		
 		assertTrue(repoUsuarios.getSolicitudesDeIngreso().contains(alf));
@@ -64,5 +67,15 @@ public class SolicitudDeAprobacionTest {
 		
 		assertTrue(repoUsuarios.getUsuarios().contains(alf));
 		assertEquals(repoUsuarios.getUsuarios().size(),1);
+	}
+	
+	@Test(expected = UsuarioSinSolicitudDeIngresoExeption.class)
+	public void aprobarSolicitudInexistenteLanzaExcepcion() {
+		repoUsuarios.apruebaSolicitud(beltra);
+	}
+
+	@Test(expected = UsuarioSinSolicitudDeIngresoExeption.class)
+	public void rechazarSolicitudInexistenteLanzaExcepcion() {
+		repoUsuarios.rechazaSolicitud(beltra);
 	}
 }
