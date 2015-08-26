@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.UsuarioBuscado;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.UsuarioIngresadoNoExisteException;
 
 public class RepoUsuarios {
@@ -42,24 +43,16 @@ public class RepoUsuarios {
 		add(usuarioNuevo);
 	}
 
-	public Optional<Usuario> buscarUnUsuarioConNombre(Usuario unUsuario) {
-		return usuarios.stream().filter(usuarioPosta -> tienenMismoNombre(unUsuario, usuarioPosta)).findFirst();
+	public Optional<Usuario> buscarUnUsuarioConNombre(UsuarioBuscado unUsuario) {
+		return usuarios.stream().filter(usuarioPosta -> unUsuario.tieneElNombreDe(usuarioPosta)).findFirst();
 	}
 
-	public Collection<Usuario> listarPorNombreYCondiciones(Usuario unUsuario) {
+	public Collection<Usuario> listarPorNombreYCondiciones(UsuarioBuscado unUsuario) {
 		return usuarios.stream().filter(usuarioPosta -> tienenMismoNombreYCondiciones(unUsuario, usuarioPosta)).collect(Collectors.toList());
 	}
 
-	private Boolean tienenMismoNombreYCondiciones(Usuario usuarioBuscado, Usuario usuarioPosta) {
-		return tienenMismoNombre(usuarioBuscado, usuarioPosta) && tieneTodasLasCondicionesDeSaludDe(usuarioBuscado, usuarioPosta);
-	}
-
-	private Boolean tienenMismoNombre(Usuario usuarioBuscado, Usuario usuarioPosta) {
-		return usuarioPosta.getNombre().equals(usuarioBuscado.getNombre());
-	}
-
-	private Boolean tieneTodasLasCondicionesDeSaludDe(Usuario usuarioBuscado, Usuario usuarioPosta) {
-		return usuarioPosta.getCondicionesDeSalud().containsAll(usuarioBuscado.getCondicionesDeSalud());
+	private Boolean tienenMismoNombreYCondiciones(UsuarioBuscado usuarioBuscado, Usuario usuarioPosta) {
+		return usuarioBuscado.tieneElNombreDe(usuarioPosta) && usuarioBuscado.tieneTodasLasCondicionesDeSaludDe(usuarioPosta);
 	}
 
 	public void solicitaIngreso(Usuario unUsuario) {
@@ -72,7 +65,7 @@ public class RepoUsuarios {
 		}
 		
 		add(unUsuario);
-		solicitudesDeIngreso.remove(unUsuario);
+		solicitudesDeIngreso.remove(unUsuario); 
 	}
 
 	public void rechazaSolicitud(Usuario unUsuario) {

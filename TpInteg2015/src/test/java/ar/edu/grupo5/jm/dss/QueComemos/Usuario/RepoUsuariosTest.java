@@ -1,8 +1,6 @@
 package ar.edu.grupo5.jm.dss.QueComemos.Usuario;
 
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -28,8 +26,6 @@ public class RepoUsuariosTest {
 	private Usuario gaston = mock(Usuario.class);
 	private Usuario juanchi = mock(Usuario.class);
 	private Usuario franco = mock(Usuario.class);
-	
-	private Usuario usuarioMock = mock(Usuario.class);
 	
 	private RepoUsuarios repoUsuarios;
 
@@ -84,27 +80,23 @@ public class RepoUsuariosTest {
 
 	@Test
 	public void buscarJuanchiPorNombre() {
-		when(usuarioMock.getNombre()).thenReturn("juanchi");
-		assertEquals(repoUsuarios.buscarUnUsuarioConNombre(usuarioMock), Optional.of(juanchi));
-		verify(usuarioMock, times(1)).getNombre();
+		UsuarioBuscado usuarioBusquedaJuanchi = new UsuarioBuscado("juanchi", new ArrayList<CondicionDeSalud>());
+		
+		assertEquals(repoUsuarios.buscarUnUsuarioConNombre(usuarioBusquedaJuanchi), Optional.of(juanchi));
 	}
 
 	@Test
 	public void buscarGustavosHippies() {
-		when(usuarioMock.getNombre()).thenReturn("gustavo");
-		when(usuarioMock.getCondicionesDeSalud()).thenReturn(condicionesGustavo);
-		assertEquals(repoUsuarios.listarPorNombreYCondiciones(usuarioMock), Arrays.asList(gustavo));
-		verify(usuarioMock, times(4)).getNombre();
-		verify(usuarioMock, times(2)).getCondicionesDeSalud();
+		UsuarioBuscado usuarioBusquedaGustavosHippies = new UsuarioBuscado("gustavo", condicionesGustavo);
+
+		assertEquals(repoUsuarios.listarPorNombreYCondiciones(usuarioBusquedaGustavosHippies), Arrays.asList(gustavo));
 	}
 
 	@Test
 	public void buscarGustavosSinCondicion() {
-		when(usuarioMock.getNombre()).thenReturn("gustavo");
-		when(usuarioMock.getCondicionesDeSalud()).thenReturn(new ArrayList<CondicionDeSalud>());
-		assertEquals(repoUsuarios.listarPorNombreYCondiciones(usuarioMock), Arrays.asList(gustavo, cerati));
-		verify(usuarioMock, times(4)).getNombre();
-		verify(usuarioMock, times(2)).getCondicionesDeSalud();
+		UsuarioBuscado usuarioBusquedaGustavosHippies = new UsuarioBuscado("gustavo", new ArrayList<CondicionDeSalud>());
+		
+		assertEquals(repoUsuarios.listarPorNombreYCondiciones(usuarioBusquedaGustavosHippies), Arrays.asList(gustavo, cerati));
 	}
 	
 }
