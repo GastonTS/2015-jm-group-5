@@ -106,5 +106,7 @@ public class RepoUsuariosTest {
 		verify(usuarioMock, times(4)).getNombre();
 		verify(usuarioMock, times(2)).getCondicionesDeSalud();
 	}
+	
+	
 
 }
