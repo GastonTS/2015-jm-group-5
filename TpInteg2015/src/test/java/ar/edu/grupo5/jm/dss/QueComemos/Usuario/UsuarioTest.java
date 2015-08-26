@@ -38,6 +38,7 @@ public class UsuarioTest {
 	private Collection<String> disgustosGustavo = new ArrayList<String>();
 	private CondicionDeSalud hippie = mock(CondicionDeSalud.class);
 	private CondicionDeSalud corporativo = mock(CondicionDeSalud.class);
+	private CondicionDeSalud vegano = mock(CondicionDeSalud.class);
 
 	private Receta recetaMock = mock(Receta.class);
 	private Receta panchoMock = mock(Receta.class);
@@ -50,6 +51,7 @@ public class UsuarioTest {
 	public void setUp() {
 		when(hippie.esUsuarioValido(any(Usuario.class))).thenReturn(true);
 		when(corporativo.esUsuarioValido(any(Usuario.class))).thenReturn(true);
+		when(vegano.esUsuarioValido(any(Usuario.class))).thenReturn(true);
 
 		disgustosGustavo.add("McDonalds");
 
@@ -57,11 +59,12 @@ public class UsuarioTest {
 				.agregarDisgustoAlimenticio("McDonalds").agregarCondicionesDeSalud(hippie).agregarCondicionesDeSalud(corporativo)
 				.setRutina(Rutina.MEDIANA).construirUsuario();
 
-		gaston = new UsuarioBuilder().setDatosPersonales(datosPersonalesMock).setComplexion(complexionMock).setRutina(Rutina.MEDIANA)
+		gaston = new UsuarioBuilder().setDatosPersonales(datosPersonalesMock).setComplexion(complexionMock).setRutina(Rutina.INTENSIVA)
 				.construirUsuario();
 
 		juanchi = new UsuarioBuilder().setDatosPersonales(datosPersonalesMock).setComplexion(complexionMock)
-				.agregarPreferenciaAlimenticia("fruta").setRutina(Rutina.MEDIANA).construirUsuario();
+				.agregarPreferenciaAlimenticia("fruta").agregarCondicionesDeSalud(vegano)
+				.setRutina(Rutina.ALTA).construirUsuario();
 
 		juanchi.agregarGrupo(grupoMock);
 	}
@@ -117,6 +120,7 @@ public class UsuarioTest {
 		verify(complexionMock, times(2)).indiceMasaCorporal();
 	}
 
+	@Test
 	public void tieneAlgunaDeEstasPreferenciasTest() {
 		Collection<String> preferenciasVariadas = Arrays.asList("fruta", "semillas", "campignones");
 		assertTrue(juanchi.tieneAlgunaDeEstasPreferencias(preferenciasVariadas));
@@ -237,6 +241,16 @@ public class UsuarioTest {
 
 		assertEquals(gustavo.getRecetasFavoritas(), Arrays.asList(choripanMock));
 	}
+	
+	@Test
+	public void quitarAFavoritas(){
+		gaston.agregarAFavorita(ensaladaMock);
+		gaston.agregarAFavorita(choripanMock);
+		
+		gaston.quitarRecetaFavorita(choripanMock);
+		
+		assertEquals(gaston.getRecetasFavoritas(), Arrays.asList(ensaladaMock));
+	}
 
 	@Test
 	public void gustavoEsMasculino() {
@@ -244,5 +258,23 @@ public class UsuarioTest {
 		assertTrue(gustavo.esDeSexo(Sexo.MASCULINO));
 		verify(datosPersonalesMock, times(1)).esDeSexo(Sexo.MASCULINO);
 
+	}
+	
+	@Test
+	public void juanchiEsVegano(){
+		when(vegano.esCondicionVegana()).thenReturn(true);
+		assertTrue(juanchi.esVegano());
+		verify(vegano, times(1)).esCondicionVegana();
+	}
+	
+	//Test de Rutinas
+	@Test
+	public void usuarioTieneRutinaActivaSiTieneIntensiva(){
+		assertTrue(gaston.tieneRutinaActiva());
+	}
+	
+	@Test
+	public void usuarioTieneRutinaActivaSiTieneRutinaAlta(){
+		assertTrue(juanchi.tieneRutinaActiva());
 	}
 }
