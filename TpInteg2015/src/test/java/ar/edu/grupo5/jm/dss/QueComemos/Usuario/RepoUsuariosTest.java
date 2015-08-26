@@ -85,7 +85,7 @@ public class RepoUsuariosTest {
 	@Test
 	public void buscarJuanchiPorNombre() {
 		when(usuarioMock.getNombre()).thenReturn("juanchi");
-		assertEquals(repoUsuarios.get(usuarioMock), Optional.of(juanchi));
+		assertEquals(repoUsuarios.buscarUnUsuarioConNombre(usuarioMock), Optional.of(juanchi));
 		verify(usuarioMock, times(1)).getNombre();
 	}
 
@@ -93,7 +93,7 @@ public class RepoUsuariosTest {
 	public void buscarGustavosHippies() {
 		when(usuarioMock.getNombre()).thenReturn("gustavo");
 		when(usuarioMock.getCondicionesDeSalud()).thenReturn(condicionesGustavo);
-		assertEquals(repoUsuarios.list(usuarioMock), Arrays.asList(gustavo));
+		assertEquals(repoUsuarios.listarPorNombreYCondiciones(usuarioMock), Arrays.asList(gustavo));
 		verify(usuarioMock, times(4)).getNombre();
 		verify(usuarioMock, times(2)).getCondicionesDeSalud();
 	}
@@ -102,7 +102,7 @@ public class RepoUsuariosTest {
 	public void buscarGustavosSinCondicion() {
 		when(usuarioMock.getNombre()).thenReturn("gustavo");
 		when(usuarioMock.getCondicionesDeSalud()).thenReturn(new ArrayList<CondicionDeSalud>());
-		assertEquals(repoUsuarios.list(usuarioMock), Arrays.asList(gustavo, cerati));
+		assertEquals(repoUsuarios.listarPorNombreYCondiciones(usuarioMock), Arrays.asList(gustavo, cerati));
 		verify(usuarioMock, times(4)).getNombre();
 		verify(usuarioMock, times(2)).getCondicionesDeSalud();
 	}

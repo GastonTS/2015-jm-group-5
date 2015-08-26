@@ -42,15 +42,15 @@ public class RepoUsuarios {
 		add(usuarioNuevo);
 	}
 
-	public Optional<Usuario> get(Usuario unUsuario) {
+	public Optional<Usuario> buscarUnUsuarioConNombre(Usuario unUsuario) {
 		return usuarios.stream().filter(usuarioPosta -> tienenMismoNombre(unUsuario, usuarioPosta)).findFirst();
 	}
 
-	public Collection<Usuario> list(Usuario unUsuario) {
-		return usuarios.stream().filter(usuarioPosta -> searchByName(unUsuario, usuarioPosta)).collect(Collectors.toList());
+	public Collection<Usuario> listarPorNombreYCondiciones(Usuario unUsuario) {
+		return usuarios.stream().filter(usuarioPosta -> tienenMismoNombreYCondiciones(unUsuario, usuarioPosta)).collect(Collectors.toList());
 	}
 
-	private Boolean searchByName(Usuario usuarioBuscado, Usuario usuarioPosta) {
+	private Boolean tienenMismoNombreYCondiciones(Usuario usuarioBuscado, Usuario usuarioPosta) {
 		return tienenMismoNombre(usuarioBuscado, usuarioPosta) && tieneTodasLasCondicionesDeSaludDe(usuarioBuscado, usuarioPosta);
 	}
 
