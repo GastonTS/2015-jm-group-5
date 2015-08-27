@@ -23,6 +23,7 @@ public class RecetaTest {
 	private Receta recetaDificil;
 	
 	private Usuario arthas = mock(Usuario.class);
+	private Usuario muradin = mock(Usuario.class);
 
 	private Condimentacion sal = new Condimentacion("sal fina", 100);
 	private Condimentacion pocaSal = new Condimentacion("sal fina", 50);
@@ -98,6 +99,19 @@ public class RecetaTest {
 		assertTrue(pure.esPublica());
 		pure.setDueño(arthas);
 		assertTrue(pure.esElDueño(arthas));
+	}
+	
+	@Test
+	public void unaRecetaSeLeSeteaDueñoYSeCompruebaQueNoEsOtroDueño() {
+		assertTrue(pure.esPublica());
+		pure.setDueño(arthas);
+		assertFalse(pure.esElDueño(muradin));
+	}
+	
+	@Test
+	public void unaRecetaNoSeLeSeteaDueñoYSeCompruebaElDueño() {
+		assertTrue(pure.esPublica());
+		assertFalse(pure.esElDueño(arthas));
 	}
 	
 	@Test
