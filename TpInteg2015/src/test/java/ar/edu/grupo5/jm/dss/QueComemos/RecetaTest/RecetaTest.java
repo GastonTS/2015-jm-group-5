@@ -147,10 +147,18 @@ public class RecetaTest {
 		condimentosProhibidos.add("nuez moscada");
 		assertTrue(pure.tenesAlgoDe(condimentosProhibidos));
 
-
 	}
 
-	
+	@Test
+	public void unaRecetatieneAlgunIngredienteDeEstos() {
+		ArrayList<String> ingredientes = new ArrayList<String>();
+		ingredientes.add("Lechuga 2kg");
+		ingredientes.add("carne Humana 3kg");
+		ingredientes.add("polimorfismo 2 piscas");
+		ingredientes.add("pattern matching 5 cucharadas soperas");
+		
+		assertTrue(ensalada.tieneAlgunIngredienteDeEstos(ingredientes));
+	}
 	
 
 }
