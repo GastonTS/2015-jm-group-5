@@ -3,6 +3,7 @@ package ar.edu.grupo5.jm.dss.QueComemos.RecetaTest;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.junit.Before;
@@ -24,6 +25,8 @@ public class RecetaTest {
 	private Usuario arthas = mock(Usuario.class);
 
 	private Condimentacion sal = new Condimentacion("sal fina", 100);
+	private Condimentacion pocaSal = new Condimentacion("sal fina", 50);
+	private Condimentacion muchaSal = new Condimentacion("sal fina", 200);
 	private Condimentacion pimienta = new Condimentacion("pimienta molida", 50);
 	private Condimentacion nuezMoscada = new Condimentacion("nuez moscada", 20);
 	private Condimentacion condimentoParaPollo = new Condimentacion("condimento P/pollo", 40);
@@ -103,6 +106,50 @@ public class RecetaTest {
 		pure.setDueño(arthas);
 		assertFalse(pure.esPublica());
 	}
+	
+	@Test
+	public void unaRecetaTieneMasDeUnaCondimentacion() {
+		assertTrue(pure.tenesMasDe(pocaSal));
+	}
+	
+	@Test
+	public void unaRecetaNoTieneMasDeUnaCondimentacion() {
+		assertFalse(pure.tenesMasDe(muchaSal));
+		assertFalse(recetaDificil.tenesMasDe(pocaSal));
+	}
+	
+	
+	@Test
+	public void unaRecetaNoTieneNingunoDeEstosCondimentos() {
+		ArrayList<String> condimentosProhibidos = new ArrayList<String>();
+		condimentosProhibidos.add("barbacoa");
+		condimentosProhibidos.add("cheddar");
+		condimentosProhibidos.add("wasabi");
+		assertFalse(pure.tenesAlgoDe(condimentosProhibidos));
+
+	}
+	
+	@Test
+	public void unaRecetaTieneAlgunosDeEstosCondimentos() {
+		ArrayList<String> condimentosProhibidos = new ArrayList<String>();
+		condimentosProhibidos.add("sal fina");
+		condimentosProhibidos.add("cheddar");
+		condimentosProhibidos.add("wasabi");
+		assertTrue(pure.tenesAlgoDe(condimentosProhibidos));
+
+	}
+	
+	@Test
+	public void unaRecetaTieneTodosEstosCondimentos() {
+		ArrayList<String> condimentosProhibidos = new ArrayList<String>();
+		condimentosProhibidos.add("sal fina");
+		condimentosProhibidos.add("pimienta molida");
+		condimentosProhibidos.add("nuez moscada");
+		assertTrue(pure.tenesAlgoDe(condimentosProhibidos));
+
+
+	}
+
 	
 	
 
