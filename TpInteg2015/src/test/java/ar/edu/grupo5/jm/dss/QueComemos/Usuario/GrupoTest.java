@@ -50,14 +50,14 @@ public class GrupoTest {
 		when(recetaMock.esElDueño(gaston)).thenReturn(true);
 		when(juanchi.sosRecetaInadecuadaParaMi(recetaMock)).thenReturn(false);
 		when(gaston.sosRecetaInadecuadaParaMi(recetaMock)).thenReturn(false);
-		when(recetaMock.tieneAlgunIngredienteDeEstos(preferenciasVariadas)).thenReturn(true);
+		when(recetaMock.tenesAlgunIngredienteDeEstos(preferenciasVariadas)).thenReturn(true);
 
 		assertTrue(grupoConPreferenciasVariadas.puedeSugerirse(recetaMock));
 
 		verify(recetaMock, times(1)).esElDueño(gaston);
 		verify(juanchi, times(1)).sosRecetaInadecuadaParaMi(recetaMock);
 		verify(gaston, times(1)).sosRecetaInadecuadaParaMi(recetaMock);
-		verify(recetaMock, times(1)).tieneAlgunIngredienteDeEstos(preferenciasVariadas);
+		verify(recetaMock, times(1)).tenesAlgunIngredienteDeEstos(preferenciasVariadas);
 	}
 
 	@Test
@@ -65,25 +65,25 @@ public class GrupoTest {
 		when(recetaMock.esElDueño(gaston)).thenReturn(true);
 		when(juanchi.sosRecetaInadecuadaParaMi(recetaMock)).thenReturn(true);
 		when(gaston.sosRecetaInadecuadaParaMi(recetaMock)).thenReturn(false);
-		when(recetaMock.tieneAlgunIngredienteDeEstos(preferenciasVariadas)).thenReturn(true);
+		when(recetaMock.tenesAlgunIngredienteDeEstos(preferenciasVariadas)).thenReturn(true);
 
 		assertFalse(grupoConPreferenciasVariadas.puedeSugerirse(recetaMock));
 
 		verify(recetaMock, times(1)).esElDueño(gaston);
 		verify(juanchi, times(1)).sosRecetaInadecuadaParaMi(recetaMock);
 		verify(gaston, times(1)).sosRecetaInadecuadaParaMi(recetaMock);
-		verify(recetaMock, times(1)).tieneAlgunIngredienteDeEstos(preferenciasVariadas);
+		verify(recetaMock, times(1)).tenesAlgunIngredienteDeEstos(preferenciasVariadas);
 	}
 
 	@Test
 	public void noPuedeSugerirseSiNoTieneIngredientesPreferentes() {
 		when(recetaMock.esElDueño(gaston)).thenReturn(true);
-		when(recetaMock.tieneAlgunIngredienteDeEstos(preferenciasVariadas)).thenReturn(false);
+		when(recetaMock.tenesAlgunIngredienteDeEstos(preferenciasVariadas)).thenReturn(false);
 
 		assertFalse(grupoConPreferenciasVariadas.puedeSugerirse(recetaMock));
 
 		verify(recetaMock, times(1)).esElDueño(gaston);
-		verify(recetaMock, times(1)).tieneAlgunIngredienteDeEstos(preferenciasVariadas);
+		verify(recetaMock, times(1)).tenesAlgunIngredienteDeEstos(preferenciasVariadas);
 	}
 
 }

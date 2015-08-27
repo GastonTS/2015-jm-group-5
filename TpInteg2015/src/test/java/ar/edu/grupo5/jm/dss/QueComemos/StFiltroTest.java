@@ -127,10 +127,10 @@ public class StFiltroTest {
 
 	@Test
 	public void siEsCaraSuPreparacionNoLaDevuelve() {
-		when(guisoMock.tieneAlgunIngredienteDeEstos(ingredientesCaros)).thenReturn(true);
-		when(ensaladaMock.tieneAlgunIngredienteDeEstos(ingredientesCaros)).thenReturn(false);
-		when(panchoMock.tieneAlgunIngredienteDeEstos(ingredientesCaros)).thenReturn(false);
-		when(vegetarianaMock.tieneAlgunIngredienteDeEstos(ingredientesCaros)).thenReturn(true);
+		when(guisoMock.tenesAlgunIngredienteDeEstos(ingredientesCaros)).thenReturn(true);
+		when(ensaladaMock.tenesAlgunIngredienteDeEstos(ingredientesCaros)).thenReturn(false);
+		when(panchoMock.tenesAlgunIngredienteDeEstos(ingredientesCaros)).thenReturn(false);
+		when(vegetarianaMock.tenesAlgunIngredienteDeEstos(ingredientesCaros)).thenReturn(true);
 
 		Collection<Receta> todasLasRecetas = Arrays.asList(guisoMock, ensaladaMock, panchoMock, vegetarianaMock);
 
@@ -139,10 +139,10 @@ public class StFiltroTest {
 		assertEquals(todasLasRecetas.stream().filter(unaReceta -> preparacionBarata.filtrar(unaReceta, usuarioMock)).collect(Collectors.toList()),
 				recetasBaratas);
 
-		verify(guisoMock, times(1)).tieneAlgunIngredienteDeEstos(ingredientesCaros);
-		verify(ensaladaMock, times(1)).tieneAlgunIngredienteDeEstos(ingredientesCaros);
-		verify(panchoMock, times(1)).tieneAlgunIngredienteDeEstos(ingredientesCaros);
-		verify(vegetarianaMock, times(1)).tieneAlgunIngredienteDeEstos(ingredientesCaros);
+		verify(guisoMock, times(1)).tenesAlgunIngredienteDeEstos(ingredientesCaros);
+		verify(ensaladaMock, times(1)).tenesAlgunIngredienteDeEstos(ingredientesCaros);
+		verify(panchoMock, times(1)).tenesAlgunIngredienteDeEstos(ingredientesCaros);
+		verify(vegetarianaMock, times(1)).tenesAlgunIngredienteDeEstos(ingredientesCaros);
 	}
 
 	@Test
@@ -157,7 +157,7 @@ public class StFiltroTest {
 		when(usuarioMock.sosRecetaInadecuadaParaMi(ensaladaMock)).thenReturn(false);
 		when(usuarioMock.sosRecetaInadecuadaParaMi(vegetarianaMock)).thenReturn(false);
 
-		when(ensaladaMock.tieneAlgunIngredienteDeEstos(ingredientesCaros)).thenReturn(false);
+		when(ensaladaMock.tenesAlgunIngredienteDeEstos(ingredientesCaros)).thenReturn(false);
 
 		Collection<Receta> todasLasRecetas = Arrays.asList(guisoMock, ensaladaMock, panchoMock, vegetarianaMock);
 
@@ -176,7 +176,7 @@ public class StFiltroTest {
 		verify(usuarioMock, times(1)).noLeDisgusta(ensaladaMock);
 		verify(usuarioMock, times(1)).noLeDisgusta(vegetarianaMock);
 
-		verify(ensaladaMock, times(1)).tieneAlgunIngredienteDeEstos(ingredientesCaros);
+		verify(ensaladaMock, times(1)).tenesAlgunIngredienteDeEstos(ingredientesCaros);
 	}
 
 	@Test

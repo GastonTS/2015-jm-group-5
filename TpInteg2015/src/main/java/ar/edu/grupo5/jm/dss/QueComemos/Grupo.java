@@ -24,7 +24,7 @@ public class Grupo {
 	}
 
 	public boolean puedeSugerirse(Receta unaReceta) {
-		return alguienTiene(unaReceta) && unaReceta.tieneAlgunIngredienteDeEstos(preferenciasAlimenticias) && esApropiadaParaTodosSusIntegrantes(unaReceta);
+		return alguienTiene(unaReceta) && unaReceta.tenesAlgunIngredienteDeEstos(preferenciasAlimenticias) && esApropiadaParaTodosSusIntegrantes(unaReceta);
 	}
 
 	private boolean esApropiadaParaTodosSusIntegrantes(Receta unaReceta) {

@@ -98,7 +98,7 @@ public class Usuario {
 	}
 
 	public boolean noLeDisgusta(Receta unaReceta) {
-		return !unaReceta.tieneAlgunIngredienteDeEstos(disgustosAlimenticios);
+		return !unaReceta.tenesAlgunIngredienteDeEstos(disgustosAlimenticios);
 	}
 
 	public void agregarAFavorita(Receta unaReceta) {

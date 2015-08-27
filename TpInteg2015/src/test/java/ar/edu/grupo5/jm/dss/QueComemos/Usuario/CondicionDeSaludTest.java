@@ -176,11 +176,11 @@ public class CondicionDeSaludTest {
 
 	@Test
 	public void recetaVeganaEsInadecuadaSiTieneIngredientesProhibidos() {
-		when(recetaFalsa.tieneAlgunIngredienteDeEstos(Vegano.getPreferenciasProhibidas())).thenReturn(true);
+		when(recetaFalsa.tenesAlgunIngredienteDeEstos(Vegano.getPreferenciasProhibidas())).thenReturn(true);
 
 		assertTrue(vegano.esInadecuada(recetaFalsa));
 
-		verify(recetaFalsa, times(1)).tieneAlgunIngredienteDeEstos(Vegano.getPreferenciasProhibidas());
+		verify(recetaFalsa, times(1)).tenesAlgunIngredienteDeEstos(Vegano.getPreferenciasProhibidas());
 	}
 
 	@Test

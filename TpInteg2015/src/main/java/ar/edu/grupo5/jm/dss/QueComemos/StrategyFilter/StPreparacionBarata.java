@@ -10,6 +10,6 @@ public class StPreparacionBarata implements StFiltro {
 	private Collection<String> ingredientesCaros = Arrays.asList("lechon", "lomo", "salmon", "alcaparras");
 
 	public boolean filtrar(Receta unaReceta, Usuario unUsuario) {
-		return !unaReceta.tieneAlgunIngredienteDeEstos(ingredientesCaros);
+		return !unaReceta.tenesAlgunIngredienteDeEstos(ingredientesCaros);
 	}
 }

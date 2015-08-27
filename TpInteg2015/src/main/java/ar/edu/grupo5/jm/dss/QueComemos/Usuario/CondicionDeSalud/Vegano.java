@@ -21,7 +21,7 @@ public class Vegano extends CondicionDeSalud {
 
 	@Override
 	public boolean esInadecuada(Receta unaReceta) {
-		return unaReceta.tieneAlgunIngredienteDeEstos(preferenciasProhibidas);
+		return unaReceta.tenesAlgunIngredienteDeEstos(preferenciasProhibidas);
 	}
 
 	@Override

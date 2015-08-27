@@ -171,7 +171,7 @@ public class RecetaTest {
 		ingredientes.add("polimorfismo 2 piscas");
 		ingredientes.add("pattern matching 5 cucharadas soperas");
 		
-		assertTrue(ensalada.tieneAlgunIngredienteDeEstos(ingredientes));
+		assertTrue(ensalada.tenesAlgunIngredienteDeEstos(ingredientes));
 	}
 	
 

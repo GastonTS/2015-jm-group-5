@@ -34,12 +34,12 @@ public class RecetaInadecuadaTest {
 
 	@Test
 	public void InadecuadaParaVeganosSiTieneAlgunIngredienteProhibido() {
-		when(recetaMock.tieneAlgunIngredienteDeEstos(Vegano.preferenciasProhibidas)).thenReturn(true);
+		when(recetaMock.tenesAlgunIngredienteDeEstos(Vegano.preferenciasProhibidas)).thenReturn(true);
 
 		condicionesInadecuadas = CondicionDeSalud.condicionesALasQueEsInadecuada(recetaMock);
 		assertTrue(condicionesInadecuadas.stream().anyMatch(condicion -> condicion instanceof Vegano));
 
-		verify(recetaMock, times(1)).tieneAlgunIngredienteDeEstos(Vegano.preferenciasProhibidas);
+		verify(recetaMock, times(1)).tenesAlgunIngredienteDeEstos(Vegano.preferenciasProhibidas);
 	}
 
 	@Test

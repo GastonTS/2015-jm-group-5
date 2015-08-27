@@ -62,7 +62,7 @@ public class Receta {
 				condimentacion -> condimentacion.mayorCantidadDeMismoCondimentoQue(unaCondimentacion));
 	}
 
-	public boolean tieneAlgunIngredienteDeEstos(Collection<String> ingredientesProhibidas) {
+	public boolean tenesAlgunIngredienteDeEstos(Collection<String> ingredientesProhibidas) {
 		return getIngredientesTotales().stream().anyMatch(ingrediente -> ingredientesProhibidas.contains(ingrediente));
 	}
 

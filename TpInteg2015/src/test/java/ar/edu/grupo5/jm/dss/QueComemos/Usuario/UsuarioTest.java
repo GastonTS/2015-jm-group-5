@@ -171,55 +171,55 @@ public class UsuarioTest {
 	// Test de Sugerencias
 	@Test
 	public void unaRecetaNoDisgusta() {
-		when(recetaMock.tieneAlgunIngredienteDeEstos(disgustosGustavo)).thenReturn(false);
+		when(recetaMock.tenesAlgunIngredienteDeEstos(disgustosGustavo)).thenReturn(false);
 
 		assertTrue(gustavo.noLeDisgusta(recetaMock));
 
-		verify(recetaMock, times(1)).tieneAlgunIngredienteDeEstos(disgustosGustavo);
+		verify(recetaMock, times(1)).tenesAlgunIngredienteDeEstos(disgustosGustavo);
 	}
 
 	@Test
 	public void unaRecetaDisgusta() {
-		when(recetaMock.tieneAlgunIngredienteDeEstos(disgustosGustavo)).thenReturn(true);
+		when(recetaMock.tenesAlgunIngredienteDeEstos(disgustosGustavo)).thenReturn(true);
 
 		assertFalse(gustavo.noLeDisgusta(recetaMock));
 
-		verify(recetaMock, times(1)).tieneAlgunIngredienteDeEstos(disgustosGustavo);
+		verify(recetaMock, times(1)).tenesAlgunIngredienteDeEstos(disgustosGustavo);
 	}
 
 	@Test
 	public void seSugiereUnaRecetaSiNoDisgustaYEsAdecauda() {
 		when(hippie.esInadecuada(recetaMock)).thenReturn(false);
 		when(corporativo.esInadecuada(recetaMock)).thenReturn(false);
-		when(recetaMock.tieneAlgunIngredienteDeEstos(disgustosGustavo)).thenReturn(false);
+		when(recetaMock.tenesAlgunIngredienteDeEstos(disgustosGustavo)).thenReturn(false);
 		when(recetaMock.esPublica()).thenReturn(true);
 
 		assertTrue(gustavo.puedeSugerirse(recetaMock));
 
 		verify(hippie, times(1)).esInadecuada(recetaMock);
 		verify(corporativo, times(1)).esInadecuada(recetaMock);
-		verify(recetaMock, times(1)).tieneAlgunIngredienteDeEstos(disgustosGustavo);
+		verify(recetaMock, times(1)).tenesAlgunIngredienteDeEstos(disgustosGustavo);
 		verify(recetaMock, times(1)).esPublica();
 	}
 
 	@Test
 	public void noSeSugiereRecetaSiDisgusta() {
-		when(recetaMock.tieneAlgunIngredienteDeEstos(disgustosGustavo)).thenReturn(true);
+		when(recetaMock.tenesAlgunIngredienteDeEstos(disgustosGustavo)).thenReturn(true);
 
 		assertFalse(gustavo.puedeSugerirse(recetaMock));
 
-		verify(recetaMock, times(1)).tieneAlgunIngredienteDeEstos(disgustosGustavo);
+		verify(recetaMock, times(1)).tenesAlgunIngredienteDeEstos(disgustosGustavo);
 	}
 
 	@Test
 	public void noSeSugiereRecetaSiEsInadecuada() {
 		when(hippie.esInadecuada(recetaMock)).thenReturn(true);
-		when(recetaMock.tieneAlgunIngredienteDeEstos(disgustosGustavo)).thenReturn(false);
+		when(recetaMock.tenesAlgunIngredienteDeEstos(disgustosGustavo)).thenReturn(false);
 
 		assertFalse(gustavo.puedeSugerirse(recetaMock));
 
 		verify(hippie, times(1)).esInadecuada(recetaMock);
-		verify(recetaMock, times(1)).tieneAlgunIngredienteDeEstos(disgustosGustavo);
+		verify(recetaMock, times(1)).tenesAlgunIngredienteDeEstos(disgustosGustavo);
 	}
 
 	@Test
