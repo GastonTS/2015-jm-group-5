@@ -1,6 +1,7 @@
 package ar.edu.grupo5.jm.dss.QueComemos.RecetaTest;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
 
 import java.util.Arrays;
 
@@ -11,6 +12,7 @@ import ar.edu.grupo5.jm.dss.QueComemos.Receta.Condimentacion;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta.Dificultad;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.RecetaBuilder;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
 public class RecetaTest {
 
@@ -18,6 +20,8 @@ public class RecetaTest {
 	private Receta pure;
 	private Receta ensalada;
 	private Receta recetaDificil;
+	
+	private Usuario arthas = mock(Usuario.class);
 
 	private Condimentacion sal = new Condimentacion("sal fina", 100);
 	private Condimentacion pimienta = new Condimentacion("pimienta molida", 50);
@@ -80,5 +84,26 @@ public class RecetaTest {
 		assertTrue(recetaDificil.esDificil());
 		assertFalse(pure.esDificil());
 	}
+	
+	@Test
+	public void unaRecetaSinDueñoEsPublica() {
+		assertTrue(pure.esPublica());
+	}
+	
+	@Test
+	public void unaRecetaSeLeSeteaDueñoYSeCompruebaElDueño() {
+		assertTrue(pure.esPublica());
+		pure.setDueño(arthas);
+		assertTrue(pure.esElDueño(arthas));
+	}
+	
+	@Test
+	public void unaRecetaSeLeSeteaDueñoYSeCompruebaQueNoEsMasPublica() {
+		assertTrue(pure.esPublica());
+		pure.setDueño(arthas);
+		assertFalse(pure.esPublica());
+	}
+	
+	
 
 }
