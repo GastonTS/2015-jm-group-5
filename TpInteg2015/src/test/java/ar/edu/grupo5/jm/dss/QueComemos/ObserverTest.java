@@ -19,8 +19,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ar.edu.grupo5.jm.dss.QueComemos.Oberserver.ConsultaVeganoRecetasDificles;
+import ar.edu.grupo5.jm.dss.QueComemos.Oberserver.ConsultasSegunSexo;
 import ar.edu.grupo5.jm.dss.QueComemos.Oberserver.MasConsultada;
 import ar.edu.grupo5.jm.dss.QueComemos.Oberserver.PorHoraDelDia;
+import ar.edu.grupo5.jm.dss.QueComemos.Oberserver.RecetaMasConsultada;
 import ar.edu.grupo5.jm.dss.QueComemos.Oberserver.SegunSexo;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
@@ -43,7 +45,10 @@ public class ObserverTest {
 	private Collection<Receta> recetasDeGuisoYPancho = new ArrayList<Receta>();
 	private Collection<Receta> recetasDePanchoYEnsalada = new ArrayList<Receta>();
 	private Collection<Receta> recetaExtraEnsalada = new ArrayList<Receta>();
-
+	
+	RecetaMasConsultada alternativaObserverRecetaMasConsultada= new RecetaMasConsultada();
+	ConsultasSegunSexo alternativaObserverSegunSexo= new ConsultasSegunSexo();
+	
 	private Vegano condicionMock = mock(Vegano.class);
 	
 	PorHoraDelDia observerPorHoraDelDia = new PorHoraDelDia(Clock.system(ZoneId.of("America/Argentina/Buenos_Aires")));
@@ -134,5 +139,41 @@ public class ObserverTest {
 		verify(guisoMock, times(1)).esDificil();
 		verify(panchoMock, times(1)).esDificil();
 		verify(ensaladaMock, times(1)).esDificil();
+	}
+	
+	@Test
+	public void nombreYCantidadCorrectaDeRecetaMasConsultada() {
+
+		alternativaObserverRecetaMasConsultada.notificarConsulta(usuarioMock, recetas);
+		alternativaObserverRecetaMasConsultada.notificarConsulta(usuarioMock, recetasDeGuisoYPancho);
+		alternativaObserverRecetaMasConsultada.notificarConsulta(usuarioMock, recetasDePanchoYEnsalada);
+
+		assertEquals(alternativaObserverRecetaMasConsultada.recetaMasConsultada(), Optional.of(panchoMock));
+		assertEquals(alternativaObserverRecetaMasConsultada.cantidadDeConsultasDeRecetaMasConsultada(), 3);
+
+	}
+	
+	@Test
+	public void nombreYCantidadCorrectaDeRecetaMasConsultadaSegunHombreOMujer() {
+
+		when(usuarioMock.esDeSexo(Sexo.MASCULINO)).thenReturn(true);
+		when(usuarioMockFem.esDeSexo(Sexo.FEMENINO)).thenReturn(true);
+
+		alternativaObserverSegunSexo.notificarConsulta(usuarioMock, recetas);
+		alternativaObserverSegunSexo.notificarConsulta(usuarioMock, recetasDeGuisoYPancho);
+		alternativaObserverSegunSexo.notificarConsulta(usuarioMock, recetasDePanchoYEnsalada);
+
+		alternativaObserverSegunSexo.notificarConsulta(usuarioMockFem, recetas);
+		alternativaObserverSegunSexo.notificarConsulta(usuarioMockFem, recetasDePanchoYEnsalada);
+		alternativaObserverSegunSexo.notificarConsulta(usuarioMockFem, recetaExtraEnsalada);
+
+		assertEquals(alternativaObserverSegunSexo.recetaMasConsultadaPara(usuarioMock), Optional.of(panchoMock));
+		assertEquals(alternativaObserverSegunSexo.cantidadRecetaMasConsultadaPara(usuarioMock), 3);
+
+		assertEquals(alternativaObserverSegunSexo.recetaMasConsultadaPara(usuarioMockFem), Optional.of(ensaladaMock));
+		assertEquals(alternativaObserverSegunSexo.cantidadRecetaMasConsultadaPara(usuarioMockFem), 4);
+
+		verify(usuarioMock, times(5)).esDeSexo(Sexo.MASCULINO);
+		verify(usuarioMockFem, times(3)).esDeSexo(Sexo.FEMENINO); 
 	}
 }
