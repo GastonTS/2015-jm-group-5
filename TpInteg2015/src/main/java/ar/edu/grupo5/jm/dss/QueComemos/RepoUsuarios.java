@@ -58,9 +58,13 @@ public class RepoUsuarios {
 	public void solicitaIngreso(Usuario unUsuario) {
 		solicitudesDeIngreso.add(unUsuario);
 	}
+	
+	private Boolean existeSolicitudDe(Usuario unUsuario) {
+		return solicitudesDeIngreso.contains(unUsuario);
+	}
 
 	public void apruebaSolicitud(Usuario unUsuario) {
-		if(!solicitudesDeIngreso.contains(unUsuario)){
+		if(!existeSolicitudDe(unUsuario)){
 			throw new UsuarioSinSolicitudDeIngresoExeption("No se puede aprobar la solicitud del usuario!");
 		}
 		
@@ -69,7 +73,7 @@ public class RepoUsuarios {
 	}
 
 	public void rechazaSolicitud(Usuario unUsuario) {
-		if(!solicitudesDeIngreso.contains(unUsuario)){
+		if(!existeSolicitudDe(unUsuario)){
 			throw new UsuarioSinSolicitudDeIngresoExeption("No se puede rechazar la solicitud del usuario!");
 		}
 		
