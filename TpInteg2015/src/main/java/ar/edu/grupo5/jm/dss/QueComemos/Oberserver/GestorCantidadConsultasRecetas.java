@@ -1,34 +1,24 @@
 package ar.edu.grupo5.jm.dss.QueComemos.Oberserver;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
 
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
-import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
 abstract  class GestorCantidadConsultasRecetas {
 
 
-	public void añadirAColeccion(Usuario unUsuario,
-			Collection<Receta> recetasConsultadas,
-			Collection<Receta>  coleccion) {
-	
-		coleccion.addAll(recetasConsultadas); 
-	}
-	
-	
-	public Optional<Receta> elementoQueMasSeRepiteEn(ArrayList<Receta> coleccion) {
-		return coleccion.stream().max((unNombre, otroNombre) -> cantidadDeConsultas(unNombre, coleccion) - cantidadDeConsultas(otroNombre, coleccion));
+	public Optional<Receta> elementoQueMasSeRepiteEn(Collection<Receta> recetasConsultadas) {
+		return recetasConsultadas.stream().max((unaReceta, otraReceta) -> cantidadDeConsultas(unaReceta, recetasConsultadas) - cantidadDeConsultas(otraReceta, recetasConsultadas));
 	}
 
-	private int cantidadDeConsultas(Receta unaReceta, ArrayList<Receta> coleccion) {
-		return Collections.frequency(coleccion, unaReceta);
+	private int cantidadDeConsultas(Receta unaReceta, Collection<Receta> recetasConsultadas) {
+		return Collections.frequency(recetasConsultadas, unaReceta);
 	}
 
-	public int cantidadDeElementoMasRepetidoEn(ArrayList<Receta> coleccion) {
-		Optional<Receta> masConsultada = elementoQueMasSeRepiteEn(coleccion);
-		return (masConsultada.isPresent()) ? Collections.frequency(coleccion, masConsultada.get()) : 0;
+	public int cantidadDeElementoMasRepetidoEn(Collection<Receta> recetasConsultadas) {
+		Optional<Receta> masConsultada = elementoQueMasSeRepiteEn(recetasConsultadas);
+		return (masConsultada.isPresent()) ? cantidadDeConsultas(masConsultada.get(),recetasConsultadas) : 0;
 	}
 }
