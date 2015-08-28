@@ -42,8 +42,8 @@ public class DatosPersonales {
 		return nombre;
 	}
 
-	public boolean esDeSexo(Sexo unSexo) {
-		return sexo.equals(unSexo);
+	public Sexo getSexo() {
+		return sexo;
 	}
 
 }

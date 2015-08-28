@@ -13,8 +13,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ar.edu.grupo5.jm.dss.QueComemos.DecoratorFilter.Filtro;
-import ar.edu.grupo5.jm.dss.QueComemos.Oberserver.MasConsultada;
-import ar.edu.grupo5.jm.dss.QueComemos.Oberserver.PorHoraDelDia;
+import ar.edu.grupo5.jm.dss.QueComemos.Oberserver.ObservadorConsultas;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.StrategyFilter.StGestorDeConsultas;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
@@ -26,8 +25,8 @@ public class ConsultaTest {
 	
 	private Usuario gaston = mock(Usuario.class);
 	
-	private MasConsultada masConsultadaMock = mock(MasConsultada.class);
-	private PorHoraDelDia porHoraDelDiaMock = mock(PorHoraDelDia.class);
+	private ObservadorConsultas ObserverConsultaMock = mock(ObservadorConsultas.class);
+	private ObservadorConsultas ObserverConsultaMock2 = mock(ObservadorConsultas.class);
 	
 	private Receta recetaMock = mock(Receta.class);
 	private Receta panchoMock = mock(Receta.class);
@@ -38,8 +37,8 @@ public class ConsultaTest {
 	
 	@Before
 	public void setUp() {
-		consulta.agregarObservador(masConsultadaMock);
-		consulta.agregarObservador(porHoraDelDiaMock);
+		consulta.agregarObservador(ObserverConsultaMock);
+		consulta.agregarObservador(ObserverConsultaMock2);
 	}
 
 	@Test
@@ -53,8 +52,8 @@ public class ConsultaTest {
 
 		verify(consultorMock, times(1)).getRecetas(gaston);
 		verify(filtroMock, times(1)).filtrarRecetas(recetasAConsultar, gaston);
-		verify(masConsultadaMock, times(1)).notificarConsulta(gaston, resultadoConsulta);
-		verify(porHoraDelDiaMock, times(1)).notificarConsulta(gaston, resultadoConsulta);
+		verify(ObserverConsultaMock, times(1)).notificarConsulta(gaston, resultadoConsulta);
+		verify(ObserverConsultaMock2, times(1)).notificarConsulta(gaston, resultadoConsulta);
 	}
 
 

@@ -125,8 +125,8 @@ public class Usuario {
 		return condicionesDeSalud.contains(unaCondicion);
 	}
 
-	public boolean esDeSexo(Sexo sexo) {
-		return datosPersonales.esDeSexo(sexo);
+	public Sexo getSexo() {
+		return datosPersonales.getSexo();
 	}
 
 	public boolean esVegano() {

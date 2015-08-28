@@ -8,33 +8,28 @@ import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.DatosPersonales.Sexo;
 
-public class ConsultasSegunSexo extends GestorCantidadConsultasRecetas implements ObservadorConsultas{
+public class ConsultasSegunSexo extends AcumuladorConsultas {
 	
 	Collection<Receta> consultasHombres = new ArrayList<Receta>();
 	Collection<Receta> consultasMujeres = new ArrayList<Receta>();
 
 	@Override
-	public void notificarConsulta(Usuario unUsuario, Collection<Receta> recetasConsultadas) {
-		if (unUsuario.esDeSexo(Sexo.MASCULINO)) {
-			 consultasHombres.addAll(recetasConsultadas);
-		} else if (unUsuario.esDeSexo(Sexo.FEMENINO)) {
-			consultasMujeres.addAll(recetasConsultadas);
-		}
+	public Collection<Receta> getRecetasConsultadas(Usuario unUsuario) {
+		return getConsultasSegunSexo(unUsuario.getSexo());
+	}
+	
+	public Collection<Receta> getConsultasSegunSexo(Sexo unSexo) {
+		if (unSexo.equals(Sexo.MASCULINO)) {
+			return consultasHombres;
+		} else return consultasMujeres;
+	}
+	
+	public  int cantidadRecetaMasConsultadaPor(Sexo unSexo) {
+		return cantidadDeElementoMasRepetidoEn(getConsultasSegunSexo(unSexo));
 	}
 
-	public  int cantidadRecetaMasConsultadaPara(Usuario unUsuario) {
-		
-		if (unUsuario.esDeSexo(Sexo.MASCULINO)) {
-			return cantidadDeElementoMasRepetidoEn(consultasHombres);
-		} else return cantidadDeElementoMasRepetidoEn(consultasMujeres);
-		
-	}
-
-	public Optional<Receta> recetaMasConsultadaPara(Usuario unUsuario) {
-		if (unUsuario.esDeSexo(Sexo.MASCULINO)) {
-			 return elementoQueMasSeRepiteEn(consultasHombres);
-		} else return elementoQueMasSeRepiteEn(consultasMujeres);
-		
+	public Optional<Receta> recetaMasConsultadaPor(Sexo unSexo) {
+		 return elementoQueMasSeRepiteEn(getConsultasSegunSexo(unSexo));
 	}
 	
 }

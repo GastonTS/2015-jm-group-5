@@ -254,9 +254,9 @@ public class UsuarioTest {
 
 	@Test
 	public void gustavoEsMasculino() {
-		when(datosPersonalesMock.esDeSexo(Sexo.MASCULINO)).thenReturn(true);
-		assertTrue(gustavo.esDeSexo(Sexo.MASCULINO));
-		verify(datosPersonalesMock, times(1)).esDeSexo(Sexo.MASCULINO);
+		when(datosPersonalesMock.getSexo()).thenReturn(Sexo.MASCULINO);
+		assertEquals(gustavo.getSexo(), Sexo.MASCULINO);
+		verify(datosPersonalesMock, times(1)).getSexo();
 
 	}
 	
