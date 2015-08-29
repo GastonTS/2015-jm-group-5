@@ -62,7 +62,11 @@ public class Usuario implements ObjectUpdater {
 
 	// Punto 2.b
 	public boolean sigueRutinaSaludable() {
-		return 18 <= complexion.indiceMasaCorporal() && complexion.indiceMasaCorporal() <= 30 && this.subsanaTodasLasCondiciones();
+		return indiceMasaCorporalSaludable() && this.subsanaTodasLasCondiciones();
+	}
+
+	private boolean indiceMasaCorporalSaludable() {
+		return 18 <= complexion.indiceMasaCorporal() && complexion.indiceMasaCorporal() <= 30;
 	}
 
 	private boolean subsanaTodasLasCondiciones() {
