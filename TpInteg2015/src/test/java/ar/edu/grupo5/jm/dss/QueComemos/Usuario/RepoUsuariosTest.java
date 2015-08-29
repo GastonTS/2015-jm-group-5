@@ -73,11 +73,6 @@ public class RepoUsuariosTest {
 		repoUsuarios.remove(franco);
 	}
 
-	@Test(expected = UsuarioIngresadoNoExisteException.class)
-	public void intentoActualizarUsuarioInexistente() {
-		repoUsuarios.update(franco, gaston);
-	}
-
 	@Test
 	public void buscarJuanchiPorNombre() {
 		UsuarioBuscado usuarioBusquedaJuanchi = new UsuarioBuscado("juanchi", new ArrayList<CondicionDeSalud>());
