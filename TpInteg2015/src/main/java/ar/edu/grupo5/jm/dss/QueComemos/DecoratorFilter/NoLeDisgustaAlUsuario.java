@@ -3,7 +3,7 @@ package ar.edu.grupo5.jm.dss.QueComemos.DecoratorFilter;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
-public class NoLeDisgustaAlUsuario extends PreProcesamiento {
+public class NoLeDisgustaAlUsuario extends PreFiltro {
 
 	public NoLeDisgustaAlUsuario(Filtro unFiltro) {
 		super(unFiltro);

@@ -7,12 +7,12 @@ import java.util.stream.Collectors;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
-public abstract class PreProcesamiento implements Filtro {
+public abstract class PreFiltro implements Filtro {
 
 	protected Filtro subFiltro;
 	protected Predicate<Receta> criterio;
 
-	public PreProcesamiento(Filtro unFiltro) {
+	public PreFiltro(Filtro unFiltro) {
 		subFiltro = unFiltro;
 	}
 

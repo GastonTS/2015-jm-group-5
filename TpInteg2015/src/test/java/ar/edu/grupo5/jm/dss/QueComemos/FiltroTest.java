@@ -7,12 +7,12 @@ import java.util.Collection;
 import org.junit.Before;
 import org.junit.Test;
 
-import ar.edu.grupo5.jm.dss.QueComemos.DecoratorFilter.ExcesoDeCalorias;
+import ar.edu.grupo5.jm.dss.QueComemos.DecoratorFilter.NoExcedeCalorias;
 import ar.edu.grupo5.jm.dss.QueComemos.DecoratorFilter.NoLeDisgustaAlUsuario;
 import ar.edu.grupo5.jm.dss.QueComemos.DecoratorFilter.OrdenadosPorCriterio;
 import ar.edu.grupo5.jm.dss.QueComemos.DecoratorFilter.PreparacionBarata;
 import ar.edu.grupo5.jm.dss.QueComemos.DecoratorFilter.Primeros10;
-import ar.edu.grupo5.jm.dss.QueComemos.DecoratorFilter.SegunCondicionesDeUsuario;
+import ar.edu.grupo5.jm.dss.QueComemos.DecoratorFilter.NoEsInadecuadaParaUsuario;
 import ar.edu.grupo5.jm.dss.QueComemos.DecoratorFilter.SinFiltro;
 import ar.edu.grupo5.jm.dss.QueComemos.DecoratorFilter.SoloPares;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
@@ -35,12 +35,12 @@ public class FiltroTest {
 	private Collection<Receta> recetas = new ArrayList<Receta>();
 
 	private SinFiltro sinFiltro = new SinFiltro();
-	private ExcesoDeCalorias excesoDeCalorias = new ExcesoDeCalorias(sinFiltro);
-	private SegunCondicionesDeUsuario segunCondicionesDelusuario = new SegunCondicionesDeUsuario(sinFiltro);
+	private NoExcedeCalorias excesoDeCalorias = new NoExcedeCalorias(sinFiltro);
+	private NoEsInadecuadaParaUsuario segunCondicionesDelusuario = new NoEsInadecuadaParaUsuario(sinFiltro);
 	private PreparacionBarata preparacionBarata = new PreparacionBarata(sinFiltro);
 	private NoLeDisgustaAlUsuario leGustaAlUsuario = new NoLeDisgustaAlUsuario(sinFiltro);
 
-	private ExcesoDeCalorias superPreFiltro = new ExcesoDeCalorias(new SegunCondicionesDeUsuario(new PreparacionBarata(new NoLeDisgustaAlUsuario(sinFiltro))));
+	private NoExcedeCalorias superPreFiltro = new NoExcedeCalorias(new NoEsInadecuadaParaUsuario(new PreparacionBarata(new NoLeDisgustaAlUsuario(sinFiltro))));
 
 	private Primeros10 primeros10 = new Primeros10(sinFiltro);
 	private SoloPares soloPares = new SoloPares(sinFiltro);
@@ -50,9 +50,9 @@ public class FiltroTest {
 	private OrdenadosPorCriterio ordenadosAlfabeticamente = new OrdenadosPorCriterio(sinFiltro, ((receta1, receta2) -> (receta1.getNombre()).compareTo(receta2
 			.getNombre())));
 
-	private SoloPares combinacionPostProcesadoConPre = new SoloPares(new ExcesoDeCalorias(sinFiltro));
+	private SoloPares combinacionPostProcesadoConPre = new SoloPares(new NoExcedeCalorias(sinFiltro));
 
-	private ExcesoDeCalorias combinacionPreProcesadoConPost = new ExcesoDeCalorias(new SoloPares(sinFiltro));
+	private NoExcedeCalorias combinacionPreProcesadoConPost = new NoExcedeCalorias(new SoloPares(sinFiltro));
 
 	private Collection<String> ingredientesCaros = Arrays.asList("lechon", "lomo", "salmon", "alcaparras");
 
