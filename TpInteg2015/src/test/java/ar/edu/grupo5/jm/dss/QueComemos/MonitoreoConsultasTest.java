@@ -34,7 +34,7 @@ public class MonitoreoConsultasTest {
 	MailSender mailSenderMock = mock(MailSender.class);
 	
 	LogearConsultasMasDe100 monitorMayor100 = new LogearConsultasMasDe100();
-	AgregarRecetasAFavoritas monitorRecetasFavoritas = new AgregarRecetasAFavoritas();
+	AgregarRecetasConsultadasAFavoritas monitorRecetasFavoritas = new AgregarRecetasConsultadasAFavoritas();
 	EnviarConsultaPorMail monitorEnviarMail;
 
 	@Before
