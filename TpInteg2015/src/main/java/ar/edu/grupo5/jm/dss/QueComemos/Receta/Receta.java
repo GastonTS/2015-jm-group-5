@@ -6,8 +6,9 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
+import ar.edu.grupo5.jm.dss.QueComemos.Utils.ObjectUpdater;
 
-public class Receta {
+public class Receta implements ObjectUpdater {
 
 	private String nombre;
 	private Collection<String> ingredientes;

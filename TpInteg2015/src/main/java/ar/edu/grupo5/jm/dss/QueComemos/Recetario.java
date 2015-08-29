@@ -58,9 +58,10 @@ public class Recetario implements ConsultorRecetas{
 		}
 
 		if (viejaReceta.esElDueño(unUsuario)) {
-			eliminarReceta(viejaReceta, unUsuario);
-		}
+			viejaReceta.update(nuevaReceta);
+		} else {
 		crearReceta(nuevaReceta, unUsuario);
+		}
 	}
 
 	@Override

@@ -7,8 +7,9 @@ import ar.edu.grupo5.jm.dss.QueComemos.Grupo;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.DatosPersonales.Sexo;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.CondicionDeSalud.CondicionDeSalud;
+import ar.edu.grupo5.jm.dss.QueComemos.Utils.ObjectUpdater;
 
-public class Usuario {
+public class Usuario implements ObjectUpdater {
 
 	private Complexion complexion;
 	private DatosPersonales datosPersonales;

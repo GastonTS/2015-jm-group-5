@@ -39,8 +39,7 @@ public class RepoUsuarios {
 	}
 
 	public void update(Usuario usuarioViejo, Usuario usuarioNuevo) {
-		remove(usuarioViejo);
-		add(usuarioNuevo);
+		usuarioViejo.update(usuarioNuevo);
 	}
 
 	public Optional<Usuario> buscarUnUsuarioConNombre(UsuarioBuscado unUsuario) {
