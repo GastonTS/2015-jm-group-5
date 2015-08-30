@@ -1,4 +1,4 @@
-package ar.edu.grupo5.jm.dss.QueComemos.Utils;
+package ar.edu.grupo5.jm.dss.QueComemos.ObjectUpdater;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -14,6 +14,7 @@ public interface ObjectUpdater {
 	    			+ update.getClass().getName());
 	    }
 
+	    
 	    Method[] getters = this.getClass().getDeclaredMethods();
 	    Method setter = null;
 

@@ -1,13 +1,13 @@
-package ar.edu.grupo5.jm.dss.QueComemos.UtilsTest;
+package ar.edu.grupo5.jm.dss.QueComemos.ObjectUpdaterTest;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Ignore;
 import org.junit.Test;
 
-import ar.edu.grupo5.jm.dss.QueComemos.Utils.ObjectIsFromADifferentClass;
-import ar.edu.grupo5.jm.dss.QueComemos.Utils.SetterIsMissingException;
-import ar.edu.grupo5.jm.dss.QueComemos.Utils.SetterIsNotPublicException;
+import ar.edu.grupo5.jm.dss.QueComemos.ObjectUpdater.ObjectIsFromADifferentClass;
+import ar.edu.grupo5.jm.dss.QueComemos.ObjectUpdater.SetterIsMissingException;
+import ar.edu.grupo5.jm.dss.QueComemos.ObjectUpdater.SetterIsNotPublicException;
 
 
 public class UpdateTest{

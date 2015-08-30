@@ -1,4 +1,4 @@
-package ar.edu.grupo5.jm.dss.QueComemos.Utils;
+package ar.edu.grupo5.jm.dss.QueComemos.ObjectUpdater;
 
 public class SetterIsNotPublicException extends RuntimeException {
 	
