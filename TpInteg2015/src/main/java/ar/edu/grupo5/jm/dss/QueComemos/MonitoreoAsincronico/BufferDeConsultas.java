@@ -13,7 +13,15 @@ public class BufferDeConsultas {
 		consultasRealizadas.add(unaConsulta);
 	}
 
+	public void agregarProceso(ProcesoAsincronico unProceso) {
+		procesosARealizar.add(unProceso);
+	}
+
 	public void procesarConsultas() {
 		procesosARealizar.forEach(proceso -> proceso.procesarConsultas(consultasRealizadas));
+	}
+
+	public void limpiarConsultas() {
+		consultasRealizadas.removeAll(consultasRealizadas);
 	}
 }
