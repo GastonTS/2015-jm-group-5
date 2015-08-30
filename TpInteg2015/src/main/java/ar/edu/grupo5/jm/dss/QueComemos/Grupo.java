@@ -24,7 +24,10 @@ public class Grupo {
 	}
 
 	public boolean puedeSugerirse(Receta unaReceta) {
-		return alguienTiene(unaReceta) && unaReceta.tenesAlgunIngredienteDeEstos(preferenciasAlimenticias) && esApropiadaParaTodosSusIntegrantes(unaReceta);
+		return (alguienTiene(unaReceta) 
+				|| unaReceta.esPublica()) 
+				&& unaReceta.tenesAlgunIngredienteDeEstos(preferenciasAlimenticias)
+				&& esApropiadaParaTodosSusIntegrantes(unaReceta);
 	}
 
 	private boolean esApropiadaParaTodosSusIntegrantes(Receta unaReceta) {

@@ -46,8 +46,24 @@ public class GrupoTest {
 	}
 
 	@Test
-	public void puedeSugerirseSiNoEsInadecuadaParaNingunIntegranteYTieneIngredientesPreferentes() {
+	public void puedeSugerirseSiNoEsInadecuadaParaNingunIntegranteYTieneIngredientesPreferentesYAlguienEsDueño() {
 		when(recetaMock.esElDueño(gaston)).thenReturn(true);
+		when(juanchi.sosRecetaInadecuadaParaMi(recetaMock)).thenReturn(false);
+		when(gaston.sosRecetaInadecuadaParaMi(recetaMock)).thenReturn(false);
+		when(recetaMock.tenesAlgunIngredienteDeEstos(preferenciasVariadas)).thenReturn(true);
+
+		assertTrue(grupoConPreferenciasVariadas.puedeSugerirse(recetaMock));
+
+		verify(recetaMock, times(1)).esElDueño(gaston);
+		verify(juanchi, times(1)).sosRecetaInadecuadaParaMi(recetaMock);
+		verify(gaston, times(1)).sosRecetaInadecuadaParaMi(recetaMock);
+		verify(recetaMock, times(1)).tenesAlgunIngredienteDeEstos(preferenciasVariadas);
+	}
+
+	@Test
+	public void puedeSugerirseSiNoEsInadecuadaParaNingunIntegranteYTieneIngredientesPreferentesYEsPublica() {
+		when(recetaMock.esElDueño(gaston)).thenReturn(false);
+		when(recetaMock.esPublica()).thenReturn(true);
 		when(juanchi.sosRecetaInadecuadaParaMi(recetaMock)).thenReturn(false);
 		when(gaston.sosRecetaInadecuadaParaMi(recetaMock)).thenReturn(false);
 		when(recetaMock.tenesAlgunIngredienteDeEstos(preferenciasVariadas)).thenReturn(true);
@@ -84,6 +100,17 @@ public class GrupoTest {
 
 		verify(recetaMock, times(1)).esElDueño(gaston);
 		verify(recetaMock, times(1)).tenesAlgunIngredienteDeEstos(preferenciasVariadas);
+	}
+
+	@Test
+	public void noPuedeSugerirseSiNoPuedenAcceder() {
+		when(recetaMock.esElDueño(gaston)).thenReturn(false);
+		when(recetaMock.esPublica()).thenReturn(false);
+
+		assertFalse(grupoConPreferenciasVariadas.puedeSugerirse(recetaMock));
+
+		verify(recetaMock, times(1)).esElDueño(gaston);
+		verify(recetaMock, times(1)).esPublica();
 	}
 
 }
