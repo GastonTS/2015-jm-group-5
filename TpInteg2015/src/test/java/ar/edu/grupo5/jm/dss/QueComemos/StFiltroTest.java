@@ -15,14 +15,14 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
-import ar.edu.grupo5.jm.dss.QueComemos.StrategyFilter.StGestorDeConsultas;
-import ar.edu.grupo5.jm.dss.QueComemos.StrategyFilter.StCondicionUsuario;
-import ar.edu.grupo5.jm.dss.QueComemos.StrategyFilter.StExcesoCalorias;
-import ar.edu.grupo5.jm.dss.QueComemos.StrategyFilter.StNoLeDisgustaAlUsuario;
-import ar.edu.grupo5.jm.dss.QueComemos.StrategyFilter.StOrdenadosPorCriterio;
-import ar.edu.grupo5.jm.dss.QueComemos.StrategyFilter.StPreparacionBarata;
-import ar.edu.grupo5.jm.dss.QueComemos.StrategyFilter.StPrimeros10;
-import ar.edu.grupo5.jm.dss.QueComemos.StrategyFilter.StSoloPares;
+import ar.edu.grupo5.jm.dss.QueComemos.StrategyFilter.Filtrado;
+import ar.edu.grupo5.jm.dss.QueComemos.StrategyFilter.CondicionUsuario;
+import ar.edu.grupo5.jm.dss.QueComemos.StrategyFilter.NoExcedeCalorias;
+import ar.edu.grupo5.jm.dss.QueComemos.StrategyFilter.NoLeDisgustaAlUsuario;
+import ar.edu.grupo5.jm.dss.QueComemos.StrategyFilter.OrdenadosPorCriterio;
+import ar.edu.grupo5.jm.dss.QueComemos.StrategyFilter.PreparacionBarata;
+import ar.edu.grupo5.jm.dss.QueComemos.StrategyFilter.Primeros10;
+import ar.edu.grupo5.jm.dss.QueComemos.StrategyFilter.SoloPares;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
 public class StFiltroTest {
@@ -37,22 +37,22 @@ public class StFiltroTest {
 
 	private Collection<String> ingredientesCaros = Arrays.asList("lechon", "lomo", "salmon", "alcaparras");
 
-	private StExcesoCalorias excesoDeCalorias = new StExcesoCalorias();
-	private StCondicionUsuario segunCondicionesDelusuario = new StCondicionUsuario();
-	private StPreparacionBarata preparacionBarata = new StPreparacionBarata();
-	private StNoLeDisgustaAlUsuario leGustaAlUsuario = new StNoLeDisgustaAlUsuario();
+	private NoExcedeCalorias excesoDeCalorias = new NoExcedeCalorias();
+	private CondicionUsuario segunCondicionesDelusuario = new CondicionUsuario();
+	private PreparacionBarata preparacionBarata = new PreparacionBarata();
+	private NoLeDisgustaAlUsuario leGustaAlUsuario = new NoLeDisgustaAlUsuario();
 
-	private StPrimeros10 primeros10 = new StPrimeros10();
-	private StSoloPares soloPares = new StSoloPares();
-	private StOrdenadosPorCriterio ordenadosPorCalorias = new StOrdenadosPorCriterio(
+	private Primeros10 primeros10 = new Primeros10();
+	private SoloPares soloPares = new SoloPares();
+	private OrdenadosPorCriterio ordenadosPorCalorias = new OrdenadosPorCriterio(
 			((receta1, receta2) -> ((Double) receta1.getCantCaloriasTotales()).compareTo((Double) receta2.getCantCaloriasTotales())));
 
-	private StOrdenadosPorCriterio ordenadosAlfabeticamente = new StOrdenadosPorCriterio(((receta1, receta2) -> (receta1.getNombre()).compareTo(receta2
+	private OrdenadosPorCriterio ordenadosAlfabeticamente = new OrdenadosPorCriterio(((receta1, receta2) -> (receta1.getNombre()).compareTo(receta2
 			.getNombre())));
 
-	private StGestorDeConsultas combinacionPostProcesadoConFiltro = new StGestorDeConsultas(Arrays.asList(excesoDeCalorias), Arrays.asList(soloPares));
+	private Filtrado combinacionPostProcesadoConFiltro = new Filtrado(Arrays.asList(excesoDeCalorias), Arrays.asList(soloPares));
 
-	private StGestorDeConsultas superPreFiltro = new StGestorDeConsultas(Arrays.asList(excesoDeCalorias, segunCondicionesDelusuario, preparacionBarata,
+	private Filtrado superPreFiltro = new Filtrado(Arrays.asList(excesoDeCalorias, segunCondicionesDelusuario, preparacionBarata,
 			leGustaAlUsuario), null);
 
 	@Before

@@ -2,18 +2,18 @@ package ar.edu.grupo5.jm.dss.QueComemos.MonitoreoAsincronico;
 
 import java.util.Collection;
 
-import ar.edu.grupo5.jm.dss.QueComemos.DecoratorFilter.Filtro;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
+import ar.edu.grupo5.jm.dss.QueComemos.StrategyFilter.Filtrado;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
 public class Consulta {
 
-	public Filtro filtro;
+	public Filtrado filtrado;
 	public Usuario usuario;
 	public Collection<Receta> recetasConsultadas;
 
-	public Consulta(Filtro unFiltro, Usuario unUsuario, Collection<Receta> unasRecetasConsultadas) {
-		filtro = unFiltro;
+	public Consulta(Filtrado unFiltro, Usuario unUsuario, Collection<Receta> unasRecetasConsultadas) {
+		filtrado = unFiltro;
 		usuario = unUsuario;
 		recetasConsultadas = unasRecetasConsultadas;
 	}
@@ -26,8 +26,8 @@ public class Consulta {
 		return recetasConsultadas;
 	}
 
-	public Filtro getFiltro() {
-		return filtro;
+	public Filtrado getFiltro() {
+		return filtrado;
 	}
 
 	public String getNombre() {

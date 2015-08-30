@@ -7,11 +7,11 @@ import java.util.List;
 
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 
-public class StOrdenadosPorCriterio implements StPostProcesamiento {
+public class OrdenadosPorCriterio implements PostProcesamiento {
 
 	private Comparator<Receta> criterio;
 
-	public StOrdenadosPorCriterio(Comparator<Receta> unComparador) {
+	public OrdenadosPorCriterio(Comparator<Receta> unComparador) {
 		criterio = unComparador;
 	}
 

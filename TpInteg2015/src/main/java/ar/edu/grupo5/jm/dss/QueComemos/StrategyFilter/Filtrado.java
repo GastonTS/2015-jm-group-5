@@ -7,11 +7,11 @@ import java.util.stream.Collectors;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
-public class StGestorDeConsultas {
-	private List<StFiltro> filtros;
-	private List<StPostProcesamiento> postProcesamientos;
+public class Filtrado {
+	private List<Filtro> filtros;
+	private List<PostProcesamiento> postProcesamientos;
 
-	public StGestorDeConsultas(List<StFiltro> unosFiltros, List<StPostProcesamiento> unosPostProcesamientos) {
+	public Filtrado(List<Filtro> unosFiltros, List<PostProcesamiento> unosPostProcesamientos) {
 		filtros = unosFiltros;
 		postProcesamientos = unosPostProcesamientos;
 	}
@@ -31,7 +31,7 @@ public class StGestorDeConsultas {
 	public Collection<Receta> aplicarPostProcesamiento(Collection<Receta> unasRecetas) {
 		Collection<Receta> recetasRestantes = unasRecetas;
 
-		for (StPostProcesamiento procesamiento : postProcesamientos) {
+		for (PostProcesamiento procesamiento : postProcesamientos) {
 			recetasRestantes = procesamiento.procesarRecetas(recetasRestantes);
 		}
 
