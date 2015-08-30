@@ -26,11 +26,8 @@ public class Consulta {
 		return recetasConsultadas;
 	}
 
-	public Filtro getFiltro(){
+	public Filtro getFiltro() {
 		return filtro;
-	}
-	public boolean tieneMasDe100() {
-		return cantidadConsultas() > 100;
 	}
 
 	public String getNombre() {

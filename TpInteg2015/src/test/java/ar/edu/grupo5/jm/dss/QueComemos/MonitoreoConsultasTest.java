@@ -69,13 +69,11 @@ public class MonitoreoConsultasTest {
 
 		when(consultaMock.getNombre()).thenReturn("leandro");
 		when(consultaMock.cantidadConsultas()).thenReturn(125);
-		when(consultaMock.tieneMasDe100()).thenReturn(true);
 
 		monitorMayor100.procesarConsulta(consultaMock);
 
 		verify(consultaMock, times(1)).getNombre();
-		verify(consultaMock, times(1)).cantidadConsultas();
-		verify(consultaMock, times(1)).tieneMasDe100();
+		verify(consultaMock, times(2)).cantidadConsultas();
 	}
 
 	@Test
