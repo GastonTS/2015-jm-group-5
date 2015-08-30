@@ -18,6 +18,18 @@ public class UsuarioBuilderTest {
 	private CondicionDeSalud hippie = mock(CondicionDeSalud.class);
 	private CondicionDeSalud corporativo = mock(CondicionDeSalud.class);
 	
+	@Test
+	public void esValidoSiTieneDatosPersonalesComplexionCumpleConSusCondicionesYTieneRutinaValida() {
+		when(hippie.esUsuarioValido(any(Usuario.class))).thenReturn(true);
+
+		new UsuarioBuilder()
+				.setDatosPersonales(datosPersonalesMock)
+				.setComplexion(complexionMock)
+				.agregarCondicionesDeSalud(hippie)
+				.setRutina(Rutina.MEDIANA)
+				.construirUsuario();
+	}
+	
 	@Test(expected = UsuarioNoValidoException.class)
 	public void noEsValidoSiNoTieneDatosPersonales() {
 		new UsuarioBuilder()
