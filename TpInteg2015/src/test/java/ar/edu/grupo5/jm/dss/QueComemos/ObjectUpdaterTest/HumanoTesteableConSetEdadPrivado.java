@@ -1,8 +1,12 @@
 package ar.edu.grupo5.jm.dss.QueComemos.ObjectUpdaterTest;
 
+import ar.edu.grupo5.jm.dss.QueComemos.ObjectUpdater.Updateable;
+
 public class HumanoTesteableConSetEdadPrivado extends Humano{
 
+	@Updateable
 	private int edad;
+	@Updateable
 	private String nombre;
 	
 	public int getEdad() {
