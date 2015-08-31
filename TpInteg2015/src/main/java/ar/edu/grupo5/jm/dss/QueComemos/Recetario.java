@@ -4,12 +4,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
+import ar.edu.grupo5.jm.dss.QueComemos.ObjectUpdater.ObjectUpdater;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.NoPuedeAccederARecetaException;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.NoPuedeEliminarRecetaExeption;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
-public class Recetario implements ConsultorRecetas{
+public class Recetario implements ConsultorRecetas, ObjectUpdater{
 
 	public static Recetario instancia = new Recetario();
 	private Collection<Receta> recetasTotales = new ArrayList<Receta>();
@@ -58,7 +59,7 @@ public class Recetario implements ConsultorRecetas{
 		}
 
 		if (viejaReceta.esElDueño(unUsuario)) {
-			viejaReceta.update(nuevaReceta);
+			this.update(viejaReceta, nuevaReceta);
 		} else {
 		crearReceta(nuevaReceta, unUsuario);
 		}

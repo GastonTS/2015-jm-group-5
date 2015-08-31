@@ -5,11 +5,12 @@ import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import ar.edu.grupo5.jm.dss.QueComemos.ObjectUpdater.ObjectUpdater;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.UsuarioBuscado;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.UsuarioIngresadoNoExisteException;
 
-public class RepoUsuarios {
+public class RepoUsuarios implements ObjectUpdater {
 	private Collection<Usuario> usuarios;
 	private Collection<Usuario> solicitudesDeIngreso;
 
@@ -31,15 +32,18 @@ public class RepoUsuarios {
 	}
 
 	public void remove(Usuario unUsuario) {
+		existeUsuario(unUsuario);
+		usuarios.remove(unUsuario);
+	}
+	private void existeUsuario(Usuario unUsuario) {
 		if (!usuarios.contains(unUsuario)) {
 			throw new UsuarioIngresadoNoExisteException("No se encontro usuario en el repositorio de usuarios");
 		}
-
-		usuarios.remove(unUsuario);
 	}
 
-	public void update(Usuario usuarioViejo, Usuario usuarioNuevo) {
-		usuarioViejo.update(usuarioNuevo);
+	public void modificarUsuario(Usuario usuarioViejo, Usuario usuarioNuevo) {
+		this.existeUsuario(usuarioViejo);
+		this.update(usuarioViejo, usuarioNuevo);
 	}
 
 	public Optional<Usuario> buscarUnUsuarioConNombre(UsuarioBuscado unUsuario) {

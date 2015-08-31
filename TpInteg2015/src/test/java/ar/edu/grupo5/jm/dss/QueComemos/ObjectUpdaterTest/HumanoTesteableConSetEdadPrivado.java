@@ -1,8 +1,6 @@
 package ar.edu.grupo5.jm.dss.QueComemos.ObjectUpdaterTest;
 
-import ar.edu.grupo5.jm.dss.QueComemos.ObjectUpdater.ObjectUpdater;
-
-public class HumanoTesteableConSetEdadPrivado  implements ObjectUpdater{
+public class HumanoTesteableConSetEdadPrivado extends Humano{
 
 	private int edad;
 	private String nombre;

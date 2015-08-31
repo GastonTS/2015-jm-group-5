@@ -1,69 +1,50 @@
 package ar.edu.grupo5.jm.dss.QueComemos.ObjectUpdater;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
+import java.lang.reflect.Field;
 
 public interface ObjectUpdater {
 
-	default public void update(Object update){
-	    if(!this.getClass().equals(update.getClass())){
+	default public void update(Object oldObject, Object newObject){
+	    if(!oldObject.getClass().equals(newObject.getClass())){
 	    	throw new ObjectIsFromADifferentClass  ("El objeto actualizado es de la clase " 
-	    			+ this.getClass().getName() 
+	    			+ oldObject.getClass().getName() 
 	    			+ ", mientras que el objeto a actualizar es de la clase " 
-	    			+ update.getClass().getName());
+	    			+ newObject.getClass().getName());
 	    }
 
-	    
-	    Method[] getters = this.getClass().getDeclaredMethods();
-	    Method setter = null;
+	    Field[] properties = oldObject.getClass().getDeclaredFields();
 
-	    for(Method getter: getters){
+	    for(Field property: properties){
 	    	
-	        if(getter.getName().startsWith("get")
-	        		&& ( Modifier.isPublic(getter.getModifiers()))){
+	        if(property.isAnnotationPresent(Updateable.class)){
 
-	            String getterName = getter.getName();
-	            String setterName = getterName.replace("get", "set");
-	           
 	            try {
-	            	setter = this.getClass().getMethod(setterName, getter.getReturnType());
-	                Object value = getter.invoke(update);
-	                setter.getReturnType().toString();
+	            	property.setAccessible(true);
+	                Object value = property.get(newObject);
 	                if(value != null){
-	                    setter.invoke(this, value);
+	                    property.set(oldObject, value);
 	                }
-	            } catch (NoSuchMethodException e) {
-	                throw new SetterIsMissingException ("Falta definir el metodo " 
-	                		+ setterName);
-	        /* 
-	         *  }  catch (SecurityException e) {
-	         *   	throw new SetterIsNotPublicException ("El metodo " 
-	         *       		+ setterName + " debería ser publico");
-	         * Creo que no hace falta esta excepcion porque si no llega a ser public
-	         * al igual que el getter no reconoce el metodo. Y los getters 
-	         * por condicion son solo publicos
-	         */
-	            } catch (IllegalAccessException e) {
+	            }  catch (SecurityException e) {
+	            	throw new PropertyFailInSetAccessible ("No se pudo settear "
+	            			+ "accesible la propiedad: "
+	                		+ property.getName()
+	                		+ ". Deshabilite el securityManager");
+	            	
+	            }  catch (IllegalAccessException e) {
 					/* 
-					 * Gracias a las excepciones chequeadas tengo que hacer un catch y no hacer nada 
-					 * este catch no tiene sentido porque dadas las condiciones definidas arriba siempre 
-					 * va a poder acceder al metodo, ya que es obtenido solo de esa clase misma
+					 * Gracias a las excepciones chequeadas tengo que hacer
+					 *  un catch y no hacer nada este catch no tiene sentido
+					 *  porque dadas las condiciones definidas arriba siempre 
+					 * va a poder acceder al metodo, ya que el atributo se 
+					 * settea acesible en todo caso va a fallar el 
+					 * setAccessible(true) y lanzará su SecurityException
 	            	*/
 	            	e.printStackTrace();
 				} catch (IllegalArgumentException e) {
 					/*
-					 * Si un getter te da un tipo diferente de lo que
-					 * recibe el setter por parametro entonces no es el
-					 * metodo correcto. Aunque en este caso no le veo mucho
-					 * sentido largar otra  excepcion diferente
-					 */
-				} catch (InvocationTargetException e) {
-					/*
-					 *  No debería hacerme cargo de las excepciones acá
-					 *  Ya que si un getter o setter produce una excepcion a
-					 *  esta interfaz no le interesa
-					 *  pero al ser chequeadas me obliga a catchearla
+					 * Nunca va a pasar esto porque chequea que los objetos tengan la misma clase
+					 * entonces van a tener los mismos atributos provistos por esa sola clase.
+					 * Ya que no se trabaja con atributos heradados
 					 */
 					e.printStackTrace();
 				} 
