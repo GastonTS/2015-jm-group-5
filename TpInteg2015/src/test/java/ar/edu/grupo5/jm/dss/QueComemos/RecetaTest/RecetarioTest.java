@@ -1,6 +1,7 @@
 package ar.edu.grupo5.jm.dss.QueComemos.RecetaTest;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -14,10 +15,17 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ar.edu.grupo5.jm.dss.QueComemos.Recetario;
+import ar.edu.grupo5.jm.dss.QueComemos.Receta.Condimentacion;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.NoPuedeAccederARecetaException;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.NoPuedeEliminarRecetaExeption;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
+import ar.edu.grupo5.jm.dss.QueComemos.Receta.RecetaBuilder;
+import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta.Dificultad;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Complexion;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.DatosPersonales;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.UsuarioBuilder;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario.Rutina;
 
 public class RecetarioTest {
 
@@ -33,7 +41,6 @@ public class RecetarioTest {
 
 	private Receta nuevaEnsaladaMock = mock(Receta.class);
 
-
 	@Before
 	public void setUp() {
 
@@ -47,7 +54,8 @@ public class RecetarioTest {
 		when(gaston.puedeAccederA(ensaladaMock)).thenReturn(true);
 		when(gaston.puedeAccederA(panchoMock)).thenReturn(false);
 
-		Collection<Receta> recetasQuePuedeAcceder = Recetario.instancia.listarTodasPuedeAcceder(gaston);
+		Collection<Receta> recetasQuePuedeAcceder = Recetario.instancia
+				.listarTodasPuedeAcceder(gaston);
 
 		assertTrue(recetasQuePuedeAcceder.contains(ensaladaMock));
 		assertFalse(recetasQuePuedeAcceder.contains(panchoMock));
@@ -68,11 +76,13 @@ public class RecetarioTest {
 		when(gaston.puedeAccederA(panchoMock)).thenReturn(true);
 		when(gaston.puedeAccederA(ensaladaMock)).thenReturn(true);
 
-		Recetario.instancia.crearRecetaConSubRecetas(recetaMock, Arrays.asList(panchoMock, ensaladaMock), gaston);
+		Recetario.instancia.crearRecetaConSubRecetas(recetaMock,
+				Arrays.asList(panchoMock, ensaladaMock), gaston);
 
 		verify(gaston, times(1)).puedeAccederA(panchoMock);
 		verify(gaston, times(1)).puedeAccederA(ensaladaMock);
-		verify(recetaMock, times(1)).agregarSubRecetas(Arrays.asList(panchoMock, ensaladaMock));
+		verify(recetaMock, times(1)).agregarSubRecetas(
+				Arrays.asList(panchoMock, ensaladaMock));
 	}
 
 	@Test(expected = NoPuedeAccederARecetaException.class)
@@ -80,7 +90,8 @@ public class RecetarioTest {
 		when(gaston.puedeAccederA(panchoMock)).thenReturn(true);
 		when(gaston.puedeAccederA(ensaladaMock)).thenReturn(false);
 
-		Recetario.instancia.crearRecetaConSubRecetas(recetaMock, Arrays.asList(panchoMock, ensaladaMock), gaston);
+		Recetario.instancia.crearRecetaConSubRecetas(recetaMock,
+				Arrays.asList(panchoMock, ensaladaMock), gaston);
 
 		verify(gaston, times(1)).puedeAccederA(panchoMock);
 		verify(gaston, times(1)).puedeAccederA(ensaladaMock);
@@ -100,13 +111,14 @@ public class RecetarioTest {
 	public void noPuedeEliminarUnaRecetaQueNoCreo() {
 		Recetario.instancia.eliminarReceta(panchoMock, gaston);
 	}
- 
+
 	@Test
 	public void juanchiModificaReceta() {
 		when(juanchi.puedeAccederA(ensaladaMock)).thenReturn(true);
 		when(ensaladaMock.esElDueño(juanchi)).thenReturn(false);
 
-		Recetario.instancia.modificarReceta(ensaladaMock, nuevaEnsaladaMock, juanchi);
+		Recetario.instancia.modificarReceta(ensaladaMock, nuevaEnsaladaMock,
+				juanchi);
 
 		verify(juanchi, times(1)).puedeAccederA(ensaladaMock);
 		verify(ensaladaMock, times(1)).esElDueño(juanchi);
@@ -115,7 +127,53 @@ public class RecetarioTest {
 
 	@Test(expected = NoPuedeAccederARecetaException.class)
 	public void gastonNoPuedeModificarUnaRecetaDeOtro() {
-		Recetario.instancia.modificarReceta(ensaladaMock, nuevaEnsaladaMock, gaston);
+		Recetario.instancia.modificarReceta(ensaladaMock, nuevaEnsaladaMock,
+				gaston);
+	}
+
+	@Test
+	public void recetaEsModificadaCorrectamente() {
+		//testIntegral
+		DatosPersonales datosPersonalesMock = mock(DatosPersonales.class);
+		Complexion complexionMock = mock(Complexion.class);
+
+		Usuario pepita = new UsuarioBuilder()
+				.setDatosPersonales(datosPersonalesMock)
+				.setComplexion(complexionMock).setRutina(Rutina.INTENSIVA)
+				.construirUsuario();
+
+		Condimentacion sal = new Condimentacion("sal fina", 100);
+		Condimentacion pocaSal = new Condimentacion("sal fina", 50);
+		Condimentacion aceite = new Condimentacion("Aceite de Maiz", 2);
+
+		Receta ensaladaVieja = new RecetaBuilder().setNombre("Ensalada")
+				.agregarIngrediente("Lechuga 2kg")
+				.agregarIngrediente("Cebolla 1.5kg")
+				.agregarIngrediente("Tomate 200gr")
+				.agregarCondimentaciones(sal).agregarCondimentaciones(aceite)
+				.setCantCalorias(40).setDificultad(Dificultad.BAJA)
+				.construirReceta();
+
+		Receta ensaladaNueva = new RecetaBuilder().setNombre("Ensalada")
+				.agregarIngrediente("Lechuga 3kg")
+				.agregarIngrediente("Cebolla 1kg")
+				.agregarIngrediente("Tomate 300gr")
+				.agregarCondimentaciones(pocaSal)
+				.agregarCondimentaciones(aceite).setCantCalorias(40)
+				.setDificultad(Dificultad.BAJA).construirReceta();
+		
+		Recetario.instancia.crearReceta(ensaladaNueva, pepita);
+		Recetario.instancia.crearReceta(ensaladaVieja, pepita);
+		
+		assertFalse(Recetario.instancia.sonObjetosActualizados(ensaladaVieja,
+				ensaladaNueva));
+
+		Recetario.instancia.modificarReceta(ensaladaNueva, ensaladaVieja,
+				pepita);
+
+		assertTrue(Recetario.instancia.sonObjetosActualizados(ensaladaVieja,
+				ensaladaNueva));
+
 	}
 
 }
