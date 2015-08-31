@@ -33,6 +33,9 @@ public class PorHoraDelDia implements ObservadorConsultas {
 	}
 
 	public int getConsultasPorHoraDelDia(int unaHora) {
+		if(unaHora < 0 || unaHora > 23)
+			throw new HoraIngresadaNoValidaException("Hora ingresada incorrecta. Debe ser entero entre 0 y 23");
+		
 		return consultasPorHoraDelDia.get(unaHora);
 	}
 }
