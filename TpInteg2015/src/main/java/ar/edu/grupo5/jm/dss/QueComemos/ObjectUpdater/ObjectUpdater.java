@@ -71,15 +71,17 @@ public interface ObjectUpdater {
 
 				try {
 					property.setAccessible(true);
-					
+
 					Object oldValue = property.get(oldObject);
 					Object newValue = property.get(newObject);
-					if (!oldValue.equals(newValue)) {
+					if ((!oldValue.equals(newValue))
+							&& (!newValue.equals(null))) {
 						flag = false;
-						break;//corto el ciclo como un campeon(?, ojalá no vean esto
-						//regret nothing
+						break;// corto el ciclo como un campeon(?, ojalá no vean
+								// esto
+						// regret nothing
 					}
-					
+
 				} catch (SecurityException e) {
 					throw new PropertyFailInSetAccessible("No se pudo settear "
 							+ "accesible la propiedad: " + property.getName()

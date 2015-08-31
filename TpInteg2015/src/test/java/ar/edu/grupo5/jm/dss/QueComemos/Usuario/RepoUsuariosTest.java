@@ -16,6 +16,7 @@ import org.junit.Test;
 
 import ar.edu.grupo5.jm.dss.QueComemos.RepoUsuarios;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario.Rutina;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.UsuarioIngresadoNoExisteException;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.CondicionDeSalud.CondicionDeSalud;
 
@@ -94,4 +95,23 @@ public class RepoUsuariosTest {
 		assertEquals(repoUsuarios.listarPorNombreYCondiciones(usuarioBusquedaGustavosHippies), Arrays.asList(gustavo, cerati));
 	}
 	
+	@Test
+	public void actualizarUsuario() {
+		
+		DatosPersonales datosPersonalesMock = mock(DatosPersonales.class);
+		Complexion complexionMock = mock(Complexion.class);
+		
+		Usuario usuarioViejo = new UsuarioBuilder().setDatosPersonales(datosPersonalesMock).setComplexion(complexionMock).setRutina(Rutina.INTENSIVA)
+				.construirUsuario();
+
+		Usuario usuarioNuevo = new UsuarioBuilder().setDatosPersonales(datosPersonalesMock).setComplexion(complexionMock)
+				.agregarPreferenciaAlimenticia("fruta").setRutina(Rutina.ALTA).construirUsuario();
+	
+		assertFalse(repoUsuarios.sonObjetosActualizados(usuarioViejo, usuarioNuevo));
+		
+		repoUsuarios.update(usuarioViejo, usuarioNuevo);
+		
+		assertTrue(repoUsuarios.sonObjetosActualizados(usuarioViejo, usuarioNuevo));
+	
+	}
 }
