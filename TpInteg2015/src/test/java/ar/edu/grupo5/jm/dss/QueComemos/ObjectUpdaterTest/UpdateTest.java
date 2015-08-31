@@ -1,6 +1,8 @@
 package ar.edu.grupo5.jm.dss.QueComemos.ObjectUpdaterTest;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 
@@ -83,6 +85,25 @@ public class UpdateTest{
 
 		assertEquals(humanoViejo.getEdad(),10);
 		assertEquals(humanoViejo.getNombre(),"Pedro");
+		
+	}
+	
+	@Test
+	public void ObjetosSinActualizarCorrectamente() {
+		HumanoTesteableFeliz humanoFelizViejo = new HumanoTesteableFeliz();
+		HumanoTesteableFeliz humanoFelizNuevo = new HumanoTesteableFeliz();
+		
+		humanoFelizViejo.setEdad(10);
+		humanoFelizNuevo.setEdad(11);
+		humanoFelizViejo.setNombre("pedrito");
+		humanoFelizNuevo.setNombre("Pedro");
+		
+		humanos.add(humanoFelizViejo);
+		repoHumanos = new RepoHumanos(humanos);
+		
+		assertFalse(repoHumanos.sonObjetosActualizados(humanoFelizViejo, humanoFelizNuevo));
+		repoHumanos.update(humanoFelizViejo, humanoFelizNuevo);
+		assertTrue(repoHumanos.sonObjetosActualizados(humanoFelizViejo, humanoFelizNuevo));
 		
 	}
 
