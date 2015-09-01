@@ -8,7 +8,6 @@ import ar.edu.grupo5.jm.dss.QueComemos.MonitoreoAsincronico.BufferDeConsultas;
 import ar.edu.grupo5.jm.dss.QueComemos.MonitoreoAsincronico.Consulta;
 import ar.edu.grupo5.jm.dss.QueComemos.Oberserver.ObservadorConsultas;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
-import ar.edu.grupo5.jm.dss.QueComemos.StrategyFilter.StGestorDeConsultas;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
 public class GestorDeConsultas {
@@ -39,9 +38,4 @@ public class GestorDeConsultas {
 	public void notificarObservadores(Collection<ObservadorConsultas> observadores, Usuario unUsuario, Collection<Receta> recetasConsultadas) {
 		observadores.forEach(observador -> observador.notificarConsulta(unUsuario, recetasConsultadas));
 	}
-
-	public Collection<Receta> consultarRecetasSt(StGestorDeConsultas unFiltrado, Usuario unUsuario) {
-		return unFiltrado.aplicarFiltros(consultor.getRecetas(unUsuario), unUsuario);
-	}
-
 }

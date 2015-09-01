@@ -20,6 +20,7 @@ import org.junit.Test;
 
 import ar.edu.grupo5.jm.dss.QueComemos.Oberserver.ConsultaVeganoRecetasDificles;
 import ar.edu.grupo5.jm.dss.QueComemos.Oberserver.ConsultasSegunSexo;
+import ar.edu.grupo5.jm.dss.QueComemos.Oberserver.HoraIngresadaNoValidaException;
 import ar.edu.grupo5.jm.dss.QueComemos.Oberserver.PorHoraDelDia;
 import ar.edu.grupo5.jm.dss.QueComemos.Oberserver.ConsultasTotales;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
@@ -65,6 +66,12 @@ public class ObserverTest {
 		when(otroVeganoMock.esVegano()).thenReturn(true);
 	}
 
+	@Test(expected = HoraIngresadaNoValidaException.class)
+	public void noEsValidoSiConsultaUnaHoraFueraDelIntervaloPermitido() {
+		observerPorHoraDelDia.getConsultasPorHoraDelDia(-1);
+		observerPorHoraDelDia.getConsultasPorHoraDelDia(24);
+	}
+	
 	@Test
 	public void agregaCantidadDeConsultasALaHoraEnQueSeRealizan() {
 		

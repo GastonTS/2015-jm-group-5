@@ -4,25 +4,31 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import ar.edu.grupo5.jm.dss.QueComemos.Grupo;
+import ar.edu.grupo5.jm.dss.QueComemos.ObjectUpdater.Updateable;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.DatosPersonales.Sexo;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.CondicionDeSalud.CondicionDeSalud;
-import ar.edu.grupo5.jm.dss.QueComemos.Utils.ObjectUpdater;
 
-public class Usuario implements ObjectUpdater {
+public class Usuario {
 
+	@Updateable
 	private Complexion complexion;
+	@Updateable
 	private DatosPersonales datosPersonales;
+	@Updateable
 	private Collection<String> preferenciasAlimenticias;
+	@Updateable
 	private Collection<String> disgustosAlimenticios;
+	@Updateable
 	private Collection<CondicionDeSalud> condicionesDeSalud;
+	@Updateable
 	private Collection<Grupo> grupos;
-
 	public enum Rutina {
 		LEVE, NADA, MEDIANA, INTENSIVA, ALTA
 	}
-
+	@Updateable
 	private Rutina rutina;
+	@Updateable
 	private Collection<Receta> recetasFavoritas;
 
 	private String mail;

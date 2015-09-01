@@ -5,17 +5,23 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import ar.edu.grupo5.jm.dss.QueComemos.ObjectUpdater.Updateable;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
-import ar.edu.grupo5.jm.dss.QueComemos.Utils.ObjectUpdater;
 
-public class Receta implements ObjectUpdater {
+public class Receta {
 
+	@Updateable
 	private String nombre;
+	@Updateable
 	private Collection<String> ingredientes;
+	@Updateable
 	private Collection<Condimentacion> condimentaciones;
+	@Updateable
 	private double cantCalorias;
+	@Updateable
 	private Collection<Receta> subRecetas;
 	private Optional<Usuario> dueño = Optional.empty();
+	@Updateable
 	private Dificultad dificultad;
 
 	public enum Dificultad {
