@@ -10,18 +10,44 @@ import com.eclipsesource.json.JsonObject;
 
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta.Dificultad;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+
 import queComemos.entrega3.repositorio.RepoRecetas;
 
 public class RepoExternoTest {
 
 	RepoRecetas repoRecetasMock = mock(RepoRecetas.class);
 	RepositorioExterno repoExterno = new RepositorioExterno(repoRecetasMock);
+	Usuario usuarioMock = mock(Usuario.class);
 	
 	
 	@Test
-	public void recibeRecetasDeUnJsonString() {
+	public void recibeColeccionDeRecetasDeUnJsonString() {
+		String recetasFormatoJson = "[{\"nombre\":\"ensalada caesar\",\"ingredientes\":[\"lechuga\",\"croutons\","
+				+"\"parmesano\"],\"tiempoPreparacion\":0,\"totalCalorias\":15,\"dificultadReceta\":\"FACIL\"," 
+				+"\"autor\":\"Cesar Po\",\"anioReceta\":2015},"
+				
+				+"{\"nombre\":\"ensalada lechuga agridulce\",\"ingredientes\":[\"lechuga\",\"croutons\","
+				+"\"parmesano\"],\"tiempoPreparacion\":0,\"totalCalorias\":15,\"dificultadReceta\":\"FACIL\"," 
+				+"\"autor\":\"Cesar Po\",\"anioReceta\":2015}]";
+		
+		when(repoRecetasMock.getRecetas(any())).thenReturn(recetasFormatoJson);
+		
+		Collection<Receta> recetasGeneradas = repoExterno.getRecetas(usuarioMock);
+		assertEquals(recetasGeneradas.size(),2);
+		
+		verify(repoRecetasMock, times(1)).getRecetas(any());
+	}
+	
+	
+	@Test
+	public void recibeUnaRecetaDeUnJsonString() {
 		String recetaFormatoJson = "{\"nombre\":\"ensalada caesar\",\"ingredientes\":[\"lechuga\",\"croutons\",\"parmesano\"],\"tiempoPreparacion\":0,\"totalCalorias\":15,\"dificultadReceta\":\"FACIL\",\"autor\":\"Cesar Po\",\"anioReceta\":2015}";
 		Receta recetaGenerada = repoExterno.jsonObjectToReceta(JsonObject.readFrom(recetaFormatoJson));
 		assertEquals(recetaGenerada.getNombre(),"ensalada caesar");
