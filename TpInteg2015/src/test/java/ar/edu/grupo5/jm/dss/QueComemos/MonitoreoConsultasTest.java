@@ -4,6 +4,9 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Matchers.contains;
+import static org.mockito.Matchers.eq;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,7 +31,6 @@ public class MonitoreoConsultasTest {
 
 	private Usuario leanMock = mock(Usuario.class);
 	private Usuario gusMock = mock(Usuario.class);
-//	private Filtro unFiltroMock = mock(Filtro.class);
 	Collection<Usuario> usuariosConOpcionMandarMail;
 	MailSender mailSenderMock = mock(MailSender.class);
 	ProcesoAsincronico unProcesoAsincronico = mock(ProcesoAsincronico.class);
@@ -87,27 +89,32 @@ public class MonitoreoConsultasTest {
 
 	}
 
-//	@Test
-//	public void enviaMailsPorConsultasDeUsuariosAsignados() {
-//		when(consultaMock.cantidadConsultadas()).thenReturn(3);
-//		when(consultaMock.getUsuario()).thenReturn(leanMock);
-//		when(consultaMock.getUsuario().getNombre()).thenReturn("lean");
-//		when(consultaMock.getFiltro()).thenReturn(unFiltroMock);
-//
-//		monitorEnviarMail.procesarConsulta(consultaMock);
-//
-//		verify(mailSenderMock, times(1)).enviarMail("lean", unFiltroMock, 3);
-//	}
-//
-//	@Test
-//	public void noEnviaMailsPorConsultasDeUsuariosNoAsignados() {
-//		when(consultaMock.cantidadConsultadas()).thenReturn(3);
-//		when(consultaMock.getUsuario()).thenReturn(juanchi);
-//		when(consultaMock.getUsuario().getNombre()).thenReturn("juan");
-//		when(consultaMock.getFiltro()).thenReturn(unFiltroMock);
-//
-//		monitorEnviarMail.procesarConsulta(consultaMock);
-//
-//		verify(mailSenderMock, times(0)).enviarMail("juan", unFiltroMock, 3);
-//	}
+	@Test
+	public void enviaMailsPorConsultasDeUsuariosAsignados() {
+		String destinatario = "gusMock@foo.com";
+		String titulo = "Has realizado una nueva consulta en nuestro sistema!";
+		String nombre = "Gustavo";
+		String cantidad = "6";
+		String parametros = "parametros aquí\n";
+		
+		when(consultaMock.getUsuario()).thenReturn(gusMock);
+		when(consultaMock.cantidadConsultadas()).thenReturn(6);
+		when(consultaMock.getNombre()).thenReturn(nombre);
+		when(consultaMock.getDestinatario()).thenReturn(destinatario);
+		when(consultaMock.parametrosDeBusquedaToString()).thenReturn(parametros);
+		
+		monitorEnviarMail.procesarConsulta(consultaMock);
+
+		verify(mailSenderMock, times(1)).send(eq(destinatario), eq(titulo), contains(nombre));
+		verify(mailSenderMock, times(1)).send(eq(destinatario), eq(titulo), contains(cantidad));
+		verify(mailSenderMock, times(1)).send(eq(destinatario), eq(titulo), contains(parametros));
+	}
+
+	@Test
+	public void noEnviaMailsPorConsultasDeUsuariosNoAsignados() {
+		when(consultaMock.getUsuario()).thenReturn(juanchi);
+		monitorEnviarMail.procesarConsulta(consultaMock);
+
+		verify(mailSenderMock, times(0)).send(anyString(), anyString(), anyString());
+	}
 }

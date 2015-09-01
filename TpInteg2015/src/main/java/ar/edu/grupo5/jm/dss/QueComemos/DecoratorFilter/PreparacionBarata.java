@@ -21,6 +21,6 @@ public class PreparacionBarata extends PreFiltro {
 	
 	@Override
 	public String getNombre() {
-		return "Tiene preparación barata.";
+		return "Tiene preparación barata";
 	}
 }

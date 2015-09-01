@@ -16,6 +16,6 @@ public class NoExcedeCalorias extends PreFiltro {
 
 	@Override
 	public String getNombre() {
-		return "No se excede en calorías.";
+		return "No se excede en calorías";
 	}
 }

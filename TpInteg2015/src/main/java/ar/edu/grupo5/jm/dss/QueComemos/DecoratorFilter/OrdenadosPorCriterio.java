@@ -26,7 +26,7 @@ public class OrdenadosPorCriterio extends PostProcesamiento {
 	
 	@Override
 	public String getNombre() {
-		return "Ordenadas por " + nombreCriterio + ".";
+		return "Ordenadas por " + nombreCriterio;
 	}
 
 }

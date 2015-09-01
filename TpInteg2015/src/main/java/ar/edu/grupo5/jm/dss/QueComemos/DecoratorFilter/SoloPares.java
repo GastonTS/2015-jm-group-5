@@ -19,6 +19,6 @@ public class SoloPares extends PostProcesamiento {
 
 	@Override
 	public String getNombre() {
-		return "Solo resultados pares.";
+		return "Solo resultados pares";
 	}
 }

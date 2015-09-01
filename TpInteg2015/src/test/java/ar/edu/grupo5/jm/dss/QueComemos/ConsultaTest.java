@@ -6,13 +6,16 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.stream.Stream;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import ar.edu.grupo5.jm.dss.QueComemos.DecoratorFilter.Filtro;
+import ar.edu.grupo5.jm.dss.QueComemos.MonitoreoAsincronico.Consulta;
 import ar.edu.grupo5.jm.dss.QueComemos.Oberserver.ObservadorConsultas;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
@@ -20,7 +23,7 @@ import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 public class ConsultaTest {
 
 	ConsultorRecetas consultorMock = mock(ConsultorRecetas.class);
-	GestorDeConsultas consulta = new GestorDeConsultas(consultorMock);
+	GestorDeConsultas gestorConsulta = new GestorDeConsultas(consultorMock);
 
 	private Usuario gaston = mock(Usuario.class);
 
@@ -32,11 +35,14 @@ public class ConsultaTest {
 	private Receta ensaladaMock = mock(Receta.class);
 
 	private Filtro filtroMock = mock(Filtro.class);
+	private Usuario usuarioMock = mock(Usuario.class);
 
+	Consulta consulta = new Consulta(filtroMock, usuarioMock, new ArrayList<Receta>());
+	
 	@Before
 	public void setUp() {
-		consulta.agregarObservador(ObserverConsultaMock);
-		consulta.agregarObservador(ObserverConsultaMock2);
+		gestorConsulta.agregarObservador(ObserverConsultaMock);
+		gestorConsulta.agregarObservador(ObserverConsultaMock2);
 	}
 
 	@Test
@@ -46,7 +52,7 @@ public class ConsultaTest {
 		when(consultorMock.getRecetas(gaston)).thenReturn(recetasAConsultar);
 		when(filtroMock.filtrarRecetas(recetasAConsultar, gaston)).thenReturn(resultadoConsulta);
 
-		assertEquals(consulta.consultarRecetas(filtroMock, gaston), resultadoConsulta);
+		assertEquals(gestorConsulta.consultarRecetas(filtroMock, gaston), resultadoConsulta);
 
 		verify(consultorMock, times(1)).getRecetas(gaston);
 		verify(filtroMock, times(1)).filtrarRecetas(recetasAConsultar, gaston);
@@ -56,7 +62,8 @@ public class ConsultaTest {
 
 	@Test
 	public void retornaParametrosDeBusquedaSegunNombresDeSuFiltro() {
-		
+		when(filtroMock.getNombresFiltros()).thenReturn(Stream.of("parámetro de busqueda 1", "parámetro de busqueda 2"));
+		assertEquals("\t-> parámetro de busqueda 1.\n\t-> parámetro de busqueda 2.\n", consulta.parametrosDeBusquedaToString());
 	}
 	
-}
+} 

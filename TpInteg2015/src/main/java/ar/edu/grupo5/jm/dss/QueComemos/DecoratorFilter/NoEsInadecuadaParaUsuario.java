@@ -16,6 +16,6 @@ public class NoEsInadecuadaParaUsuario extends PreFiltro {
 
 	@Override
 	public String getNombre() {
-		return "No es inadecuada para mi.";
+		return "No es inadecuada para mi";
 	}
 }

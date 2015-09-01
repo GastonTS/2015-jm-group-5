@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -45,10 +48,11 @@ public class FiltroTest {
 
 	private Primeros10 primeros10 = new Primeros10(sinFiltro);
 	private SoloPares soloPares = new SoloPares(sinFiltro);
-	
-	private Comparator<Receta> porCantidadDeCalorias = ((receta1, receta2) -> ((Double) receta1.getCantCaloriasTotales()).compareTo((Double) receta2.getCantCaloriasTotales()));
+
+	private Comparator<Receta> porCantidadDeCalorias = ((receta1, receta2) -> ((Double) receta1.getCantCaloriasTotales()).compareTo((Double) receta2
+			.getCantCaloriasTotales()));
 	private Comparator<Receta> porOrdenAlfabetico = ((receta1, receta2) -> (receta1.getNombre()).compareTo(receta2.getNombre()));
-	
+
 	private OrdenadosPorCriterio ordenadosPorCalorias = new OrdenadosPorCriterio(sinFiltro, porCantidadDeCalorias, "cantidad de calorias");
 	private OrdenadosPorCriterio ordenadosAlfabeticamente = new OrdenadosPorCriterio(sinFiltro, porOrdenAlfabetico, "orden alfabético");
 
@@ -244,6 +248,24 @@ public class FiltroTest {
 		verify(ensaladaMock, times(2)).getCantCaloriasTotales();
 		verify(panchoMock, times(2)).getCantCaloriasTotales();
 		verify(vegetarianaMock, times(2)).getCantCaloriasTotales();
+	}
+
+	@Test
+	public void listaDeParametrosOrdenadosSegunOrdenPostYPre() {
+		List<String> resultadoEsperado = Stream.of(excesoDeCalorias.getNombre(), soloPares.getNombre()).collect(Collectors.toList());
+
+		assertEquals(combinacionPostProcesadoConPre.getNombresFiltros().collect(Collectors.toList()), resultadoEsperado);
+		assertEquals(combinacionPreProcesadoConPost.getNombresFiltros().collect(Collectors.toList()), resultadoEsperado);
+
+	}
+
+	@Test
+	public void listaDeParametrosOrdenadosSegunOrdenRelativo() {
+		List<String> resultadoEsperado = Stream.of(excesoDeCalorias.getNombre(), segunCondicionesDelusuario.getNombre(), preparacionBarata.getNombre(),
+				leGustaAlUsuario.getNombre()).collect(Collectors.toList());
+
+		assertEquals(superPreFiltro.getNombresFiltros().collect(Collectors.toList()), resultadoEsperado);
+
 	}
 
 }

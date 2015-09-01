@@ -18,7 +18,7 @@ public class Primeros10 extends PostProcesamiento {
 
 	@Override
 	public String getNombre() {
-		return "Primeros 10 resultados.";
+		return "Primeros 10 resultados";
 	}
 	
 }

@@ -28,6 +28,6 @@ public abstract class PostProcesamiento implements Filtro {
 	
 	@Override
 	public Stream<String> getNombresFiltros() {
-		return Stream.concat(Stream.of(this.getNombre()), subFiltro.getNombresFiltros());
+		return Stream.concat(subFiltro.getNombresFiltros(), Stream.of(this.getNombre()));
 	}
 }

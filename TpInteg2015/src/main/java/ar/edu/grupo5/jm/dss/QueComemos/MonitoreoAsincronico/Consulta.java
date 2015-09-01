@@ -41,7 +41,7 @@ public class Consulta {
 	
 	public String parametrosDeBusquedaToString() {
 		Stream<String> nombreParametros = filtro.getNombresFiltros();
-		return nombreParametros.reduce("", (texto, nombreParametro) -> texto + "\t->" + nombreParametro + "\n");
+		return nombreParametros.reduce("", (texto, nombreParametro) -> texto + "\t-> " + nombreParametro + ".\n");
 	}
 
 }

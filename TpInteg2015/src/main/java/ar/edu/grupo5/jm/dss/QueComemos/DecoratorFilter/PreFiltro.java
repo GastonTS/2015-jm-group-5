@@ -29,6 +29,6 @@ public abstract class PreFiltro implements Filtro {
 	
 	@Override
 	public Stream<String> getNombresFiltros() {
-		return Stream.concat(subFiltro.getNombresFiltros(), Stream.of(this.getNombre()));
+		return Stream.concat(Stream.of(this.getNombre()), subFiltro.getNombresFiltros());
 	}
 }

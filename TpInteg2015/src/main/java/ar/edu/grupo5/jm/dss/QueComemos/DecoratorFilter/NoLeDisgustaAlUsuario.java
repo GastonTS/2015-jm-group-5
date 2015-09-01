@@ -16,6 +16,6 @@ public class NoLeDisgustaAlUsuario extends PreFiltro {
 	
 	@Override
 	public String getNombre() {
-		return "No me disgusta.";
+		return "No me disgusta";
 	}
 }
