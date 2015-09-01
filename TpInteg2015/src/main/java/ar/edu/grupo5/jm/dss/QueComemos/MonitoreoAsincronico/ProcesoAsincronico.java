@@ -2,6 +2,8 @@ package ar.edu.grupo5.jm.dss.QueComemos.MonitoreoAsincronico;
 
 import java.util.Collection;
 
+import ar.edu.grupo5.jm.dss.QueComemos.Consulta;
+
 public abstract class ProcesoAsincronico {
 
 	public abstract void procesarConsulta(Consulta unaConsulta);
