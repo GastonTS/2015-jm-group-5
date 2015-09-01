@@ -5,11 +5,18 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.bson.types.ObjectId;
+import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Id;
+
 import ar.edu.grupo5.jm.dss.QueComemos.ObjectUpdater.Updateable;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
+@Entity
 public class Receta {
 
+	@Id
+	ObjectId id;
 	@Updateable
 	private String nombre;
 	@Updateable
@@ -28,6 +35,10 @@ public class Receta {
 		BAJA, MEDIA, ALTA
 	}
 
+	public Receta() {
+
+	}
+
 	public Receta(String nombreReceta, Collection<String> unosIngredientes, Collection<Condimentacion> unasCondimentaciones,
 			Collection<Receta> unasSubRecetas, double unasCantCalorias, Dificultad unaDificultad) {
 
@@ -37,6 +48,10 @@ public class Receta {
 		subRecetas = unasSubRecetas;
 		cantCalorias = unasCantCalorias;
 		dificultad = unaDificultad;
+	}
+
+	public Object getId() {
+		return id;
 	}
 
 	public String getNombre() {
@@ -60,8 +75,7 @@ public class Receta {
 	}
 
 	public boolean tenesAlgoDe(Collection<String> condimentosProhibidos) {
-		return getCondimentacionesTotales().stream().anyMatch(
-				condimentacion -> condimentacion.tieneCondimentoUnoDe(condimentosProhibidos));
+		return getCondimentacionesTotales().stream().anyMatch(condimentacion -> condimentacion.tieneCondimentoUnoDe(condimentosProhibidos));
 	}
 
 	public boolean tenesMasDe(Condimentacion unaCondimentacion) {
@@ -93,7 +107,7 @@ public class Receta {
 		return subRecetas.stream().flatMap(subReceta -> subReceta.getCondimentacionesTotales().stream());
 	}
 
-	private Collection<Condimentacion> getCondimentacionesTotales() {
+	public Collection<Condimentacion> getCondimentacionesTotales() {
 		return Stream.concat(condimentaciones.stream(), getCondimentacionesSubRecetas()).collect(Collectors.toList());
 	}
 
@@ -108,4 +122,5 @@ public class Receta {
 	public Dificultad getDificultad() {
 		return dificultad;
 	}
+
 }

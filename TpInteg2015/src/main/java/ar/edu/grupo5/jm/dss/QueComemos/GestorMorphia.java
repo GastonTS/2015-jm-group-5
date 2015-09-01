@@ -6,7 +6,7 @@ import org.mongodb.morphia.Morphia;
 import com.mongodb.MongoClient;
 
 public class GestorMorphia {
-	
+
 	public static GestorMorphia instancia = new GestorMorphia();
 	private Datastore datastore;
 	Morphia morphia = new Morphia();
@@ -14,7 +14,10 @@ public class GestorMorphia {
 	public GestorMorphia() {
 		morphia.mapPackage("Usuario");
 		morphia.mapPackage("Receta");
-		datastore = morphia.createDatastore(new MongoClient(), "recetasTest");
+		datastore = morphia.createDatastore(new MongoClient(), "QueComemos");
 	}
 
+	public Datastore getDatastore() {
+		return datastore;
+	}
 }
