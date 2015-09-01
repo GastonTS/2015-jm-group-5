@@ -29,7 +29,7 @@ public class EnviarConsultaPorMail extends ProcesoAsincronico {
 		String cuerpo = "Estimado " + unaConsulta.getNombre() + ":\n"
 				+ "Hemos registrado que has realizado una nueva consulta de recetas en nuestra aplicación de recetas sociales Qué Comemos?\n"
 				+ "Los parámetros de tu busqueda fueron: \n" + unaConsulta.parametrosDeBusquedaToString() + "\n"
-				+ "La cantidad de resultados arrojados fue de: " + unaConsulta.cantidadConsultadas() + "\n" 
+				+ "La cantidad de resultados arrojados fue de: " + unaConsulta.cantidadConsultadas() + "\n"
 				+ "Para desuscribirse del envío de mails por consultas hágalo desde los seteos de usuario en nuestra aplicación\n" + "Saludos! ;)";
 
 		mailSender.send(destinatario, titulo, cuerpo);
