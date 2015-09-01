@@ -15,6 +15,8 @@ public class UsuarioBuilder {
 	private Collection<CondicionDeSalud> condicionesDeSalud = new ArrayList<CondicionDeSalud>();
 	private Rutina rutina;
 
+	private String mail;
+
 	public UsuarioBuilder setComplexion(Complexion complexion) {
 		this.complexion = complexion;
 		return this;
@@ -39,7 +41,7 @@ public class UsuarioBuilder {
 		disgustosAlimenticios.addAll(unosDisgustosAlimenticios);
 		return this;
 	}
-	
+
 	public UsuarioBuilder agregarCondicionesDeSalud(CondicionDeSalud unaCondicionDeSalud) {
 		condicionesDeSalud.add(unaCondicionDeSalud);
 		return this;
@@ -50,8 +52,13 @@ public class UsuarioBuilder {
 		return this;
 	}
 
+	public UsuarioBuilder setMail(String mail) {
+		this.mail = mail;
+		return this;
+	}
+	
 	public Usuario construirUsuario() {
-		Usuario usuario = new Usuario(datosPersonales, complexion, preferenciasAlimenticias, disgustosAlimenticios, condicionesDeSalud, rutina);
+		Usuario usuario = new Usuario(datosPersonales, complexion, preferenciasAlimenticias, disgustosAlimenticios, condicionesDeSalud, rutina, mail);
 		if (!esUsuarioValido(usuario)) {
 			throw new UsuarioNoValidoException("El Usuario no es Valido!!!");
 		}
@@ -59,8 +66,7 @@ public class UsuarioBuilder {
 	}
 
 	private boolean esUsuarioValido(Usuario unUsuario) {
-		return datosPersonales!= null && complexion != null
-				&& rutina != null && esUsuarioValidoParaSusCondiciones(unUsuario);
+		return datosPersonales != null && complexion != null && rutina != null && esUsuarioValidoParaSusCondiciones(unUsuario);
 	}
 
 	private boolean esUsuarioValidoParaSusCondiciones(Usuario unUsuario) {

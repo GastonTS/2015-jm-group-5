@@ -18,9 +18,21 @@ public class EnviarConsultaPorMail extends ProcesoAsincronico {
 	@Override
 	public void procesarConsulta(Consulta unaConsulta) {
 		if (usuariosPorLosQueSeMandanMail.contains(unaConsulta.getUsuario())) {
-			mailSender.enviarMail(unaConsulta.getUsuario().getNombre(), unaConsulta.getFiltro(),
-			unaConsulta.cantidadConsultas());
+			this.enviarMail(unaConsulta);
 		}
+	}
+
+	public void enviarMail(Consulta unaConsulta) {
+		String destinatario = unaConsulta.getDestinatario();
+		String titulo = "Has realizado una nueva consulta en nuestro sistema!";
+
+		String cuerpo = "Estimado " + unaConsulta.getNombre() + ":\n"
+				+ "Hemos registrado que has realizado una nueva consulta de recetas en nuestra aplicación de recetas sociales Qué Comemos?\n"
+				+ "Los parámetros de tu busqueda fueron: \n" + unaConsulta.parametrosDeBusquedaToString() + "\n"
+				+ "La cantidad de resultados arrojados fue de: " + unaConsulta.cantidadConsultadas() + "\n" 
+				+ "Para desuscribirse del envío de mails por consultas hágalo desde los seteos de usuario en nuestra aplicación\n" + "Saludos! ;)";
+
+		mailSender.send(destinatario, titulo, cuerpo);
 	}
 
 }

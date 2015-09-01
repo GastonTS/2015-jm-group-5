@@ -9,9 +9,9 @@ public class LogearConsultasMasDe100 extends ProcesoAsincronico {
 
 	@Override
 	public void procesarConsulta(Consulta unaConsulta) {
-		if (unaConsulta.cantidadConsultas() > 100) {
+		if (unaConsulta.cantidadConsultadas() > 100) {
 
-			logger.info("Usuario {} realizo una consulta con {} resultados", unaConsulta.getNombre(), unaConsulta.cantidadConsultas());
+			logger.info("Usuario {} realizo una consulta con {} resultados", unaConsulta.getNombre(), unaConsulta.cantidadConsultadas());
 		}
 
 	}

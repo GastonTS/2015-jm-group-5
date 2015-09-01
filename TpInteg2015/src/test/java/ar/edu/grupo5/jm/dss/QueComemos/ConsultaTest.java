@@ -70,4 +70,10 @@ public class ConsultaTest {
 		verify(filtroStMock, times(1)).aplicarFiltros(recetasAConsultar, gaston);
 	}
 	
+	@Test
+	public void retornaParametrosDeBusquedaSegunNombresDeSuFiltro() {
+		
+	}
+	
+	
 }

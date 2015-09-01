@@ -3,6 +3,7 @@ package ar.edu.grupo5.jm.dss.QueComemos.DecoratorFilter;
 import java.util.Collection;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
@@ -22,5 +23,12 @@ public abstract class PreFiltro implements Filtro {
 	public Collection<Receta> filtrarRecetas(Collection<Receta> recetas, Usuario unUsuario) {
 		Collection<Receta> recetasFiltradas = recetas.stream().filter(receta -> this.cumpleCriterio(receta, unUsuario)).collect(Collectors.toList());
 		return subFiltro.filtrarRecetas(recetasFiltradas, unUsuario);
+	}
+
+	public abstract String getNombre();
+	
+	@Override
+	public Stream<String> getNombresFiltros() {
+		return Stream.concat(subFiltro.getNombresFiltros(), Stream.of(this.getNombre()));
 	}
 }

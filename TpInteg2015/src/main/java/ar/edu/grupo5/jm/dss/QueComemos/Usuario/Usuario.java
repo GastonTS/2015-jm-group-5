@@ -25,12 +25,14 @@ public class Usuario implements ObjectUpdater {
 	private Rutina rutina;
 	private Collection<Receta> recetasFavoritas;
 
+	private String mail;
+
 	public Collection<Receta> getRecetasFavoritas() {
 		return recetasFavoritas;
 	}
 
 	public Usuario(DatosPersonales unosDatosPersonales, Complexion unaComplexion, Collection<String> unasPreferenciasAlimenticias,
-			Collection<String> unosDisgustosAlimenticios, Collection<CondicionDeSalud> unasCondicionesDeSalud, Rutina unaRutina) {
+			Collection<String> unosDisgustosAlimenticios, Collection<CondicionDeSalud> unasCondicionesDeSalud, Rutina unaRutina, String unMail) {
 
 		datosPersonales = unosDatosPersonales;
 		complexion = unaComplexion;
@@ -41,6 +43,8 @@ public class Usuario implements ObjectUpdater {
 		disgustosAlimenticios = unosDisgustosAlimenticios;
 		condicionesDeSalud = unasCondicionesDeSalud;
 		rutina = unaRutina;
+		
+		mail = unMail;
 	}
 
 	public void agregarGrupo(Grupo unGrupo) {
@@ -136,5 +140,9 @@ public class Usuario implements ObjectUpdater {
 
 	public boolean esVegano() {
 		return condicionesDeSalud.stream().anyMatch(condicion -> condicion.esCondicionVegana());
+	}
+	
+	public String getMail() {
+		return mail;
 	}
 }

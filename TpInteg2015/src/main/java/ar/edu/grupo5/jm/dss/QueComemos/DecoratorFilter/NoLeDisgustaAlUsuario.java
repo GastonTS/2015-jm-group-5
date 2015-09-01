@@ -13,4 +13,9 @@ public class NoLeDisgustaAlUsuario extends PreFiltro {
 	protected boolean cumpleCriterio(Receta unaReceta, Usuario unUsuario) {
 		return unUsuario.noLeDisgusta(unaReceta);
 	}
+	
+	@Override
+	public String getNombre() {
+		return "No me disgusta.";
+	}
 }

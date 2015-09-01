@@ -3,6 +3,7 @@ package ar.edu.grupo5.jm.dss.QueComemos;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Comparator;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -44,11 +45,12 @@ public class FiltroTest {
 
 	private Primeros10 primeros10 = new Primeros10(sinFiltro);
 	private SoloPares soloPares = new SoloPares(sinFiltro);
-	private OrdenadosPorCriterio ordenadosPorCalorias = new OrdenadosPorCriterio(sinFiltro,
-			((receta1, receta2) -> ((Double) receta1.getCantCaloriasTotales()).compareTo((Double) receta2.getCantCaloriasTotales())));
-
-	private OrdenadosPorCriterio ordenadosAlfabeticamente = new OrdenadosPorCriterio(sinFiltro, ((receta1, receta2) -> (receta1.getNombre()).compareTo(receta2
-			.getNombre())));
+	
+	private Comparator<Receta> porCantidadDeCalorias = ((receta1, receta2) -> ((Double) receta1.getCantCaloriasTotales()).compareTo((Double) receta2.getCantCaloriasTotales()));
+	private Comparator<Receta> porOrdenAlfabetico = ((receta1, receta2) -> (receta1.getNombre()).compareTo(receta2.getNombre()));
+	
+	private OrdenadosPorCriterio ordenadosPorCalorias = new OrdenadosPorCriterio(sinFiltro, porCantidadDeCalorias, "cantidad de calorias");
+	private OrdenadosPorCriterio ordenadosAlfabeticamente = new OrdenadosPorCriterio(sinFiltro, porOrdenAlfabetico, "orden alfabético");
 
 	private SoloPares combinacionPostProcesadoConPre = new SoloPares(new NoExcedeCalorias(sinFiltro));
 

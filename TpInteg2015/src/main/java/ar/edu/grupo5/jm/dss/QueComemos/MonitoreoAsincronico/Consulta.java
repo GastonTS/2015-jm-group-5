@@ -1,6 +1,7 @@
 package ar.edu.grupo5.jm.dss.QueComemos.MonitoreoAsincronico;
 
 import java.util.Collection;
+import java.util.stream.Stream;
 
 import ar.edu.grupo5.jm.dss.QueComemos.DecoratorFilter.Filtro;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
@@ -26,16 +27,21 @@ public class Consulta {
 		return recetasConsultadas;
 	}
 
-	public Filtro getFiltro() {
-		return filtro;
-	}
-
 	public String getNombre() {
 		return usuario.getNombre();
 	}
 
-	public int cantidadConsultas() {
+	public int cantidadConsultadas() {
 		return recetasConsultadas.size();
+	}
+	
+	public String getDestinatario() {
+		return usuario.getMail();
+	}
+	
+	public String parametrosDeBusquedaToString() {
+		Stream<String> nombreParametros = filtro.getNombresFiltros();
+		return nombreParametros.reduce("", (texto, nombreParametro) -> texto + "\t->" + nombreParametro + "\n");
 	}
 
 }

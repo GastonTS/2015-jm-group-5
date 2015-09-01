@@ -18,4 +18,9 @@ public class PreparacionBarata extends PreFiltro {
 	protected boolean cumpleCriterio(Receta unaReceta, Usuario unUsuario) {
 		return !unaReceta.tenesAlgunIngredienteDeEstos(ingredientesCaros);
 	}
+	
+	@Override
+	public String getNombre() {
+		return "Tiene preparación barata.";
+	}
 }

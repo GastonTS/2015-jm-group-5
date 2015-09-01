@@ -16,4 +16,9 @@ public class Primeros10 extends PostProcesamiento {
 		return recetas.stream().limit(10).collect(Collectors.toList());
 	}
 
+	@Override
+	public String getNombre() {
+		return "Primeros 10 resultados.";
+	}
+	
 }

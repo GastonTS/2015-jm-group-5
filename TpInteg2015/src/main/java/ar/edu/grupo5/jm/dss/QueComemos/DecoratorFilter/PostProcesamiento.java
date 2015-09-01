@@ -2,6 +2,7 @@ package ar.edu.grupo5.jm.dss.QueComemos.DecoratorFilter;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Stream;
 
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
@@ -21,5 +22,12 @@ public abstract class PostProcesamiento implements Filtro {
 		List<Receta> recetasParciales = (List<Receta>) subFiltro.filtrarRecetas(recetas, unUsuario);
 
 		return procesar(recetasParciales);
+	}
+	
+	public abstract String getNombre();
+	
+	@Override
+	public Stream<String> getNombresFiltros() {
+		return Stream.concat(Stream.of(this.getNombre()), subFiltro.getNombresFiltros());
 	}
 }
