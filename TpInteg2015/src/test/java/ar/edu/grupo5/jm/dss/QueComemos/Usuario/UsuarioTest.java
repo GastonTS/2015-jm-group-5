@@ -55,16 +55,27 @@ public class UsuarioTest {
 
 		disgustosGustavo.add("McDonalds");
 
-		gustavo = new UsuarioBuilder().setDatosPersonales(datosPersonalesMock).setComplexion(complexionMock)
-				.agregarDisgustoAlimenticio("McDonalds").agregarCondicionesDeSalud(hippie).agregarCondicionesDeSalud(corporativo)
+		gustavo = new UsuarioBuilder()
+				.setDatosPersonales(datosPersonalesMock)
+				.setComplexion(complexionMock)
+				.agregarDisgustoAlimenticio("McDonalds")
+				.agregarCondicionesDeSalud(hippie)
+				.agregarCondicionesDeSalud(corporativo)
 				.setRutina(Rutina.MEDIANA).construirUsuario();
 
-		gaston = new UsuarioBuilder().setDatosPersonales(datosPersonalesMock).setComplexion(complexionMock).setRutina(Rutina.INTENSIVA)
+		gaston = new UsuarioBuilder()
+				.setDatosPersonales(datosPersonalesMock)
+				.setComplexion(complexionMock)
+				.setRutina(Rutina.INTENSIVA)
 				.construirUsuario();
 
-		juanchi = new UsuarioBuilder().setDatosPersonales(datosPersonalesMock).setComplexion(complexionMock)
-				.agregarPreferenciaAlimenticia("fruta").agregarCondicionesDeSalud(vegano)
-				.setRutina(Rutina.ALTA).construirUsuario();
+		juanchi = new UsuarioBuilder()
+				.setDatosPersonales(datosPersonalesMock)
+				.setComplexion(complexionMock)
+				.agregarPreferenciaAlimenticia("fruta")
+				.agregarCondicionesDeSalud(vegano)
+				.setRutina(Rutina.ALTA)
+				.construirUsuario();
 
 		juanchi.agregarGrupo(grupoMock);
 	}

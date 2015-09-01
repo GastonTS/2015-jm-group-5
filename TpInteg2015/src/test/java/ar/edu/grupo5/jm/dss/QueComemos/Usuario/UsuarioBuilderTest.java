@@ -31,23 +31,6 @@ public class UsuarioBuilderTest {
 	}
 	
 	@Test(expected = UsuarioNoValidoException.class)
-	public void noEsValidoSiNoTieneDatosPersonales() {
-		new UsuarioBuilder()
-				.setComplexion(complexionMock)
-				.setRutina(Rutina.MEDIANA)
-				.construirUsuario();
-	}
-	
-	@Test(expected = UsuarioNoValidoException.class)
-	public void noEsValidoSiNoTieneComplexion() {
-		new UsuarioBuilder()
-				.setDatosPersonales(datosPersonalesMock)
-				.setRutina(Rutina.MEDIANA)
-				.construirUsuario();
-	}
-
-
-	@Test(expected = UsuarioNoValidoException.class)
 	public void noEsValidoSiSusCondicionesNoLoPermiten() {
 		when(hippie.esUsuarioValido(any(Usuario.class))).thenReturn(true);
 		when(corporativo.esUsuarioValido(any(Usuario.class))).thenReturn(false);
@@ -64,6 +47,7 @@ public class UsuarioBuilderTest {
 	@Test(expected = UsuarioNoValidoException.class)
 	public void siNoTieneRutinaEsInvalidos() {
 		new UsuarioBuilder()
+				.setRutina(null)
 				.setDatosPersonales(datosPersonalesMock)
 				.setComplexion(complexionMock)
 				.construirUsuario();

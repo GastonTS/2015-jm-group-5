@@ -1,29 +1,64 @@
 package ar.edu.grupo5.jm.dss.QueComemos.Usuario;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.CondicionDeSalud.CondicionDeSalud;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.DatosPersonales.Sexo;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario.Rutina;
 
 public class UsuarioBuilder {
 
-	private Complexion complexion;
+	private String nombre;
+	private Sexo sexo;
+	private LocalDate fechaDeNacimiento;
+
+	private double peso;
+	private double estatura;
+
 	private DatosPersonales datosPersonales;
+	private Complexion complexion;
+
 	private Collection<String> preferenciasAlimenticias = new ArrayList<String>();
 	private Collection<String> disgustosAlimenticios = new ArrayList<String>();
 	private Collection<CondicionDeSalud> condicionesDeSalud = new ArrayList<CondicionDeSalud>();
-	private Rutina rutina;
+	private Rutina rutina = Rutina.MEDIANA;
 
 	private String mail;
+
+	public UsuarioBuilder setDatosPersonales(DatosPersonales datosPersonales) {
+		this.datosPersonales = datosPersonales;
+		return this;
+	}
 
 	public UsuarioBuilder setComplexion(Complexion complexion) {
 		this.complexion = complexion;
 		return this;
 	}
 
-	public UsuarioBuilder setDatosPersonales(DatosPersonales datosPersonales) {
-		this.datosPersonales = datosPersonales;
+	public UsuarioBuilder setNombre(String nombre) {
+		this.nombre = nombre;
+		return this;
+	}
+
+	public UsuarioBuilder setSexo(Sexo sexo) {
+		this.sexo = sexo;
+		return this;
+	}
+
+	public UsuarioBuilder setFechaDeNacimiento(LocalDate fechaDeNacimiento) {
+		this.fechaDeNacimiento = fechaDeNacimiento;
+		return this;
+	}
+
+	public UsuarioBuilder setPeso(double peso) {
+		this.peso = peso;
+		return this;
+	}
+
+	public UsuarioBuilder setEstatura(double estatura) {
+		this.estatura = estatura;
 		return this;
 	}
 
@@ -56,8 +91,10 @@ public class UsuarioBuilder {
 		this.mail = mail;
 		return this;
 	}
-	
+
 	public Usuario construirUsuario() {
+		DatosPersonales datosPersonales = (this.datosPersonales == null) ? new DatosPersonales(nombre, sexo, fechaDeNacimiento) : this.datosPersonales;
+		Complexion complexion = (this.complexion == null) ? new Complexion(peso, estatura) : this.complexion;
 		Usuario usuario = new Usuario(datosPersonales, complexion, preferenciasAlimenticias, disgustosAlimenticios, condicionesDeSalud, rutina, mail);
 		if (!esUsuarioValido(usuario)) {
 			throw new UsuarioNoValidoException("El Usuario no es Valido!!!");
@@ -66,7 +103,7 @@ public class UsuarioBuilder {
 	}
 
 	private boolean esUsuarioValido(Usuario unUsuario) {
-		return datosPersonales != null && complexion != null && rutina != null && esUsuarioValidoParaSusCondiciones(unUsuario);
+		return rutina != null && esUsuarioValidoParaSusCondiciones(unUsuario);
 	}
 
 	private boolean esUsuarioValidoParaSusCondiciones(Usuario unUsuario) {

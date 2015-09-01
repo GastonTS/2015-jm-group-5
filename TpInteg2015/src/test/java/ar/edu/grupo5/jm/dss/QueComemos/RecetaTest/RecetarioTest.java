@@ -7,6 +7,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -21,8 +22,6 @@ import ar.edu.grupo5.jm.dss.QueComemos.Receta.NoPuedeEliminarRecetaExeption;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.RecetaBuilder;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta.Dificultad;
-import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Complexion;
-import ar.edu.grupo5.jm.dss.QueComemos.Usuario.DatosPersonales;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.UsuarioBuilder;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario.Rutina;
@@ -134,12 +133,12 @@ public class RecetarioTest {
 	@Test
 	public void recetaEsModificadaCorrectamente() {
 		//testIntegral
-		DatosPersonales datosPersonalesMock = mock(DatosPersonales.class);
-		Complexion complexionMock = mock(Complexion.class);
-
 		Usuario pepita = new UsuarioBuilder()
-				.setDatosPersonales(datosPersonalesMock)
-				.setComplexion(complexionMock).setRutina(Rutina.INTENSIVA)
+				.setNombre("pepita")
+				.setFechaDeNacimiento(LocalDate.parse("2000-01-01"))
+				.setPeso(1)
+				.setEstatura(1)
+				.setRutina(Rutina.INTENSIVA)
 				.construirUsuario();
 
 		Condimentacion sal = new Condimentacion("sal fina", 100);

@@ -101,11 +101,18 @@ public class RepoUsuariosTest {
 		DatosPersonales datosPersonalesMock = mock(DatosPersonales.class);
 		Complexion complexionMock = mock(Complexion.class);
 		
-		Usuario usuarioViejo = new UsuarioBuilder().setDatosPersonales(datosPersonalesMock).setComplexion(complexionMock).setRutina(Rutina.INTENSIVA)
+		Usuario usuarioViejo = new UsuarioBuilder()
+				.setDatosPersonales(datosPersonalesMock)
+				.setComplexion(complexionMock)
+				.setRutina(Rutina.INTENSIVA)
 				.construirUsuario();
 
-		Usuario usuarioNuevo = new UsuarioBuilder().setDatosPersonales(datosPersonalesMock).setComplexion(complexionMock)
-				.agregarPreferenciaAlimenticia("fruta").setRutina(Rutina.ALTA).construirUsuario();
+		Usuario usuarioNuevo = new UsuarioBuilder()
+				.setDatosPersonales(datosPersonalesMock)
+				.setComplexion(complexionMock)
+				.agregarPreferenciaAlimenticia("fruta")
+				.setRutina(Rutina.ALTA)
+				.construirUsuario();
 	
 		assertFalse(repoUsuarios.sonObjetosActualizados(usuarioViejo, usuarioNuevo));
 		
