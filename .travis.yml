@@ -13,3 +13,5 @@ notifications:
    - gastonsantoalla@gmail.com
    - ramirov93@gmail.com
 
+services:
+  - mongodb
