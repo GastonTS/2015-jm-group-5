@@ -2,6 +2,8 @@ package ar.edu.grupo5.jm.dss.QueComemos.Usuario;
 
 import java.time.LocalDate;
 
+import org.mongodb.morphia.annotations.Transient;
+
 public class DatosPersonales {
 
 	public enum Sexo {
@@ -9,9 +11,14 @@ public class DatosPersonales {
 	}
 
 	private String nombre;
+	@Transient
 	private Sexo sexo;
+	@Transient
 	private LocalDate fechaDeNacimiento;
 
+	public DatosPersonales(){
+		
+	}
 	public DatosPersonales(String unNombre, Sexo unSexo, LocalDate unaFechaDeNacimiento) {
 		nombre = unNombre;
 		sexo = unSexo;

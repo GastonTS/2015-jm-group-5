@@ -3,38 +3,58 @@ package ar.edu.grupo5.jm.dss.QueComemos.Usuario;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.bson.types.ObjectId;
+import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Id;
+import org.mongodb.morphia.annotations.Reference;
+import org.mongodb.morphia.annotations.Transient;
+
 import ar.edu.grupo5.jm.dss.QueComemos.Grupo;
 import ar.edu.grupo5.jm.dss.QueComemos.ObjectUpdater.Updateable;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.DatosPersonales.Sexo;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.CondicionDeSalud.CondicionDeSalud;
 
+@Entity
 public class Usuario {
 
+	@Id
+	ObjectId id;
+	@Transient
 	@Updateable
 	private Complexion complexion;
 	@Updateable
 	private DatosPersonales datosPersonales;
 	@Updateable
+	@Transient
 	private Collection<String> preferenciasAlimenticias;
+	@Transient
 	@Updateable
 	private Collection<String> disgustosAlimenticios;
+	@Transient
 	@Updateable
 	private Collection<CondicionDeSalud> condicionesDeSalud;
+	@Transient
 	@Updateable
 	private Collection<Grupo> grupos;
 	public enum Rutina {
 		LEVE, NADA, MEDIANA, INTENSIVA, ALTA
 	}
+	@Transient
 	@Updateable
 	private Rutina rutina;
+	@Reference
 	@Updateable
 	private Collection<Receta> recetasFavoritas;
-
+	@Transient
 	private String mail;
 
 	public Collection<Receta> getRecetasFavoritas() {
 		return recetasFavoritas;
+	}
+	
+	public Usuario(){
+		
 	}
 
 	public Usuario(DatosPersonales unosDatosPersonales, Complexion unaComplexion, Collection<String> unasPreferenciasAlimenticias,
@@ -51,6 +71,10 @@ public class Usuario {
 		rutina = unaRutina;
 		
 		mail = unMail;
+	}
+	
+	public ObjectId getId(){
+		return id;
 	}
 
 	public void agregarGrupo(Grupo unGrupo) {

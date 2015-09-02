@@ -123,4 +123,12 @@ public class Receta {
 		return dificultad;
 	}
 
+	@Override
+	public boolean equals(Object otraReceta) {
+		return otraReceta != null && otraReceta.getClass() == Receta.class && (this.sameId((Receta) otraReceta) || this == otraReceta);
+	}
+
+	public boolean sameId(Receta otraReceta) {
+		return this.getId() != null && this.getId().equals(otraReceta.getId());
+	}
 }
