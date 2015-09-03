@@ -3,6 +3,8 @@ package ar.edu.grupo5.jm.dss.QueComemos.MonitoreoAsincronico;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import ar.edu.grupo5.jm.dss.QueComemos.Consulta;
+
 public class LogearConsultasMasDe100 extends ProcesoAsincronico {
 
 	private static final Logger logger = LogManager.getLogger("LoggerConsultas");

@@ -3,6 +3,8 @@ package ar.edu.grupo5.jm.dss.QueComemos.MonitoreoAsincronico;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import ar.edu.grupo5.jm.dss.QueComemos.Consulta;
+
 public class BufferDeConsultas {
 
 	public static BufferDeConsultas instancia = new BufferDeConsultas();
