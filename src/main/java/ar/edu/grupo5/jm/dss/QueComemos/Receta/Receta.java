@@ -1,5 +1,6 @@
 package ar.edu.grupo5.jm.dss.QueComemos.Receta;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -16,7 +17,7 @@ import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 public class Receta {
 
 	@Id
-	ObjectId id;
+	ObjectId idReceta;
 	@Updateable
 	private String nombre;
 	@Updateable
@@ -36,7 +37,7 @@ public class Receta {
 	}
 
 	public Receta() {
-
+		subRecetas = new ArrayList<Receta>();
 	}
 
 	public Receta(String nombreReceta, Collection<String> unosIngredientes, Collection<Condimentacion> unasCondimentaciones,
@@ -51,7 +52,7 @@ public class Receta {
 	}
 
 	public Object getId() {
-		return id;
+		return idReceta;
 	}
 
 	public String getNombre() {
@@ -64,6 +65,10 @@ public class Receta {
 
 	public void setDueño(Usuario unUsuario) {
 		dueño = Optional.of(unUsuario);
+	}
+
+	public Usuario getDueño() {
+		return dueño.get();
 	}
 
 	public boolean esElDueño(Usuario unUsuario) {
@@ -131,4 +136,5 @@ public class Receta {
 	public boolean sameId(Receta otraReceta) {
 		return this.getId() != null && this.getId().equals(otraReceta.getId());
 	}
+
 }

@@ -3,6 +3,7 @@ package ar.edu.grupo5.jm.dss.QueComemos;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 
+import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
 import com.mongodb.MongoClient;
@@ -26,5 +27,10 @@ public class GestorMorphia {
 	public void actualizarUsuario(Usuario unUsuario){
 		unUsuario.getRecetasFavoritas().forEach(unaReceta -> datastore.save(unaReceta));
 		datastore.save(unUsuario);
+	}
+	
+	public void actualizarReceta(Receta unaReceta){
+		unaReceta.getSubRecetas().forEach(receta -> datastore.save(receta));
+		datastore.save(unaReceta);
 	}
 }

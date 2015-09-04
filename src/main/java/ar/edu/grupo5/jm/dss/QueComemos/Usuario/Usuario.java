@@ -18,7 +18,7 @@ import ar.edu.grupo5.jm.dss.QueComemos.Usuario.CondicionDeSalud.CondicionDeSalud
 public class Usuario {
 
 	@Id
-	ObjectId id;
+	ObjectId idUsuario;
 	@Transient
 	@Updateable
 	private Complexion complexion;
@@ -36,9 +36,11 @@ public class Usuario {
 	@Transient
 	@Updateable
 	private Collection<Grupo> grupos;
+
 	public enum Rutina {
 		LEVE, NADA, MEDIANA, INTENSIVA, ALTA
 	}
+
 	@Transient
 	@Updateable
 	private Rutina rutina;
@@ -51,9 +53,9 @@ public class Usuario {
 	public Collection<Receta> getRecetasFavoritas() {
 		return recetasFavoritas;
 	}
-	
-	public Usuario(){
-		
+
+	public Usuario() {
+
 	}
 
 	public Usuario(DatosPersonales unosDatosPersonales, Complexion unaComplexion, Collection<String> unasPreferenciasAlimenticias,
@@ -68,12 +70,12 @@ public class Usuario {
 		disgustosAlimenticios = unosDisgustosAlimenticios;
 		condicionesDeSalud = unasCondicionesDeSalud;
 		rutina = unaRutina;
-		
+
 		mail = unMail;
 	}
-	
-	public ObjectId getId(){
-		return id;
+
+	public ObjectId getId() {
+		return idUsuario;
 	}
 
 	public void agregarGrupo(Grupo unGrupo) {
@@ -170,7 +172,7 @@ public class Usuario {
 	public boolean esVegano() {
 		return condicionesDeSalud.stream().anyMatch(condicion -> condicion.esCondicionVegana());
 	}
-	
+
 	public String getMail() {
 		return mail;
 	}
