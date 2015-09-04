@@ -8,6 +8,15 @@ import ar.edu.grupo5.jm.dss.QueComemos.Receta.RecetaBuilder;
 
 public class RecetaBuilderTest {
 
+	@Test
+	public void recetaValida() {
+		new RecetaBuilder()
+		.setNombre("Valida")
+		.agregarIngrediente("Algo super normal")
+		.setCantCalorias(23)
+		.setDificultad(Dificultad.ALTA)
+		.construirReceta();
+	}
 	
 	@Test(expected = RecetaNoValidaException.class)
 	public void recetaNoValidaPorNoTenerIngredientes() {
