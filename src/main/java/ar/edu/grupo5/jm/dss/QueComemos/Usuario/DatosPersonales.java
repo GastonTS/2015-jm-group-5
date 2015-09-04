@@ -52,5 +52,4 @@ public class DatosPersonales {
 	public Sexo getSexo() {
 		return sexo;
 	}
-
 }

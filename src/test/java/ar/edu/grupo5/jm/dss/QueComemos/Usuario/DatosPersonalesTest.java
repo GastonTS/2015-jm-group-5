@@ -27,20 +27,36 @@ public class DatosPersonalesTest {
 	public void sonValidos() {
 		assertTrue(datosPersonalesValidos.sonValidos());
 	}
+	
+
+	@Test(expected = DatosPersonalesNoValidosException.class)
+	public void noTieneNombre() {
+		new DatosPersonales(null, Sexo.MASCULINO, LocalDate.parse("2000-01-01"));
+	}
+	
+	@Test(expected = DatosPersonalesNoValidosException.class)
+	public void sinFechaDeNacimiento() {
+		new DatosPersonales("No nacido", Sexo.MASCULINO, null);
+	}	
 
 	@Test(expected = DatosPersonalesNoValidosException.class)
 	public void esNombreCorto() {
 		new DatosPersonales("PP", Sexo.MASCULINO, LocalDate.parse("2000-01-01"));
 	}
-
-	@Test
-	public void noIndicaSexo() {
-		assertFalse(sinSexo.indicaSexo());
-	}
+	
 
 	@Test(expected = DatosPersonalesNoValidosException.class)
 	public void noTieneFechaDeNacimientoAnteriorAHoy() {
 		new DatosPersonales("Pepito", Sexo.MASCULINO, LocalDate.now());
 	}
 
+	@Test
+	public void noIndicaSexo() {
+		assertFalse(sinSexo.indicaSexo());
+	}
+	
+	@Test
+	public void siIndicaSexo() {
+		assertTrue(datosPersonalesValidos.indicaSexo());
+	}
 }

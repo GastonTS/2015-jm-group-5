@@ -287,4 +287,9 @@ public class UsuarioTest {
 	public void usuarioTieneRutinaActivaSiTieneRutinaAlta(){
 		assertTrue(juanchi.tieneRutinaActiva());
 	}
+	
+	@Test
+	public void usuarioNoTieneRutinaActiva(){
+		assertFalse(gustavo.tieneRutinaActiva());
+	}
 }
