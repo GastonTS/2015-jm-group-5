@@ -1,23 +1,15 @@
 package ar.edu.grupo5.jm.dss.QueComemos.Receta;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.bson.types.ObjectId;
-import org.mongodb.morphia.annotations.Entity;
-import org.mongodb.morphia.annotations.Id;
-
 import ar.edu.grupo5.jm.dss.QueComemos.ObjectUpdater.Updateable;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
-@Entity
 public class Receta {
 
-	@Id
-	ObjectId idReceta;
 	@Updateable
 	private String nombre;
 	@Updateable
@@ -35,11 +27,7 @@ public class Receta {
 	public enum Dificultad {
 		BAJA, MEDIA, ALTA
 	}
-
-	public Receta() {
-		subRecetas = new ArrayList<Receta>();
-	}
-
+	
 	public Receta(String nombreReceta, Collection<String> unosIngredientes, Collection<Condimentacion> unasCondimentaciones,
 			Collection<Receta> unasSubRecetas, double unasCantCalorias, Dificultad unaDificultad) {
 
@@ -49,10 +37,6 @@ public class Receta {
 		subRecetas = unasSubRecetas;
 		cantCalorias = unasCantCalorias;
 		dificultad = unaDificultad;
-	}
-
-	public Object getId() {
-		return idReceta;
 	}
 
 	public String getNombre() {
@@ -65,10 +49,6 @@ public class Receta {
 
 	public void setDueño(Usuario unUsuario) {
 		dueño = Optional.of(unUsuario);
-	}
-
-	public Usuario getDueño() {
-		return dueño.get();
 	}
 
 	public boolean esElDueño(Usuario unUsuario) {
@@ -126,15 +106,6 @@ public class Receta {
 
 	public Dificultad getDificultad() {
 		return dificultad;
-	}
-
-	@Override
-	public boolean equals(Object otraReceta) {
-		return otraReceta != null && otraReceta.getClass() == Receta.class && (this.sameId((Receta) otraReceta) || this == otraReceta);
-	}
-
-	public boolean sameId(Receta otraReceta) {
-		return this.getId() != null && this.getId().equals(otraReceta.getId());
 	}
 
 }

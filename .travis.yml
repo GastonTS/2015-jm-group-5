@@ -10,6 +10,3 @@ notifications:
    - leanrodri2093@gmail.com
    - gastonsantoalla@gmail.com
    - ramirov93@gmail.com
-
-services:
-  - mongodb
