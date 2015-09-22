@@ -8,7 +8,7 @@ import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta.Dificultad;
 public class RecetaBuilder {
 
 	private String nombre;
-	private Collection<String> ingredientes = new ArrayList<String>();
+	private Collection<Ingrediente> ingredientes = new ArrayList<Ingrediente>();
 	private Collection<Condimentacion> condimentaciones = new ArrayList<Condimentacion>();
 	private double cantCalorias;
 	private Collection<Receta> subRecetas = new ArrayList<Receta>();
@@ -19,12 +19,12 @@ public class RecetaBuilder {
 		return this;
 	}
 
-	public RecetaBuilder agregarIngrediente(String unIngrediente) {
+	public RecetaBuilder agregarIngrediente(Ingrediente unIngrediente) {
 		ingredientes.add(unIngrediente);
 		return this;
 	}
 	
-	public RecetaBuilder agregarTodosLosIngredientes(Collection<String> unosIngredientes) {
+	public RecetaBuilder agregarTodosLosIngredientes(Collection<Ingrediente> unosIngredientes) {
 		ingredientes.addAll(unosIngredientes);
 		return this;
 	}

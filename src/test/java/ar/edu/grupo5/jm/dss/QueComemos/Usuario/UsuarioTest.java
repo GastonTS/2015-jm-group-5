@@ -16,6 +16,7 @@ import java.util.Collection;
 import org.junit.Before;
 import org.junit.Test;
 
+import ar.edu.grupo5.jm.dss.QueComemos.Receta.Ingrediente;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Complexion;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.DatosPersonales;
@@ -34,7 +35,7 @@ public class UsuarioTest {
 
 	private Complexion complexionMock = mock(Complexion.class);
 
-	private Collection<String> disgustosGustavo = new ArrayList<String>();
+	private Collection<Ingrediente> disgustosGustavo = new ArrayList<Ingrediente>();
 	private CondicionDeSalud hippie = mock(CondicionDeSalud.class);
 	private CondicionDeSalud corporativo = mock(CondicionDeSalud.class);
 	private CondicionDeSalud vegano = mock(CondicionDeSalud.class);
@@ -45,6 +46,8 @@ public class UsuarioTest {
 	private Receta choripanMock = mock(Receta.class);
 
 	private Grupo grupoMock = mock(Grupo.class);
+	
+	private Ingrediente fruta = new Ingrediente("fruta");
 
 	@Before
 	public void setUp() {
@@ -52,28 +55,17 @@ public class UsuarioTest {
 		when(corporativo.esUsuarioValido(any(Usuario.class))).thenReturn(true);
 		when(vegano.esUsuarioValido(any(Usuario.class))).thenReturn(true);
 
-		disgustosGustavo.add("McDonalds");
+		disgustosGustavo.add(new Ingrediente("McDonalds"));
 
-		gustavo = new UsuarioBuilder()
-				.setDatosPersonales(datosPersonalesMock)
-				.setComplexion(complexionMock)
-				.agregarDisgustoAlimenticio("McDonalds")
-				.agregarCondicionesDeSalud(hippie)
-				.agregarCondicionesDeSalud(corporativo)
-				.setRutina(Rutina.MEDIANA).construirUsuario();
+		gustavo = new UsuarioBuilder().setDatosPersonales(datosPersonalesMock).setComplexion(complexionMock)
+				.agregarDisgustoAlimenticio(new Ingrediente("McDonalds")).agregarCondicionesDeSalud(hippie)
+				.agregarCondicionesDeSalud(corporativo).setRutina(Rutina.MEDIANA).construirUsuario();
 
-		gaston = new UsuarioBuilder()
-				.setDatosPersonales(datosPersonalesMock)
-				.setComplexion(complexionMock)
-				.setRutina(Rutina.INTENSIVA)
+		gaston = new UsuarioBuilder().setDatosPersonales(datosPersonalesMock).setComplexion(complexionMock).setRutina(Rutina.INTENSIVA)
 				.construirUsuario();
 
-		juanchi = new UsuarioBuilder()
-				.setDatosPersonales(datosPersonalesMock)
-				.setComplexion(complexionMock)
-				.agregarPreferenciaAlimenticia("fruta")
-				.agregarCondicionesDeSalud(vegano)
-				.setRutina(Rutina.ALTA)
+		juanchi = new UsuarioBuilder().setDatosPersonales(datosPersonalesMock).setComplexion(complexionMock)
+				.agregarPreferenciaAlimenticia(fruta).agregarCondicionesDeSalud(vegano).setRutina(Rutina.ALTA)
 				.construirUsuario();
 
 		juanchi.agregarGrupo(grupoMock);
@@ -132,13 +124,14 @@ public class UsuarioTest {
 
 	@Test
 	public void tieneAlgunaDeEstasPreferenciasTest() {
-		Collection<String> preferenciasVariadas = Arrays.asList("fruta", "semillas", "campignones");
+		Collection<Ingrediente> preferenciasVariadas = Arrays.asList(new Ingrediente("fruta"), new Ingrediente("semillas"), new Ingrediente(
+				"campignones"));
 		assertTrue(juanchi.tieneAlgunaDeEstasPreferencias(preferenciasVariadas));
 	}
 
 	@Test
 	public void usuarioVeganoPrefiereFruta() {
-		assertTrue(juanchi.tienePreferencia("fruta"));
+		assertTrue(juanchi.tienePreferencia(fruta));
 	}
 
 	@Test
@@ -251,14 +244,14 @@ public class UsuarioTest {
 
 		assertEquals(gustavo.getRecetasFavoritas(), Arrays.asList(choripanMock));
 	}
-	
+
 	@Test
-	public void quitarAFavoritas(){
+	public void quitarAFavoritas() {
 		gaston.agregarAFavorita(ensaladaMock);
 		gaston.agregarAFavorita(choripanMock);
-		
+
 		gaston.quitarRecetaFavorita(choripanMock);
-		
+
 		assertEquals(gaston.getRecetasFavoritas(), Arrays.asList(ensaladaMock));
 	}
 
@@ -269,27 +262,27 @@ public class UsuarioTest {
 		verify(datosPersonalesMock, times(1)).getSexo();
 
 	}
-	
+
 	@Test
-	public void juanchiEsVegano(){
+	public void juanchiEsVegano() {
 		when(vegano.esCondicionVegana()).thenReturn(true);
 		assertTrue(juanchi.esVegano());
 		verify(vegano, times(1)).esCondicionVegana();
 	}
-	
-	//Test de Rutinas
+
+	// Test de Rutinas
 	@Test
-	public void usuarioTieneRutinaActivaSiTieneIntensiva(){
+	public void usuarioTieneRutinaActivaSiTieneIntensiva() {
 		assertTrue(gaston.tieneRutinaActiva());
 	}
-	
+
 	@Test
-	public void usuarioTieneRutinaActivaSiTieneRutinaAlta(){
+	public void usuarioTieneRutinaActivaSiTieneRutinaAlta() {
 		assertTrue(juanchi.tieneRutinaActiva());
 	}
-	
+
 	@Test
-	public void usuarioNoTieneRutinaActiva(){
+	public void usuarioNoTieneRutinaActiva() {
 		assertFalse(gustavo.tieneRutinaActiva());
 	}
 }

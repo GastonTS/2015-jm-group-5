@@ -15,6 +15,7 @@ import org.junit.Test;
 
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
+import ar.edu.grupo5.jm.dss.QueComemos.Receta.Ingrediente;
 
 public class GrupoTest {
 
@@ -24,12 +25,10 @@ public class GrupoTest {
 	private Receta recetaMock = mock(Receta.class);
 
 	private Grupo grupoConPreferenciasVariadas;
-	private Collection<String> preferenciasVariadas = Arrays.asList("fruta", "semillas", "queso");
+	private Collection<Ingrediente> preferenciasVariadas = Arrays.asList(new Ingrediente("fruta"), new Ingrediente("semillas"), new Ingrediente("queso"));
 
 	@Before
 	public void setUp() {
-		;
-
 		grupoConPreferenciasVariadas = new Grupo(preferenciasVariadas, Arrays.asList(gaston, juanchi));
 	}
 

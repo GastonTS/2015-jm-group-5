@@ -19,6 +19,7 @@ import ar.edu.grupo5.jm.dss.QueComemos.Consulta.Filtro.PreparacionBarata;
 import ar.edu.grupo5.jm.dss.QueComemos.Consulta.Filtro.Primeros10;
 import ar.edu.grupo5.jm.dss.QueComemos.Consulta.Filtro.SinFiltro;
 import ar.edu.grupo5.jm.dss.QueComemos.Consulta.Filtro.SoloPares;
+import ar.edu.grupo5.jm.dss.QueComemos.Receta.Ingrediente;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 import static org.junit.Assert.assertEquals;
@@ -60,7 +61,7 @@ public class FiltroTest {
 
 	private NoExcedeCalorias combinacionPreProcesadoConPost = new NoExcedeCalorias(new SoloPares(sinFiltro));
 
-	private Collection<String> ingredientesCaros = Arrays.asList("lechon", "lomo", "salmon", "alcaparras");
+	private Collection<Ingrediente> ingredientesCaros = Arrays.asList(new Ingrediente("lechon"), new Ingrediente("lomo"), new Ingrediente("salmon"), new Ingrediente("alcaparras"));
 
 	@Before
 	public void setUp() {

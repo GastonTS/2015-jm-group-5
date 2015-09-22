@@ -16,6 +16,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Condimentacion;
+import ar.edu.grupo5.jm.dss.QueComemos.Receta.Ingrediente;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.NoPuedeAccederARecetaException;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.NoPuedeEliminarRecetaExeption;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
@@ -146,17 +147,17 @@ public class RecetarioTest {
 		Condimentacion aceite = new Condimentacion("Aceite de Maiz", 2);
 
 		Receta ensaladaVieja = new RecetaBuilder().setNombre("Ensalada")
-				.agregarIngrediente("Lechuga 2kg")
-				.agregarIngrediente("Cebolla 1.5kg")
-				.agregarIngrediente("Tomate 200gr")
+				.agregarIngrediente(new Ingrediente("Lechuga 2kg"))
+				.agregarIngrediente(new Ingrediente("Cebolla 1.5kg"))
+				.agregarIngrediente(new Ingrediente("Tomate 200gr"))
 				.agregarCondimentaciones(sal).agregarCondimentaciones(aceite)
 				.setCantCalorias(40).setDificultad(Dificultad.BAJA)
 				.construirReceta();
 
 		Receta ensaladaNueva = new RecetaBuilder().setNombre("Ensalada")
-				.agregarIngrediente("Lechuga 3kg")
-				.agregarIngrediente("Cebolla 1kg")
-				.agregarIngrediente("Tomate 300gr")
+				.agregarIngrediente(new Ingrediente("Lechuga 3kg"))
+				.agregarIngrediente(new Ingrediente("Cebolla 1kg"))
+				.agregarIngrediente(new Ingrediente("Tomate 300gr"))
 				.agregarCondimentaciones(pocaSal)
 				.agregarCondimentaciones(aceite).setCantCalorias(40)
 				.setDificultad(Dificultad.BAJA).construirReceta();

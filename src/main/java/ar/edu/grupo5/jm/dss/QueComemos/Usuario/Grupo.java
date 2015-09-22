@@ -2,14 +2,15 @@ package ar.edu.grupo5.jm.dss.QueComemos.Usuario;
 
 import java.util.Collection;
 
+import ar.edu.grupo5.jm.dss.QueComemos.Receta.Ingrediente;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 
 public class Grupo {
 
-	private Collection<String> preferenciasAlimenticias;
+	private Collection<Ingrediente> preferenciasAlimenticias;
 	private Collection<Usuario> integrantes;
 
-	public Grupo(Collection<String> unasPreferenciasAlimenticias, Collection<Usuario> unosIntegrantes) {
+	public Grupo(Collection<Ingrediente> unasPreferenciasAlimenticias, Collection<Usuario> unosIntegrantes) {
 		preferenciasAlimenticias = unasPreferenciasAlimenticias;
 		integrantes = unosIntegrantes;
 	}

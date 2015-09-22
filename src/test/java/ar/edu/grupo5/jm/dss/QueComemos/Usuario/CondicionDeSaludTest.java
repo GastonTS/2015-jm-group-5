@@ -3,6 +3,7 @@ package ar.edu.grupo5.jm.dss.QueComemos.Usuario;
 import org.junit.Before;
 import org.junit.Test;
 
+import ar.edu.grupo5.jm.dss.QueComemos.Receta.Ingrediente;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.CondicionDeSalud.Celiaco;
@@ -21,6 +22,8 @@ public class CondicionDeSaludTest {
 	private Hipertenso hipertenso;
 	private Diabetico diabetico;
 	private Celiaco celiaco;
+	
+	Ingrediente fruta = new Ingrediente("fruta");
 
 	@Before
 	public void setUp() {
@@ -40,20 +43,20 @@ public class CondicionDeSaludTest {
 
 	@Test
 	public void UsuarioSubsanaCondicionVegano() {
-		when(usuarioFalso.tienePreferencia("fruta")).thenReturn(true);
+		when(usuarioFalso.tienePreferencia(fruta)).thenReturn(true);
 
 		assertTrue(vegano.subsanaCondicion(usuarioFalso));
 
-		verify(usuarioFalso, times(1)).tienePreferencia("fruta");
+		verify(usuarioFalso, times(1)).tienePreferencia(fruta);
 	}
 
 	@Test
 	public void UsuarioNoSubsanaCondicionVegano() {
-		when(usuarioFalso.tienePreferencia("fruta")).thenReturn(false);
+		when(usuarioFalso.tienePreferencia(fruta)).thenReturn(false);
 
 		assertFalse(vegano.subsanaCondicion(usuarioFalso));
 
-		verify(usuarioFalso, times(1)).tienePreferencia("fruta");
+		verify(usuarioFalso, times(1)).tienePreferencia(fruta);
 	}
 
 	@Test

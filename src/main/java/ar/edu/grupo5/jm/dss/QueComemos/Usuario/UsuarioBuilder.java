@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import ar.edu.grupo5.jm.dss.QueComemos.Receta.Ingrediente;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.CondicionDeSalud.CondicionDeSalud;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.DatosPersonales.Sexo;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario.Rutina;
@@ -20,8 +21,8 @@ public class UsuarioBuilder {
 	private DatosPersonales datosPersonales;
 	private Complexion complexion;
 
-	private Collection<String> preferenciasAlimenticias = new ArrayList<String>();
-	private Collection<String> disgustosAlimenticios = new ArrayList<String>();
+	private Collection<Ingrediente> preferenciasAlimenticias = new ArrayList<Ingrediente>();
+	private Collection<Ingrediente> disgustosAlimenticios = new ArrayList<Ingrediente>();
 	private Collection<CondicionDeSalud> condicionesDeSalud = new ArrayList<CondicionDeSalud>();
 	private Rutina rutina = Rutina.MEDIANA;
 
@@ -62,17 +63,17 @@ public class UsuarioBuilder {
 		return this;
 	}
 
-	public UsuarioBuilder agregarPreferenciaAlimenticia(String unaPreferenciaAlimenticia) {
+	public UsuarioBuilder agregarPreferenciaAlimenticia(Ingrediente unaPreferenciaAlimenticia) {
 		preferenciasAlimenticias.add(unaPreferenciaAlimenticia);
 		return this;
 	}
 
-	public UsuarioBuilder agregarDisgustoAlimenticio(String unDisgustoAlimenticio) {
+	public UsuarioBuilder agregarDisgustoAlimenticio(Ingrediente unDisgustoAlimenticio) {
 		disgustosAlimenticios.add(unDisgustoAlimenticio);
 		return this;
 	}
 
-	public UsuarioBuilder agregarTodosLosDisgustosAlimenticios(Collection<String> unosDisgustosAlimenticios) {
+	public UsuarioBuilder agregarTodosLosDisgustosAlimenticios(Collection<Ingrediente> unosDisgustosAlimenticios) {
 		disgustosAlimenticios.addAll(unosDisgustosAlimenticios);
 		return this;
 	}

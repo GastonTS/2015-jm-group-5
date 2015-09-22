@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import ar.edu.grupo5.jm.dss.QueComemos.ObjectUpdater.Updateable;
+import ar.edu.grupo5.jm.dss.QueComemos.Receta.Ingrediente;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.DatosPersonales.Sexo;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.CondicionDeSalud.CondicionDeSalud;
@@ -15,9 +16,9 @@ public class Usuario {
 	@Updateable
 	private DatosPersonales datosPersonales;
 	@Updateable
-	private Collection<String> preferenciasAlimenticias;
+	private Collection<Ingrediente> preferenciasAlimenticias;
 	@Updateable
-	private Collection<String> disgustosAlimenticios;
+	private Collection<Ingrediente> disgustosAlimenticios;
 	@Updateable
 	private Collection<CondicionDeSalud> condicionesDeSalud;
 	@Updateable
@@ -38,8 +39,8 @@ public class Usuario {
 		return recetasFavoritas;
 	}
 
-	public Usuario(DatosPersonales unosDatosPersonales, Complexion unaComplexion, Collection<String> unasPreferenciasAlimenticias,
-			Collection<String> unosDisgustosAlimenticios, Collection<CondicionDeSalud> unasCondicionesDeSalud, Rutina unaRutina, String unMail) {
+	public Usuario(DatosPersonales unosDatosPersonales, Complexion unaComplexion, Collection<Ingrediente> unasPreferenciasAlimenticias,
+			Collection<Ingrediente> unosDisgustosAlimenticios, Collection<CondicionDeSalud> unasCondicionesDeSalud, Rutina unaRutina, String unMail) {
 
 		datosPersonales = unosDatosPersonales;
 		complexion = unaComplexion;
@@ -92,11 +93,11 @@ public class Usuario {
 		return rutina == Rutina.INTENSIVA;
 	}
 
-	public boolean tienePreferencia(String preferencia) {
+	public boolean tienePreferencia(Ingrediente preferencia) {
 		return preferenciasAlimenticias.contains(preferencia);
 	}
 
-	public boolean tieneAlgunaDeEstasPreferencias(Collection<String> preferencias) {
+	public boolean tieneAlgunaDeEstasPreferencias(Collection<Ingrediente> preferencias) {
 		return preferenciasAlimenticias.stream().anyMatch(preferencia -> preferencias.contains(preferencia));
 	}
 

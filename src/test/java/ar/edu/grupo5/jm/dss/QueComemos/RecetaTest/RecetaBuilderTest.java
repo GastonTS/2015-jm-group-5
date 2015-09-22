@@ -2,6 +2,7 @@ package ar.edu.grupo5.jm.dss.QueComemos.RecetaTest;
 
 import org.junit.Test;
 
+import ar.edu.grupo5.jm.dss.QueComemos.Receta.Ingrediente;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.RecetaNoValidaException;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta.Dificultad;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.RecetaBuilder;
@@ -12,7 +13,7 @@ public class RecetaBuilderTest {
 	public void recetaValida() {
 		new RecetaBuilder()
 		.setNombre("Valida")
-		.agregarIngrediente("Algo super normal")
+		.agregarIngrediente(new Ingrediente("Algo super normal"))
 		.setCantCalorias(23)
 		.setDificultad(Dificultad.ALTA)
 		.construirReceta();
@@ -31,7 +32,7 @@ public class RecetaBuilderTest {
 	public void recetaNoValidaPorTenerDemasiadasCalorias() {
 		new RecetaBuilder()
 		.setNombre("Muy calorica")
-		.agregarIngrediente("Algo super calorico")
+		.agregarIngrediente(new Ingrediente("Algo super calorico"))
 		.setCantCalorias(99999)
 		.setDificultad(Dificultad.ALTA)
 		.construirReceta();

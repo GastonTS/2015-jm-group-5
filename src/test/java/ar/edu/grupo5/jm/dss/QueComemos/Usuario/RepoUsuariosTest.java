@@ -14,6 +14,7 @@ import java.util.Optional;
 import org.junit.Before;
 import org.junit.Test;
 
+import ar.edu.grupo5.jm.dss.QueComemos.Receta.Ingrediente;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario.Rutina;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.UsuarioIngresadoNoExisteException;
@@ -109,7 +110,7 @@ public class RepoUsuariosTest {
 		Usuario usuarioNuevo = new UsuarioBuilder()
 				.setDatosPersonales(datosPersonalesMock)
 				.setComplexion(complexionMock)
-				.agregarPreferenciaAlimenticia("fruta")
+				.agregarPreferenciaAlimenticia(new Ingrediente("fruta"))
 				.setRutina(Rutina.ALTA)
 				.construirUsuario();
 	

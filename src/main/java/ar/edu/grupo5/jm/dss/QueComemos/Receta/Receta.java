@@ -13,7 +13,7 @@ public class Receta {
 	@Updateable
 	private String nombre;
 	@Updateable
-	private Collection<String> ingredientes;
+	private Collection<Ingrediente> ingredientes;
 	@Updateable
 	private Collection<Condimentacion> condimentaciones;
 	@Updateable
@@ -28,7 +28,7 @@ public class Receta {
 		BAJA, MEDIA, ALTA
 	}
 	
-	public Receta(String nombreReceta, Collection<String> unosIngredientes, Collection<Condimentacion> unasCondimentaciones,
+	public Receta(String nombreReceta, Collection<Ingrediente> unosIngredientes, Collection<Condimentacion> unasCondimentaciones,
 			Collection<Receta> unasSubRecetas, double unasCantCalorias, Dificultad unaDificultad) {
 
 		nombre = nombreReceta;
@@ -68,7 +68,7 @@ public class Receta {
 				condimentacion -> condimentacion.mayorCantidadDeMismoCondimentoQue(unaCondimentacion));
 	}
 
-	public boolean tenesAlgunIngredienteDeEstos(Collection<String> ingredientesProhibidas) {
+	public boolean tenesAlgunIngredienteDeEstos(Collection<Ingrediente> ingredientesProhibidas) {
 		return getIngredientesTotales().stream().anyMatch(ingrediente -> ingredientesProhibidas.contains(ingrediente));
 	}
 
@@ -80,11 +80,11 @@ public class Receta {
 		return cantCalorias + getCantCaloriasSubRecetas();
 	}
 
-	private Stream<String> getIngredientesSubRecetas() {
+	private Stream<Ingrediente> getIngredientesSubRecetas() {
 		return subRecetas.stream().flatMap(subReceta -> subReceta.getIngredientesTotales().stream());
 	}
 
-	public Collection<String> getIngredientesTotales() {
+	public Collection<Ingrediente> getIngredientesTotales() {
 		return Stream.concat(ingredientes.stream(), getIngredientesSubRecetas()).collect(Collectors.toList());
 	}
 

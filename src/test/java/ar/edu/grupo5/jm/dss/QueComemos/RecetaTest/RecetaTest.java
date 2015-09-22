@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Condimentacion;
+import ar.edu.grupo5.jm.dss.QueComemos.Receta.Ingrediente;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta.Dificultad;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.RecetaBuilder;
@@ -33,19 +34,21 @@ public class RecetaTest {
 	private Condimentacion condimentoParaPollo = new Condimentacion("condimento P/pollo", 40);
 	private Condimentacion aceite = new Condimentacion("Aceite de Maiz", 2);
 
+	Ingrediente lechuga2kg = new Ingrediente("Lechuga 2kg");
+	
 	@Before
 	public void setUp() {
 		
 		recetaDificil = new RecetaBuilder()
 			.setCantCalorias(20)
-			.agregarIngrediente("Ingrediente dificil")
+			.agregarIngrediente(new Ingrediente("Ingrediente dificil"))
 			.setDificultad(Dificultad.ALTA)
 			.construirReceta();
 			
 		pure = new RecetaBuilder()
 				.setNombre("Pure")
-				.agregarIngrediente("papas 2kg")
-				.agregarIngrediente("manteca 200gr")
+				.agregarIngrediente(new Ingrediente("papas 2kg"))
+				.agregarIngrediente(new Ingrediente("manteca 200gr"))
 				.agregarCondimentaciones(sal)
 				.agregarCondimentaciones(pimienta)
 				.agregarCondimentaciones(nuezMoscada)
@@ -55,9 +58,9 @@ public class RecetaTest {
 		
 		ensalada = new RecetaBuilder()
 				.setNombre("Ensalada")
-				.agregarIngrediente("Lechuga 2kg")
-				.agregarIngrediente("Cebolla 1.5kg")
-				.agregarIngrediente("Tomate 200gr")
+				.agregarIngrediente(lechuga2kg)
+				.agregarIngrediente(new Ingrediente("Cebolla 1.5kg"))
+				.agregarIngrediente(new Ingrediente("Tomate 200gr"))
 				.agregarCondimentaciones(sal)
 				.agregarCondimentaciones(aceite)
 				.setCantCalorias(40)
@@ -66,7 +69,7 @@ public class RecetaTest {
 		
 		polloConPureOEnsalada = new RecetaBuilder()
 				.setNombre("Pollo Con Pure o Ensalada")
-				.agregarIngrediente("pollo mediano")
+				.agregarIngrediente(new Ingrediente("pollo mediano"))
 				.agregarCondimentaciones(sal)
 				.agregarCondimentaciones(condimentoParaPollo)
 				.setCantCalorias(3000)
@@ -165,11 +168,11 @@ public class RecetaTest {
 
 	@Test
 	public void unaRecetatieneAlgunIngredienteDeEstos() {
-		ArrayList<String> ingredientes = new ArrayList<String>();
-		ingredientes.add("Lechuga 2kg");
-		ingredientes.add("carne Humana 3kg");
-		ingredientes.add("polimorfismo 2 piscas");
-		ingredientes.add("pattern matching 5 cucharadas soperas");
+		ArrayList<Ingrediente> ingredientes = new ArrayList<Ingrediente>();
+		ingredientes.add(lechuga2kg);
+		ingredientes.add(new Ingrediente("carne Humana 3kg"));
+		ingredientes.add(new Ingrediente("polimorfismo 2 piscas"));
+		ingredientes.add(new Ingrediente("pattern matching 5 cucharadas soperas"));
 		
 		assertTrue(ensalada.tenesAlgunIngredienteDeEstos(ingredientes));
 	}

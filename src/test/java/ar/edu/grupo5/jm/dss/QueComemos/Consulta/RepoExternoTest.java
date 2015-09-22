@@ -10,6 +10,7 @@ import com.eclipsesource.json.JsonObject;
 
 import ar.edu.grupo5.jm.dss.QueComemos.Consulta.DificultadDeRepoExternoNoValidaException;
 import ar.edu.grupo5.jm.dss.QueComemos.Consulta.RepositorioExterno;
+import ar.edu.grupo5.jm.dss.QueComemos.Receta.Ingrediente;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta.Dificultad;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
@@ -52,11 +53,11 @@ public class RepoExternoTest {
 		String recetaFormatoJson = "{\"nombre\":\"ensalada caesar\",\"ingredientes\":[\"lechuga\",\"croutons\",\"parmesano\"],\"tiempoPreparacion\":0,\"totalCalorias\":15,\"dificultadReceta\":\"FACIL\",\"autor\":\"Cesar Po\",\"anioReceta\":2015}";
 		Receta recetaGenerada = repoExterno.jsonObjectToReceta(JsonObject.readFrom(recetaFormatoJson));
 		assertEquals(recetaGenerada.getNombre(),"ensalada caesar");
-		Collection<String> ingredientesGenerados = recetaGenerada.getIngredientesTotales();
-		Collection<String> ingredientes = Arrays.asList("lechuga","croutons","parmesano");
+		Collection<Ingrediente> ingredientesGenerados = recetaGenerada.getIngredientesTotales();
+		Collection<Ingrediente> ingredientes = Arrays.asList(new Ingrediente("lechuga"),new Ingrediente("croutons"),new Ingrediente("parmesano"));
+		
 		assertEquals(recetaGenerada.getNombre(),"ensalada caesar");
-		assertTrue(ingredientesGenerados.containsAll(ingredientes));
-		assertTrue(ingredientes.containsAll(ingredientesGenerados));
+		assert(ingredientesGenerados).equals(ingredientes);
 		assertEquals(recetaGenerada.getCantCaloriasTotales(),15,0.01);
 		assertEquals(recetaGenerada.getDificultad(),Dificultad.BAJA);
 	}
@@ -64,9 +65,9 @@ public class RepoExternoTest {
 	@Test
 	public void deStringIngredientesAIngredientes() {
 		JsonArray ingredientesArray = JsonArray.readFrom("[\"lechuga\",\"croutons\",\"parmesano\"]");
-		Collection<String> ingredientesContenidos = Arrays.asList("lechuga","croutons","parmesano");
+		Collection<Ingrediente> ingredientesContenidos = Arrays.asList(new Ingrediente("lechuga"), new Ingrediente("croutons"), new Ingrediente("parmesano"));
 		
-		assertTrue(repoExterno.jsonArrayToStringCollection(ingredientesArray).containsAll(ingredientesContenidos));
+		assert(repoExterno.jsonArrayToStringCollection(ingredientesArray)).equals(ingredientesContenidos);
 	}
 	
 	@Test

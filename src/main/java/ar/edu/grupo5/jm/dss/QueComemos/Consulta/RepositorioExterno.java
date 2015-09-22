@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import com.eclipsesource.json.JsonArray;
 import com.eclipsesource.json.JsonObject;
 
+import ar.edu.grupo5.jm.dss.QueComemos.Receta.Ingrediente;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta.Dificultad;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.RecetaBuilder;
@@ -60,8 +61,8 @@ public class RepositorioExterno implements ConsultorRecetas {
 		return dificultades.get(dificultadString);
 	}
 
-	public Collection<String> jsonArrayToStringCollection(JsonArray ingredientesArray) {
-		return ingredientesArray.values().stream().map((ingredienteValue -> ingredienteValue.asString())).collect(Collectors.toList());
+	public Collection<Ingrediente> jsonArrayToStringCollection(JsonArray ingredientesArray) {
+		return ingredientesArray.values().stream().map(ingredienteValue -> new Ingrediente(ingredienteValue.asString())).collect(Collectors.toList());
 	}
 
 }
