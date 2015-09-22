@@ -3,24 +3,42 @@ package ar.edu.grupo5.jm.dss.QueComemos.Usuario;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.persistence.Entity;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Transient;
+
+import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
+
 import ar.edu.grupo5.jm.dss.QueComemos.ObjectUpdater.Updateable;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Ingrediente;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.DatosPersonales.Sexo;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.CondicionDeSalud.CondicionDeSalud;
 
-public class Usuario {
+@Entity
+public class Usuario implements WithGlobalEntityManager {
 
+	@Id
+	@GeneratedValue
+	private Long usuarioId;
+	@Transient
 	@Updateable
 	private Complexion complexion;
+	@Transient
 	@Updateable
 	private DatosPersonales datosPersonales;
+	@Transient
 	@Updateable
 	private Collection<Ingrediente> preferenciasAlimenticias;
+	@Transient
 	@Updateable
 	private Collection<Ingrediente> disgustosAlimenticios;
+	@Transient
 	@Updateable
 	private Collection<CondicionDeSalud> condicionesDeSalud;
+	@Transient
 	@Updateable
 	private Collection<Grupo> grupos;
 
@@ -28,8 +46,10 @@ public class Usuario {
 		LEVE, NADA, MEDIANA, INTENSIVA, ALTA
 	}
 
+	@Enumerated
 	@Updateable
 	private Rutina rutina;
+	@Transient
 	@Updateable
 	private Collection<Receta> recetasFavoritas;
 	
@@ -153,4 +173,13 @@ public class Usuario {
 	public String getMail() {
 		return mail;
 	}
+	
+	public Long getId() {
+		return usuarioId;
+	}
+	
+	public void persistir() {
+		entityManager().persist(this);
+	}
+	
 }
