@@ -9,7 +9,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.Transient;
 
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 
@@ -51,7 +50,7 @@ public class Usuario implements WithGlobalEntityManager {
 	@Enumerated
 	@Updateable
 	private Rutina rutina;
-	@Transient
+	@ManyToMany
 	@Updateable
 	private Collection<Receta> recetasFavoritas;
 	

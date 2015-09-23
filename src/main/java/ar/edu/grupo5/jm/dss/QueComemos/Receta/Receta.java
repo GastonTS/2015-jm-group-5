@@ -1,31 +1,51 @@
 package ar.edu.grupo5.jm.dss.QueComemos.Receta;
 
 import java.util.Collection;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import javax.persistence.Entity;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 import ar.edu.grupo5.jm.dss.QueComemos.ObjectUpdater.Updateable;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
+@Entity
 public class Receta {
 
+	@Id
+	@GeneratedValue
+	private Long recetaId;
+	
 	@Updateable
 	private String nombre;
+	@ManyToMany
 	@Updateable
 	private Collection<Ingrediente> ingredientes;
+	@ManyToMany
 	@Updateable
 	private Collection<Condimentacion> condimentaciones;
 	@Updateable
 	private double cantCalorias;
+	@ManyToMany
 	@Updateable
 	private Collection<Receta> subRecetas;
-	private Optional<Usuario> dueño = Optional.empty();
+	@ManyToOne
+	private Usuario dueño = null;
+	@Enumerated
 	@Updateable
 	private Dificultad dificultad;
 
 	public enum Dificultad {
 		BAJA, MEDIA, ALTA
+	}
+	
+	public Receta() {
+		
 	}
 	
 	public Receta(String nombreReceta, Collection<Ingrediente> unosIngredientes, Collection<Condimentacion> unasCondimentaciones,
@@ -48,15 +68,15 @@ public class Receta {
 	}
 
 	public void setDueño(Usuario unUsuario) {
-		dueño = Optional.of(unUsuario);
+		dueño = unUsuario;
 	}
 
 	public boolean esElDueño(Usuario unUsuario) {
-		return dueño.isPresent() && dueño.get().equals(unUsuario);
+		return dueño!=null && dueño.equals(unUsuario);
 	}
 
 	public boolean esPublica() {
-		return !dueño.isPresent();
+		return dueño == null;
 	}
 
 	public boolean tenesAlgoDe(Collection<String> condimentosProhibidos) {

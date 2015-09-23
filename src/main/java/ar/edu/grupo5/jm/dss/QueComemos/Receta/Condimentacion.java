@@ -2,8 +2,16 @@ package ar.edu.grupo5.jm.dss.QueComemos.Receta;
 
 import java.util.Collection;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Condimentacion {
 
+	@Id
+	@GeneratedValue
+	private Long condimentacionId;
 	private String condimento;
 	private double cantidad;
 
