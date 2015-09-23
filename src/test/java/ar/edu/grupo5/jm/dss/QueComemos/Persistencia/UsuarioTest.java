@@ -43,7 +43,7 @@ public class UsuarioTest extends AbstractPersistenceTest implements WithGlobalEn
 	@Test
 	public void seGuardaUnUsuarioCorrectamente(){
 		gaston.persistir();
-		
+
 		assertEquals(entityManager().find(Usuario.class, gaston.getId()), gaston);
 	}
 }

@@ -8,6 +8,13 @@
     <persistence-unit name="db" transaction-type="RESOURCE_LOCAL">
     	<provider>org.hibernate.ejb.HibernatePersistence</provider>
     	<class>ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario</class>
+    	<class>ar.edu.grupo5.jm.dss.QueComemos.Usuario.Grupo</class>
+    	<class>ar.edu.grupo5.jm.dss.QueComemos.Usuario.CondicionDeSalud.CondicionDeSalud</class>
+    	<class>ar.edu.grupo5.jm.dss.QueComemos.Usuario.CondicionDeSalud.Celiaco</class>
+    	<class>ar.edu.grupo5.jm.dss.QueComemos.Usuario.CondicionDeSalud.Diabetico</class>
+    	<class>ar.edu.grupo5.jm.dss.QueComemos.Usuario.CondicionDeSalud.Hipertenso</class>
+    	<class>ar.edu.grupo5.jm.dss.QueComemos.Usuario.CondicionDeSalud.Vegano</class>
+    	<class>ar.edu.grupo5.jm.dss.QueComemos.Receta.Ingrediente</class>
     	
     	 
         <properties> 

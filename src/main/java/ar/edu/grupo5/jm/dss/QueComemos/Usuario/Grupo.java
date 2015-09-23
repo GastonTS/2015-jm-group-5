@@ -2,12 +2,23 @@ package ar.edu.grupo5.jm.dss.QueComemos.Usuario;
 
 import java.util.Collection;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Ingrediente;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 
+@Entity
 public class Grupo {
 
+	@Id
+	@GeneratedValue
+	private Long grupoId;
+	@ManyToMany
 	private Collection<Ingrediente> preferenciasAlimenticias;
+	@ManyToMany
 	private Collection<Usuario> integrantes;
 
 	public Grupo(Collection<Ingrediente> unasPreferenciasAlimenticias, Collection<Usuario> unosIntegrantes) {

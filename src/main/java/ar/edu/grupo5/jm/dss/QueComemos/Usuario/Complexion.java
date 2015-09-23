@@ -1,14 +1,21 @@
 package ar.edu.grupo5.jm.dss.QueComemos.Usuario;
 
+import javax.persistence.Embeddable;
+
+@Embeddable
 public class Complexion {
 	private double peso;
 	private double estatura;
 
+	public Complexion() {
+		
+	}
+
 	public Complexion(double unPeso, double unaEstatura) {
 		peso = unPeso;
 		estatura = unaEstatura;
-		
-		if(!esComplexionValida()) {
+
+		if (!esComplexionValida()) {
 			throw new ComplexionNoValidoException("La Complexion no es Valido!!!");
 		}
 	}

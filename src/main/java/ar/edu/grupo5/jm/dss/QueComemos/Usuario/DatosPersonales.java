@@ -2,6 +2,9 @@ package ar.edu.grupo5.jm.dss.QueComemos.Usuario;
 
 import java.time.LocalDate;
 
+import javax.persistence.Embeddable;
+
+@Embeddable
 public class DatosPersonales {
 
 	public enum Sexo {
@@ -13,6 +16,10 @@ public class DatosPersonales {
 	private Sexo sexo;
 
 	private LocalDate fechaDeNacimiento;
+	
+	public DatosPersonales() {
+		
+	}
 
 	public DatosPersonales(String unNombre, Sexo unSexo, LocalDate unaFechaDeNacimiento) {
 		nombre = unNombre;

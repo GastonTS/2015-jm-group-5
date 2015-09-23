@@ -1,12 +1,10 @@
 package ar.edu.grupo5.jm.dss.QueComemos.Receta;
 
-import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-@Embeddable
 public class Ingrediente {
 
 	@Id

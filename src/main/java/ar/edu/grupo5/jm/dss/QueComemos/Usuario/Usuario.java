@@ -3,10 +3,12 @@ package ar.edu.grupo5.jm.dss.QueComemos.Usuario;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Transient;
 
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
@@ -23,22 +25,22 @@ public class Usuario implements WithGlobalEntityManager {
 	@Id
 	@GeneratedValue
 	private Long usuarioId;
-	@Transient
+	@Embedded
 	@Updateable
 	private Complexion complexion;
-	@Transient
+	@Embedded
 	@Updateable
 	private DatosPersonales datosPersonales;
-	@Transient
+	@ManyToMany
 	@Updateable
 	private Collection<Ingrediente> preferenciasAlimenticias;
-	@Transient
+	@ManyToMany
 	@Updateable
 	private Collection<Ingrediente> disgustosAlimenticios;
-	@Transient
+	@ManyToMany
 	@Updateable
 	private Collection<CondicionDeSalud> condicionesDeSalud;
-	@Transient
+	@ManyToMany
 	@Updateable
 	private Collection<Grupo> grupos;
 
