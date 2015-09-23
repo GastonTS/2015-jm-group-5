@@ -11,11 +11,13 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
+
 import ar.edu.grupo5.jm.dss.QueComemos.ObjectUpdater.Updateable;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
 @Entity
-public class Receta {
+public class Receta implements WithGlobalEntityManager  {
 
 	@Id
 	@GeneratedValue
@@ -126,6 +128,19 @@ public class Receta {
 
 	public Dificultad getDificultad() {
 		return dificultad;
+	}
+	
+
+	public void persistir() {
+		entityManager().persist(this);
+	}
+
+	public Long getId() {
+		return recetaId;
+	}
+
+	public Usuario getDueño() {
+		return dueño;
 	}
 
 }
