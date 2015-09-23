@@ -16,9 +16,9 @@ public class DatosPersonales {
 	private Sexo sexo;
 
 	private LocalDate fechaDeNacimiento;
-	
+
 	public DatosPersonales() {
-		
+
 	}
 
 	public DatosPersonales(String unNombre, Sexo unSexo, LocalDate unaFechaDeNacimiento) {
@@ -29,6 +29,18 @@ public class DatosPersonales {
 		if (!sonValidos()) {
 			throw new DatosPersonalesNoValidosException("Los Datos Personales no son Validos!!!");
 		}
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public Sexo getSexo() {
+		return sexo;
+	}
+
+	public LocalDate getFechaDeNacimiento() {
+		return fechaDeNacimiento;
 	}
 
 	public boolean sonValidos() {
@@ -47,11 +59,4 @@ public class DatosPersonales {
 		return fechaDeNacimiento.isBefore(LocalDate.now());
 	}
 
-	public String getNombre() {
-		return nombre;
-	}
-
-	public Sexo getSexo() {
-		return sexo;
-	}
 }

@@ -8,7 +8,7 @@ public class Complexion {
 	private double estatura;
 
 	public Complexion() {
-		
+
 	}
 
 	public Complexion(double unPeso, double unaEstatura) {
@@ -20,12 +20,16 @@ public class Complexion {
 		}
 	}
 
-	public double indiceMasaCorporal() {
-		return peso / Math.pow(estatura, 2);
-	}
-
 	public double getPeso() {
 		return peso;
+	}
+
+	public double getEstatura() {
+		return estatura;
+	}
+
+	public double indiceMasaCorporal() {
+		return peso / Math.pow(estatura, 2);
 	}
 
 	public boolean esComplexionValida() {

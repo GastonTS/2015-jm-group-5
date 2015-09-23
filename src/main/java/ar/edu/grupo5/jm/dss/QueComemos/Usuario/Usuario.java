@@ -1,5 +1,6 @@
 package ar.edu.grupo5.jm.dss.QueComemos.Usuario;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -53,15 +54,12 @@ public class Usuario implements WithGlobalEntityManager {
 	@ManyToMany
 	@Updateable
 	private Collection<Receta> recetasFavoritas;
-	
+
 	private String mail;
 
-	public Collection<Receta> getRecetasFavoritas() {
-		return recetasFavoritas;
-	}
-
 	public Usuario(DatosPersonales unosDatosPersonales, Complexion unaComplexion, Collection<Ingrediente> unasPreferenciasAlimenticias,
-			Collection<Ingrediente> unosDisgustosAlimenticios, Collection<CondicionDeSalud> unasCondicionesDeSalud, Rutina unaRutina, String unMail) {
+			Collection<Ingrediente> unosDisgustosAlimenticios, Collection<CondicionDeSalud> unasCondicionesDeSalud, Rutina unaRutina,
+			String unMail) {
 
 		datosPersonales = unosDatosPersonales;
 		complexion = unaComplexion;
@@ -76,13 +74,61 @@ public class Usuario implements WithGlobalEntityManager {
 		mail = unMail;
 	}
 
-	public void agregarGrupo(Grupo unGrupo) {
-		grupos.add(unGrupo);
-		unGrupo.añadirIntegrante(this);
+	public Long getId() {
+		return usuarioId;
 	}
 
 	public double getPeso() {
 		return complexion.getPeso();
+	}
+
+	public double getEstatura() {
+		return complexion.getEstatura();
+	}
+
+	public String getNombre() {
+		return datosPersonales.getNombre();
+	}
+
+	public Sexo getSexo() {
+		return datosPersonales.getSexo();
+	}
+
+	public LocalDate getFechaDeNacimiento() {
+		return datosPersonales.getFechaDeNacimiento();
+	}
+
+	public Collection<Ingrediente> getPreferenciasAlimenticias() {
+		return preferenciasAlimenticias;
+	}
+
+	public Collection<Ingrediente> getDisgustosAlimenticios() {
+		return disgustosAlimenticios;
+	}
+
+	public Collection<CondicionDeSalud> getCondicionesDeSalud() {
+		return condicionesDeSalud;
+	}
+
+	public Collection<Grupo> getGrupos() {
+		return grupos;
+	}
+
+	public Rutina getRutina() {
+		return rutina;
+	}
+
+	public Collection<Receta> getRecetasFavoritas() {
+		return recetasFavoritas;
+	}
+
+	public String getMail() {
+		return mail;
+	}
+
+	public void agregarGrupo(Grupo unGrupo) {
+		grupos.add(unGrupo);
+		unGrupo.añadirIntegrante(this);
 	}
 
 	public boolean indicaSexo() {
@@ -151,36 +197,16 @@ public class Usuario implements WithGlobalEntityManager {
 		return unaReceta.esPublica() || unaReceta.esElDueño(this) || esRecetaDeGrupo(unaReceta);
 	}
 
-	public String getNombre() {
-		return datosPersonales.getNombre();
-	}
-
-	public Collection<CondicionDeSalud> getCondicionesDeSalud() {
-		return condicionesDeSalud;
-	}
-
 	public boolean tieneCondicionDeSalud(CondicionDeSalud unaCondicion) {
 		return condicionesDeSalud.contains(unaCondicion);
-	}
-
-	public Sexo getSexo() {
-		return datosPersonales.getSexo();
 	}
 
 	public boolean esVegano() {
 		return condicionesDeSalud.stream().anyMatch(condicion -> condicion.esCondicionVegana());
 	}
 
-	public String getMail() {
-		return mail;
-	}
-	
-	public Long getId() {
-		return usuarioId;
-	}
-	
 	public void persistir() {
 		entityManager().persist(this);
 	}
-	
+
 }
