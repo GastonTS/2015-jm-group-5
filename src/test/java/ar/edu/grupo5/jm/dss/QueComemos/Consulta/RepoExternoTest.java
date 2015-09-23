@@ -57,7 +57,7 @@ public class RepoExternoTest {
 		Collection<Ingrediente> ingredientes = Arrays.asList(new Ingrediente("lechuga"),new Ingrediente("croutons"),new Ingrediente("parmesano"));
 		
 		assertEquals(recetaGenerada.getNombre(),"ensalada caesar");
-		assert(ingredientesGenerados).equals(ingredientes);
+		assertEquals(ingredientesGenerados, ingredientes);
 		assertEquals(recetaGenerada.getCantCaloriasTotales(),15,0.01);
 		assertEquals(recetaGenerada.getDificultad(),Dificultad.BAJA);
 	}
@@ -67,7 +67,7 @@ public class RepoExternoTest {
 		JsonArray ingredientesArray = JsonArray.readFrom("[\"lechuga\",\"croutons\",\"parmesano\"]");
 		Collection<Ingrediente> ingredientesContenidos = Arrays.asList(new Ingrediente("lechuga"), new Ingrediente("croutons"), new Ingrediente("parmesano"));
 		
-		assert(repoExterno.jsonArrayToStringCollection(ingredientesArray)).equals(ingredientesContenidos);
+		assertEquals(repoExterno.jsonArrayToStringCollection(ingredientesArray), ingredientesContenidos);
 	}
 	
 	@Test

@@ -19,7 +19,12 @@ public class Ingrediente {
 	
 	@Override
 	public boolean equals(Object unIngrediente){
-		return nombre == ((Ingrediente) unIngrediente).getNombre();
+		return nombre.equals(((Ingrediente) unIngrediente).getNombre());
+	}
+	
+	@Override
+	public int hashCode(){
+		return nombre.hashCode();
 	}
 	
 	public String getNombre(){
