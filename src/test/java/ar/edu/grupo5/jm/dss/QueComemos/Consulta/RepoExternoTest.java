@@ -1,26 +1,26 @@
 package ar.edu.grupo5.jm.dss.QueComemos.Consulta;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import java.util.Arrays;
 import java.util.Collection;
 
 import org.junit.Test;
 
-import com.eclipsesource.json.JsonArray;
-import com.eclipsesource.json.JsonObject;
-
-import ar.edu.grupo5.jm.dss.QueComemos.Consulta.DificultadDeRepoExternoNoValidaException;
-import ar.edu.grupo5.jm.dss.QueComemos.Consulta.RepositorioExterno;
+import queComemos.entrega3.repositorio.RepoRecetas;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Ingrediente;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta.Dificultad;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import queComemos.entrega3.repositorio.RepoRecetas;
+
+import com.eclipsesource.json.JsonArray;
+import com.eclipsesource.json.JsonObject;
 
 public class RepoExternoTest {
 

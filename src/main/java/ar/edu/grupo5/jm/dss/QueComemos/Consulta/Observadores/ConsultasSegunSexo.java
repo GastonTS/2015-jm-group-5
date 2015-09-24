@@ -5,8 +5,8 @@ import java.util.Collection;
 import java.util.Optional;
 
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
-import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.DatosPersonales.Sexo;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
 public class ConsultasSegunSexo extends AcumuladorConsultas {
 

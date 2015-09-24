@@ -13,9 +13,8 @@ import java.util.Collection;
 import org.junit.Before;
 import org.junit.Test;
 
-import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
-import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Ingrediente;
+import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 
 public class GrupoTest {
 

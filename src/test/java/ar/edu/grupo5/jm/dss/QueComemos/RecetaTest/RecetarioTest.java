@@ -20,12 +20,12 @@ import ar.edu.grupo5.jm.dss.QueComemos.Receta.Ingrediente;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.NoPuedeAccederARecetaException;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.NoPuedeEliminarRecetaExeption;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
+import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta.Dificultad;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.RecetaBuilder;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Recetario;
-import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta.Dificultad;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
-import ar.edu.grupo5.jm.dss.QueComemos.Usuario.UsuarioBuilder;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario.Rutina;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.UsuarioBuilder;
 
 public class RecetarioTest {
 

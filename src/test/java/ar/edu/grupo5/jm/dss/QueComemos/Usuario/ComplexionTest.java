@@ -6,9 +6,6 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Complexion;
-import ar.edu.grupo5.jm.dss.QueComemos.Usuario.ComplexionNoValidoException;
-
 public class ComplexionTest {
 	private Complexion complexionGaston;
 	private Complexion complexionGustavo;

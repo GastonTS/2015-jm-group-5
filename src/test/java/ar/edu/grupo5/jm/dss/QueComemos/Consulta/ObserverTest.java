@@ -1,11 +1,11 @@
 package ar.edu.grupo5.jm.dss.QueComemos.Consulta;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.any;
 
 import java.time.Clock;
 import java.time.Instant;
@@ -24,9 +24,9 @@ import ar.edu.grupo5.jm.dss.QueComemos.Consulta.Observadores.ConsultasTotales;
 import ar.edu.grupo5.jm.dss.QueComemos.Consulta.Observadores.HoraIngresadaNoValidaException;
 import ar.edu.grupo5.jm.dss.QueComemos.Consulta.Observadores.PorHoraDelDia;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.DatosPersonales.Sexo;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.CondicionDeSalud.Vegano;
-import ar.edu.grupo5.jm.dss.QueComemos.Usuario.DatosPersonales.Sexo;
 
 public class ObserverTest {
 	private Usuario usuarioMock = mock(Usuario.class);

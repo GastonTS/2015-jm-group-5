@@ -3,9 +3,9 @@ package ar.edu.grupo5.jm.dss.QueComemos.RecetaTest;
 import org.junit.Test;
 
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Ingrediente;
-import ar.edu.grupo5.jm.dss.QueComemos.Receta.RecetaNoValidaException;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta.Dificultad;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.RecetaBuilder;
+import ar.edu.grupo5.jm.dss.QueComemos.Receta.RecetaNoValidaException;
 
 public class RecetaBuilderTest {
 

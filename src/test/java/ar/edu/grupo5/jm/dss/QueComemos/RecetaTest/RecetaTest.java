@@ -1,6 +1,7 @@
 package ar.edu.grupo5.jm.dss.QueComemos.RecetaTest;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 
 import java.util.ArrayList;

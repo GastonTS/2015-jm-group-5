@@ -1,6 +1,8 @@
 package ar.edu.grupo5.jm.dss.QueComemos.Persistencia;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+
+import java.time.LocalDate;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -10,15 +12,13 @@ import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Condimentacion;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Ingrediente;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
-import ar.edu.grupo5.jm.dss.QueComemos.Receta.RecetaBuilder;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta.Dificultad;
+import ar.edu.grupo5.jm.dss.QueComemos.Receta.RecetaBuilder;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.DatosPersonales.Sexo;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
-import ar.edu.grupo5.jm.dss.QueComemos.Usuario.UsuarioBuilder;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario.Rutina;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.UsuarioBuilder;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.CondicionDeSalud.Hipertenso;
-
-import java.time.LocalDate;
 
 public class UsuarioTest extends AbstractPersistenceTest implements WithGlobalEntityManager {
 

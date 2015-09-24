@@ -8,8 +8,6 @@ import java.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
 
-import ar.edu.grupo5.jm.dss.QueComemos.Usuario.DatosPersonales;
-import ar.edu.grupo5.jm.dss.QueComemos.Usuario.DatosPersonalesNoValidosException;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.DatosPersonales.Sexo;
 
 public class DatosPersonalesTest {

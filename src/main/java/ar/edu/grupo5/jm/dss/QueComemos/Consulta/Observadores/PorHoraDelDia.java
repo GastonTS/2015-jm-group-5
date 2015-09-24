@@ -3,12 +3,11 @@ package ar.edu.grupo5.jm.dss.QueComemos.Consulta.Observadores;
 import java.time.Clock;
 import java.time.LocalTime;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class PorHoraDelDia implements ObservadorConsultas {
 	Clock reloj;
