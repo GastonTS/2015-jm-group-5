@@ -18,8 +18,7 @@ public class ConsultaVeganoRecetasDificles implements ObservadorConsultas {
 	}
 	
 	private void notificarVegano(Usuario unUsuario, Collection<Receta> recetasConsultadas) {
-		if ((!veganosQueConsultaronDificiles.contains(unUsuario)) 
-		&& (recetasConsultadas.stream().anyMatch(receta -> receta.esDificil()))) {
+		if ((!veganosQueConsultaronDificiles.contains(unUsuario)) && (recetasConsultadas.stream().anyMatch(receta -> receta.esDificil()))) {
 			veganosQueConsultaronDificiles.add(unUsuario);
 		}
 	}

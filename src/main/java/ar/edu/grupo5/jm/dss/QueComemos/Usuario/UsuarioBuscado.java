@@ -21,5 +21,5 @@ public class UsuarioBuscado {
 	public Boolean tieneTodasLasCondicionesDeSaludDe(Usuario unUsuario) {
 		return unUsuario.getCondicionesDeSalud().containsAll(condicionesDeSalud);
 	}
-	
+
 }

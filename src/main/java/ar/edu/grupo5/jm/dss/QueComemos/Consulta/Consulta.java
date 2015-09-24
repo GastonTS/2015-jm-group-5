@@ -16,36 +16,24 @@ public class Consulta {
 	public Filtro filtro;
 	public Usuario usuario;
 	public Collection<Receta> recetasConsultadas;
-	
+
 	static private Collection<ObservadorConsultas> observadores = new ArrayList<ObservadorConsultas>();
 
 	public Consulta(ConsultorRecetas unConsultor, Filtro unFiltro, Usuario unUsuario) {
 		consultor = unConsultor;
 		filtro = unFiltro;
 		usuario = unUsuario;
-		
+
 		recetasConsultadas = filtro.filtrarRecetas(consultor.getRecetas(usuario), usuario);
 		this.notificarObservadores(observadores, usuario, recetasConsultadas);
 		BufferDeConsultas.instancia.agregarConsulta(this);
 	}
-	
-	public static void agregarObservador(ObservadorConsultas unObservador) {
-		observadores.add(unObservador);
-	}
-	
-	public static void quitarObservador(ObservadorConsultas unObservador) {
-		observadores.remove(unObservador);
-	}
 
-	public void notificarObservadores(Collection<ObservadorConsultas> observadores, Usuario unUsuario, Collection<Receta> recetasConsultadas) {
-		observadores.forEach(observador -> observador.notificarConsulta(unUsuario, recetasConsultadas));
-	}
-	
 	public Usuario getUsuario() {
 		return usuario;
 	}
 
-	public Collection<Receta> getRecetasConsultadas() { 
+	public Collection<Receta> getRecetasConsultadas() {
 		return recetasConsultadas;
 	}
 
@@ -53,16 +41,29 @@ public class Consulta {
 		return usuario.getNombre();
 	}
 
-	public int cantidadConsultadas() { 
-		return recetasConsultadas.size();
-	}
-	
 	public String getDestinatario() {
 		return usuario.getMail();
 	}
-	
+
+	public static void agregarObservador(ObservadorConsultas unObservador) {
+		observadores.add(unObservador);
+	}
+
+	public static void quitarObservador(ObservadorConsultas unObservador) {
+		observadores.remove(unObservador);
+	}
+
+	public void notificarObservadores(Collection<ObservadorConsultas> observadores, Usuario unUsuario, Collection<Receta> recetasConsultadas) {
+		observadores.forEach(observador -> observador.notificarConsulta(unUsuario, recetasConsultadas));
+	}
+
+	public int cantidadConsultadas() {
+		return recetasConsultadas.size();
+	}
+
 	public String parametrosDeBusquedaToString() {
 		Stream<String> nombreParametros = filtro.getNombresFiltros();
 		return nombreParametros.reduce("", (texto, nombreParametro) -> texto + "\t-> " + nombreParametro + ".\n");
 	}
+
 }

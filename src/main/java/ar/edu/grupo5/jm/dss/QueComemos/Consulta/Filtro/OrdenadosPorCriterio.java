@@ -19,14 +19,14 @@ public class OrdenadosPorCriterio extends PostProcesamiento {
 	}
 
 	@Override
+	public String getNombre() {
+		return "Ordenadas por " + nombreCriterio;
+	}
+
+	@Override
 	protected Collection<Receta> procesar(Collection<Receta> recetas) {
 		Collections.sort((List<Receta>) recetas, criterio);
 		return recetas;
-	}
-	
-	@Override
-	public String getNombre() {
-		return "Ordenadas por " + nombreCriterio;
 	}
 
 }

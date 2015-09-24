@@ -33,11 +33,6 @@ public class UsuarioBuilder {
 		return this;
 	}
 
-	public UsuarioBuilder setComplexion(Complexion complexion) {
-		this.complexion = complexion;
-		return this;
-	}
-
 	public UsuarioBuilder setNombre(String nombre) {
 		this.nombre = nombre;
 		return this;
@@ -53,6 +48,11 @@ public class UsuarioBuilder {
 		return this;
 	}
 
+	public UsuarioBuilder setComplexion(Complexion complexion) {
+		this.complexion = complexion;
+		return this;
+	}
+
 	public UsuarioBuilder setPeso(double peso) {
 		this.peso = peso;
 		return this;
@@ -65,6 +65,11 @@ public class UsuarioBuilder {
 
 	public UsuarioBuilder agregarPreferenciaAlimenticia(Ingrediente unaPreferenciaAlimenticia) {
 		preferenciasAlimenticias.add(unaPreferenciaAlimenticia);
+		return this;
+	}
+
+	public UsuarioBuilder agregarTodasLasPreferenciasAlimenticias(Collection<Ingrediente> unosDisgustosAlimenticios) {
+		disgustosAlimenticios.addAll(unosDisgustosAlimenticios);
 		return this;
 	}
 
@@ -94,9 +99,11 @@ public class UsuarioBuilder {
 	}
 
 	public Usuario construirUsuario() {
-		DatosPersonales datosPersonales = (this.datosPersonales == null) ? new DatosPersonales(nombre, sexo, fechaDeNacimiento) : this.datosPersonales;
+		DatosPersonales datosPersonales = (this.datosPersonales == null) ? new DatosPersonales(nombre, sexo, fechaDeNacimiento)
+				: this.datosPersonales;
 		Complexion complexion = (this.complexion == null) ? new Complexion(peso, estatura) : this.complexion;
-		Usuario usuario = new Usuario(datosPersonales, complexion, preferenciasAlimenticias, disgustosAlimenticios, condicionesDeSalud, rutina, mail);
+		Usuario usuario = new Usuario(datosPersonales, complexion, preferenciasAlimenticias, disgustosAlimenticios, condicionesDeSalud, rutina,
+				mail);
 		if (!esUsuarioValido(usuario)) {
 			throw new UsuarioNoValidoException("El Usuario no es Valido!!!");
 		}

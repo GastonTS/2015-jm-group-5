@@ -11,17 +11,17 @@ public class RepoUsuarios implements ObjectUpdater {
 	private Collection<Usuario> usuarios;
 	private Collection<Usuario> solicitudesDeIngreso;
 
-	// getter solo para test
-	public Collection<Usuario> getUsuarios() {
-		return usuarios;
-	}
-	public Collection<Usuario> getSolicitudesDeIngreso() {
-		return solicitudesDeIngreso;
-	}
-
 	public RepoUsuarios(Collection<Usuario> unosUsuarios) {
 		usuarios = unosUsuarios;
 		solicitudesDeIngreso = new ArrayList<Usuario>();
+	}
+
+	public Collection<Usuario> getUsuarios() {
+		return usuarios;
+	}
+
+	public Collection<Usuario> getSolicitudesDeIngreso() {
+		return solicitudesDeIngreso;
 	}
 
 	public void add(Usuario unUsuario) {
@@ -32,6 +32,7 @@ public class RepoUsuarios implements ObjectUpdater {
 		existeUsuario(unUsuario);
 		usuarios.remove(unUsuario);
 	}
+
 	private void existeUsuario(Usuario unUsuario) {
 		if (!usuarios.contains(unUsuario)) {
 			throw new UsuarioIngresadoNoExisteException("No se encontro usuario en el repositorio de usuarios");
@@ -58,27 +59,26 @@ public class RepoUsuarios implements ObjectUpdater {
 	public void solicitaIngreso(Usuario unUsuario) {
 		solicitudesDeIngreso.add(unUsuario);
 	}
-	
+
 	private Boolean existeSolicitudDe(Usuario unUsuario) {
 		return solicitudesDeIngreso.contains(unUsuario);
 	}
 
 	public void apruebaSolicitud(Usuario unUsuario) {
-		if(!existeSolicitudDe(unUsuario)){
+		if (!existeSolicitudDe(unUsuario)) {
 			throw new UsuarioSinSolicitudDeIngresoExeption("No se puede aprobar la solicitud del usuario!");
 		}
-		
+
 		add(unUsuario);
-		solicitudesDeIngreso.remove(unUsuario); 
+		solicitudesDeIngreso.remove(unUsuario);
 	}
 
 	public void rechazaSolicitud(Usuario unUsuario) {
-		if(!existeSolicitudDe(unUsuario)){
+		if (!existeSolicitudDe(unUsuario)) {
 			throw new UsuarioSinSolicitudDeIngresoExeption("No se puede rechazar la solicitud del usuario!");
 		}
-		
+
 		solicitudesDeIngreso.remove(unUsuario);
-		// informar rechazo, no esta específicado que informar. Así que
-		// no hago nada
+		//Informa Rechazo
 	}
 }

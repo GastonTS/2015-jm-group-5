@@ -16,19 +16,19 @@ public class Ingrediente {
 	public Ingrediente(String unNombre) {
 		nombre = unNombre;
 	}
+
+	public String getNombre() {
+		return nombre;
+	}
 	
 	@Override
-	public boolean equals(Object unIngrediente){
+	public boolean equals(Object unIngrediente) {
 		return nombre.equals(((Ingrediente) unIngrediente).getNombre());
 	}
-	
+
 	@Override
-	public int hashCode(){
+	public int hashCode() {
 		return nombre.hashCode();
-	}
-	
-	public String getNombre(){
-		return nombre;
 	}
 
 }

@@ -35,4 +35,5 @@ public class Complexion {
 	public boolean esComplexionValida() {
 		return peso != 0 && estatura != 0;
 	}
+
 }

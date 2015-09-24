@@ -8,7 +8,7 @@ import ar.edu.grupo5.jm.dss.QueComemos.Consulta.ConsultorRecetas;
 import ar.edu.grupo5.jm.dss.QueComemos.ObjectUpdater.ObjectUpdater;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
-public class Recetario implements ConsultorRecetas, ObjectUpdater{
+public class Recetario implements ConsultorRecetas, ObjectUpdater {
 
 	public static Recetario instancia = new Recetario();
 	private Collection<Receta> recetasTotales = new ArrayList<Receta>();
@@ -21,12 +21,17 @@ public class Recetario implements ConsultorRecetas, ObjectUpdater{
 		return recetasTotales;
 	}
 
-	public void quitarReceta(Receta unaReceta) {
-		recetasTotales.remove(unaReceta);
+	@Override
+	public Collection<Receta> getRecetas(Usuario unUsuario) {
+		return listarTodasPuedeAcceder(unUsuario);
 	}
 
 	public Collection<Receta> listarTodasPuedeAcceder(Usuario unUsuario) {
 		return recetasTotales.stream().filter(receta -> unUsuario.puedeAccederA(receta)).collect(Collectors.toSet());
+	}
+
+	public void quitarReceta(Receta unaReceta) {
+		recetasTotales.remove(unaReceta);
 	}
 
 	public void crearReceta(Receta unaReceta, Usuario unUsuario) {
@@ -59,13 +64,8 @@ public class Recetario implements ConsultorRecetas, ObjectUpdater{
 		if (viejaReceta.esElDueño(unUsuario)) {
 			this.update(viejaReceta, nuevaReceta);
 		} else {
-		crearReceta(nuevaReceta, unUsuario);
+			crearReceta(nuevaReceta, unUsuario);
 		}
-	}
-
-	@Override
-	public Collection<Receta> getRecetas(Usuario unUsuario) {
-		return listarTodasPuedeAcceder(unUsuario);
 	}
 
 }

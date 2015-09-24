@@ -12,7 +12,7 @@ import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
 @Entity
-@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Vegano extends CondicionDeSalud {
 
 	public static final Collection<Ingrediente> preferenciasProhibidas = Arrays.asList(new Ingrediente("pollo"), new Ingrediente("chori"),

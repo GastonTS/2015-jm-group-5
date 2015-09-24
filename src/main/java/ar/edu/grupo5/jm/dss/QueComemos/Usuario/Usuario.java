@@ -139,7 +139,6 @@ public class Usuario implements WithGlobalEntityManager {
 		return !preferenciasAlimenticias.isEmpty();
 	}
 
-	// Punto 2.b
 	public boolean sigueRutinaSaludable() {
 		return indiceMasaCorporalSaludable() && this.subsanaTodasLasCondiciones();
 	}
@@ -168,7 +167,6 @@ public class Usuario implements WithGlobalEntityManager {
 		return preferenciasAlimenticias.stream().anyMatch(preferencia -> preferencias.contains(preferencia));
 	}
 
-	// Punto 3.b en receta
 	public boolean sosRecetaInadecuadaParaMi(Receta unaReceta) {
 		return condicionesDeSalud.stream().anyMatch(condicion -> condicion.esInadecuada(unaReceta));
 	}

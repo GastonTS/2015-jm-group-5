@@ -13,7 +13,7 @@ import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
 @Entity
 public abstract class CondicionDeSalud {
-	
+
 	@Id
 	@GeneratedValue
 	private Long condicionDeSaludId;
@@ -27,7 +27,8 @@ public abstract class CondicionDeSalud {
 	public abstract boolean esUsuarioValido(Usuario unUsuario);
 
 	static public Collection<CondicionDeSalud> condicionesALasQueEsInadecuada(Receta unaReceta) {
-		return CondicionDeSalud.condicionesExistentes.stream().filter(condicion -> condicion.esInadecuada(unaReceta)).collect(Collectors.toList());
+		return CondicionDeSalud.condicionesExistentes.stream().filter(condicion -> condicion.esInadecuada(unaReceta))
+				.collect(Collectors.toList());
 	}
 
 	public boolean esCondicionVegana() {

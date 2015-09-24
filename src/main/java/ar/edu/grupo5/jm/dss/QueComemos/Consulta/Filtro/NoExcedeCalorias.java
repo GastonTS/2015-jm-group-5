@@ -10,12 +10,13 @@ public class NoExcedeCalorias extends PreFiltro {
 	}
 
 	@Override
+	public String getNombre() {
+		return "No se excede en calorías";
+	}
+
+	@Override
 	protected boolean cumpleCriterio(Receta unaReceta, Usuario unUsuario) {
 		return unaReceta.getCantCaloriasTotales() < 500;
 	}
 
-	@Override
-	public String getNombre() {
-		return "No se excede en calorías";
-	}
 }

@@ -23,7 +23,7 @@ public class RecetaBuilder {
 		ingredientes.add(unIngrediente);
 		return this;
 	}
-	
+
 	public RecetaBuilder agregarTodosLosIngredientes(Collection<Ingrediente> unosIngredientes) {
 		ingredientes.addAll(unosIngredientes);
 		return this;
@@ -50,18 +50,17 @@ public class RecetaBuilder {
 	}
 
 	public Receta construirReceta() {
-		if(!esRecetaValida()) {
+		if (!esRecetaValida()) {
 			throw new RecetaNoValidaException("La Receta No es Válida!!!");
 		}
-		
+
 		return new Receta(nombre, ingredientes, condimentaciones, subRecetas, cantCalorias, dificultad);
 	}
 
 	private boolean esRecetaValida() {
-		return tieneAlMenosUnIngrediente() && 
-				caloriasEntre(10, 5000);
+		return tieneAlMenosUnIngrediente() && caloriasEntre(10, 5000);
 	}
-	
+
 	private boolean tieneAlMenosUnIngrediente() {
 		return !ingredientes.isEmpty();
 	}
@@ -69,5 +68,5 @@ public class RecetaBuilder {
 	private boolean caloriasEntre(int minimo, int maximo) {
 		return cantCalorias >= minimo && cantCalorias <= maximo;
 	}
-	
+
 }

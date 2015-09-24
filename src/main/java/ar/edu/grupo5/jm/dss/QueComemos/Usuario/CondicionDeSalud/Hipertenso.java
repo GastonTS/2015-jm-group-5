@@ -11,7 +11,7 @@ import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
 @Entity
-@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Hipertenso extends CondicionDeSalud {
 
 	public static final Collection<String> condimentosProhibidos = Arrays.asList("sal", "caldo");

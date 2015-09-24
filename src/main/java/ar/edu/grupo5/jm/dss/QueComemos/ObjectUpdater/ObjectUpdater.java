@@ -20,8 +20,7 @@ public interface ObjectUpdater {
 						property.set(oldObject, value);
 					}
 				} catch (SecurityException e) {
-					throw new PropertyFailInSetAccessible("No se pudo settear "
-							+ "accesible la propiedad: " + property.getName()
+					throw new PropertyFailInSetAccessible("No se pudo settear " + "accesible la propiedad: " + property.getName()
 							+ ". Deshabilite el securityManager");
 
 				} catch (IllegalAccessException e) {
@@ -47,19 +46,14 @@ public interface ObjectUpdater {
 		}
 	}
 
-	public default void sonObjetosDeMismaClase(Object oldObject,
-			Object newObject) {
+	public default void sonObjetosDeMismaClase(Object oldObject, Object newObject) {
 		if (!oldObject.getClass().equals(newObject.getClass())) {
-			throw new ObjectIsFromADifferentClass(
-					"El objeto actualizado es de la clase "
-							+ oldObject.getClass().getName()
-							+ ", mientras que el objeto a actualizar es de la clase "
-							+ newObject.getClass().getName());
+			throw new ObjectIsFromADifferentClass("El objeto actualizado es de la clase " + oldObject.getClass().getName()
+					+ ", mientras que el objeto a actualizar es de la clase " + newObject.getClass().getName());
 		}
 	}
 
-	public default boolean sonObjetosActualizados(Object oldObject,
-			Object newObject) {
+	public default boolean sonObjetosActualizados(Object oldObject, Object newObject) {
 
 		this.sonObjetosDeMismaClase(oldObject, newObject);
 		boolean flag = true;
@@ -74,8 +68,7 @@ public interface ObjectUpdater {
 
 					Object oldValue = property.get(oldObject);
 					Object newValue = property.get(newObject);
-					if ((!oldValue.equals(newValue))
-							&& (!newValue.equals(null))) {
+					if ((!oldValue.equals(newValue)) && (!newValue.equals(null))) {
 						flag = false;
 						break;// corto el ciclo como un campeon(?, ojalá no vean
 								// esto
@@ -83,8 +76,7 @@ public interface ObjectUpdater {
 					}
 
 				} catch (SecurityException e) {
-					throw new PropertyFailInSetAccessible("No se pudo settear "
-							+ "accesible la propiedad: " + property.getName()
+					throw new PropertyFailInSetAccessible("No se pudo settear " + "accesible la propiedad: " + property.getName()
 							+ ". Deshabilite el securityManager");
 				} catch (IllegalAccessException e) {
 					/*

@@ -9,9 +9,13 @@ import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
 @Entity
-@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Diabetico extends CondicionDeSalud {
 	public static Condimentacion condimentoProhibido = new Condimentacion("Azucar", 100);
+
+	public static Condimentacion GetCondimentosProhibidos() {
+		return condimentoProhibido;
+	}
 
 	@Override
 	public boolean subsanaCondicion(Usuario unUsuario) {
@@ -26,10 +30,6 @@ public class Diabetico extends CondicionDeSalud {
 	@Override
 	public boolean esUsuarioValido(Usuario unUsuario) {
 		return unUsuario.indicaSexo() && unUsuario.tieneAlgunaPreferencia();
-	}
-
-	public static Condimentacion GetCondimentosProhibidos() {
-		return condimentoProhibido;
 	}
 
 }

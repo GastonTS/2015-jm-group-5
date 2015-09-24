@@ -16,8 +16,6 @@ import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 import queComemos.entrega3.repositorio.RepoRecetas;
 import queComemos.entrega3.repositorio.BusquedaRecetas;
 
-;
-
 public class RepositorioExterno implements ConsultorRecetas {
 
 	private RepoRecetas repositorio;
@@ -25,7 +23,6 @@ public class RepositorioExterno implements ConsultorRecetas {
 	private static final Map<String, Dificultad> dificultades;
 	static {
 		dificultades = new HashMap<String, Dificultad>();
-
 		dificultades.put("DIFICIL", Dificultad.ALTA);
 		dificultades.put("MEDIANA", Dificultad.MEDIA);
 		dificultades.put("FACIL", Dificultad.BAJA);
@@ -49,7 +46,8 @@ public class RepositorioExterno implements ConsultorRecetas {
 	public Receta jsonObjectToReceta(JsonObject recetaObject) {
 		JsonArray ingredientesArray = recetaObject.get("ingredientes").asArray();
 
-		return new RecetaBuilder().setNombre(recetaObject.get("nombre").asString()).agregarTodosLosIngredientes(jsonArrayToStringCollection(ingredientesArray))
+		return new RecetaBuilder().setNombre(recetaObject.get("nombre").asString())
+				.agregarTodosLosIngredientes(jsonArrayToStringCollection(ingredientesArray))
 				.setCantCalorias(recetaObject.get("totalCalorias").asDouble())
 				.setDificultad(stringToDificultad(recetaObject.get("dificultadReceta").asString())).construirReceta();
 	}
@@ -62,7 +60,8 @@ public class RepositorioExterno implements ConsultorRecetas {
 	}
 
 	public Collection<Ingrediente> jsonArrayToStringCollection(JsonArray ingredientesArray) {
-		return ingredientesArray.values().stream().map(ingredienteValue -> new Ingrediente(ingredienteValue.asString())).collect(Collectors.toList());
+		return ingredientesArray.values().stream().map(ingredienteValue -> new Ingrediente(ingredienteValue.asString()))
+				.collect(Collectors.toList());
 	}
 
 }

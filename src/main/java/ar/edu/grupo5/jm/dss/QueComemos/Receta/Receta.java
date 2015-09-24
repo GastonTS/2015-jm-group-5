@@ -17,12 +17,11 @@ import ar.edu.grupo5.jm.dss.QueComemos.ObjectUpdater.Updateable;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
 @Entity
-public class Receta implements WithGlobalEntityManager  {
+public class Receta implements WithGlobalEntityManager {
 
 	@Id
 	@GeneratedValue
 	private Long recetaId;
-	
 	@Updateable
 	private String nombre;
 	@ManyToMany
@@ -45,11 +44,11 @@ public class Receta implements WithGlobalEntityManager  {
 	public enum Dificultad {
 		BAJA, MEDIA, ALTA
 	}
-	
+
 	public Receta() {
-		
+
 	}
-	
+
 	public Receta(String nombreReceta, Collection<Ingrediente> unosIngredientes, Collection<Condimentacion> unasCondimentaciones,
 			Collection<Receta> unasSubRecetas, double unasCantCalorias, Dificultad unaDificultad) {
 
@@ -61,45 +60,16 @@ public class Receta implements WithGlobalEntityManager  {
 		dificultad = unaDificultad;
 	}
 
-	public String getNombre() {
-		return nombre;
-	}
-
-	public Collection<Receta> getSubRecetas() {
-		return subRecetas;
-	}
-
 	public void setDueño(Usuario unUsuario) {
 		dueño = unUsuario;
 	}
 
-	public boolean esElDueño(Usuario unUsuario) {
-		return dueño!=null && dueño.equals(unUsuario);
+	public Long getId() {
+		return recetaId;
 	}
 
-	public boolean esPublica() {
-		return dueño == null;
-	}
-
-	public boolean tenesAlgoDe(Collection<String> condimentosProhibidos) {
-		return getCondimentacionesTotales().stream().anyMatch(condimentacion -> condimentacion.tieneCondimentoUnoDe(condimentosProhibidos));
-	}
-
-	public boolean tenesMasDe(Condimentacion unaCondimentacion) {
-		return getCondimentacionesTotales().stream().anyMatch(
-				condimentacion -> condimentacion.mayorCantidadDeMismoCondimentoQue(unaCondimentacion));
-	}
-
-	public boolean tenesAlgunIngredienteDeEstos(Collection<Ingrediente> ingredientesProhibidas) {
-		return getIngredientesTotales().stream().anyMatch(ingrediente -> ingredientesProhibidas.contains(ingrediente));
-	}
-
-	private double getCantCaloriasSubRecetas() {
-		return subRecetas.stream().mapToDouble(subReceta -> subReceta.getCantCaloriasTotales()).sum();
-	}
-
-	public double getCantCaloriasTotales() {
-		return cantCalorias + getCantCaloriasSubRecetas();
+	public String getNombre() {
+		return nombre;
 	}
 
 	private Stream<Ingrediente> getIngredientesSubRecetas() {
@@ -118,29 +88,57 @@ public class Receta implements WithGlobalEntityManager  {
 		return Stream.concat(condimentaciones.stream(), getCondimentacionesSubRecetas()).collect(Collectors.toList());
 	}
 
-	public void agregarSubRecetas(Collection<Receta> unasSubRecetas) {
-		subRecetas.addAll(unasSubRecetas);
+	private double getCantCaloriasSubRecetas() {
+		return subRecetas.stream().mapToDouble(subReceta -> subReceta.getCantCaloriasTotales()).sum();
+	}
+
+	public double getCantCaloriasTotales() {
+		return cantCalorias + getCantCaloriasSubRecetas();
+	}
+
+	public Collection<Receta> getSubRecetas() {
+		return subRecetas;
+	}
+
+	public Usuario getDueño() {
+		return dueño;
+	}
+
+	public Dificultad getDificultad() {
+		return dificultad;
+	}
+
+	public boolean esElDueño(Usuario unUsuario) {
+		return dueño != null && dueño.equals(unUsuario);
+	}
+
+	public boolean esPublica() {
+		return dueño == null;
 	}
 
 	public boolean esDificil() {
 		return dificultad == Dificultad.ALTA;
 	}
 
-	public Dificultad getDificultad() {
-		return dificultad;
+	public boolean tenesAlgoDe(Collection<String> condimentosProhibidos) {
+		return getCondimentacionesTotales().stream().anyMatch(condimentacion -> condimentacion.tieneCondimentoUnoDe(condimentosProhibidos));
 	}
-	
+
+	public boolean tenesMasDe(Condimentacion unaCondimentacion) {
+		return getCondimentacionesTotales().stream().anyMatch(
+				condimentacion -> condimentacion.mayorCantidadDeMismoCondimentoQue(unaCondimentacion));
+	}
+
+	public boolean tenesAlgunIngredienteDeEstos(Collection<Ingrediente> ingredientesProhibidas) {
+		return getIngredientesTotales().stream().anyMatch(ingrediente -> ingredientesProhibidas.contains(ingrediente));
+	}
+
+	public void agregarSubRecetas(Collection<Receta> unasSubRecetas) {
+		subRecetas.addAll(unasSubRecetas);
+	}
 
 	public void persistir() {
 		entityManager().persist(this);
-	}
-
-	public Long getId() {
-		return recetaId;
-	}
-
-	public Usuario getDueño() {
-		return dueño;
 	}
 
 }

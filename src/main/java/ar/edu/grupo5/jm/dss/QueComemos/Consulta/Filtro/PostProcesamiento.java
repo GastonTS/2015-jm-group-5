@@ -15,6 +15,13 @@ public abstract class PostProcesamiento implements Filtro {
 		subFiltro = unFiltro;
 	}
 
+	public abstract String getNombre();
+
+	@Override
+	public Stream<String> getNombresFiltros() {
+		return Stream.concat(subFiltro.getNombresFiltros(), Stream.of(this.getNombre()));
+	}
+
 	protected abstract Collection<Receta> procesar(Collection<Receta> recetas);
 
 	@Override
@@ -23,11 +30,5 @@ public abstract class PostProcesamiento implements Filtro {
 
 		return procesar(recetasParciales);
 	}
-	
-	public abstract String getNombre();
-	
-	@Override
-	public Stream<String> getNombresFiltros() {
-		return Stream.concat(subFiltro.getNombresFiltros(), Stream.of(this.getNombre()));
-	}
+
 }

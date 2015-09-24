@@ -8,7 +8,7 @@ import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
 @Entity
-@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Celiaco extends CondicionDeSalud {
 
 	@Override
@@ -25,5 +25,5 @@ public class Celiaco extends CondicionDeSalud {
 	public boolean esUsuarioValido(Usuario unUsuario) {
 		return true;
 	}
-	
+
 }

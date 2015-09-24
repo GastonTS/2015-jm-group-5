@@ -10,12 +10,13 @@ public class NoEsInadecuadaParaUsuario extends PreFiltro {
 	}
 
 	@Override
+	public String getNombre() {
+		return "No es inadecuada para mi";
+	}
+
+	@Override
 	protected boolean cumpleCriterio(Receta unaReceta, Usuario unUsuario) {
 		return !unUsuario.sosRecetaInadecuadaParaMi(unaReceta);
 	}
 
-	@Override
-	public String getNombre() {
-		return "No es inadecuada para mi";
-	}
 }

@@ -12,13 +12,13 @@ public class Primeros10 extends PostProcesamiento {
 	}
 
 	@Override
-	protected Collection<Receta> procesar(Collection<Receta> recetas) {
-		return recetas.stream().limit(10).collect(Collectors.toList());
-	}
-
-	@Override
 	public String getNombre() {
 		return "Primeros 10 resultados";
+	}
+	
+	@Override
+	protected Collection<Receta> procesar(Collection<Receta> recetas) {
+		return recetas.stream().limit(10).collect(Collectors.toList());
 	}
 	
 }

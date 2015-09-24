@@ -13,12 +13,13 @@ public class SoloPares extends PostProcesamiento {
 	}
 
 	@Override
+	public String getNombre() {
+		return "Solo resultados pares";
+	}
+
+	@Override
 	protected Collection<Receta> procesar(Collection<Receta> recetas) {
 		return recetas.stream().filter(receta -> ((List<Receta>) recetas).indexOf(receta) % 2 == 1).collect(Collectors.toList());
 	}
 
-	@Override
-	public String getNombre() {
-		return "Solo resultados pares";
-	}
 }

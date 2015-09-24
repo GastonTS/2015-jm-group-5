@@ -17,18 +17,20 @@ public abstract class PreFiltro implements Filtro {
 		subFiltro = unFiltro;
 	}
 
-	protected abstract boolean cumpleCriterio(Receta unaReceta, Usuario unUsuario);
-
-	@Override
-	public Collection<Receta> filtrarRecetas(Collection<Receta> recetas, Usuario unUsuario) {
-		Collection<Receta> recetasFiltradas = recetas.stream().filter(receta -> this.cumpleCriterio(receta, unUsuario)).collect(Collectors.toList());
-		return subFiltro.filtrarRecetas(recetasFiltradas, unUsuario);
-	}
-
 	public abstract String getNombre();
-	
+
 	@Override
 	public Stream<String> getNombresFiltros() {
 		return Stream.concat(Stream.of(this.getNombre()), subFiltro.getNombresFiltros());
 	}
+
+	protected abstract boolean cumpleCriterio(Receta unaReceta, Usuario unUsuario);
+
+	@Override
+	public Collection<Receta> filtrarRecetas(Collection<Receta> recetas, Usuario unUsuario) {
+		Collection<Receta> recetasFiltradas = recetas.stream().filter(receta -> this.cumpleCriterio(receta, unUsuario))
+				.collect(Collectors.toList());
+		return subFiltro.filtrarRecetas(recetasFiltradas, unUsuario);
+	}
+
 }
