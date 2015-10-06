@@ -62,8 +62,10 @@ public class RepoUsuariosTest {
 
 	@Test
 	public void eliminoJuanchi() {
+		when(juanchi.fueAceptado()).thenReturn(true);
 		assertTrue(repoUsuarios.getUsuariosAceptados().contains(juanchi));
 		repoUsuarios.remove(juanchi);
+		when(juanchi.fueAceptado()).thenReturn(false);
 		assertFalse(repoUsuarios.getUsuariosAceptados().contains(juanchi));
 	}
 
