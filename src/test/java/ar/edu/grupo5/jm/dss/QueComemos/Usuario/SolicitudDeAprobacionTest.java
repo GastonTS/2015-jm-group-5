@@ -2,7 +2,9 @@ package ar.edu.grupo5.jm.dss.QueComemos.Usuario;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 
@@ -52,26 +54,28 @@ public class SolicitudDeAprobacionTest {
 		
 	@Test
 	public void alAceptarUnUsuarioLoEliminaDeLasSolicitudes() {
-		assertTrue(repoUsuarios.getUsuarios().isEmpty());
+		assertEquals(repoUsuarios.getSolicitudesDeIngreso().size(),4);
 		
-		repoUsuarios.apruebaSolicitud(alf);
+		when(alf.fueAceptado()).thenReturn(true);
 		
 		assertTrue(repoUsuarios.getSolicitudesDeIngreso().contains(franco));
 		assertTrue(repoUsuarios.getSolicitudesDeIngreso().contains(zaffa));
 		assertTrue(repoUsuarios.getSolicitudesDeIngreso().contains(quique));
 		assertEquals(repoUsuarios.getSolicitudesDeIngreso().size(),3);
 		
-		assertTrue(repoUsuarios.getUsuarios().contains(alf));
-		assertEquals(repoUsuarios.getUsuarios().size(),1);
+		assertTrue(repoUsuarios.getUsuariosAceptados().contains(alf));
+		assertEquals(repoUsuarios.getUsuariosAceptados().size(),1);
 	}
 	
 	@Test(expected = UsuarioSinSolicitudDeIngresoExeption.class)
 	public void aprobarSolicitudInexistenteLanzaExcepcion() {
+		when(beltra.fueAceptado()).thenReturn(true);
 		repoUsuarios.apruebaSolicitud(beltra);
 	}
 
 	@Test(expected = UsuarioSinSolicitudDeIngresoExeption.class)
 	public void rechazarSolicitudInexistenteLanzaExcepcion() {
+		when(beltra.fueAceptado()).thenReturn(true);
 		repoUsuarios.rechazaSolicitud(beltra);
 	}
 }

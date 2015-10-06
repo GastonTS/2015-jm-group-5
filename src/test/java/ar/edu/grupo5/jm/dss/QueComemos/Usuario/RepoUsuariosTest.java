@@ -62,9 +62,9 @@ public class RepoUsuariosTest {
 
 	@Test
 	public void eliminoJuanchi() {
-		assertTrue(repoUsuarios.getUsuarios().contains(juanchi));
+		assertTrue(repoUsuarios.getUsuariosAceptados().contains(juanchi));
 		repoUsuarios.remove(juanchi);
-		assertFalse(repoUsuarios.getUsuarios().contains(juanchi));
+		assertFalse(repoUsuarios.getUsuariosAceptados().contains(juanchi));
 	}
 
 	@Test(expected = UsuarioIngresadoNoExisteException.class)

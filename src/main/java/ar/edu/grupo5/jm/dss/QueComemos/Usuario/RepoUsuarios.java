@@ -4,25 +4,24 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import ar.edu.grupo5.jm.dss.QueComemos.ObjectUpdater.ObjectUpdater;
 
 // DEPRECATED HACER EN DB
 public class RepoUsuarios implements ObjectUpdater {
 	private Collection<Usuario> usuarios;
-	private Collection<Usuario> solicitudesDeIngreso;
 
 	public RepoUsuarios(Collection<Usuario> unosUsuarios) {
 		usuarios = unosUsuarios;
-		solicitudesDeIngreso = new ArrayList<Usuario>();
 	}
 
-	public Collection<Usuario> getUsuarios() {
-		return usuarios;
+	public Collection<Usuario> getUsuariosAceptados() {
+		return usuarios.stream().filter(usuario -> usuario.fueAceptado()).collect(Collectors.toList());//repito lógica porque el removeAll devuelve booleano y ademas tiene efecto de lado ¬¬
 	}
 
 	public Collection<Usuario> getSolicitudesDeIngreso() {
-		return solicitudesDeIngreso;
+		return usuarios.stream().filter(usuario -> !usuario.fueAceptado()).collect(Collectors.toList());
 	}
 
 	public void add(Usuario unUsuario) {
@@ -58,20 +57,18 @@ public class RepoUsuarios implements ObjectUpdater {
 	}
 
 	public void solicitaIngreso(Usuario unUsuario) {
-		solicitudesDeIngreso.add(unUsuario);
+		usuarios.add(unUsuario);
 	}
 
 	private Boolean existeSolicitudDe(Usuario unUsuario) {
-		return solicitudesDeIngreso.contains(unUsuario);
+		return !unUsuario.fueAceptado();
 	}
 
 	public void apruebaSolicitud(Usuario unUsuario) {
 		if (!existeSolicitudDe(unUsuario)) {
 			throw new UsuarioSinSolicitudDeIngresoExeption("No se puede aprobar la solicitud del usuario!");
 		}
-
-		add(unUsuario);
-		solicitudesDeIngreso.remove(unUsuario);
+		unUsuario.aceptar();
 	}
 
 	public void rechazaSolicitud(Usuario unUsuario) {
@@ -79,7 +76,7 @@ public class RepoUsuarios implements ObjectUpdater {
 			throw new UsuarioSinSolicitudDeIngresoExeption("No se puede rechazar la solicitud del usuario!");
 		}
 
-		solicitudesDeIngreso.remove(unUsuario);
+		usuarios.remove(unUsuario);
 		//Informa Rechazo
 	}
 }
