@@ -26,7 +26,7 @@ public class Usuario implements WithGlobalEntityManager {
 	@GeneratedValue
 	private Long usuarioId;
 	@Updateable
-	private Boolean validez;
+	private Boolean aceptado = false;
 	@Embedded
 	@Updateable
 	private Complexion complexion;
@@ -76,12 +76,12 @@ public class Usuario implements WithGlobalEntityManager {
 		mail = unMail;
 	}
 
-	public Boolean esValido() {
-		return validez;
+	public Boolean fueAceptado() {
+		return aceptado;
 	}
 	
-	public void validar() {
-		validez = true;
+	public void aceptar() {
+		aceptado = true;
 	}
 	
 	public Long getId() {

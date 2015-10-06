@@ -282,4 +282,16 @@ public class UsuarioTest {
 	public void usuarioNoTieneRutinaActiva() {
 		assertFalse(gustavo.tieneRutinaActiva());
 	}
+	
+	@Test()
+	public void usuarioSeCreaInvalidoPorDefault() {
+	
+	assertFalse(gustavo.fueAceptado());
+	}
+	
+	@Test()
+	public void usuarioSeAcepta() {
+	gustavo.aceptar();
+	assertTrue(gustavo.fueAceptado());
+	}
 }
