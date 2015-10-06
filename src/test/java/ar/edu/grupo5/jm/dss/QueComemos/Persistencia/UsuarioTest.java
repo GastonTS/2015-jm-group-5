@@ -1,6 +1,7 @@
 package ar.edu.grupo5.jm.dss.QueComemos.Persistencia;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDate;
 
@@ -57,6 +58,7 @@ public class UsuarioTest extends AbstractPersistenceTest implements WithGlobalEn
 									 .construirUsuario();
 		
 		gaston.agregarAFavorita(huevoFrito);
+		gaston.aceptar();
 
 		gaston.persistir();
 
@@ -66,6 +68,12 @@ public class UsuarioTest extends AbstractPersistenceTest implements WithGlobalEn
 	@Test
 	public void seGuardaUnUsuarioCorrectamente() {
 		assertEquals(gastonDB, gaston);
+	}
+	
+	@Test
+	public void seGuardaSuEntradaAlSistema() {
+		assertTrue(gastonDB.fueAceptado());
+		assertEquals(gastonDB.fueAceptado(), gaston.fueAceptado());
 	}
 
 	@Test
