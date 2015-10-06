@@ -25,6 +25,8 @@ public class Usuario implements WithGlobalEntityManager {
 	@Id
 	@GeneratedValue
 	private Long usuarioId;
+	@Updateable
+	private Boolean validez;
 	@Embedded
 	@Updateable
 	private Complexion complexion;
@@ -74,6 +76,14 @@ public class Usuario implements WithGlobalEntityManager {
 		mail = unMail;
 	}
 
+	public Boolean esValido() {
+		return validez;
+	}
+	
+	public void validar() {
+		validez = true;
+	}
+	
 	public Long getId() {
 		return usuarioId;
 	}

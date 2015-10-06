@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import ar.edu.grupo5.jm.dss.QueComemos.ObjectUpdater.ObjectUpdater;
 
+// DEPRECATED HACER EN DB
 public class RepoUsuarios implements ObjectUpdater {
 	private Collection<Usuario> usuarios;
 	private Collection<Usuario> solicitudesDeIngreso;
