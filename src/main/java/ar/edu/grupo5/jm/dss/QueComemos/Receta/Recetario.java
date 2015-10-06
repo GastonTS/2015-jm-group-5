@@ -8,6 +8,7 @@ import ar.edu.grupo5.jm.dss.QueComemos.Consulta.ConsultorRecetas;
 import ar.edu.grupo5.jm.dss.QueComemos.ObjectUpdater.ObjectUpdater;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
+//DEPRECATED HACER EN DB
 public class Recetario implements ConsultorRecetas, ObjectUpdater {
 
 	public static Recetario instancia = new Recetario();
