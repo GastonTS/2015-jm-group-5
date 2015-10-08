@@ -8,18 +8,27 @@ import ar.edu.grupo5.jm.dss.QueComemos.Consulta.ConsultorRecetas;
 import ar.edu.grupo5.jm.dss.QueComemos.ObjectUpdater.ObjectUpdater;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
+import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
+
+
 //DEPRECATED HACER EN DB
-public class Recetario implements ConsultorRecetas, ObjectUpdater {
+//Empiezo a tirar. Cada listar, agregar o borrar seria una query
+
+public class Recetario implements ConsultorRecetas, ObjectUpdater, WithGlobalEntityManager {
 
 	public static Recetario instancia = new Recetario();
 	private Collection<Receta> recetasTotales = new ArrayList<Receta>();
-
+	
 	public void setRecetasTotales(Collection<Receta> unasRecetas) {
-		recetasTotales = unasRecetas;
+		unasRecetas.stream().forEach(unaReceta -> entityManager().persist(unaReceta));
 	}
 
 	public Collection<Receta> getRecetasTotales() {
-		return recetasTotales;
+		return entityManager().createQuery("FROM Receta", Receta.class).getResultList();
+	}
+	
+	public Receta getReceta(Receta unaReceta){
+		return entityManager().find(Receta.class, unaReceta.getId());
 	}
 
 	@Override
@@ -32,12 +41,14 @@ public class Recetario implements ConsultorRecetas, ObjectUpdater {
 	}
 
 	public void quitarReceta(Receta unaReceta) {
-		recetasTotales.remove(unaReceta);
+		entityManager().createQuery("DELETE Receta as r WHERE r.recetaId = :idRecetaQuitada")
+			.setParameter("idRecetaQuitada", unaReceta.getId())
+			.executeUpdate();
 	}
 
 	public void crearReceta(Receta unaReceta, Usuario unUsuario) {
 		unaReceta.setDueño(unUsuario);
-		recetasTotales.add(unaReceta);
+		entityManager().persist(unaReceta);
 	}
 
 	public void crearRecetaConSubRecetas(Receta unaReceta, Collection<Receta> unasSubRecetas, Usuario unUsuario) {
@@ -53,7 +64,6 @@ public class Recetario implements ConsultorRecetas, ObjectUpdater {
 			throw new NoPuedeEliminarRecetaExeption("No puede eliminar una receta que no creó");
 
 		}
-		recetasTotales.remove(unaReceta);
 		unUsuario.quitarRecetaFavorita(unaReceta);
 	}
 

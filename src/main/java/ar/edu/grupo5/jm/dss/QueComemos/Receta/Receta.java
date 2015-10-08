@@ -11,13 +11,11 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
-import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
-
 import ar.edu.grupo5.jm.dss.QueComemos.ObjectUpdater.Updateable;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
 @Entity
-public class Receta implements WithGlobalEntityManager {
+public class Receta {
 
 	@Id
 	@GeneratedValue
@@ -135,10 +133,6 @@ public class Receta implements WithGlobalEntityManager {
 
 	public void agregarSubRecetas(Collection<Receta> unasSubRecetas) {
 		subRecetas.addAll(unasSubRecetas);
-	}
-
-	public void persistir() {
-		entityManager().persist(this);
 	}
 
 }

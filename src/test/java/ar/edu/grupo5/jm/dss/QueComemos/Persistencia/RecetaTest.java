@@ -59,7 +59,7 @@ public class RecetaTest extends AbstractPersistenceTest implements WithGlobalEnt
 				 .construirUsuario();
 		
 		bifeConHuevoFrito.setDueño(gaston);
-		bifeConHuevoFrito.persistir();
+		entityManager().persist(bifeConHuevoFrito);
 		bifeConHuevoFritoDB = entityManager().find(Receta.class, bifeConHuevoFrito.getId());
 	}
 
