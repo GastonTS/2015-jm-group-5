@@ -14,6 +14,7 @@ import java.util.Collection;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.mockito.Mock;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 
@@ -36,6 +37,7 @@ public class RecetarioTest extends AbstractPersistenceTest implements
 	private Usuario gaston;
 	private Usuario juanchi;
 	private Usuario poe;
+	private Usuario gustavo = mock(Usuario.class);
 
 	private Collection<Receta> recetasTotales = new ArrayList<Receta>();
 
@@ -64,19 +66,28 @@ public class RecetarioTest extends AbstractPersistenceTest implements
 		pure = new RecetaBuilder().setNombre("Pure")
 				.agregarIngrediente(new Ingrediente("papas 2kg"))
 				.agregarIngrediente(new Ingrediente("manteca 200gr"))
-				.agregarCondimentaciones(sal).agregarCondimentaciones(pimienta)
-				.agregarCondimentaciones(nuezMoscada).setCantCalorias(400)
-				.setDificultad(Dificultad.MEDIA).construirReceta();
+				.agregarCondimentaciones(sal)
+				.agregarCondimentaciones(pimienta)
+				.agregarCondimentaciones(nuezMoscada)
+				.setCantCalorias(400)
+				.setDificultad(Dificultad.MEDIA)
+				.construirReceta();
 
-		huevoFrito = new RecetaBuilder().setNombre("Huevo Frito")
-				.agregarIngrediente(huevo).agregarCondimentaciones(sal)
-				.setCantCalorias(200).setDificultad(Dificultad.BAJA)
+		huevoFrito = new RecetaBuilder()
+				.setNombre("Huevo Frito")
+				.agregarIngrediente(huevo)
+				.agregarCondimentaciones(sal)
+				.setCantCalorias(200)
+				.setDificultad(Dificultad.BAJA)
 				.construirReceta();
 
 		bifeConHuevoFrito = new RecetaBuilder()
-				.setNombre("Bife con Huevo Frito").agregarIngrediente(carne)
-				.agregarCondimentaciones(sal).setCantCalorias(400)
-				.setDificultad(Dificultad.BAJA).agregarSubReceta(huevoFrito)
+				.setNombre("Bife con Huevo Frito")
+				.agregarIngrediente(carne)
+				.agregarCondimentaciones(sal)
+				.setCantCalorias(400)
+				.setDificultad(Dificultad.BAJA)
+				.agregarSubReceta(huevoFrito)
 				.construirReceta();
 
 		polloConPure = new RecetaBuilder()
@@ -84,40 +95,51 @@ public class RecetarioTest extends AbstractPersistenceTest implements
 				.agregarIngrediente(new Ingrediente("pollo mediano"))
 				.agregarCondimentaciones(sal)
 				.agregarCondimentaciones(condimentoParaPollo)
-				.setCantCalorias(3000).setDificultad(Dificultad.ALTA)
+				.setCantCalorias(3000)
+				.setDificultad(Dificultad.ALTA)
 				.construirReceta();
 
 		gaston = new UsuarioBuilder().setNombre("gaston")
 				.setSexo(Sexo.MASCULINO)
 				.setFechaDeNacimiento(LocalDate.parse("1993-10-15"))
-				.setEstatura(1.68).setPeso(65).setRutina(Rutina.MEDIANA)
+				.setEstatura(1.68)
+				.setPeso(65)
+				.setRutina(Rutina.MEDIANA)
 				.construirUsuario();
 		
-
+		poe = new UsuarioBuilder().setNombre("Edgar Allan Poe")
+				.setSexo(Sexo.MASCULINO)
+				.setFechaDeNacimiento(LocalDate.parse("1809-01-19"))
+				.setEstatura(1.73)
+				.setPeso(75)
+				.setRutina(Rutina.LEVE)
+				.construirUsuario();
+		
+		entityManager().persist(poe); //requiere que el usuario esté persistido para decirle a la receta su dueño.
+		
 		recetasTotales.add(huevoFrito);
 		Recetario.instancia.setRecetasTotales(recetasTotales);
 	}
 
-	@Ignore
 	@Test
 	public void listarTodasPuedeAccederTest() {
-		when(gaston.puedeAccederA(ensaladaMock)).thenReturn(true);
-		when(gaston.puedeAccederA(panchoMock)).thenReturn(false);
-
+		Recetario.instancia.crearReceta(bifeConHuevoFrito, poe);
+		
 		Collection<Receta> recetasQuePuedeAcceder = Recetario.instancia
 				.listarTodasPuedeAcceder(gaston);
 
-		assertTrue(recetasQuePuedeAcceder.contains(ensaladaMock));
-		assertFalse(recetasQuePuedeAcceder.contains(panchoMock));
-
-		verify(gaston, times(1)).puedeAccederA(ensaladaMock);
-		verify(gaston, times(1)).puedeAccederA(panchoMock);
+		assertTrue(recetasQuePuedeAcceder.contains(huevoFrito));
+		assertFalse(recetasQuePuedeAcceder.contains(pure));
+		assertFalse(recetasQuePuedeAcceder.contains(bifeConHuevoFrito));
 	}
 
 	@Test
-	public void gastonCreaRecetaExitosa() {
-		Recetario.instancia.crearReceta(pure, poe);
+	public void creaRecetaExitosa() {
+		Recetario.instancia.crearReceta(pure, juanchi);
 		assertTrue(Recetario.instancia.getRecetasTotales().contains(pure));
+		
+		assertTrue(Recetario.instancia.getReceta(pure).getDueño() == juanchi);
+		assertFalse(Recetario.instancia.getReceta(pure).getDueño() == gaston);
 	}
 	
 	@Test
@@ -137,14 +159,12 @@ public class RecetarioTest extends AbstractPersistenceTest implements
 
 	@Test(expected = NoPuedeAccederARecetaException.class)
 	public void noPuedeCrearRecetaConSubRecetasSinAccesoAEllas() {
-		when(gaston.puedeAccederA(panchoMock)).thenReturn(true);
-		when(gaston.puedeAccederA(ensaladaMock)).thenReturn(false);
-
-		Recetario.instancia.crearRecetaConSubRecetas(recetaMock,
-				Arrays.asList(panchoMock, ensaladaMock), gaston);
-
-		verify(gaston, times(1)).puedeAccederA(panchoMock);
-		verify(gaston, times(1)).puedeAccederA(ensaladaMock);
+		when(gustavo.puedeAccederA(huevoFrito)).thenReturn(false);
+		
+		Recetario.instancia.crearRecetaConSubRecetas(pure,
+				Arrays.asList(huevoFrito), gustavo);
+		
+		verify(gustavo, times(1)).puedeAccederA(huevoFrito);
 	}
 
 	@Ignore
@@ -163,23 +183,21 @@ public class RecetarioTest extends AbstractPersistenceTest implements
 		Recetario.instancia.eliminarReceta(panchoMock, gaston);
 	}
 
-	@Ignore
 	@Test
-	public void juanchiModificaReceta() {
-		when(juanchi.puedeAccederA(ensaladaMock)).thenReturn(true);
-		when(ensaladaMock.esElDueño(juanchi)).thenReturn(false);
+	public void poeModificaReceta() {
+		Recetario.instancia.crearReceta(pure, poe);
+		
+		Recetario.instancia.modificarReceta(pure, polloConPure,
+				poe);
 
-		Recetario.instancia.modificarReceta(ensaladaMock, nuevaEnsaladaMock,
-				juanchi);
-
-		verify(juanchi, times(1)).puedeAccederA(ensaladaMock);
-		verify(ensaladaMock, times(1)).esElDueño(juanchi);
-		verify(nuevaEnsaladaMock, times(1)).setDueño(juanchi);
+		assertEquals(pure.getNombre(), polloConPure.getNombre());
 	}
 
 	@Test(expected = NoPuedeAccederARecetaException.class)
 	public void gastonNoPuedeModificarUnaRecetaDeOtro() {
-		Recetario.instancia.modificarReceta(ensaladaMock, nuevaEnsaladaMock,
+		Recetario.instancia.crearReceta(pure, poe);
+		
+		Recetario.instancia.modificarReceta(pure, polloConPure,
 				gaston);
 	}
 

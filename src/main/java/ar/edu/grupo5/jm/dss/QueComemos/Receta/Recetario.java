@@ -11,13 +11,9 @@ import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 
 
-//DEPRECATED HACER EN DB
-//Empiezo a tirar. Cada listar, agregar o borrar seria una query
-
 public class Recetario implements ConsultorRecetas, ObjectUpdater, WithGlobalEntityManager {
 
 	public static Recetario instancia = new Recetario();
-	private Collection<Receta> recetasTotales = new ArrayList<Receta>();
 	
 	public void setRecetasTotales(Collection<Receta> unasRecetas) {
 		unasRecetas.stream().forEach(unaReceta -> entityManager().persist(unaReceta));
@@ -37,7 +33,7 @@ public class Recetario implements ConsultorRecetas, ObjectUpdater, WithGlobalEnt
 	}
 
 	public Collection<Receta> listarTodasPuedeAcceder(Usuario unUsuario) {
-		return recetasTotales.stream().filter(receta -> unUsuario.puedeAccederA(receta)).collect(Collectors.toSet());
+		return getRecetasTotales().stream().filter(receta -> unUsuario.puedeAccederA(receta)).collect(Collectors.toSet());
 	}
 
 	public void quitarReceta(Receta unaReceta) {

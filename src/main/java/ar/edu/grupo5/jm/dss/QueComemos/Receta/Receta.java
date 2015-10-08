@@ -34,7 +34,7 @@ public class Receta {
 	@Updateable
 	private Collection<Receta> subRecetas;
 	@ManyToOne
-	private Usuario dueño = null;
+	private Usuario dueño;
 	@Enumerated
 	@Updateable
 	private Dificultad dificultad;
@@ -111,7 +111,7 @@ public class Receta {
 	}
 
 	public boolean esPublica() {
-		return dueño == null;
+		return getDueño() == null;
 	}
 
 	public boolean esDificil() {
