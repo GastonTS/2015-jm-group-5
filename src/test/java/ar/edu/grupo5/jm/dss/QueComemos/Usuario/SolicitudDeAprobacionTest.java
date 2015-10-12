@@ -2,80 +2,126 @@ package ar.edu.grupo5.jm.dss.QueComemos.Usuario;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
+import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 
-public class SolicitudDeAprobacionTest {
-	
-	private Usuario franco = mock(Usuario.class);
-	private Usuario alf = mock(Usuario.class);
-	private Usuario zaffa = mock(Usuario.class);
-	private Usuario quique = mock(Usuario.class);
-	private Usuario beltra = mock(Usuario.class);
-	
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.DatosPersonales.Sexo;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario.Rutina;
+
+public class SolicitudDeAprobacionTest extends AbstractPersistenceTest implements WithGlobalEntityManager {
+
+	private Usuario poe;
+	private Usuario borges;
+	private Usuario byron;
+	private Usuario verne;
+	private Usuario darwin;
+
 	private RepoUsuarios repoUsuarios;
-	
+
 	@Before
 	public void setUp() {
-		repoUsuarios = new RepoUsuarios(new ArrayList<Usuario>());
 		
-		repoUsuarios.solicitaIngreso(alf);
-		repoUsuarios.solicitaIngreso(zaffa);
-		repoUsuarios.solicitaIngreso(quique);
-		repoUsuarios.solicitaIngreso(franco);
+		poe = new UsuarioBuilder()
+				.setNombre("Edgar Allan Poe")
+				.setSexo(Sexo.MASCULINO)
+				.setFechaDeNacimiento(LocalDate.parse("1809-01-19"))
+				.setEstatura(1.73)
+				.setPeso(75)
+				.setRutina(Rutina.LEVE)
+				.construirUsuario();
+		
+		borges = new UsuarioBuilder()
+				.setNombre("Jorge Luis Borges")
+				.setSexo(Sexo.MASCULINO)
+				.setFechaDeNacimiento(LocalDate.parse("1899-08-24"))
+				.setEstatura(1.79)
+				.setPeso(80)
+				.setRutina(Rutina.NADA)
+				.construirUsuario();
+		
+		verne = new UsuarioBuilder()
+				.setNombre("Julio Berne")
+				.setSexo(Sexo.MASCULINO)
+				.setFechaDeNacimiento(LocalDate.parse("1828-02-08"))
+				.setEstatura(1.67)
+				.setPeso(80)
+				.setRutina(Rutina.MEDIANA)
+				.construirUsuario();
+
+		byron = new UsuarioBuilder()
+				.setNombre("Augusta Ada Byron")
+				.setSexo(Sexo.FEMENINO)
+				.setFechaDeNacimiento(LocalDate.parse("1825-12-10"))
+				.setEstatura(1.65)
+				.setPeso(70)
+				.setRutina(Rutina.MEDIANA)
+				.construirUsuario();
+		
+		darwin = new UsuarioBuilder()
+				.setNombre("Charles Darwin")
+				.setSexo(Sexo.MASCULINO)
+				.setFechaDeNacimiento(LocalDate.parse("1809-02-12"))
+				.setEstatura(1.67)
+				.setPeso(83)
+				.setRutina(Rutina.INTENSIVA)
+				.construirUsuario();
+		
+		repoUsuarios = new RepoUsuarios(new ArrayList<Usuario>());
+		repoUsuarios.solicitaIngreso(poe);
+		repoUsuarios.solicitaIngreso(borges);
+		repoUsuarios.solicitaIngreso(verne);
+		repoUsuarios.solicitaIngreso(byron);
 	}
 
 	@Test
 	public void agregarCuatroSolicitudesDeUsuario() {
-	
-		//uso contains en vez de containsAll ya que este ultimo considera el orden, cosa que no me da mucha confianza
-		assertTrue(repoUsuarios.getSolicitudesDeIngreso().contains(alf));
-		assertTrue(repoUsuarios.getSolicitudesDeIngreso().contains(zaffa));
-		assertTrue(repoUsuarios.getSolicitudesDeIngreso().contains(quique));
-		assertTrue(repoUsuarios.getSolicitudesDeIngreso().contains(franco));
-		assertEquals(repoUsuarios.getSolicitudesDeIngreso().size(),4);
+		assertTrue(repoUsuarios.getSolicitudesDeIngreso().contains(poe));
+		assertTrue(repoUsuarios.getSolicitudesDeIngreso().contains(verne));
+		assertTrue(repoUsuarios.getSolicitudesDeIngreso().contains(byron));
+		assertTrue(repoUsuarios.getSolicitudesDeIngreso().contains(borges));
+		assertEquals(repoUsuarios.getSolicitudesDeIngreso().size(), 4);
 	}
-	
+
 	@Test
 	public void alRechazarUnUsuarioLoEliminaDeLasSolicitudes() {
-		repoUsuarios.rechazaSolicitud(quique);
+		repoUsuarios.rechazaSolicitud(verne);
 		
-		assertTrue(repoUsuarios.getSolicitudesDeIngreso().contains(alf));
-		assertTrue(repoUsuarios.getSolicitudesDeIngreso().contains(zaffa));
-		assertTrue(repoUsuarios.getSolicitudesDeIngreso().contains(franco));
-		assertEquals(repoUsuarios.getSolicitudesDeIngreso().size(),3);
+		assertTrue(repoUsuarios.getSolicitudesDeIngreso().contains(borges));
+		assertTrue(repoUsuarios.getSolicitudesDeIngreso().contains(poe));
+		assertTrue(repoUsuarios.getSolicitudesDeIngreso().contains(byron));
+		assertEquals(repoUsuarios.getSolicitudesDeIngreso().size(), 3);
 	}
-		
+
 	@Test
 	public void alAceptarUnUsuarioLoEliminaDeLasSolicitudes() {
-		assertEquals(repoUsuarios.getSolicitudesDeIngreso().size(),4);
-		
-		when(alf.fueAceptado()).thenReturn(true);
-		
-		assertTrue(repoUsuarios.getSolicitudesDeIngreso().contains(franco));
-		assertTrue(repoUsuarios.getSolicitudesDeIngreso().contains(zaffa));
-		assertTrue(repoUsuarios.getSolicitudesDeIngreso().contains(quique));
-		assertEquals(repoUsuarios.getSolicitudesDeIngreso().size(),3);
-		
-		assertTrue(repoUsuarios.getUsuariosAceptados().contains(alf));
-		assertEquals(repoUsuarios.getUsuariosAceptados().size(),1);
+		assertEquals(repoUsuarios.getSolicitudesDeIngreso().size(), 4);
+
+		repoUsuarios.apruebaSolicitud(poe);
+
+		assertTrue(repoUsuarios.getSolicitudesDeIngreso().contains(borges));
+		assertTrue(repoUsuarios.getSolicitudesDeIngreso().contains(verne));
+		assertTrue(repoUsuarios.getSolicitudesDeIngreso().contains(byron));
+		assertEquals(repoUsuarios.getSolicitudesDeIngreso().size(), 3);
+
+		assertTrue(repoUsuarios.getUsuariosAceptados().contains(poe));
+		assertEquals(repoUsuarios.getUsuariosAceptados().size(), 1);
 	}
-	
+
 	@Test(expected = UsuarioSinSolicitudDeIngresoExeption.class)
 	public void aprobarSolicitudInexistenteLanzaExcepcion() {
-		when(beltra.fueAceptado()).thenReturn(true);
-		repoUsuarios.apruebaSolicitud(beltra);
+		darwin.aceptar();
+		repoUsuarios.apruebaSolicitud(darwin);
 	}
 
 	@Test(expected = UsuarioSinSolicitudDeIngresoExeption.class)
 	public void rechazarSolicitudInexistenteLanzaExcepcion() {
-		when(beltra.fueAceptado()).thenReturn(true);
-		repoUsuarios.rechazaSolicitud(beltra);
+		darwin.aceptar();
+		repoUsuarios.rechazaSolicitud(darwin);
 	}
 }

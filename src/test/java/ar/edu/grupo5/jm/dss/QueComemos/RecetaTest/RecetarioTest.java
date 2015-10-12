@@ -12,9 +12,7 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
-import org.mockito.Mock;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 
@@ -41,11 +39,7 @@ public class RecetarioTest extends AbstractPersistenceTest implements
 
 	private Collection<Receta> recetasTotales = new ArrayList<Receta>();
 
-	private Receta recetaMock = mock(Receta.class);
 	private Receta panchoMock = mock(Receta.class);
-	private Receta ensaladaMock = mock(Receta.class);
-
-	private Receta nuevaEnsaladaMock = mock(Receta.class);
 
 	private Receta polloConPure;
 	private Receta bifeConHuevoFrito;
@@ -167,15 +161,15 @@ public class RecetarioTest extends AbstractPersistenceTest implements
 		verify(gustavo, times(1)).puedeAccederA(huevoFrito);
 	}
 
-	@Ignore
 	@Test
 	public void eliminarUnaReceta() {
-		when(panchoMock.esElDueño(gaston)).thenReturn(true);
+		huevoFrito.setDueño(poe);
+		poe.agregarAFavorita(huevoFrito);
+		assertTrue(poe.getRecetasFavoritas().contains(huevoFrito));
+		
+		Recetario.instancia.eliminarReceta(huevoFrito, poe);
 
-		Recetario.instancia.eliminarReceta(panchoMock, gaston);
-
-		verify(panchoMock, times(1)).esElDueño(gaston);
-		verify(gaston, times(1)).quitarRecetaFavorita(panchoMock);
+		assertFalse(poe.getRecetasFavoritas().contains(huevoFrito));
 	}
 
 	@Test(expected = NoPuedeEliminarRecetaExeption.class)

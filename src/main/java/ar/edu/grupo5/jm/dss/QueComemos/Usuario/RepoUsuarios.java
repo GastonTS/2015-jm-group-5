@@ -1,63 +1,71 @@
 package ar.edu.grupo5.jm.dss.QueComemos.Usuario;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+
+import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 
 import ar.edu.grupo5.jm.dss.QueComemos.ObjectUpdater.ObjectUpdater;
 
-// DEPRECATED HACER EN DB
-public class RepoUsuarios implements ObjectUpdater {
-	private Collection<Usuario> usuarios;
+public class RepoUsuarios implements ObjectUpdater, WithGlobalEntityManager {
 
 	public RepoUsuarios(Collection<Usuario> unosUsuarios) {
-		usuarios = unosUsuarios;
+		unosUsuarios.stream().forEach(unUsuario -> entityManager().persist(unUsuario));
 	}
 
+	public Collection<Usuario> getUsuarios(){
+		return entityManager().createQuery("FROM Usuario", Usuario.class).getResultList();
+	}
+	
 	public Collection<Usuario> getUsuariosAceptados() {
-		return usuarios.stream().filter(usuario -> usuario.fueAceptado()).collect(Collectors.toList());//repito lógica porque el removeAll devuelve booleano y ademas tiene efecto de lado ¬¬
+		return entityManager().createQuery("FROM Usuario as u WHERE u.aceptado is true", Usuario.class).getResultList();
 	}
 
 	public Collection<Usuario> getSolicitudesDeIngreso() {
-		return usuarios.stream().filter(usuario -> !usuario.fueAceptado()).collect(Collectors.toList());
-	}
-
-	public void add(Usuario unUsuario) {
-		usuarios.add(unUsuario);
+		return entityManager().createQuery("FROM Usuario as u WHERE u.aceptado is false", Usuario.class).getResultList();
 	}
 
 	public void remove(Usuario unUsuario) {
 		existeUsuario(unUsuario);
-		usuarios.remove(unUsuario);
+		entityManager().createQuery("DELETE Usuario as u WHERE u.usuarioId = :idUsuarioQuitado")
+			.setParameter("idUsuarioQuitado", unUsuario.getId())
+			.executeUpdate();
 	}
 
 	private void existeUsuario(Usuario unUsuario) {
-		if (!usuarios.contains(unUsuario)) {
+		if (entityManager().createQuery("FROM Usuario as u WHERE u.usuarioId = :idUsuarioBuscado", Usuario.class)
+				.setParameter("idUsuarioBuscado", unUsuario.getId()).getResultList().size() == 0) {
 			throw new UsuarioIngresadoNoExisteException("No se encontro usuario en el repositorio de usuarios");
 		}
 	}
 
 	public void modificarUsuario(Usuario usuarioViejo, Usuario usuarioNuevo) {
-		this.existeUsuario(usuarioViejo);
-		this.update(usuarioViejo, usuarioNuevo);
+		existeUsuario(usuarioViejo);
+		update(usuarioViejo, usuarioNuevo);
 	}
 
 	public Optional<Usuario> buscarUnUsuarioConNombre(UsuarioBuscado unUsuario) {
-		return usuarios.stream().filter(usuarioPosta -> unUsuario.tieneElNombreDe(usuarioPosta)).findFirst();
+		return entityManager().createQuery("FROM Usuario as u WHERE u.datosPersonales.nombre = :nombreBuscado", Usuario.class)
+				.setParameter("nombreBuscado", unUsuario.getNombre())
+				.getResultList().stream().findFirst();
 	}
 
 	public Collection<Usuario> listarPorNombreYCondiciones(UsuarioBuscado unUsuario) {
-		return usuarios.stream().filter(usuarioPosta -> tienenMismoNombreYCondiciones(unUsuario, usuarioPosta)).collect(Collectors.toList());
+		return entityManager()
+				.createQuery("FROM Usuario as u WHERE u.datosPersonales.nombre = :nombreBuscado "
+						+ "AND u.condicionesDeSalud = :condicionesBuscadas", Usuario.class)
+				.setParameter("nombreBuscado", unUsuario.getNombre())
+				.setParameter("condicionesBuscadas", unUsuario.getCondiciones())
+				.getResultList();
 	}
 
-	private Boolean tienenMismoNombreYCondiciones(UsuarioBuscado usuarioBuscado, Usuario usuarioPosta) {
+	//DEPRECATED
+	/*private Boolean tienenMismoNombreYCondiciones(UsuarioBuscado usuarioBuscado, Usuario usuarioPosta) {
 		return usuarioBuscado.tieneElNombreDe(usuarioPosta) && usuarioBuscado.tieneTodasLasCondicionesDeSaludDe(usuarioPosta);
-	}
-
+	}*/
+	
 	public void solicitaIngreso(Usuario unUsuario) {
-		usuarios.add(unUsuario);
+		entityManager().persist(unUsuario);
 	}
 
 	private Boolean existeSolicitudDe(Usuario unUsuario) {
@@ -76,7 +84,7 @@ public class RepoUsuarios implements ObjectUpdater {
 			throw new UsuarioSinSolicitudDeIngresoExeption("No se puede rechazar la solicitud del usuario!");
 		}
 
-		usuarios.remove(unUsuario);
+		remove(unUsuario);
 		//Informa Rechazo
 	}
 }

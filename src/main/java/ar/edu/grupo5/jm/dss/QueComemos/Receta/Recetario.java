@@ -1,6 +1,5 @@
 package ar.edu.grupo5.jm.dss.QueComemos.Receta;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
@@ -32,6 +31,7 @@ public class Recetario implements ConsultorRecetas, ObjectUpdater, WithGlobalEnt
 		return listarTodasPuedeAcceder(unUsuario);
 	}
 
+	//PENSAR COMO HACERLA SIN USAR EL METODO QUE DEVUELVE LA LISTA COMPLETA
 	public Collection<Receta> listarTodasPuedeAcceder(Usuario unUsuario) {
 		return getRecetasTotales().stream().filter(receta -> unUsuario.puedeAccederA(receta)).collect(Collectors.toSet());
 	}

@@ -11,8 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
-import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
-
 import ar.edu.grupo5.jm.dss.QueComemos.ObjectUpdater.Updateable;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Ingrediente;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
@@ -20,7 +18,7 @@ import ar.edu.grupo5.jm.dss.QueComemos.Usuario.DatosPersonales.Sexo;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.CondicionDeSalud.CondicionDeSalud;
 
 @Entity
-public class Usuario implements WithGlobalEntityManager {
+public class Usuario {
 
 	@Id
 	@GeneratedValue
@@ -211,10 +209,6 @@ public class Usuario implements WithGlobalEntityManager {
 
 	public boolean esVegano() {
 		return condicionesDeSalud.stream().anyMatch(condicion -> condicion.esCondicionVegana());
-	}
-
-	public void persistir() {
-		entityManager().persist(this);
 	}
 
 }

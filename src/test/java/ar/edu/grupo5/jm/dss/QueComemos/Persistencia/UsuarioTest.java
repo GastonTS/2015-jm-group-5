@@ -60,7 +60,7 @@ public class UsuarioTest extends AbstractPersistenceTest implements WithGlobalEn
 		gaston.agregarAFavorita(huevoFrito);
 		gaston.aceptar();
 
-		gaston.persistir();
+		entityManager().persist(gaston);
 
 		gastonDB = entityManager().find(Usuario.class, gaston.getId());
 	}
