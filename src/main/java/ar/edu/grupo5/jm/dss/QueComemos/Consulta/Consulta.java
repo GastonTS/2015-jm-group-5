@@ -4,19 +4,33 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.stream.Stream;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+
 import ar.edu.grupo5.jm.dss.QueComemos.Consulta.Filtro.Filtro;
 import ar.edu.grupo5.jm.dss.QueComemos.Consulta.MonitoreoAsincronico.BufferDeConsultas;
 import ar.edu.grupo5.jm.dss.QueComemos.Consulta.Observadores.ObservadorConsultas;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
+@Entity
 public class Consulta {
-
+	
+	@Id
+	@GeneratedValue
+	private Long recetaId;
+	@ManyToOne
 	private ConsultorRecetas consultor;
+	@ManyToOne
 	public Filtro filtro;
+	@ManyToOne
 	public Usuario usuario;
+	@ManyToMany
 	public Collection<Receta> recetasConsultadas;
-
+	@ManyToMany
 	static private Collection<ObservadorConsultas> observadores = new ArrayList<ObservadorConsultas>();
 
 	public Consulta(ConsultorRecetas unConsultor, Filtro unFiltro, Usuario unUsuario) {

@@ -8,12 +8,15 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
+import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 
 import ar.edu.grupo5.jm.dss.QueComemos.Consulta.MonitoreoAsincronico.AgregarRecetasConsultadasAFavoritas;
 import ar.edu.grupo5.jm.dss.QueComemos.Consulta.MonitoreoAsincronico.BufferDeConsultas;
@@ -23,15 +26,21 @@ import ar.edu.grupo5.jm.dss.QueComemos.Consulta.MonitoreoAsincronico.MailSender;
 import ar.edu.grupo5.jm.dss.QueComemos.Consulta.MonitoreoAsincronico.ProcesoAsincronico;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.UsuarioBuilder;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.DatosPersonales.Sexo;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario.Rutina;
 
-public class MonitoreoConsultasTest {
+public class MonitoreoConsultasTest extends AbstractPersistenceTest implements
+WithGlobalEntityManager {
 
-	private Consulta consultaMock = mock(Consulta.class);
+	private Consulta consulta;
 	private Collection<Receta> recetasMock = new ArrayList<Receta>();
 	private Receta receta1Mock = mock(Receta.class);
 	private Receta receta2Mock = mock(Receta.class);
 	private Receta receta3Mock = mock(Receta.class);
 	private Usuario juanchi = mock(Usuario.class);
+	private Usuario usuario;
+	private Usuario consultor;
 
 	private Usuario leanMock = mock(Usuario.class);
 	private Usuario gusMock = mock(Usuario.class);
@@ -52,11 +61,29 @@ public class MonitoreoConsultasTest {
 
 		usuariosConOpcionMandarMail = Arrays.asList(gusMock, leanMock);
 		monitorEnviarMail = new EnviarConsultaPorMail(usuariosConOpcionMandarMail, mailSenderMock);
+		
+		usuario = new UsuarioBuilder().setNombre("gaston")
+				.setSexo(Sexo.MASCULINO)
+				.setFechaDeNacimiento(LocalDate.parse("1993-10-15"))
+				.setEstatura(1.68)
+				.setPeso(65)
+				.setRutina(Rutina.MEDIANA)
+				.construirUsuario();
+		consultor = new UsuarioBuilder().setNombre("Edgar Allan Poe")
+				.setSexo(Sexo.MASCULINO)
+				.setFechaDeNacimiento(LocalDate.parse("1809-01-19"))
+				.setEstatura(1.73)
+				.setPeso(75)
+				.setRutina(Rutina.LEVE)
+				.construirUsuario();
+		
+		
+		consulta = new Consulta(consultor,usuario);
 
 		BufferDeConsultas.instancia.limpiarConsultas();
 		BufferDeConsultas.instancia.agregarProceso(unProcesoAsincronico);
 		BufferDeConsultas.instancia.agregarProceso(otroProcesoAsincronico);
-		BufferDeConsultas.instancia.agregarConsulta(consultaMock);
+		BufferDeConsultas.instancia.agregarConsulta(consulta);
 	}
 
 	@Test
