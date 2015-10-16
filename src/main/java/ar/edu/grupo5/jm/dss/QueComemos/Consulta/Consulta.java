@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 import ar.edu.grupo5.jm.dss.QueComemos.Consulta.Filtro.Filtro;
 import ar.edu.grupo5.jm.dss.QueComemos.Consulta.MonitoreoAsincronico.BufferDeConsultas;
@@ -22,7 +23,7 @@ public class Consulta {
 	@Id
 	@GeneratedValue
 	private Long recetaId;
-	@ManyToOne
+	@Transient
 	private ConsultorRecetas consultor;
 	@ManyToOne
 	public Filtro filtro;
