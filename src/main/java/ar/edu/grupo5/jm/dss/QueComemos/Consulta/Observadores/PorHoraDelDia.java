@@ -6,10 +6,17 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
-public class PorHoraDelDia implements ObservadorConsultas {
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+public class PorHoraDelDia extends ObservadorConsultas {
+
 	Clock reloj;
 	private Map<Integer, Integer> consultasPorHoraDelDia = new HashMap<Integer, Integer>();
 

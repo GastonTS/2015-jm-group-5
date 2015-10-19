@@ -23,7 +23,7 @@ public class Consulta {
 	@Id
 	@GeneratedValue
 	private Long recetaId;
-	@Transient
+	@ManyToOne
 	private ConsultorRecetas consultor;
 	@ManyToOne
 	public Filtro filtro;

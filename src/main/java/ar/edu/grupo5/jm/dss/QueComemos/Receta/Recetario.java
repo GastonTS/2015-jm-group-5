@@ -3,14 +3,19 @@ package ar.edu.grupo5.jm.dss.QueComemos.Receta;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
+import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+
 import ar.edu.grupo5.jm.dss.QueComemos.Consulta.ConsultorRecetas;
 import ar.edu.grupo5.jm.dss.QueComemos.ObjectUpdater.ObjectUpdater;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 
-
-public class Recetario implements ConsultorRecetas, ObjectUpdater, WithGlobalEntityManager {
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+public class Recetario extends ConsultorRecetas implements ObjectUpdater, WithGlobalEntityManager {
 
 	public static Recetario instancia = new Recetario();
 	
