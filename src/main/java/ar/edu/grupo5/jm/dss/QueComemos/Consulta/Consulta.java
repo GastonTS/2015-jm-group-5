@@ -12,7 +12,6 @@ import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
 public class Consulta {
 
-	private ConsultorRecetas consultor;
 	public Filtro filtro;
 	public Usuario usuario;
 	public Collection<Receta> recetasConsultadas;
@@ -20,11 +19,10 @@ public class Consulta {
 	static private Collection<ObservadorConsultas> observadores = new ArrayList<ObservadorConsultas>();
 
 	public Consulta(ConsultorRecetas unConsultor, Filtro unFiltro, Usuario unUsuario) {
-		consultor = unConsultor;
 		filtro = unFiltro;
 		usuario = unUsuario;
 
-		recetasConsultadas = filtro.filtrarRecetas(consultor.getRecetas(usuario), usuario);
+		recetasConsultadas = filtro.filtrarRecetas(unConsultor.getRecetas(usuario), usuario);
 		this.notificarObservadores(observadores, usuario, recetasConsultadas);
 		BufferDeConsultas.instancia.agregarConsulta(this);
 	}
