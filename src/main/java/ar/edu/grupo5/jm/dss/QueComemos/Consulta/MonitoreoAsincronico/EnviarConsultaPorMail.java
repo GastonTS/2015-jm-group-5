@@ -18,8 +18,8 @@ public class EnviarConsultaPorMail extends ProcesoAsincronico {
 
 	@ManyToMany
 	private Collection<Usuario> usuariosPorLosQueSeMandanMail = new ArrayList<Usuario>();
-	@Transient //TODO revisar
-	private MailSender mailSender;
+	@Transient 
+	private MailSender mailSender;//TODO revisar ver como se puede persistir
 
 	public EnviarConsultaPorMail(Collection<Usuario> usuariosConOpcionMandarMail, MailSender mailSender) {
 		usuariosPorLosQueSeMandanMail = usuariosConOpcionMandarMail;

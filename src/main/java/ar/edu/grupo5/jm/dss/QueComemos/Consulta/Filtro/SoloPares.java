@@ -4,8 +4,14 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class SoloPares extends PostProcesamiento {
 
 	public SoloPares(Filtro unFiltro) {

@@ -13,6 +13,11 @@
     	<class>ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta</class>
     	<class>ar.edu.grupo5.jm.dss.QueComemos.Receta.Condimentacion</class>
     	<class>ar.edu.grupo5.jm.dss.QueComemos.Receta.Ingrediente</class>
+    	<class>ar.edu.grupo5.jm.dss.QueComemos.Consulta.Consulta</class>
+    	<class>ar.edu.grupo5.jm.dss.QueComemos.Consulta.Filtro.Filtro</class>
+    	<class>ar.edu.grupo5.jm.dss.QueComemos.Consulta.Observadores.ObservadorConsultas</class>
+    	<class>ar.edu.grupo5.jm.dss.QueComemos.Consulta.MonitoreoAsincronico.ProcesoAsincronico</class>
+    	
     	
     	 
         <properties> 
