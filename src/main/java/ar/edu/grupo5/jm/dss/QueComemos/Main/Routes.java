@@ -9,6 +9,7 @@ import static spark.SparkBase.staticFileLocation;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 import ar.edu.grupo5.jm.dss.QueComemos.Controllers.HomeController;
 import ar.edu.grupo5.jm.dss.QueComemos.Controllers.RecetasController;
+import ar.edu.grupo5.jm.dss.QueComemos.Controllers.UsuariosController;
 
 
 public class Routes {
@@ -18,6 +19,8 @@ public class Routes {
 
 		    HomeController home = new HomeController();
 		    RecetasController recetas = new RecetasController();
+		    UsuariosController usuarios = new UsuariosController();
+		    
 		    HandlebarsTemplateEngine engine = new HandlebarsTemplateEngine();
 
 		    port(8090);
@@ -31,6 +34,7 @@ public class Routes {
 		    });
 
 		    get("/recetas", recetas::listar, engine);
+		    get("/usuarios", usuarios::listar, engine);
 
 		  }
 
