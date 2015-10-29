@@ -8,6 +8,7 @@ import javax.persistence.Query;
 
 import ar.edu.grupo5.jm.dss.QueComemos.Consulta.ConsultorRecetas;
 import ar.edu.grupo5.jm.dss.QueComemos.ObjectUpdater.ObjectUpdater;
+import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta.Dificultad;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
@@ -91,6 +92,19 @@ public class Recetario implements ConsultorRecetas, ObjectUpdater, WithGlobalEnt
 		filtros.forEach((campo, valor) -> q.setParameter(campo, "%" + valor + "%"));
 		
 		return q.getResultList();
+	}
+	
+	public Collection<Receta> filtrarPorNombre(String valor){
+		return entityManager().createQuery("From Receta as r WHERE r.nombre LIKE :valor", Receta.class)
+				.setParameter("valor", "%" + valor + "%").getResultList();
+	}
+	public Collection<Receta> filtrarPorRangoCalorias(Double min, Double max){
+		return entityManager().createQuery("From Receta as r WHERE r.cantCalorias BETWEEN :min AND :max", Receta.class)
+				.setParameter("min", min).setParameter("max", max).getResultList();
+	}
+	public Collection<Receta> filtrarPorDificultad(Dificultad dificultad){
+		return entityManager().createQuery("From Receta", Receta.class).getResultList()
+				.stream().filter(unaReceta -> unaReceta.getDificultad() == dificultad).collect(Collectors.toList());
 	}
 	
 	public void limpiarFiltros(){
