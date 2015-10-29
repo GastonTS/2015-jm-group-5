@@ -4,8 +4,11 @@ import static spark.Spark.get;
 //import static spark.Spark.post;
 import static spark.SparkBase.port;
 import static spark.SparkBase.staticFileLocation;
+
+
 import spark.template.handlebars.HandlebarsTemplateEngine;
 import ar.edu.grupo5.jm.dss.QueComemos.Controllers.HomeController;
+import ar.edu.grupo5.jm.dss.QueComemos.Controllers.RecetasController;
 
 
 public class Routes {
@@ -14,23 +17,22 @@ public class Routes {
 		    System.out.println("Iniciando servidor");
 
 		    HomeController home = new HomeController();
-		   //ConsultorasController consultoras = new ConsultorasController(); 
+		    RecetasController recetas = new RecetasController();
 		    HandlebarsTemplateEngine engine = new HandlebarsTemplateEngine();
 
 		    port(8090);
 
 		    staticFileLocation("/public");
-
+		    
 		    get("/", home::mostrar, engine);
 		    get("/index.html", (request, response) -> {
 		      response.redirect("/");
 		      return null;
 		    });
-		  /*  get("/consultoras", consultoras::listar, engine);
-		    post("/consultoras", consultoras::crear);
-		    get("/consultoras/new", consultoras::nuevo, engine);
-		    get("/consultoras/:id", consultoras::mostrar, engine);*/
+
+		    get("/recetas", recetas::listar, engine);
 
 		  }
 
 }
+

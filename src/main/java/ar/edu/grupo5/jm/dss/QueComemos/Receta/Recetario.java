@@ -1,7 +1,10 @@
 package ar.edu.grupo5.jm.dss.QueComemos.Receta;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.stream.Collectors;
+
+import javax.persistence.Query;
 
 import ar.edu.grupo5.jm.dss.QueComemos.Consulta.ConsultorRecetas;
 import ar.edu.grupo5.jm.dss.QueComemos.ObjectUpdater.ObjectUpdater;
@@ -73,6 +76,25 @@ public class Recetario implements ConsultorRecetas, ObjectUpdater, WithGlobalEnt
 		} else {
 			crearReceta(nuevaReceta, unUsuario);
 		}
+	}
+	
+	String query = "From Receta as r WHERE 1=1";
+	Query q;
+	@SuppressWarnings("unchecked")
+	public Collection<Receta> filtrarPorStrings(HashMap<String, String> filtros){
+		limpiarFiltros();
+		
+		filtros.forEach((campo, valor) -> query += " AND CAST(r." + campo +  " as string) LIKE :" + campo);
+		
+		q = entityManager().createQuery(query, Receta.class);
+		
+		filtros.forEach((campo, valor) -> q.setParameter(campo, "%" + valor + "%"));
+		
+		return q.getResultList();
+	}
+	
+	public void limpiarFiltros(){
+		query = "From Receta as r WHERE 1=1";
 	}
 
 }
