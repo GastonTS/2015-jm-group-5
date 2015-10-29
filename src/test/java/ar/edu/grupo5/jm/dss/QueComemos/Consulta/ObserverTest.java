@@ -47,7 +47,7 @@ public class ObserverTest {
 	
 	private Vegano condicionMock = mock(Vegano.class);
 	
-	PorHoraDelDia observerPorHoraDelDia = new PorHoraDelDia(Clock.system(ZoneId.of("America/Argentina/Buenos_Aires")));
+	PorHoraDelDia observerPorHoraDelDia = new PorHoraDelDia();
 	ConsultasTotales observerRecetaMasConsultada = new ConsultasTotales();
 	ConsultasSegunSexo observerSegunSexo = new ConsultasSegunSexo();
 	ConsultaVeganoRecetasDificles observerConsultaVeganoRecetasDificiles = new ConsultaVeganoRecetasDificles();

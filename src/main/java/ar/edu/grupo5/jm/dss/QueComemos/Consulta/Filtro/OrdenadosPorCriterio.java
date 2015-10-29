@@ -1,24 +1,27 @@
 package ar.edu.grupo5.jm.dss.QueComemos.Consulta.Filtro;
 
 
+
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import javax.persistence.Convert;
 import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.Transient;
+
+
+import org.uqbarproject.jpa.java8.extras.convert.LambdaConverter;
 
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public class OrdenadosPorCriterio extends PostProcesamiento {
-	@Transient
-	private Comparator<Receta> criterio;//TODO persistir bien
+public class OrdenadosPorCriterio extends PostProcesamiento{
+
+	@Convert(converter = LambdaConverter.class)
+	private Comparator<Receta> criterio;
 	private String nombreCriterio;
+	
 
 	public OrdenadosPorCriterio(Filtro unFiltro, Comparator<Receta> unComparador, String unNombreCriterio) {
 		super(unFiltro);

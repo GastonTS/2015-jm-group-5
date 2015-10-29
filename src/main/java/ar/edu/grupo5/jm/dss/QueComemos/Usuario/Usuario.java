@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
@@ -23,6 +24,7 @@ public class Usuario {
 	@Id
 	@GeneratedValue
 	private Long usuarioId;
+	
 	@Updateable
 	private Boolean aceptado = false;
 	@Embedded
@@ -31,19 +33,19 @@ public class Usuario {
 	@Embedded
 	@Updateable
 	private DatosPersonales datosPersonales;
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL)
 	@Updateable
 	private Collection<Ingrediente> preferenciasAlimenticias;
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL)
 	@Updateable
 	private Collection<Ingrediente> disgustosAlimenticios;
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL)
 	@Updateable
 	private Collection<CondicionDeSalud> condicionesDeSalud;
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL)
 	@Updateable
 	private Collection<Grupo> grupos;
-
+	
 	public enum Rutina {
 		LEVE, NADA, MEDIANA, INTENSIVA, ALTA
 	}

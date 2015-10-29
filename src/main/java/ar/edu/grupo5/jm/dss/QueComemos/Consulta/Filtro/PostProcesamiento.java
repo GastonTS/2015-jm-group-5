@@ -4,9 +4,11 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Stream;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
 
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
@@ -15,6 +17,7 @@ import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class PostProcesamiento extends Filtro {
 
+	@ManyToOne(cascade = CascadeType.ALL)
 	protected Filtro subFiltro;
 
 	public PostProcesamiento(Filtro unFiltro) {

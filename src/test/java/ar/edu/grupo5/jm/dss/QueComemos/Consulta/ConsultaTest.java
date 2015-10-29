@@ -10,8 +10,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.stream.Stream;
 
-import jdk.nashorn.internal.ir.annotations.Ignore;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -47,7 +45,7 @@ public class ConsultaTest {
 		Consulta.quitarObservador(ObserverConsultaMock2);
 	}
 
-	@org.junit.Ignore
+//	@org.junit.Ignore
 	@Test
 	public void consultaRecetas() {
 		Collection<Receta> recetasAConsultar = Arrays.asList(panchoMock, recetaMock, ensaladaMock);
@@ -65,7 +63,8 @@ public class ConsultaTest {
 		verify(ObserverConsultaMock2, times(1)).notificarConsulta(gaston, resultadoConsulta);
 	}
 
-	@org.junit.Ignore//TODO
+	@org.junit.Ignore
+	//TODO
 	@Test
 	public void retornaParametrosDeBusquedaSegunNombresDeSuFiltro() {
 		Consulta gestorConsulta = new Consulta(consultorMock, filtroMock, gaston);

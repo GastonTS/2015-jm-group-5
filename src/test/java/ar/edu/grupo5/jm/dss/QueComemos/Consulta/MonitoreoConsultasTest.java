@@ -7,15 +7,15 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.spy;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
-import jdk.nashorn.internal.ir.annotations.Ignore;
-
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
@@ -42,6 +42,11 @@ WithGlobalEntityManager {
 	private NoEsInadecuadaParaUsuario segunCondicionesDelusuario;
 	private Consulta consulta;
 	private Collection<Receta> recetasMock = new ArrayList<Receta>();
+	
+	private BufferDeConsultas bufferMock = mock(BufferDeConsultas.class);
+	private BufferDeConsultas bufferSpy = spy(BufferDeConsultas.instancia);
+	
+	private Consulta consultaMock = mock(Consulta.class);
 	private Receta receta1Mock = mock(Receta.class);
 	private Receta receta2Mock = mock(Receta.class);
 	private Receta receta3Mock = mock(Receta.class);
@@ -53,19 +58,19 @@ WithGlobalEntityManager {
 	private Usuario gusMock = mock(Usuario.class);
 	Collection<Usuario> usuariosConOpcionMandarMail;
 	MailSender mailSenderMock = mock(MailSender.class);
-	LogearConsultasMasDe100 procesoAsincronicoLog = new LogearConsultasMasDe100();
-	AgregarRecetasConsultadasAFavoritas procesoAsincronicoFavs = new AgregarRecetasConsultadasAFavoritas();
+	LogearConsultasMasDe100 procesoAsincronicoLog = mock(LogearConsultasMasDe100.class); //new LogearConsultasMasDe100();
+	AgregarRecetasConsultadasAFavoritas procesoAsincronicoFavs = mock(AgregarRecetasConsultadasAFavoritas.class);//new AgregarRecetasConsultadasAFavoritas();
 	
 
 	LogearConsultasMasDe100 monitorMayor100 = new LogearConsultasMasDe100();
 	AgregarRecetasConsultadasAFavoritas monitorRecetasFavoritas = new AgregarRecetasConsultadasAFavoritas();
 	EnviarConsultaPorMail monitorEnviarMail;
-
+	
 	@Before
 	public void setUp() {
 
-//		usuariosConOpcionMandarMail = Arrays.asList(gusMock, leanMock);
-//		monitorEnviarMail = new EnviarConsultaPorMail(usuariosConOpcionMandarMail, mailSenderMock);
+		usuariosConOpcionMandarMail = Arrays.asList(gusMock, leanMock);
+		monitorEnviarMail = new EnviarConsultaPorMail(usuariosConOpcionMandarMail, mailSenderMock);
 		
 		usuario = new UsuarioBuilder().setNombre("usuario")
 				.setSexo(Sexo.MASCULINO)
@@ -78,48 +83,11 @@ WithGlobalEntityManager {
 		sinFiltro = new SinFiltro();
 		segunCondicionesDelusuario = new NoEsInadecuadaParaUsuario(sinFiltro);
 			
-//		consulta = new Consulta(consultor,segunCondicionesDelusuario,usuario); //TODO
+		consulta = new Consulta(consultor,segunCondicionesDelusuario,usuario); //TODO
 
-//		BufferDeConsultas.instancia.limpiarConsultas();
-//		BufferDeConsultas.instancia.agregarConsulta(consulta);
+		BufferDeConsultas.instancia.limpiarConsultas();
+		BufferDeConsultas.instancia.agregarConsulta(consulta);
 	}
-
-	@Ignore
-	@Test
-	public void bufferDeConsultasLlamaAsusProcesosAlPedirleProcesar() {
-		//		BufferDeConsultas.instancia.agregarProceso(procesoAsincronicoLog);
-//		BufferDeConsultas.instancia.agregarProceso(procesoAsincronicoFavs);
-		//		BufferDeConsultas.instancia.procesarConsultas();
-
-		//		verify(procesoAsincronicoLog, times(1)).procesarConsultas(Arrays.asList(consulta));
-//		verify(procesoAsincronicoFavs, times(1)).procesarConsultas(Arrays.asList(consulta));
-	}
-/*
-	@Test
-	public void leanConsultomuchasRecetas() {
-
-		when(consultaMock.getNombre()).thenReturn("leandro");
-		when(consultaMock.cantidadConsultadas()).thenReturn(125);
-
-		monitorMayor100.procesarConsulta(consultaMock);
-
-		verify(consultaMock, times(1)).getNombre();
-		verify(consultaMock, times(2)).cantidadConsultadas();
-	}
-
-	@Test
-	public void juanchiAgrega3AfavoritasQueHabiaConsultado() {
-		when(consultaMock.getRecetasConsultadas()).thenReturn(recetasMock);
-		when(consultaMock.getUsuario()).thenReturn(juanchi);
-
-		monitorRecetasFavoritas.procesarConsulta(consultaMock);
-
-		verify(juanchi, times(1)).agregarAFavorita(receta1Mock);
-		verify(juanchi, times(1)).agregarAFavorita(receta2Mock);
-		verify(juanchi, times(1)).agregarAFavorita(receta3Mock);
-
-	}
-
 	@Test
 	public void enviaMailsPorConsultasDeUsuariosAsignados() {
 		String destinatario = "gusMock@foo.com";
@@ -147,5 +115,7 @@ WithGlobalEntityManager {
 		monitorEnviarMail.procesarConsulta(consultaMock);
 
 		verify(mailSenderMock, times(0)).send(anyString(), anyString(), anyString());
-	}*/
+	}
+	
+	
 }

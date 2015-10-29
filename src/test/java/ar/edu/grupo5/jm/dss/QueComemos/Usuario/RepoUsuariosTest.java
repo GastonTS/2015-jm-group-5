@@ -89,14 +89,12 @@ public class RepoUsuariosTest extends AbstractPersistenceTest implements WithGlo
 
 	// Testea que se agrega y se elimina bien
 
-	@Ignore
 	@Test
 	public void eliminoJuanchi() {
 		repoUsuarios.apruebaSolicitud(juanchi);
 		assertTrue(repoUsuarios.getUsuariosAceptados().contains(juanchi));
 		
 		repoUsuarios.remove(juanchi);
-		repoUsuarios.rechazaSolicitud(juanchi);
 		assertFalse(repoUsuarios.getUsuariosAceptados().contains(juanchi));
 	}
 
@@ -112,15 +110,13 @@ public class RepoUsuariosTest extends AbstractPersistenceTest implements WithGlo
 		assertEquals(repoUsuarios.buscarUnUsuarioConNombre(usuarioBusquedaJuanchi), Optional.of(juanchi));
 	}
 
-	@Ignore
 	@Test
-	public void buscarGustavosHippies() {
-		UsuarioBuscado usuarioBusquedaGustavosHippies = new UsuarioBuscado("gustavo", condicionesGustavo);
+	public void buscarGustavosHippiesYCorporativos() {
+		UsuarioBuscado usuarioBusquedaGustavosHippiesYCorporativos = new UsuarioBuscado("gustavo", condicionesGustavo);
 
-		assertEquals(repoUsuarios.listarPorNombreYCondiciones(usuarioBusquedaGustavosHippies), Arrays.asList(gustavo));
+		assertEquals(repoUsuarios.listarPorNombreYCondiciones(usuarioBusquedaGustavosHippiesYCorporativos), Arrays.asList(gustavo));
 	}
 
-	@Ignore
 	@Test
 	public void buscarGustavosSinCondicion() {
 		UsuarioBuscado usuarioBusquedaGustavosHippies = new UsuarioBuscado("gustavo", new ArrayList<CondicionDeSalud>());

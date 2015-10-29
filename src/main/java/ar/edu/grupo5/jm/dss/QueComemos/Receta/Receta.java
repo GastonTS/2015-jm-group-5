@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
@@ -20,17 +21,18 @@ public class Receta {
 	@Id
 	@GeneratedValue
 	private Long recetaId;
+	
 	@Updateable
 	private String nombre;
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL)
 	@Updateable
 	private Collection<Ingrediente> ingredientes;
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL)
 	@Updateable
 	private Collection<Condimentacion> condimentaciones;
 	@Updateable
 	private double cantCalorias;
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL)
 	@Updateable
 	private Collection<Receta> subRecetas;
 	@ManyToOne
