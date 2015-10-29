@@ -2,19 +2,26 @@ package ar.edu.grupo5.jm.dss.QueComemos.Consulta.Observadores;
 
 import java.time.Clock;
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.Transient;
+
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
-public class PorHoraDelDia implements ObservadorConsultas {
-	Clock reloj;
+@Entity
+public class PorHoraDelDia extends ObservadorConsultas {
+	@Transient
+	private Clock reloj = Clock.system(ZoneId.of("America/Argentina/Buenos_Aires"));
+	 @ElementCollection
 	private Map<Integer, Integer> consultasPorHoraDelDia = new HashMap<Integer, Integer>();
 
-	public PorHoraDelDia(Clock relojAsignado) {
-		reloj = relojAsignado;
+	public PorHoraDelDia() {
 
 		for (int hora = 0; hora < 24; hora++)
 			consultasPorHoraDelDia.put(hora, 0);

@@ -52,9 +52,9 @@ public class FiltroTest {
 	private SoloPares soloPares = new SoloPares(sinFiltro);
 
 	private Comparator<Receta> porCantidadDeCalorias = ((receta1, receta2) -> ((Double) receta1.getCantCaloriasTotales()).compareTo((Double) receta2
-			.getCantCaloriasTotales()));
+				.getCantCaloriasTotales()));
 	private Comparator<Receta> porOrdenAlfabetico = ((receta1, receta2) -> (receta1.getNombre()).compareTo(receta2.getNombre()));
-
+	
 	private OrdenadosPorCriterio ordenadosPorCalorias = new OrdenadosPorCriterio(sinFiltro, porCantidadDeCalorias, "cantidad de calorias");
 	private OrdenadosPorCriterio ordenadosAlfabeticamente = new OrdenadosPorCriterio(sinFiltro, porOrdenAlfabetico, "orden alfabético");
 
@@ -74,6 +74,7 @@ public class FiltroTest {
 
 	@Test
 	public void sinFiltroDevuelveLoMismo() {
+
 		assertEquals(sinFiltro.filtrarRecetas(recetas, null), recetas);
 	}
 

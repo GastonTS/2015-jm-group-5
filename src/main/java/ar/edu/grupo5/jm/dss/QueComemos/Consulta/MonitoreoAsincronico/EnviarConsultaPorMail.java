@@ -3,13 +3,20 @@ package ar.edu.grupo5.jm.dss.QueComemos.Consulta.MonitoreoAsincronico;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.Transient;
+
 import ar.edu.grupo5.jm.dss.QueComemos.Consulta.Consulta;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
+@Entity
 public class EnviarConsultaPorMail extends ProcesoAsincronico {
 
+	@ManyToMany
 	private Collection<Usuario> usuariosPorLosQueSeMandanMail = new ArrayList<Usuario>();
-	private MailSender mailSender;
+	@Transient 
+	private MailSender mailSender;//TODO revisar ver como se puede persistir
 
 	public EnviarConsultaPorMail(Collection<Usuario> usuariosConOpcionMandarMail, MailSender mailSender) {
 		usuariosPorLosQueSeMandanMail = usuariosConOpcionMandarMail;

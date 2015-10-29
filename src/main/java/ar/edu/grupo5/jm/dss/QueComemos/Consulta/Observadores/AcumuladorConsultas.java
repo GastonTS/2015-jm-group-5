@@ -4,14 +4,15 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
 
+import javax.persistence.Entity;
+
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
-
-abstract class AcumuladorConsultas implements ObservadorConsultas {
+@Entity
+abstract class AcumuladorConsultas extends ObservadorConsultas {
 
 	public abstract Collection<Receta> getRecetasConsultadas(Usuario unUsuario);
 
-	@Override
 	public void notificarConsulta(Usuario unUsuario, Collection<Receta> nuevasRecetasConsultadas) {
 		this.getRecetasConsultadas(unUsuario).addAll(nuevasRecetasConsultadas);
 	}
