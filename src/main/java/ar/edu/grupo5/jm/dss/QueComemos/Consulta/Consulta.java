@@ -39,7 +39,7 @@ public class Consulta {
 
 		recetasConsultadas = filtro.filtrarRecetas(unConsultor.getRecetas(usuario), usuario);
 		this.notificarObservadores(observadores, usuario, recetasConsultadas);
-//		BufferDeConsultas.instancia.agregarConsulta(this);
+		BufferDeConsultas.instancia.agregarConsulta(this);
 	}
 
 	public Usuario getUsuario() {

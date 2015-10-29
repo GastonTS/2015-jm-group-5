@@ -45,7 +45,8 @@ public class ConsultaTest {
 		Consulta.quitarObservador(ObserverConsultaMock2);
 	}
 
-//	@org.junit.Ignore
+	@org.junit.Ignore
+	//TODO
 	@Test
 	public void consultaRecetas() {
 		Collection<Receta> recetasAConsultar = Arrays.asList(panchoMock, recetaMock, ensaladaMock);
