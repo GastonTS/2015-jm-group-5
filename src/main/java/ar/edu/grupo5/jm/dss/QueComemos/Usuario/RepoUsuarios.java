@@ -2,6 +2,7 @@ package ar.edu.grupo5.jm.dss.QueComemos.Usuario;
 
 import java.util.Collection;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 
@@ -51,12 +52,12 @@ public class RepoUsuarios implements ObjectUpdater, WithGlobalEntityManager {
 	}
 
 	public Collection<Usuario> listarPorNombreYCondiciones(UsuarioBuscado unUsuario) {
-		return entityManager()
-				.createQuery("FROM Usuario as u WHERE u.datosPersonales.nombre = :nombreBuscado "
-						+ "AND u.condicionesDeSalud = :condicionesBuscadas", Usuario.class)
+				Collection<Usuario> usuariosConNombre =  entityManager()
+				.createQuery("FROM Usuario as u WHERE u.datosPersonales.nombre = :nombreBuscado ", Usuario.class)
 				.setParameter("nombreBuscado", unUsuario.getNombre())
-				.setParameter("condicionesBuscadas", unUsuario.getCondiciones())
 				.getResultList();
+		return usuariosConNombre.stream().
+					filter(u -> u.getCondicionesDeSalud().containsAll(unUsuario.getCondiciones())).collect(Collectors.toList());
 	}
 
 	//DEPRECATED

@@ -108,7 +108,7 @@ public class RecetarioTest extends AbstractPersistenceTest implements
 				.setPeso(75)
 				.setRutina(Rutina.LEVE)
 				.construirUsuario();
-		
+
 		entityManager().persist(poe); //requiere que el usuario esté persistido para decirle a la receta su dueño.
 		
 		recetasTotales.add(huevoFrito);
@@ -174,6 +174,7 @@ public class RecetarioTest extends AbstractPersistenceTest implements
 
 	@Test(expected = NoPuedeEliminarRecetaExeption.class)
 	public void noPuedeEliminarUnaRecetaQueNoCreo() {
+		when(panchoMock.esElDueño(gaston)).thenReturn(false);
 		Recetario.instancia.eliminarReceta(panchoMock, gaston);
 	}
 

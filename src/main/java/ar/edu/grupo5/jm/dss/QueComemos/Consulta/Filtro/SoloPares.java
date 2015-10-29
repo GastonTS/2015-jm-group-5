@@ -4,8 +4,11 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.persistence.Entity;
+
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 
+@Entity
 public class SoloPares extends PostProcesamiento {
 
 	public SoloPares(Filtro unFiltro) {
