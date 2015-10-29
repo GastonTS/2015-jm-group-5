@@ -37,6 +37,7 @@ public class ConsultaTest {
 	private Usuario zaffaGenio;
 	private Complexion complexionZaffa;
 	private DatosPersonales datosPersonalesZaffa;
+	private Ingrediente pomelo = new Ingrediente("pomelo");
 	private Ingrediente fruta = new Ingrediente("fruta");
 	// cosas recetas
 	private Receta polloConPureOEnsalada;
@@ -70,6 +71,7 @@ public class ConsultaTest {
 				.setDatosPersonales(datosPersonalesZaffa)
 				.setComplexion(complexionZaffa)
 				.agregarPreferenciaAlimenticia(fruta)
+				.agregarDisgustoAlimenticio(pomelo)
 				.agregarCondicionesDeSalud(vegano).setRutina(Rutina.ALTA)
 				.construirUsuario();
 		// cosas recetas

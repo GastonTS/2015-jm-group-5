@@ -6,8 +6,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 
 import queComemos.entrega3.repositorio.BusquedaRecetas;
 import queComemos.entrega3.repositorio.RepoRecetas;
@@ -21,7 +19,6 @@ import com.eclipsesource.json.JsonArray;
 import com.eclipsesource.json.JsonObject;
 
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class RepositorioExterno extends ConsultorRecetas {
 
 	private RepoRecetas repositorio;

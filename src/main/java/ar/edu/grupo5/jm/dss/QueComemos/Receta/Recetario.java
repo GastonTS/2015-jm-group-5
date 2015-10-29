@@ -4,12 +4,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.stream.Collectors;
 
-
-
 import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-
 
 import javax.persistence.Query;
 
@@ -21,7 +16,6 @@ import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Recetario extends ConsultorRecetas implements ObjectUpdater, WithGlobalEntityManager {
 
 	public static Recetario instancia = new Recetario();
