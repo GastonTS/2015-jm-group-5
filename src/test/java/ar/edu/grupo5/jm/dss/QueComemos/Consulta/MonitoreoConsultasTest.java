@@ -9,6 +9,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -26,6 +27,7 @@ import ar.edu.grupo5.jm.dss.QueComemos.Consulta.MonitoreoAsincronico.EnviarConsu
 import ar.edu.grupo5.jm.dss.QueComemos.Consulta.MonitoreoAsincronico.LogearConsultasMasDe100;
 import ar.edu.grupo5.jm.dss.QueComemos.Consulta.MonitoreoAsincronico.MailSender;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Ingrediente;
+import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Recetario;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Complexion;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.DatosPersonales;
@@ -43,6 +45,10 @@ public class MonitoreoConsultasTest extends AbstractPersistenceTest implements
 	private Consulta consulta;
 
 	private Consulta consultaMock = mock(Consulta.class);
+	private Collection<Receta> recetasMock;
+	private Receta receta1Mock = mock(Receta.class);
+	private Receta receta2Mock = mock(Receta.class);
+	private Receta receta3Mock = mock(Receta.class);
 
 	private Usuario juanchi = mock(Usuario.class);
 	private Usuario zaffa;
@@ -88,7 +94,10 @@ public class MonitoreoConsultasTest extends AbstractPersistenceTest implements
 		segunCondicionesDelusuario = new NoEsInadecuadaParaUsuario(sinFiltro);
 		entityManager().persist(zaffa);
 		consulta = new Consulta(consultor, segunCondicionesDelusuario, zaffa);
-
+		recetasMock = new ArrayList<Receta>();
+		recetasMock.add(receta1Mock);		
+		recetasMock.add(receta2Mock);		
+		recetasMock.add(receta3Mock);
 		
 		BufferDeConsultas.instancia.agregarConsulta(consulta);
 	}
@@ -142,5 +151,18 @@ public class MonitoreoConsultasTest extends AbstractPersistenceTest implements
 			verify(consultaMock, times(1)).getNombre();		
 			verify(consultaMock, times(2)).cantidadConsultadas();		
 		}
+		
+		@Test		
+			public void juanchiAgrega3AfavoritasQueHabiaConsultado() {		
+				when(consultaMock.getRecetasConsultadas()).thenReturn(recetasMock);		
+				when(consultaMock.getUsuario()).thenReturn(juanchi);		
+				
+				monitorRecetasFavoritas.procesarConsulta(consultaMock);		
+				
+				verify(juanchi, times(1)).agregarAFavorita(receta1Mock);		
+				verify(juanchi, times(1)).agregarAFavorita(receta2Mock);		
+				verify(juanchi, times(1)).agregarAFavorita(receta3Mock);		
+				
+		 	}
 
 }
