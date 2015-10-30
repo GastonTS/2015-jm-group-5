@@ -212,5 +212,10 @@ public class Usuario {
 	public boolean esVegano() {
 		return condicionesDeSalud.stream().anyMatch(condicion -> condicion.esCondicionVegana());
 	}
+	
+	public double getIMC(){
+		double number = Math.round(complexion.indiceMasaCorporal() * 100);
+		return number /100;
+	}
 
 }

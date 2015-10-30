@@ -35,6 +35,7 @@ public class Routes {
 
 		    get("/recetas", recetas::listar, engine);
 		    get("/usuarios", usuarios::listar, engine);
+		    get("/perfil", usuarios::verPerfil, engine);
 
 		  }
 
