@@ -1,5 +1,6 @@
 package ar.edu.grupo5.jm.dss.QueComemos.Consulta;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.contains;
 import static org.mockito.Matchers.eq;
@@ -13,7 +14,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
@@ -98,12 +98,8 @@ public class MonitoreoConsultasTest extends AbstractPersistenceTest implements
 		recetasMock.add(receta1Mock);		
 		recetasMock.add(receta2Mock);		
 		recetasMock.add(receta3Mock);
-		
-		BufferDeConsultas.instancia.agregarConsulta(consulta);
-	}
-	@After
-	public void after() {
 		BufferDeConsultas.instancia.limpiarConsultas();
+		BufferDeConsultas.instancia.agregarConsulta(consulta);
 	}
 
 	@Test
@@ -164,5 +160,17 @@ public class MonitoreoConsultasTest extends AbstractPersistenceTest implements
 				verify(juanchi, times(1)).agregarAFavorita(receta3Mock);		
 				
 		 	}
+		
+		@Test		
+		public void procesarConsultasDeBufferConsultas() {		
+		
+			BufferDeConsultas.instancia.agregarProceso(monitorMayor100);			
+			BufferDeConsultas.instancia.procesarConsultas();
+			
+			assertEquals(BufferDeConsultas.instancia.getConsultasRealizadas(),Arrays.asList());
+			assertEquals(BufferDeConsultas.instancia.getProcesosAsincronicos(),Arrays.asList(monitorMayor100));
+				
+			
+	 	}
 
 }

@@ -53,7 +53,7 @@ public class Usuario {
 	@Enumerated
 	@Updateable
 	private Rutina rutina;
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL)
 	@Updateable
 	private Collection<Receta> recetasFavoritas;
 

@@ -13,7 +13,7 @@ public class BufferDeConsultas implements WithGlobalEntityManager {
 	public void agregarConsulta(Consulta unaConsulta) {
 		entityManager().persist(unaConsulta);
 	}
-	private Collection<Consulta> getConsultasRealizadas() {
+	public Collection<Consulta> getConsultasRealizadas() {
 		return entityManager().createQuery("FROM Consulta", Consulta.class).getResultList();
 	}
 
@@ -21,7 +21,7 @@ public class BufferDeConsultas implements WithGlobalEntityManager {
 		entityManager().persist(unProceso);
 	}
 	
-	private Collection<ProcesoAsincronico> getProcesosAsincronicos() {
+	public Collection<ProcesoAsincronico> getProcesosAsincronicos() {
 		return entityManager().createQuery("FROM ProcesoAsincronico", ProcesoAsincronico.class).getResultList();
 	}
 
@@ -33,6 +33,7 @@ public class BufferDeConsultas implements WithGlobalEntityManager {
 	}
 
 	public void limpiarConsultas() {
-		entityManager().createQuery("DELETE Consulta");
+		entityManager().createQuery("DELETE Consulta")
+		.executeUpdate();;
 	}
 }
