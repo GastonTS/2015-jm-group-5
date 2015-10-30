@@ -8,9 +8,29 @@
   <h2>pronto habra contenido</h2>
 </div>	
 
+
+<div class="row">
+	<div class="col-md-12">	
+	<table class="table table-striped" >
+			<h1><td>Nombre</td></h1>
+			<td>Sexo</td>
+			<td>Peso</td>
+		</hr>
+	{{#usuarios}}
+		<tr>
+			<td>{{Nombre}}</td>
+			<td>{{Sexo}}</td>
+			<td>{{Peso}}</td>
+		</tr>
+	{{/usuarios}}				
+	</table>
+	</div>
+</div>
+
   <div class="pull-right">
   <a class="btn btn-primary"   href="/">Volver </a>
   </div>
+
 
 {{/partial}}
 				
