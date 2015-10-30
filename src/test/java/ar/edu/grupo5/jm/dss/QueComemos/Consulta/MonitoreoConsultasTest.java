@@ -130,5 +130,17 @@ public class MonitoreoConsultasTest extends AbstractPersistenceTest implements
 		verify(mailSenderMock, times(0)).send(anyString(), anyString(),
 				anyString());
 	}
+	
+		@Test		
+		public void leanConsultomuchasRecetas() {		
+			
+			when(consultaMock.getNombre()).thenReturn("leandro");		
+			when(consultaMock.cantidadConsultadas()).thenReturn(125);		
+			
+			monitorMayor100.procesarConsulta(consultaMock);		
+			
+			verify(consultaMock, times(1)).getNombre();		
+			verify(consultaMock, times(2)).cantidadConsultadas();		
+		}
 
 }
