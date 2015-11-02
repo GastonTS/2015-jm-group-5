@@ -28,7 +28,7 @@ public class HomeController  implements WithGlobalEntityManager, TransactionalOp
 		    
 	    	Ingrediente pimienta = new Ingrediente("pimienta");
 		    
-		    		
+		  		
 		    		
 		    withTransaction(() -> {
 			    entityManager().persist(pimienta);

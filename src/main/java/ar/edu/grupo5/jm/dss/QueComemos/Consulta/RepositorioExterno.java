@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.persistence.Entity;
+import javax.persistence.Transient;
 
 import queComemos.entrega3.repositorio.BusquedaRecetas;
 import queComemos.entrega3.repositorio.RepoRecetas;
@@ -18,11 +19,11 @@ import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 import com.eclipsesource.json.JsonArray;
 import com.eclipsesource.json.JsonObject;
 
-@Entity
+//@Entity
 public class RepositorioExterno extends ConsultorRecetas {
-
+	//	@Transient
 	private RepoRecetas repositorio;
-
+	//	@Transient
 	private static final Map<String, Dificultad> dificultades;
 	static {
 		dificultades = new HashMap<String, Dificultad>();
@@ -30,7 +31,7 @@ public class RepositorioExterno extends ConsultorRecetas {
 		dificultades.put("MEDIANA", Dificultad.MEDIA);
 		dificultades.put("FACIL", Dificultad.BAJA);
 	}
-
+	
 	public RepositorioExterno(RepoRecetas unRepositorio) {
 		repositorio = unRepositorio;
 	}

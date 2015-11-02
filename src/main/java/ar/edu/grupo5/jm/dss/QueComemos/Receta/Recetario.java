@@ -5,8 +5,8 @@ import java.util.HashMap;
 import java.util.stream.Collectors;
 
 import javax.persistence.Entity;
-
 import javax.persistence.Query;
+import javax.persistence.Transient;
 
 import ar.edu.grupo5.jm.dss.QueComemos.Consulta.ConsultorRecetas;
 import ar.edu.grupo5.jm.dss.QueComemos.ObjectUpdater.ObjectUpdater;
@@ -15,9 +15,9 @@ import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 
-@Entity
+//@Entity
 public class Recetario extends ConsultorRecetas implements ObjectUpdater, WithGlobalEntityManager {
-
+	//	@Transient
 	public static Recetario instancia = new Recetario();
 	
 	public void setRecetasTotales(Collection<Receta> unasRecetas) {

@@ -10,8 +10,8 @@ import javax.persistence.InheritanceType;
 
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
-@Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+//@Entity
+//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class ConsultorRecetas {
 	
 	@Id
