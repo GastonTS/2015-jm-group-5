@@ -5,24 +5,32 @@
 {{# partial "contenido" }}	
 
 <form action="/recetas" >
+
   <div class="row">
-	  <div class="col-md-2">
-	  
-		<div class="input-group">
+	<div class="col-md-offset-2">
+	  <div class="input-group">
 	  	  <label for="nombre">Nombre</label>
 		  <input type="text" class="form-control" name="nombre">
-		</div>
-		
+	  </div>
+	</div>
+	
+  </div>
+
+  <div class="row">
+  	<div class="col-md-offset-2">
 		<label>Rango de Calorias</label>
 		<div class="input-group">
 		  <input type="number" class="form-control" placeholder="Mínimo" name="cantMinCalorias">
 		  <input type="number" class="form-control" placeholder="Máximo" name="cantMaxCalorias">
 		</div>
+ 	</div>
+  </div>
 		
-		
+  <div class="row">
+  	<div class="col-md-offset-2">
 		<div class="form-group">
-        <label class="dificultad">Dificultad</label>
-        	<div class="col-xs-10 selectContainer">
+        	<div class=" col-xs-3 selectContainer">
+        	    <label class="dificultad">Dificultad</label>
             	<select class="form-control" name="dificultad">
             	    <option value=""></option>
                 	<option value="ALTA">ALTA</option>
@@ -31,10 +39,13 @@
             	</select>
         	</div>
     	</div>
-		
+    </div>
+  </div>
+  <div class="row">
+  	<div class="col-md-offset-2">
 		<div class="form-group">
-        <label class="temporada">Temporada</label>
-        	<div class="col-xs-10 selectContainer">
+        	<div class="col-xs-3 selectContainer">
+        	    <label class="temporada">Temporada</label>
             	<select class="form-control" name="temporada">
             	    <option value=""></option>
                 	<option value="PRIMAVERA">Primavera</option>
@@ -45,32 +56,38 @@
             	</select>
         	</div>
     	</div>
-		
-	  </div>
-		
-		<div class="col-md-10">
-		  <input type="submit" class="form-control btn btn-default">
-		</div>
-		
+    </div>
+    
+    <div class="col-md-offset-2 col-md-4">
+   		<button type="submit" class="form-control btn-lg btn-primary">
+ 			<span class="glyphicon glyphicon-search" aria-hidden="true"></span> Buscar
+		</button>
+	</div>
   </div>
+
+	  
+
 </form>
 
 <div class="row">
-	<div class="col-md-12">	
+	<div class="col-md-offset-1 col-md-10">	
 	<table class="table table-striped" >
-			<td>Nombre</td>
-			<td>Calorias</td>
-			<td>Dificultad</td>
-			<td>Temporada</td>
-		</hr>
-	{{#recetas}}
-		<tr>
-			<td>{{Nombre}}</td>
-			<td>{{CantCaloriasTotales}}</td>
-			<td>{{Dificultad}}</td>
-			<td>{{Temporada}}</td>
-		</tr>
-	{{/recetas}}				
+		<thead>
+			<tr>
+				<th>Nombre</th>
+				<th>Calorias</th>
+				<th>Dificultad</th>
+				<th>Temporada</th>
+			</tr>
+		</thead>
+		{{#recetas}}
+			<tr>
+				<td>{{Nombre}}</td>
+				<td>{{CantCaloriasTotales}}</td>
+				<td>{{Dificultad}}</td>
+				<td>{{Temporada}}</td>
+			</tr>
+		{{/recetas}}		
 	</table>
 	</div>
 </div>
