@@ -6,6 +6,7 @@ import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Ingrediente;
+import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta.Temporada;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.RecetaBuilder;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Recetario;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta.Dificultad;
@@ -36,7 +37,8 @@ public class HomeController  implements WithGlobalEntityManager, TransactionalOp
 		    
 		    withTransaction(() -> {
 		    	Recetario.instancia.setRecetasTotales(Arrays.asList(new RecetaBuilder().setNombre("Receta 1")
-			    		.agregarIngrediente(pimienta).setCantCalorias(1000).setDificultad(Dificultad.ALTA).construirReceta()));
+			    		.agregarIngrediente(pimienta).setCantCalorias(1000)
+			    		.setDificultad(Dificultad.ALTA).setTemporada(Temporada.INVIERNO).construirReceta()));
 		    });
 		}
 	    

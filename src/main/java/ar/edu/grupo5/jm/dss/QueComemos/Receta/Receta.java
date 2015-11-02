@@ -41,9 +41,16 @@ public class Receta {
 	@Enumerated(EnumType.ORDINAL)
 	@Updateable
 	private Dificultad dificultad;
+	@Enumerated(EnumType.ORDINAL)
+	@Updateable
+	private Temporada temporada;
 
 	public enum Dificultad {
 		BAJA, MEDIA, ALTA
+	}
+	
+	public enum Temporada {
+		PRIMAVERA, OTOÑO, VERANO, INVIERNO, TODOELAÑO
 	}
 
 	public Receta() {
@@ -51,7 +58,7 @@ public class Receta {
 	}
 
 	public Receta(String nombreReceta, Collection<Ingrediente> unosIngredientes, Collection<Condimentacion> unasCondimentaciones,
-			Collection<Receta> unasSubRecetas, double unasCantCalorias, Dificultad unaDificultad) {
+			Collection<Receta> unasSubRecetas, double unasCantCalorias, Dificultad unaDificultad, Temporada unaTemporada) {
 
 		nombre = nombreReceta;
 		ingredientes = unosIngredientes;
@@ -59,6 +66,7 @@ public class Receta {
 		subRecetas = unasSubRecetas;
 		cantCalorias = unasCantCalorias;
 		dificultad = unaDificultad;
+		temporada = unaTemporada;
 	}
 
 	public void setDueño(Usuario unUsuario) {
@@ -109,6 +117,10 @@ public class Receta {
 		return dificultad;
 	}
 
+	public Temporada getTemporada() {
+		return temporada;
+	}
+	
 	public boolean esElDueño(Usuario unUsuario) {
 		return dueño != null && dueño.equals(unUsuario);
 	}

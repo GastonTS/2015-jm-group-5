@@ -15,8 +15,8 @@
 		
 		<label>Rango de Calorias</label>
 		<div class="input-group">
-		  <input type="text" class="form-control" placeholder="Mínimo" name="cantMinCalorias">
-		  <input type="text" class="form-control" placeholder="Máximo" name="cantMaxCalorias">
+		  <input type="number" class="form-control" placeholder="Mínimo" name="cantMinCalorias">
+		  <input type="number" class="form-control" placeholder="Máximo" name="cantMaxCalorias">
 		</div>
 		
 		
@@ -32,7 +32,19 @@
         	</div>
     	</div>
 		
-		
+		<div class="form-group">
+        <label class="temporada">Temporada</label>
+        	<div class="col-xs-10 selectContainer">
+            	<select class="form-control" name="temporada">
+            	    <option value=""></option>
+                	<option value="PRIMAVERA">Primavera</option>
+                	<option value="VERANO">Verano</option>
+                	<option value="OTOÑO">Otoño</option>
+                	<option value="INVIERNO">Invierno</option>
+                	<option value="TODOELAÑO">Todo el Año</option>
+            	</select>
+        	</div>
+    	</div>
 		
 	  </div>
 		
@@ -49,12 +61,14 @@
 			<td>Nombre</td>
 			<td>Calorias</td>
 			<td>Dificultad</td>
+			<td>Temporada</td>
 		</hr>
 	{{#recetas}}
 		<tr>
 			<td>{{Nombre}}</td>
 			<td>{{CantCaloriasTotales}}</td>
 			<td>{{Dificultad}}</td>
+			<td>{{Temporada}}</td>
 		</tr>
 	{{/recetas}}				
 	</table>

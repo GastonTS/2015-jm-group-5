@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta.Dificultad;
+import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta.Temporada;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Recetario;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Ingrediente;
 import spark.ModelAndView;
@@ -34,6 +35,7 @@ public class RecetasController{
 		    String filtroDificultad = request.queryParams("dificultad");
 		    String filtroMinCalorias = request.queryParams("cantMinCalorias");
 		    String filtroMaxCalorias = request.queryParams("cantMaxCalorias");
+		    String filtroTemporada = request.queryParams("temporada");
 		    
 		    if(!Objects.isNull(filtroMinCalorias) && !filtroMinCalorias.isEmpty())
 		    	minCalorias = Double.parseDouble(request.queryParams("cantMinCalorias"));
@@ -52,6 +54,13 @@ public class RecetasController{
 		    			.collect(Collectors.toList());
 		    }
 		    
+		    if (!Objects.isNull(filtroTemporada) && !filtroTemporada.isEmpty()){
+
+		    	recetas = recetas.stream().filter(
+		    			unaReceta -> Recetario.instancia.filtrarPorTemporada(filtroTemporada).contains(unaReceta))
+		    			.collect(Collectors.toList());
+		    }
+		    
 		    if (!Objects.isNull(filtroMinCalorias) && !Objects.isNull(filtroMaxCalorias))
 		    	recetas = recetas.stream().filter(
 		    			unaReceta -> Recetario.instancia.filtrarPorRangoCalorias(minCalorias, maxCalorias).contains(unaReceta))
@@ -61,6 +70,7 @@ public class RecetasController{
 		    viewModel.put("recetas", recetas);
 		    viewModel.put("nombre", filtroNombre);
 		    viewModel.put("dificultad", filtroDificultad);
+		    viewModel.put("temporada", filtroTemporada);
 		    viewModel.put("cantMinCalorias", filtroMinCalorias);
 		    viewModel.put("cantMaxCalorias", filtroMaxCalorias);
 
@@ -81,7 +91,7 @@ public class RecetasController{
 	private Receta buscarReceta() {
 		Receta receta = new Receta("Ñoquis a la boloñesa", new ArrayList<>(),
 				 new ArrayList<>(),
-				 new ArrayList<>(), 123.00 , Dificultad.MEDIA);
+				 new ArrayList<>(), 123.00 , Dificultad.MEDIA, Temporada.TODOELAÑO);
 		return receta;
 	}
 }

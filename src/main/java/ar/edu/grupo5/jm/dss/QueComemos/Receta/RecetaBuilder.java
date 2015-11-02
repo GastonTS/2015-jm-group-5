@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta.Dificultad;
+import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta.Temporada;
 
 public class RecetaBuilder {
 
@@ -13,7 +14,8 @@ public class RecetaBuilder {
 	private double cantCalorias;
 	private Collection<Receta> subRecetas = new ArrayList<Receta>();
 	private Dificultad dificultad;
-
+	private Temporada temporada;
+	
 	public RecetaBuilder setNombre(String unNombre) {
 		nombre = unNombre;
 		return this;
@@ -48,13 +50,18 @@ public class RecetaBuilder {
 		this.dificultad = dificultad;
 		return this;
 	}
+	
+	public RecetaBuilder setTemporada(Temporada temporada) {
+		this.temporada = temporada;
+		return this;
+	}
 
 	public Receta construirReceta() {
 		if (!esRecetaValida()) {
 			throw new RecetaNoValidaException("La Receta No es Válida!!!");
 		}
 
-		return new Receta(nombre, ingredientes, condimentaciones, subRecetas, cantCalorias, dificultad);
+		return new Receta(nombre, ingredientes, condimentaciones, subRecetas, cantCalorias, dificultad, temporada);
 	}
 
 	private boolean esRecetaValida() {

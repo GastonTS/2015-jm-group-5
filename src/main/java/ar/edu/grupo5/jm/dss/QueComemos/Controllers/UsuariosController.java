@@ -10,6 +10,7 @@ import spark.Request;
 import spark.Response;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Ingrediente;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta.Dificultad;
+import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta.Temporada;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.CondicionDeSalud.CondicionDeSalud;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.DatosPersonales.Sexo;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
@@ -79,7 +80,7 @@ public class UsuariosController {
 		  
 		  lean.agregarAFavorita(new Receta("Ñoquis a la boloñesa", new ArrayList<>(),
 					 new ArrayList<>(),
-					 new ArrayList<>(), 123.00 , Dificultad.MEDIA));
+					 new ArrayList<>(), 123.00 , Dificultad.MEDIA, Temporada.TODOELAÑO));
 		  
 		 return lean;
 	 }

@@ -6,13 +6,13 @@ import java.util.stream.Collectors;
 import ar.edu.grupo5.jm.dss.QueComemos.Consulta.ConsultorRecetas;
 import ar.edu.grupo5.jm.dss.QueComemos.ObjectUpdater.ObjectUpdater;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta.Dificultad;
+import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta.Temporada;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 
-//@Entity
 public class Recetario extends ConsultorRecetas implements ObjectUpdater, WithGlobalEntityManager {
-	//	@Transient
+	
 	public static Recetario instancia = new Recetario();
 	
 	public void setRecetasTotales(Collection<Receta> unasRecetas) {
@@ -86,6 +86,12 @@ public class Recetario extends ConsultorRecetas implements ObjectUpdater, WithGl
 	}
 	public Collection<Receta> filtrarPorDificultad(String dificultad){
 
-		return entityManager().createQuery("From Receta as r WHERE r.dificultad = " + Dificultad.valueOf(dificultad).ordinal(), Receta.class).getResultList();
+		return entityManager().createQuery("From Receta as r WHERE r.dificultad = " 
+		+ Dificultad.valueOf(dificultad).ordinal(), Receta.class).getResultList();
+	}
+	public Collection<Receta> filtrarPorTemporada(String temporada){
+
+		return entityManager().createQuery("From Receta as r WHERE r.temporada = " 
+		+ Temporada.valueOf(temporada).ordinal(), Receta.class).getResultList();
 	}
 }
