@@ -3,7 +3,6 @@ package ar.edu.grupo5.jm.dss.QueComemos.Controllers;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -22,12 +21,14 @@ public class RecetasController{
 		return new ModelAndView(null, "recetas.hbs");
 	}
 
-    Dificultad dificultad = null;
-    Double minCalorias = 0.0;
-    Double maxCalorias = 0.0;
+    Double minCalorias;
+    Double maxCalorias;
     
 	public ModelAndView listar(Request request, Response response) {
 		    Collection<Receta> recetas = Recetario.instancia.getRecetasTotales();
+		    
+		    minCalorias = 0.0;
+		    maxCalorias = 999999.9;
 
 		    String filtroNombre = request.queryParams("nombre");
 		    String filtroDificultad = request.queryParams("dificultad");
@@ -36,13 +37,8 @@ public class RecetasController{
 		    
 		    if(!Objects.isNull(filtroMinCalorias) && !filtroMinCalorias.isEmpty())
 		    	minCalorias = Double.parseDouble(request.queryParams("cantMinCalorias"));
-		    else
-		    	minCalorias = 0.0;
-		    
 		    if(!Objects.isNull(filtroMaxCalorias) && !filtroMaxCalorias.isEmpty())
 		    	maxCalorias = Double.parseDouble(request.queryParams("cantMaxCalorias"));
-		    else
-		    	maxCalorias = 999999.9;
 		   
 		    if (!Objects.isNull(filtroNombre) && !filtroNombre.isEmpty())
 		    	recetas = recetas.stream().filter(
@@ -50,16 +46,9 @@ public class RecetasController{
 		    			.collect(Collectors.toList());
 		    
 		    if (!Objects.isNull(filtroDificultad) && !filtroDificultad.isEmpty()){
-		    	
-		    	if(filtroDificultad == "ALTA")
-		    		dificultad = Dificultad.ALTA;
-		    	else if(filtroDificultad == "MEDIA")
-		    		dificultad = Dificultad.MEDIA;
-		    	else if(filtroDificultad == "BAJA")
-		    		dificultad = Dificultad.BAJA;
-		    	
+
 		    	recetas = recetas.stream().filter(
-		    			unaReceta -> Recetario.instancia.filtrarPorDificultad(dificultad).contains(unaReceta))
+		    			unaReceta -> Recetario.instancia.filtrarPorDificultad(filtroDificultad).contains(unaReceta))
 		    			.collect(Collectors.toList());
 		    }
 		    

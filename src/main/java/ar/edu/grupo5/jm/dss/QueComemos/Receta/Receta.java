@@ -6,6 +6,7 @@ import java.util.stream.Stream;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -37,7 +38,7 @@ public class Receta {
 	private Collection<Receta> subRecetas;
 	@ManyToOne
 	private Usuario dueño;
-	@Enumerated
+	@Enumerated(EnumType.ORDINAL)
 	@Updateable
 	private Dificultad dificultad;
 

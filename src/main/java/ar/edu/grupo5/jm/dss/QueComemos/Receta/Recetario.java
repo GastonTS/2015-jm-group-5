@@ -1,12 +1,7 @@
 package ar.edu.grupo5.jm.dss.QueComemos.Receta;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.stream.Collectors;
-
-import javax.persistence.Entity;
-import javax.persistence.Query;
-import javax.persistence.Transient;
 
 import ar.edu.grupo5.jm.dss.QueComemos.Consulta.ConsultorRecetas;
 import ar.edu.grupo5.jm.dss.QueComemos.ObjectUpdater.ObjectUpdater;
@@ -81,21 +76,6 @@ public class Recetario extends ConsultorRecetas implements ObjectUpdater, WithGl
 		}
 	}
 	
-	String query = "From Receta as r WHERE 1=1";
-	Query q;
-	@SuppressWarnings("unchecked")
-	public Collection<Receta> filtrarPorStrings(HashMap<String, String> filtros){
-		limpiarFiltros();
-		
-		filtros.forEach((campo, valor) -> query += " AND CAST(r." + campo +  " as string) LIKE :" + campo);
-		
-		q = entityManager().createQuery(query, Receta.class);
-		
-		filtros.forEach((campo, valor) -> q.setParameter(campo, "%" + valor + "%"));
-		
-		return q.getResultList();
-	}
-	
 	public Collection<Receta> filtrarPorNombre(String valor){
 		return entityManager().createQuery("From Receta as r WHERE r.nombre LIKE :valor", Receta.class)
 				.setParameter("valor", "%" + valor + "%").getResultList();
@@ -104,13 +84,8 @@ public class Recetario extends ConsultorRecetas implements ObjectUpdater, WithGl
 		return entityManager().createQuery("From Receta as r WHERE r.cantCalorias BETWEEN :min AND :max", Receta.class)
 				.setParameter("min", min).setParameter("max", max).getResultList();
 	}
-	public Collection<Receta> filtrarPorDificultad(Dificultad dificultad){
-		return entityManager().createQuery("From Receta", Receta.class).getResultList()
-				.stream().filter(unaReceta -> unaReceta.getDificultad() == dificultad).collect(Collectors.toList());
-	}
-	
-	public void limpiarFiltros(){
-		query = "From Receta as r WHERE 1=1";
-	}
+	public Collection<Receta> filtrarPorDificultad(String dificultad){
 
+		return entityManager().createQuery("From Receta as r WHERE r.dificultad = " + Dificultad.valueOf(dificultad).ordinal(), Receta.class).getResultList();
+	}
 }
