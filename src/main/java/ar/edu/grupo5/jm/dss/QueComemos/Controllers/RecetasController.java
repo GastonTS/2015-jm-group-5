@@ -1,5 +1,6 @@
 package ar.edu.grupo5.jm.dss.QueComemos.Controllers;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.stream.Collectors;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta.Dificultad;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Recetario;
+import ar.edu.grupo5.jm.dss.QueComemos.Receta.Ingrediente;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -74,5 +76,23 @@ public class RecetasController{
 		    viewModel.put("cantMaxCalorias", filtroMaxCalorias);
 
 		    return new ModelAndView(viewModel, "recetas.hbs");
+	}
+	
+	public ModelAndView detalle (Request request, Response response) {
+		
+		Receta receta = this.buscarReceta();
+		Collection<Ingrediente> ingredientes = receta.getIngredientesTotales();
+		
+		 HashMap<String, Object> viewModel = new HashMap<>();
+		    viewModel.put("receta", receta);
+		    viewModel.put("ingredientes", ingredientes);
+		return  new ModelAndView(viewModel, "detalleReceta.hbs");
+	}
+
+	private Receta buscarReceta() {
+		Receta receta = new Receta("Ñoquis a la boloñesa", new ArrayList<>(),
+				 new ArrayList<>(),
+				 new ArrayList<>(), 123.00 , Dificultad.MEDIA);
+		return receta;
 	}
 }
