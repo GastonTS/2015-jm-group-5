@@ -1,0 +1,76 @@
+{{# partial "titulo" }}	
+	<title>Detalle De Receta</title>
+{{/partial}}
+		
+{{# partial "contenido" }}	
+	<div class="row">
+ 		<div class="col-md-12">
+		 <h1> {{receta.Nombre}} </h1> 
+		 <hr>
+		</div>	
+	</div>	
+		
+	<div class="row">
+	<div class="col-md-6">
+		<h3 style="display: inline-block"> Aporte Calórico: </h3>
+		<span> {{receta.CantCaloriasTotales}} </span> 
+	</div>
+	<div class="row">
+ 		 <div class="col-md-5">
+         <h3> Dificultad </h3> 
+            <select name="dificultad" class="form-control">
+                <option value="dificultad" selected="selected">{{receta.Dificultad}}</option>
+                {{#each dificultades}}
+                	<option value={{ this }}>{{ this }}</option>
+                {{/each}}                
+            </select>
+		</div>	
+		
+		<div class="col-md-1">
+		</div>	
+		
+		 <div class="col-md-5">
+         <h3> Temporada </h3> 
+            <select name="dificultad" class="form-control">
+                <option value="dificultad">{{receta.Dificultad}}</option>
+            </select>
+		</div>	
+	</div>	
+	
+	<div class="row">
+ 		 <div class="col-md-5">
+         <h3> Ingredientess </h3> 
+           <table 	class="table table-hover"  >
+	        <thead>
+        <tr>
+	        <th>Dosis</th>
+			<th>Ingrediente</th>
+			
+	    </tr>
+       </thead>
+       <tbody>
+   
+	    {{#ingredientes}}
+		<tr>
+		    <td>1</td>
+			<td>{{Nombre}}</td>
+		</tr>
+	    {{/ingredientes}}
+	 </tbody>				
+	 </table>
+		</div>	
+		
+		<div class="col-md-1">
+		</div>	
+		
+		 <div class="col-md-5">
+         <h3> Condimentos </h3> 
+            <select name="dificultad" class="form-control">
+                <option value="dificultad">{{receta.Dificultad}}</option>
+            </select>
+		</div>	
+	</div>	
+	
+{{/partial}}
+				
+{{> layout.hbs }}

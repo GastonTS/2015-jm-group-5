@@ -22,5 +22,9 @@ public class Celiaco extends CondicionDeSalud {
 	public boolean esUsuarioValido(Usuario unUsuario) {
 		return true;
 	}
-
+	
+	@Override
+	public String getNombre() {
+		return "Celiaco";
+	}
 }

@@ -29,4 +29,8 @@ public class Diabetico extends CondicionDeSalud {
 		return unUsuario.indicaSexo() && unUsuario.tieneAlgunaPreferencia();
 	}
 
+	@Override
+	public String getNombre() {
+		return "Diabetico";
+	}
 }

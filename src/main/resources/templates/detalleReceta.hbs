@@ -4,70 +4,130 @@
 		
 {{# partial "contenido" }}	
 	<div class="row">
- 		<div class="col-md-5">
-		 <h3><b><u><i> {{receta.Nombre}} </i></u></b></h3> 
+		<div class="col-md-12">
+	 		<div class="col-md-8">
+			 	<h1> {{receta.Nombre}} </h1> 
+			</div>	
+	 		<div class="col-md-4" style="position: absolute; bottom: 0; right: 0;">
+				<div class="pull-right">
+					<div style="display: block">
+						<h4> 
+							{{#if publica}}
+								Receta de dominio Público
+							{{else}}
+								Autor: {{autor.Nombre}}
+							{{/if}}		 	
+						</h4>
+					</div>
+					<div style="display: block">
+						{{#if favorita}}
+							<h4 style="display: inline"> Receta Favorita! </h4>	
+							<a style="display: inline; margin-left: 2px; font-size: 20px" href="http://www.google.com" class="glyphicon glyphicon-star" ></a> 
+						{{else}}
+							<h4 style="display: inline"> Marcar como Favorita: </h4>	
+							<a style="display: inline; margin-left: 2px; font-size: 20px" href="http://www.google.com" class="glyphicon glyphicon-star-empty"></a> 
+						{{/if}}		
+					</div> 
+				</div>
+			</div>
 		</div>	
-	</div>	
-		
+	</div>
 	<div class="row">
- 	 <div class="col-md-2">
-		 <h3> {{receta.CantCaloriasTotales}} Calorias </h3> 
-	</div>	
-	</div>	
-	
+		<hr>
+	</div>		
+	<div class="row" style="display: flex; align-items: center;">
+		<div class="col-md-6">
+			<div class="row">
+				<h3 style="display: inline"> Temporada: </h3>
+				<h4 style="display: inline; margin-left: 10px" > Primavera </h4> 
+ 			</div>
+			<div class="row" style="margin-top: 15px">
+				<h3 style="display: inline"> Aporte Calórico: </h3>
+				<h4 style="display: inline; margin-left: 10px" > {{receta.CantCaloriasTotales}} </h4> 
+			</div>
+			<div class="row" style="margin-top: 15px">
+				<h3 style="display: inline"> Dificultad: </h3>
+				<h4 style="display: inline; margin-left: 10px" > {{receta.Dificultad}} </h4> 
+			</div>
+			<div class="row">
+				{{#if inadecuado}}
+					<h3> Inadecuado para:</h3>
+					<div class="col-md-1">
+					</div>	
+					<div class="col-md-8" style="margin-left: 5px">
+						<ul class="list-group">
+						  {{#each condicionesInadecuado}}
+							  <li class="list-group-item" style="text-align: center;">{{this.Nombre}}</li>
+						  {{/each}}
+						</ul>
+					</div>
+				{{/if}}	
+			</div>
+		</div>
+		<div class="col-md-6 pull-right">
+			<img src="http://1.bp.blogspot.com/-PplFMJo7S0Q/UUi_w7hEQPI/AAAAAAAABxk/Ng99QwM_WXo/s1600/%C3%91oquis+con+bolo%C3%B1esa+r%C3%BAstica.JPG" class="img-rounded img-responsive" alt="Gnoquis" >
+		</div>
+	</div>
 	<div class="row">
- 		 <div class="col-md-5">
-         <h3> Dificultad </h3> 
-            <select name="dificultad" class="form-control">
-                <option value="dificultad">{{receta.Dificultad}}</option>
-            </select>
-		</div>	
-		
-		<div class="col-md-1">
-		</div>	
-		
-		 <div class="col-md-5">
-         <h3> Temporada </h3> 
-            <select name="dificultad" class="form-control">
-                <option value="dificultad">{{receta.Dificultad}}</option>
-            </select>
-		</div>	
+		<hr>
 	</div>	
-	
 	<div class="row">
- 		 <div class="col-md-5">
-         <h3> Ingredientess </h3> 
-           <table 	class="table table-hover"  >
-	        <thead>
-        <tr>
-	        <th>Dosis</th>
-			<th>Ingrediente</th>
-			
-	    </tr>
-       </thead>
-       <tbody>
-   
-	    {{#ingredientes}}
-		<tr>
-		    <td>1</td>
-			<td>{{Nombre}}</td>
-		</tr>
-	    {{/ingredientes}}
-	 </tbody>				
-	 </table>
+		<div class="col-md-6">
+			<h3> Ingredientes:</h3>
+			<div class="col-md-10" style="margin-left: 5px">
+				<ul class="list-group">
+				  {{#each receta.IngredientesTotales}}
+					  <li class="list-group-item">{{this.Nombre}}</li>
+				  {{/each}}
+				</ul>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<h3> Condimentaciones:</h3>
+		  	<table class="table table-striped">
+			    <thead>
+			      <tr>
+			        <th>Condimento</th>
+			        <th>Cantidad (en gramos)</th>
+			      </tr>
+			    </thead>
+			    <tbody>
+				  	{{#each receta.CondimentacionesTotales}}
+		      			<tr>
+					        <td>{{this.Condimento}}</td>
+					        <td>{{this.Cantidad}}</td>
+				      	</tr>
+				 	{{/each}}
+			    </tbody>
+		  	</table>
+		</div>
+	</div>
+	<div class="row">
+		<hr>
+	</div>	
+	<div class="row">
+		<div class="row">
+			<div class="col-md-1" >
+			</div>
+			<div class="col-md-10">
+				<h2> Instrucciones de Preparación:</h2>
+			</div>
+			<div class="col-md-1" >
+			</div>
 		</div>	
-		
-		<div class="col-md-1">
-		</div>	
-		
-		 <div class="col-md-5">
-         <h3> Condimentos </h3> 
-            <select name="dificultad" class="form-control">
-                <option value="dificultad">{{receta.Dificultad}}</option>
-            </select>
+		<div class="row">
+			<div class="col-md-2" >
+			</div>
+			<div class="col-md-8">
+				<p>{{receta.Preparacion}}</p>
+			</div>
+			<div class="col-md-2">
+			</div>	
 		</div>	
 	</div>	
-	
+	<div class="row">
+		<hr>
+	</div>	
 {{/partial}}
 				
 {{> layout.hbs }}

@@ -32,4 +32,8 @@ public class Hipertenso extends CondicionDeSalud {
 		return unUsuario.tieneAlgunaPreferencia();
 	}
 
+	@Override
+	public String getNombre() {
+		return "Hipertenso";
+	}
 }

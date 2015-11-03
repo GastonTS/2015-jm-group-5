@@ -39,4 +39,8 @@ public class Vegano extends CondicionDeSalud {
 		return true;
 	}
 
+	@Override
+	public String getNombre() {
+		return "Vegano";
+	}
 }

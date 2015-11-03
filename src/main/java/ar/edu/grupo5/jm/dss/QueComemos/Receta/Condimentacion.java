@@ -20,6 +20,14 @@ public class Condimentacion {
 		cantidad = unaCantidad;
 	}
 
+	public String getCondimento() {
+		return condimento;
+	}
+	
+	public double getCantidad() {
+		return cantidad;
+	}
+	
 	public boolean tieneCondimentoUnoDe(Collection<String> unosCondimentos) {
 		return unosCondimentos.stream().anyMatch(condimento -> tieneCondimento(condimento));
 	}

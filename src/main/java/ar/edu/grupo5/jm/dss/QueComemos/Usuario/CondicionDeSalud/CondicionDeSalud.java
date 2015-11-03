@@ -29,6 +29,8 @@ public abstract class CondicionDeSalud {
 	public abstract boolean esInadecuada(Receta unaReceta);
 
 	public abstract boolean esUsuarioValido(Usuario unUsuario);
+	
+	public abstract String getNombre();
 
 	static public Collection<CondicionDeSalud> condicionesALasQueEsInadecuada(Receta unaReceta) {
 		return CondicionDeSalud.condicionesExistentes.stream().filter(condicion -> condicion.esInadecuada(unaReceta))
