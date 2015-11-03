@@ -133,8 +133,8 @@ public class RecetarioTest extends AbstractPersistenceTest implements
 		Recetario.instancia.crearReceta(pure, juanchi);
 		assertTrue(Recetario.instancia.getRecetasTotales().contains(pure));
 		
-		assertTrue(Recetario.instancia.getReceta(pure).getDueño() == juanchi);
-		assertFalse(Recetario.instancia.getReceta(pure).getDueño() == gaston);
+		assertTrue(Recetario.instancia.getReceta(pure.getId()).getDueño() == juanchi);
+		assertFalse(Recetario.instancia.getReceta(pure.getId()).getDueño() == gaston);
 	}
 	
 	@Test
@@ -149,7 +149,7 @@ public class RecetarioTest extends AbstractPersistenceTest implements
 		Recetario.instancia.crearRecetaConSubRecetas(polloConPure,
 				Arrays.asList(pure), gaston);
 		
-		assertTrue(Recetario.instancia.getReceta(polloConPure).getSubRecetas().contains(pure));
+		assertTrue(Recetario.instancia.getReceta(polloConPure.getId()).getSubRecetas().contains(pure));
 	}
 
 	@Test(expected = NoPuedeAccederARecetaException.class)

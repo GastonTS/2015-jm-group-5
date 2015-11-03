@@ -27,25 +27,36 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
 	}
 	
 	public void run() {
-		Receta receta = createRecetaExample();
+		Receta receta = createRecetaExample(); 
 		Usuario usuario = createUsuarioExample();
-		new RepoUsuarios(Arrays.asList(usuario));
-		Recetario.instancia.crearReceta(receta, usuario);
-		usuario.agregarAFavorita(receta);
+	    withTransaction(() -> {
+			new RepoUsuarios(Arrays.asList(usuario));
+	    }); 
+	    
+	    withTransaction(()-> {
+			Recetario.instancia.crearReceta(receta, usuario);
+			usuario.agregarAFavorita(receta);
+	    });
+
 	}
 
 	public Usuario createUsuarioExample(){
-
+		Ingrediente maracuya = new Ingrediente("Maracuya");
+		Ingrediente miel = new Ingrediente("Queso");
+		Ingrediente queso = new Ingrediente("Miel");
+		Ingrediente cebolla = new Ingrediente("Cebolla");
+		
+		
 		Usuario lean = new UsuarioBuilder()
 			.setNombre("Leandro")
 			.setSexo(Sexo.MASCULINO)
 			.setFechaDeNacimiento(LocalDate.parse("1993-11-09"))
 			.setPeso(82)
 			.setEstatura(1.80)
-			.agregarDisgustoAlimenticio(new Ingrediente("Maracuya"))
-			.agregarDisgustoAlimenticio(new Ingrediente("Miel"))
-			.agregarPreferenciaAlimenticia(new Ingrediente("Queso"))
-			.agregarPreferenciaAlimenticia(new Ingrediente("Cebolla"))
+			.agregarDisgustoAlimenticio(maracuya)
+			.agregarDisgustoAlimenticio(miel)
+			.agregarPreferenciaAlimenticia(queso)
+			.agregarPreferenciaAlimenticia(cebolla)
 			.construirUsuario();
 		  
 		 return lean;
@@ -54,35 +65,43 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
 	
 	private Receta createRecetaExample() {
 		
-		String preparacion = "Lorem ipsum dolor sit amet, duo cu animal eripuit moderatius, velit integre complectitur cu vis, nec at viris euismod prodesset. In mea lucilius oportere, phaedrum deserunt atomorum at est. Sea ferri facete legimus cu, elit fierent sed ad, verear referrentur ut duo. Vis te veniam quaerendum, mel ex omnes maiestatis."
-				+ "Id vis falli referrentur, elit congue quidam an vim. Vis no numquam fabulas, ei sonet urbanitas constituto eos. Vel ex habeo ipsum verear, mei no quaeque adolescens. Aliquam aliquando vis ne, cu vide graece lobortis cum. Ea est veritus accumsan, qui lucilius aliquando id."
-				+ "Cu vix adolescens dissentiet, quas putant laboramus per id, eius vivendum no qui. Ei mea tempor assentior. An invidunt theophrastus usu. Est cu sint partem, vix et populo antiopam prodesset."
-				+ "His audiam iuvaret cu, id vis ridens moderatius, ei dictas labores ullamcorper usu. Usu fastidii nominavi te, vel ea modus fuisset theophrastus. Sint efficiantur eos an, unum possim intellegebat est ea. Ne error putant imperdiet eum. Facer scripta quo no."
-				+ "Labitur quaestio salutatus id duo, ex nam choro splendide intellegebat, modo adversarium has eu. Mandamus gubergren cu sea, ut tollit virtute iracundia pri, recusabo inciderint ei pro. Graece audire scripserit mea no. An vide idque noster sit. Errem aliquando sea ut.";
+		Ingrediente papa = new Ingrediente("Papa");
+		Ingrediente leche = new Ingrediente("Leche");
+		Ingrediente harina = new Ingrediente("Harina");
+		Ingrediente carnePicada = new Ingrediente("Carne Picada");
+		Ingrediente salsaDeTomate = new Ingrediente("Salsa de Tomate");
 		
+		Condimentacion sal = new Condimentacion("sal",200);
+		Condimentacion pimienta = new Condimentacion("Pimienta",20);
+		Condimentacion ajoMolido = new Condimentacion("Ajo Molido",15);
+		Condimentacion azucar = new Condimentacion("Azucar",150);
+	   
+	    String preparacionGnoqui = "Lorem ipsum dolor sit amet, duo cu animal eripuit moderatius";
+		String preparacion = "Lorem ipsum dolor sit amet, duo cu animal eripuit moderatius";
 		
 		Receta gnoquis = new RecetaBuilder()
 		.setCantCalorias(150)
 		.setNombre("Ñoquis")
-		.agregarIngrediente(new Ingrediente("Papa"))
-		.agregarIngrediente(new Ingrediente("Leche"))
-		.agregarIngrediente(new Ingrediente("Harina"))
+		.agregarIngrediente(papa)
+		.agregarIngrediente(leche)
+		.agregarIngrediente(harina) 
 		.setDificultad(Dificultad.MEDIA)
-		.agregarCondimentaciones(new Condimentacion("Sal", 50))
-		.agregarCondimentaciones(new Condimentacion("Pimienta", 20))
-		.agregarCondimentaciones(new Condimentacion("Ajo Molido", 6))
+		.agregarCondimentaciones(sal)
+		.agregarCondimentaciones(pimienta)
+		.agregarCondimentaciones(ajoMolido)
+		.setPreparacion(preparacionGnoqui)
 		.construirReceta();
 	
 		Receta receta = new RecetaBuilder()
 		.setCantCalorias(150)
 		.setNombre("Ñoquis a la boloñesa")
-		.agregarIngrediente(new Ingrediente("Carne Picada"))
-		.agregarIngrediente(new Ingrediente("Salsa de Tomate"))
+		.agregarIngrediente(carnePicada)
+		.agregarIngrediente(salsaDeTomate)
 		.setDificultad(Dificultad.MEDIA)
-		.agregarCondimentaciones(new Condimentacion("sal", 100))
-		.agregarCondimentaciones(new Condimentacion("Azucar", 200))
-		.agregarCondimentaciones(new Condimentacion("Pimienta", 40))
-		.agregarCondimentaciones(new Condimentacion("Ajo molido", 10))
+		.agregarCondimentaciones(sal)
+		.agregarCondimentaciones(azucar)
+		.agregarCondimentaciones(pimienta)
+		.agregarCondimentaciones(ajoMolido)
 		.agregarSubReceta(gnoquis)
 		.setTemporada(Temporada.TODOELAÑO)
 		.setPreparacion(preparacion)

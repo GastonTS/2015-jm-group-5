@@ -22,7 +22,7 @@ public abstract class CondicionDeSalud {
 	@GeneratedValue
 	private Long condicionDeSaludId;
 	@Transient
-	static Collection<CondicionDeSalud> condicionesExistentes = Arrays.asList(new Diabetico(), new Celiaco(), new Hipertenso(), new Vegano());
+	static final Collection<CondicionDeSalud> condicionesExistentes = Arrays.asList(new Diabetico(), new Celiaco(), new Hipertenso(), new Vegano());
 
 	public abstract boolean subsanaCondicion(Usuario unUsuario);
 

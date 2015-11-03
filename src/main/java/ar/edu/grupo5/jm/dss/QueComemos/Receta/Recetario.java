@@ -23,8 +23,8 @@ public class Recetario extends ConsultorRecetas implements ObjectUpdater, WithGl
 		return entityManager().createQuery("FROM Receta", Receta.class).getResultList();
 	}
 	
-	public Receta getReceta(Receta unaReceta){
-		return entityManager().find(Receta.class, unaReceta.getId());
+	public Receta getReceta(Long unaRecetaId){
+		return entityManager().find(Receta.class, unaRecetaId);
 	}
 
 	@Override

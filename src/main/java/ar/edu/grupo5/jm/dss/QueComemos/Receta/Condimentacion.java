@@ -15,6 +15,9 @@ public class Condimentacion {
 	private String condimento;
 	private double cantidad;
 
+	public Condimentacion() {
+	}
+	
 	public Condimentacion(String unCondimento, double unaCantidad) {
 		condimento = unCondimento;
 		cantidad = unaCantidad;

@@ -13,6 +13,11 @@ public class Ingrediente {
 
 	private String nombre;
 
+	public Ingrediente() {
+		
+	}
+	
+	
 	public Ingrediente(String unNombre) {
 		nombre = unNombre;
 	}

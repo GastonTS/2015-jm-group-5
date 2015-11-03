@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
 import ar.edu.grupo5.jm.dss.QueComemos.ObjectUpdater.Updateable;
@@ -33,10 +34,10 @@ public class Usuario {
 	@Embedded
 	@Updateable
 	private DatosPersonales datosPersonales;
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(cascade = CascadeType.ALL) @JoinTable(name = "PreferenciasXUsuario")
 	@Updateable
 	private Collection<Ingrediente> preferenciasAlimenticias;
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(cascade = CascadeType.ALL) @JoinTable(name = "DisgustosXUsuario")
 	@Updateable
 	private Collection<Ingrediente> disgustosAlimenticios;
 	@ManyToMany(cascade = CascadeType.ALL)
@@ -59,6 +60,10 @@ public class Usuario {
 
 	private String mail;
 
+	public Usuario() {
+		
+	}
+	
 	public Usuario(DatosPersonales unosDatosPersonales, Complexion unaComplexion, Collection<Ingrediente> unasPreferenciasAlimenticias,
 			Collection<Ingrediente> unosDisgustosAlimenticios, Collection<CondicionDeSalud> unasCondicionesDeSalud, Rutina unaRutina,
 			String unMail) {

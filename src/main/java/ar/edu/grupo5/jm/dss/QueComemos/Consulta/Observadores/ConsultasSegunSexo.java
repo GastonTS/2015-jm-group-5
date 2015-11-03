@@ -7,6 +7,7 @@ import java.util.Optional;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
@@ -16,9 +17,9 @@ import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class ConsultasSegunSexo extends AcumuladorConsultas {
-	@ManyToMany
+	@ManyToMany @JoinTable(name = "RecetasHombresXAcumulador")
 	Collection<Receta> consultasHombres = new ArrayList<Receta>();
-	@ManyToMany
+	@ManyToMany @JoinTable(name = "RecetasMujeresXAcumulador")
 	Collection<Receta> consultasMujeres = new ArrayList<Receta>();
 
 	@Override
