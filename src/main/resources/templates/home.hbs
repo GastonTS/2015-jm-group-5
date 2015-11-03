@@ -13,6 +13,73 @@
   </div>
   </div>
 
+
+
+<article class="homepage-section-header homepage-map-header text-center">
+      <h2 class="title">Te recomendamos estas recetas !!!</h2>
+      </article>
+
+<div class="row">
+
+         <div class="col-md-1">	
+         </div>
+
+	<div class="col-md-10">	
+   <hr>
+	<table 	class="table table-hover"  >
+	   <thead>
+        <tr>
+	        <th>Id</th>
+			<th>Nombre</th>
+			<th>Calorias</th>
+			<th>Temporada</th>
+			<th>Dificultad</th>
+	    </tr>
+    </thead>
+    <tbody>
+   
+	    {{#recetas}}
+		<tr onclick="window.document.location='/perfil';">
+		    <td>{{Id}}</td>
+		    <td>{{Nombre}}</td>
+			<td>{{CantCaloriasTotales}}</td>
+			<td>{{Temporada}}</td>
+			<td>{{Dificultad}}</td>
+		</tr>
+	    {{/recetas}}
+	 </tbody>				
+	 </table>
+	</div>
+</div>
+
+<br><br><br>
+
+ <div class="col-md-1">	
+         </div>
+<div class="col-xs-5">
+
+	  <hr><h3 class="text-left">Tenes hambre? No sabes que cocinar?</h3>
+		<h4 class="text-left">Ya sea que te quieras cuidar en las comidas, o prepararte las cosas mas 
+		grasosas y deliciosas....</h4>
+		
+		<h4 class="text-left">Podes realizar consultas segun tus preferencias, y ver el detalle de preparacion, 
+		ingreddientes, calorias, tanto de tus recetas como las nuestras !!</h4>
+	<br> <a class="btn btn-default btn-sm"  href="/recetas">
+	<span class="glyphicon glyphicon-search"></span> Realiza tu consulta ahora
+	 </a>
+	 </div>	
+	 
+	 <div class="col-xs-5">
+	 <hr><h3 class="text-left">Revisa tu Estado!!</h3>
+		<h4 class="text-left">En tu perfil encontrar toda tu informacion, cosas que te gustan, aquellas 
+		cosas que no, tus recetas favoritas. </h4>
+		<h4>Podras consultar tu estado de salud revisando el indice
+		de masa corpal calculado de la forma mas precisa y exacta posible !!</h4>
+	 <br><a class="btn btn-default btn-sm"  href="/">
+	<span class="glyphicon glyphicon-user"></span> Accede a tu perfil
+	 </a>
+	 </div>	
+
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
   <article class="col-xs-12 homepage-faqs-content" align="bottom">
