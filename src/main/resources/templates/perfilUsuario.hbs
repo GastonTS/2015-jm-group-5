@@ -6,70 +6,53 @@
 
 
 <div class="row">
- 	 <div class="col-md-5">
-		 <h3><b><u><i> Nombre </i></u></b></h3>
-		 <h4> {{usuario.Nombre}} </h4>
-	</div>	
-	
-	<div class="col-md-3">
-		<h3><b><u><i> Sexo </i></u></b></h3>
-      <h4> {{usuario.Sexo}}</h4>
-    </div>
-    
-     <div class="col-md-3">
-        <h3><b><u><i> Fecha de Nacimiento </i></u></b> </h3>
-        <h4>{{usuario.FechaDeNacimiento}}</h4>
-     </div>
      
- </div>
+ 	 	<div class="col-md-1">	
+	 	</div>	
 
-<div class="row">
-	<div class="col-md-5">
-	<h3><b><u><i> Complexion</i></u></b> </h3>
-	<h4>{{usuario.Complexion}}</h4>
-	</div>	
+ 		 <div class="col-xs-3">
+ 	 		<blockquote>
+ 	 		
+     		
+			  <h4><b> {{usuario.Nombre}}</b> </h4>
 	
-	<div class="col-md-2">
-	<h3><b><u><i> Altura </i></u></b></h3>
-	<h4>{{usuario.Estatura}}</h4>
-	</div>
+		      <hr><h4><b> Sexo </b></h4>
+      		  <h5> {{usuario.Sexo}}</h5>
+      
+     		<hr> <h4><b> Fecha de Nacimiento </b> </h4>
+        	<h5>{{usuario.FechaDeNacimiento}}</h5>
+        
+         	<hr><h4><b> Altura </b></h4>
+			<h5>{{usuario.Estatura}}</h5>
+      
+          <hr> <h4><b> Complexion</b> </h4>
+			<h5>{{usuario.Peso}}</h5>
+	
+	  		<hr><h4><b> Peso </b></h4>
+			<h5>{{usuario.Peso}}</h5>
+	
+			<hr><h4><b>IMC </b></h4>
+			<h5>{{usuario.IMC}}</h5>
+	
+			<hr><h4> <b> Rutina </b></h4>
+			<h5>{{usuario.Rutina}}<h5>
 		
-	<div class="col-md-1">
-	<h3><b><u><i> Peso </i></u></b></h3>
-	<h4>{{usuario.Peso}}</h4>
-	</div>
-	
-	<div class="col-md-1">
-	<h3><b><u><i>IMC </i></u></b></h3>
-	<h4>{{usuario.IMC}}</h4>
-	</div>
-	
-</div>
-
-<div class="row">
-	<div class="col-md-5">
-	<h3><b><u><i>Preferencias Alimenticias</i></u></b> </h3>
+			
+			</blockquote>	
+		</div>	
+		
+		<div class="col-xs-3">
+		<br>
+		<h4><b>Lo que preferis:</b> </h4>
 		<select multiple class="form-control">
 		{{#gustos}}
   			<option>{{Nombre}}</option>
   	    {{/gustos}}
 		</select>
-	</div>	
-
-	<div class="col-md-5">
-	<h3><b><u><i>Comidas que le disgustan </i></u></b></h3>
-		<select multiple class="form-control">
-  			{{#disgustos}}
-  			<option>{{Nombre}}</option>
-  	        {{/disgustos}}
-		</select>
-	</div>	
-</div>
-
-
-<div class="row">
-	<div class="col-md-5">
-	<h3><b><u><i>Condiciones Preexistentes </i></u></b></h3>
+		
+		 
+	
+		<br><h4><b>Condiciones de Salud </b></h4>
 		<select multiple class="form-control">
   			<option>1</option>
  			<option>2</option>
@@ -77,35 +60,53 @@
  			<option>4</option>
   			<option>5</option>
 		</select>
-	</div>	
-	
-	<div class="col-md-5">
-		<h3> <b> <u><i>Rutina </i></u></b></h3>
-		<h4>{{usuario.Rutina}}<h4>
-	</div>
-	
-</div>
-
-<div class="row">
-	<div class="col-md-11">
-	<h3><b> <u><i>Recetas Favoritas</i></u></b></h3>
+		</div>	
+		
+		
+		
+		
+		
+	<div class="col-xs-3">
+	<br><h4><b>Lo que no te gusta: </b></h4>
+		<select multiple class="form-control">
+  			{{#disgustos}}
+  			<option>{{Nombre}}</option>
+  	        {{/disgustos}}
+		</select>
+		
+		<br>   <h4><b> Recetas Favoritas</b></h4>
 		<select multiple class="form-control">
   		{{#recetasFavoritas}}
   			<option>{{nombre}}</option>
   	      {{/recetasFavoritas}}
 		</select>
-	</div>		
-</div>	
-
-<div class="row">
-</div>
-
-<div class="row">
-	<div class="col-md-11">
-     <a class="btn btn-primary btn-lg btn-block"   href="/">Volver </a>
+		
+	</div>	
 	
-	</div>
+	 <div class="col-xs-5">
+	  <br><hr><h2 class="text-left">No sabes que comer?</h2>
+		<h4 class="text-left">Busca las recetas que quieras,
+		 en base a tus necesidades y cretierios</h4>
+	 <a class="btn btn-default btn-sm"  href="/recetas">
+	<span class="glyphicon glyphicon-search"></span> Realiza tu consulta ahora
+	 </a>
+	 </div>	
+	 
+	 <div class="col-xs-5">
+	  <br><hr><h2 class="text-left">Aburrido?</h2>
+		<h4 class="text-left">Vuelve a la Home y revisa nuestras recomendaciones
+		seleccionadas para vos !!</h4>
+	 <a class="btn btn-primary btn-sm"  href="/">
+	<span class="glyphicon glyphicon-arrow-left"></span> Vovler a Home
+	 </a>
+	 </div>	
+	 
+	 
+		
+	
 </div>
+
+
 {{/partial}}			
 			
 				

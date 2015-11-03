@@ -22,6 +22,7 @@ import ar.edu.grupo5.jm.dss.QueComemos.Receta.NoPuedeAccederARecetaException;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.NoPuedeEliminarRecetaExeption;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta.Dificultad;
+import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta.Temporada;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.RecetaBuilder;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Recetario;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
@@ -213,6 +214,8 @@ public class RecetarioTest extends AbstractPersistenceTest implements
 				.agregarIngrediente(new Ingrediente("Tomate 200gr"))
 				.agregarCondimentaciones(sal).agregarCondimentaciones(aceite)
 				.setCantCalorias(40).setDificultad(Dificultad.BAJA)
+				.setTemporada(Temporada.VERANO)
+				.setPreparacion("unaPreparacion")
 				.construirReceta();
 
 		Receta ensaladaNueva = new RecetaBuilder().setNombre("Ensalada")
@@ -221,7 +224,10 @@ public class RecetarioTest extends AbstractPersistenceTest implements
 				.agregarIngrediente(new Ingrediente("Tomate 300gr"))
 				.agregarCondimentaciones(pocaSal)
 				.agregarCondimentaciones(aceite).setCantCalorias(40)
-				.setDificultad(Dificultad.BAJA).construirReceta();
+				.setDificultad(Dificultad.BAJA)				
+				.setTemporada(Temporada.VERANO)
+				.setPreparacion("otraPreparacion")
+				.construirReceta();
 
 		Recetario.instancia.crearReceta(ensaladaNueva, pepita);
 		Recetario.instancia.crearReceta(ensaladaVieja, pepita);

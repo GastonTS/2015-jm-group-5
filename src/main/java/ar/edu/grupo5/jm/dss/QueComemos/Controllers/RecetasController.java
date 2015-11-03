@@ -7,10 +7,12 @@ import java.util.HashMap;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import ar.edu.grupo5.jm.dss.QueComemos.Consulta.Filtro.PreparacionBarata;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Condimentacion;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta.Dificultad;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.RecetaBuilder;
+import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta.Temporada;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Recetario;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Ingrediente;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.DatosPersonales;
@@ -42,6 +44,7 @@ public class RecetasController{
 		    String filtroDificultad = request.queryParams("dificultad");
 		    String filtroMinCalorias = request.queryParams("cantMinCalorias");
 		    String filtroMaxCalorias = request.queryParams("cantMaxCalorias");
+		    String filtroTemporada = request.queryParams("temporada");
 		    
 		    if(!Objects.isNull(filtroMinCalorias) && !filtroMinCalorias.isEmpty())
 		    	minCalorias = Double.parseDouble(request.queryParams("cantMinCalorias"));
@@ -60,6 +63,13 @@ public class RecetasController{
 		    			.collect(Collectors.toList());
 		    }
 		    
+		    if (!Objects.isNull(filtroTemporada) && !filtroTemporada.isEmpty()){
+
+		    	recetas = recetas.stream().filter(
+		    			unaReceta -> Recetario.instancia.filtrarPorTemporada(filtroTemporada).contains(unaReceta))
+		    			.collect(Collectors.toList());
+		    }
+		    
 		    if (!Objects.isNull(filtroMinCalorias) && !Objects.isNull(filtroMaxCalorias))
 		    	recetas = recetas.stream().filter(
 		    			unaReceta -> Recetario.instancia.filtrarPorRangoCalorias(minCalorias, maxCalorias).contains(unaReceta))
@@ -69,6 +79,7 @@ public class RecetasController{
 		    viewModel.put("recetas", recetas);
 		    viewModel.put("nombre", filtroNombre);
 		    viewModel.put("dificultad", filtroDificultad);
+		    viewModel.put("temporada", filtroTemporada);
 		    viewModel.put("cantMinCalorias", filtroMinCalorias);
 		    viewModel.put("cantMaxCalorias", filtroMaxCalorias);
 
@@ -77,7 +88,7 @@ public class RecetasController{
 	
 	public ModelAndView detalle (Request request, Response response) {
 		
-		long id = Long.parseLong(request.params(":id"));
+		long id = Long.parseLong(request.queryParams("id"));
 		Receta receta = this.buscarReceta(id);
 
 		Collection<Dificultad> dificultades = Arrays.asList(Dificultad.values())
@@ -100,6 +111,13 @@ public class RecetasController{
 
 	private Receta buscarReceta(long idReceta) {
 	
+		String preparacion = "Lorem ipsum dolor sit amet, duo cu animal eripuit moderatius, velit integre complectitur cu vis, nec at viris euismod prodesset. In mea lucilius oportere, phaedrum deserunt atomorum at est. Sea ferri facete legimus cu, elit fierent sed ad, verear referrentur ut duo. Vis te veniam quaerendum, mel ex omnes maiestatis."
+				+ "Id vis falli referrentur, elit congue quidam an vim. Vis no numquam fabulas, ei sonet urbanitas constituto eos. Vel ex habeo ipsum verear, mei no quaeque adolescens. Aliquam aliquando vis ne, cu vide graece lobortis cum. Ea est veritus accumsan, qui lucilius aliquando id."
+				+ "Cu vix adolescens dissentiet, quas putant laboramus per id, eius vivendum no qui. Ei mea tempor assentior. An invidunt theophrastus usu. Est cu sint partem, vix et populo antiopam prodesset."
+				+ "His audiam iuvaret cu, id vis ridens moderatius, ei dictas labores ullamcorper usu. Usu fastidii nominavi te, vel ea modus fuisset theophrastus. Sint efficiantur eos an, unum possim intellegebat est ea. Ne error putant imperdiet eum. Facer scripta quo no."
+				+ "Labitur quaestio salutatus id duo, ex nam choro splendide intellegebat, modo adversarium has eu. Mandamus gubergren cu sea, ut tollit virtute iracundia pri, recusabo inciderint ei pro. Graece audire scripserit mea no. An vide idque noster sit. Errem aliquando sea ut.";
+		
+		
 		Receta gnoquis = new RecetaBuilder()
 		.setCantCalorias(150)
 		.setNombre("Ñoquis")
@@ -123,6 +141,8 @@ public class RecetasController{
 		.agregarCondimentaciones(new Condimentacion("Pimienta", 40))
 		.agregarCondimentaciones(new Condimentacion("Ajo molido", 10))
 		.agregarSubReceta(gnoquis)
+		.setTemporada(Temporada.TODOELAÑO)
+		.setPreparacion(preparacion)
 		.construirReceta();
 		
 		Usuario gustavo = new UsuarioBuilder()

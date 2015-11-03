@@ -34,7 +34,7 @@ public class Routes {
 		    });
 
 		    get("/recetas", recetas::listar, engine);
-		    get("/recetas/:id", recetas::detalle, engine);
+		    get("/recetas/show", "application/json", recetas::detalle, engine);
 		    get("/usuarios", usuarios::listar, engine);
 		    get("/perfil", usuarios::verPerfil, engine);
 
