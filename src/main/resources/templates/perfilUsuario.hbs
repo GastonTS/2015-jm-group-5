@@ -11,38 +11,35 @@
 	 	</div>	
 
  		 <div class="col-xs-3">
- 	 		<blockquote>
- 	 		
-     		
-			  <h4><b> {{usuario.Nombre}}</b> </h4>
-	
-		      <hr><h4><b> Sexo </b></h4>
-      		  <h5> {{usuario.Sexo}}</h5>
+ 	 
+			  <h2><b> {{usuario.Nombre}}</b> </h2>
+			 
+			  <br>
+			<blockquote>
+		       <h4><b> Sexo <small> {{usuario.Sexo}}</small> </b></h4>
       
-     		<hr> <h4><b> Fecha de Nacimiento </b> </h4>
-        	<h5>{{usuario.FechaDeNacimiento}}</h5>
-        
-         	<hr><h4><b> Altura </b></h4>
-			<h5>{{usuario.Estatura}}</h5>
+     		<hr> <h4><b> Fecha de Nacimiento <small> {{usuario.FechaDeNacimiento}}</small> </b> </h4>
+        	
       
-          <hr> <h4><b> Complexion</b> </h4>
-			<h5>{{usuario.Peso}}</h5>
-	
-	  		<hr><h4><b> Peso </b></h4>
-			<h5>{{usuario.Peso}}</h5>
-	
-			<hr><h4><b>IMC </b></h4>
-			<h5>{{usuario.IMC}}</h5>
-	
-			<hr><h4> <b> Rutina </b></h4>
-			<h5>{{usuario.Rutina}}<h5>
+         	<hr><h4><b> Altura <small> {{usuario.Estatura}}</small></b></h4>
+			
+      
+          <hr> <h4><b> Complexion  <small> {{usuario.Peso}}</small></b> </h4>
 		
+	
+	  		<hr><h4><b> Peso <small> {{usuario.Peso}}</small> </b></h4>
+			
+	
+			<hr><h4><b>IMC <small> {{usuario.IMC}}</small> </b></h4>
+			
+	
+			<hr><h4> <b> Rutina <small> {{usuario.Rutina}}</small> </b></h4>
 			
 			</blockquote>	
 		</div>	
 		
 		<div class="col-xs-3">
-		<br>
+		<br><br><br>
 		<h4><b>Lo que preferis:</b> </h4>
 		<select multiple class="form-control">
 		{{#gustos}}
@@ -67,14 +64,14 @@
 		
 		
 	<div class="col-xs-3">
-	<br><h4><b>Lo que no te gusta: </b></h4>
+	<br><br><br><h4><b>Lo que no te gusta: </b></h4>
 		<select multiple class="form-control">
   			{{#disgustos}}
   			<option>{{Nombre}}</option>
   	        {{/disgustos}}
 		</select>
 		
-		<br>   <h4><b> Recetas Favoritas</b></h4>
+		<br> <h4><b> Recetas Favoritas</b></h4>
 		<select multiple class="form-control">
   		{{#recetasFavoritas}}
   			<option>{{nombre}}</option>
@@ -84,16 +81,16 @@
 	</div>	
 	
 	 <div class="col-xs-5">
-	  <br><hr><h2 class="text-left">No sabes que comer?</h2>
+	  <hr><h3 class="text-left">No sabes que comer?</h3>
 		<h4 class="text-left">Busca las recetas que quieras,
-		 en base a tus necesidades y cretierios</h4>
+		 en base a tus necesidades y criterios</h4>
 	 <a class="btn btn-default btn-sm"  href="/recetas">
 	<span class="glyphicon glyphicon-search"></span> Realiza tu consulta ahora
 	 </a>
 	 </div>	
 	 
 	 <div class="col-xs-5">
-	  <br><hr><h2 class="text-left">Aburrido?</h2>
+	 <hr><h3 class="text-left">Aburrido?</h3>
 		<h4 class="text-left">Vuelve a la Home y revisa nuestras recomendaciones
 		seleccionadas para vos !!</h4>
 	 <a class="btn btn-primary btn-sm"  href="/">
