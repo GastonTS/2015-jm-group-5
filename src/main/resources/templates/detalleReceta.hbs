@@ -3,6 +3,7 @@
 {{/partial}}
 		
 {{# partial "contenido" }}	
+<div class="container">
 	<div class="row">
 		<div class="col-md-12">
 	 		<div class="col-md-8">
@@ -21,11 +22,20 @@
 					</div>
 					<div style="display: block">
 						{{#if favorita}}
-							<h4 style="display: inline"> Receta Favorita! </h4>	
-							<a style="display: inline; margin-left: 2px; font-size: 20px" href="http://www.google.com" class="glyphicon glyphicon-star" ></a> 
+							<!-- <h4 style="display: inline"> Receta Favorita! </h4> -->	
+							<form id="myform" method="POST" action="dislike?idReceta={{receta.id}}" style="display: inline;">
+								<button style="display: inline; margin-left: 2px;" type="button" class="btn btn-default btn-lg" >
+	  								<span style="color: #0055FF" class="glyphicon glyphicon-star" aria-hidden="true"></span> Soy tu Favorita!
+								</button>								
+							</form>							 
 						{{else}}
-							<h4 style="display: inline"> Marcar como Favorita: </h4>	
-							<a style="display: inline; margin-left: 2px; font-size: 20px" href="http://www.google.com" class="glyphicon glyphicon-star-empty"></a> 
+							<!-- <h4 style="display: inline"> Marcar como Favorita: </h4>	
+							<a style="display: inline; margin-left: 2px; font-size: 20px" href="http://www.google.com" class="glyphicon glyphicon-star-empty"></a> --> 
+							<form id="myform" method="POST" action="dislike?idReceta={{receta.id}}" style="display: inline;">
+								<button style="display: inline; margin-left: 2px;" type="button" class="btn btn-default btn-lg" >
+	  								<span style="color: #002060" class="glyphicon glyphicon-star-empty" aria-hidden="true"></span> Marcame como Favorita!
+								</button>								
+							</form>
 						{{/if}}		
 					</div> 
 				</div>
@@ -132,6 +142,7 @@
 	<div class="row">
 		<hr>
 	</div>	
+</div>
 {{/partial}}
 				
 {{> layout.hbs }}

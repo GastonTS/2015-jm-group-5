@@ -2,6 +2,7 @@ package ar.edu.grupo5.jm.dss.QueComemos.Consulta.Observadores;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.Entity;
@@ -31,6 +32,10 @@ public class ConsultasTotales extends AcumuladorConsultas {
 
 	public int cantidadDeConsultasDeRecetaMasConsultada() {
 		return cantidadDeElementoMasRepetidoEn(recetasConsultadas);
+	}
+	
+	public List<Receta> masConsultadasEnOrden() {
+		return this.recetasMasConsultadasEnOrdenDescendiente(recetasConsultadas);
 	}
 	
 }
