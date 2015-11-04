@@ -3,9 +3,13 @@ package ar.edu.grupo5.jm.dss.QueComemos.Controllers;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
+import ar.edu.grupo5.jm.dss.QueComemos.Consulta.Filtro.PorDificultad;
+import ar.edu.grupo5.jm.dss.QueComemos.Consulta.Filtro.PorNombre;
+import ar.edu.grupo5.jm.dss.QueComemos.Consulta.Filtro.PorRangoCalorias;
+import ar.edu.grupo5.jm.dss.QueComemos.Consulta.Filtro.PorTemporada;
+import ar.edu.grupo5.jm.dss.QueComemos.Consulta.Filtro.SinFiltro;
 import ar.edu.grupo5.jm.dss.QueComemos.Main.Bootstrap;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta.Dificultad;
@@ -18,9 +22,9 @@ import spark.Response;
 
 public class RecetasController{
 
-    Double minCalorias;
-    Double maxCalorias;
-    
+    SinFiltro sinFiltro = new SinFiltro();
+	Usuario usuario = new Bootstrap().currentUserHARDCODE();
+	 
 	public ModelAndView mostrar(Request request, Response response){
 
 		return new ModelAndView(null, "recetas.hbs");
@@ -28,9 +32,6 @@ public class RecetasController{
     
 	public ModelAndView listar(Request request, Response response) {
 		    Collection<Receta> recetas = Recetario.instancia.getRecetasTotales();
-		    
-		    minCalorias = 0.0;
-		    maxCalorias = 99999.9;
 
 		    String filtroNombre = request.queryParams("nombre");
 		    String filtroDificultad = request.queryParams("dificultad");
@@ -38,34 +39,11 @@ public class RecetasController{
 		    String filtroMaxCalorias = request.queryParams("cantMaxCalorias");
 		    String filtroTemporada = request.queryParams("temporada");
 		    
-		    if(!Objects.isNull(filtroMinCalorias) && !filtroMinCalorias.isEmpty())
-		    	minCalorias = Double.parseDouble(request.queryParams("cantMinCalorias"));
-		    if(!Objects.isNull(filtroMaxCalorias) && !filtroMaxCalorias.isEmpty())
-		    	maxCalorias = Double.parseDouble(request.queryParams("cantMaxCalorias"));
-		   
-		    if (!Objects.isNull(filtroNombre) && !filtroNombre.isEmpty())
-		    	recetas = recetas.stream().filter(
-		    			unaReceta -> Recetario.instancia.filtrarPorNombre(filtroNombre).contains(unaReceta))
-		    			.collect(Collectors.toList());
+		    PorNombre superFiltro = new PorNombre(new PorDificultad
+		    		(new PorTemporada(new PorRangoCalorias(sinFiltro, filtroMinCalorias, filtroMaxCalorias), 
+		    				filtroTemporada), filtroDificultad), filtroNombre);
 		    
-		    if (!Objects.isNull(filtroDificultad) && !filtroDificultad.isEmpty()){
-
-		    	recetas = recetas.stream().filter(
-		    			unaReceta -> Recetario.instancia.filtrarPorDificultad(filtroDificultad).contains(unaReceta))
-		    			.collect(Collectors.toList());
-		    }
-		    
-		    if (!Objects.isNull(filtroTemporada) && !filtroTemporada.isEmpty()){
-
-		    	recetas = recetas.stream().filter(
-		    			unaReceta -> Recetario.instancia.filtrarPorTemporada(filtroTemporada).contains(unaReceta))
-		    			.collect(Collectors.toList());
-		    }
-		    
-		   recetas = recetas.stream().filter(
-				   unaReceta -> Recetario.instancia.filtrarPorRangoCalorias(minCalorias, maxCalorias).contains(unaReceta))
-				   .collect(Collectors.toList());
-		    
+		    recetas = superFiltro.filtrarRecetas(recetas, usuario);
 		    
 		    HashMap<String, Object> viewModel = new HashMap<>();
 		    viewModel.put("recetas", recetas);

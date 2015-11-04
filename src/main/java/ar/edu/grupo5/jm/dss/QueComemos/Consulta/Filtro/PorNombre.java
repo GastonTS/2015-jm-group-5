@@ -1,6 +1,7 @@
 package ar.edu.grupo5.jm.dss.QueComemos.Consulta.Filtro;
 
 import java.util.Collection;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
@@ -20,7 +21,10 @@ public class PorNombre extends PostProcesamiento{
 
 	@Override
 	protected Collection<Receta> procesar(Collection<Receta> recetas) {
-		return recetas.stream().filter(unaReceta -> unaReceta.getNombre() == nombre).collect(Collectors.toList());
+		if (!Objects.isNull(nombre) && !nombre.isEmpty())
+			return recetas.stream().filter(unaReceta -> unaReceta.getNombre().compareTo(nombre) >= 0).collect(Collectors.toList());
+		else
+			return recetas;
 	}
 
 	

@@ -75,23 +75,4 @@ public class Recetario extends ConsultorRecetas implements ObjectUpdater, WithGl
 			crearReceta(nuevaReceta, unUsuario);
 		}
 	}
-	
-	public Collection<Receta> filtrarPorNombre(String valor){
-		return entityManager().createQuery("From Receta as r WHERE r.nombre LIKE :valor", Receta.class)
-				.setParameter("valor", "%" + valor + "%").getResultList();
-	}
-	public Collection<Receta> filtrarPorRangoCalorias(Double min, Double max){
-		return entityManager().createQuery("From Receta as r WHERE r.cantCaloriasTotales BETWEEN :min AND :max", Receta.class)
-				.setParameter("min", min).setParameter("max", max).getResultList();
-	}
-	public Collection<Receta> filtrarPorDificultad(String dificultad){
-
-		return entityManager().createQuery("From Receta as r WHERE r.dificultad = " 
-		+ Dificultad.valueOf(dificultad).ordinal(), Receta.class).getResultList();
-	}
-	public Collection<Receta> filtrarPorTemporada(String temporada){
-
-		return entityManager().createQuery("From Receta as r WHERE r.temporada = " 
-		+ Temporada.valueOf(temporada).ordinal(), Receta.class).getResultList();
-	}
 }
