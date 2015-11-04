@@ -22,7 +22,7 @@ import ar.edu.grupo5.jm.dss.QueComemos.Usuario.CondicionDeSalud.Vegano;
 
 
 public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, TransactionalOps {
-
+	
 	public Usuario currentUserHARDCODE() {
 		return RepoUsuarios.instancia.getUsuario((long) 1);
 	}
@@ -43,7 +43,7 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
 			Recetario.instancia.crearReceta(receta, usuario);
 			usuario.agregarAFavorita(receta);
 	    });
-
+	    
 	}
 
 	public Usuario createUsuarioExample(){
