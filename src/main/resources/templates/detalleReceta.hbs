@@ -65,7 +65,11 @@
 			</div>
 		</div>
 		<div class="col-md-6 pull-right">
-			<img src="http://1.bp.blogspot.com/-PplFMJo7S0Q/UUi_w7hEQPI/AAAAAAAABxk/Ng99QwM_WXo/s1600/%C3%91oquis+con+bolo%C3%B1esa+r%C3%BAstica.JPG" class="img-rounded img-responsive" alt="Gnoquis" >
+			{{#if hasPhoto}}
+				<img src="{{receta.UrlImagen}}" class="img-rounded img-responsive" alt="{{Nombre}}">
+			{{else}}
+				<img src="http://aerostatiksolution.com/wp-content/uploads/2015/01/black-white.png" class="img-rounded img-responsive" alt="{{Nombre}}">
+			{{/if}}
 		</div>
 	</div>
 	<div class="row">

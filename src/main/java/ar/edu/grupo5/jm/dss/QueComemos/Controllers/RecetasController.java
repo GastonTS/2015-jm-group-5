@@ -111,7 +111,7 @@ public class RecetasController{
 		    viewModel.put("favorita", currentUser.esRecetaFavorita(receta));
 		    viewModel.put("inadecuado", !condicionesInadecuadas.isEmpty());
 		    viewModel.put("condicionesInadecuado", condicionesInadecuadas);
-		    
+		    viewModel.put("hasPhoto", !receta.getUrlImagen().isEmpty());
 		return  new ModelAndView(viewModel, "detalleReceta.hbs");
 	}
 }

@@ -109,6 +109,8 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
 		.agregarSubReceta(gnoquis)
 		.setTemporada(Temporada.TODOELAÑO)
 		.setPreparacion(preparacion)
+		.setUrlImagen("http://1.bp.blogspot.com/-PplFMJo7S0Q/UUi_w7hEQPI/AAAAAAAABxk/"
+				+ "Ng99QwM_WXo/s1600/%C3%91oquis+con+bolo%C3%B1esa+r%C3%BAstica.JPG")
 		.construirReceta();
 		return receta;
 	}

@@ -16,7 +16,8 @@ public class RecetaBuilder {
 	private Dificultad dificultad;
 	private Temporada temporada;
 	private String preparacion;
-	
+	private String urlImagen="";
+
 	public RecetaBuilder setNombre(String unNombre) {
 		nombre = unNombre;
 		return this;
@@ -26,18 +27,25 @@ public class RecetaBuilder {
 		preparacion = unaPreparacion;
 		return this;
 	}
-	
+
+	public RecetaBuilder setUrlImagen(String unaUrlImagen) {
+		urlImagen = unaUrlImagen;
+		return this;
+	}
+
 	public RecetaBuilder agregarIngrediente(Ingrediente unIngrediente) {
 		ingredientes.add(unIngrediente);
 		return this;
 	}
 
-	public RecetaBuilder agregarTodosLosIngredientes(Collection<Ingrediente> unosIngredientes) {
+	public RecetaBuilder agregarTodosLosIngredientes(
+			Collection<Ingrediente> unosIngredientes) {
 		ingredientes.addAll(unosIngredientes);
 		return this;
 	}
 
-	public RecetaBuilder agregarCondimentaciones(Condimentacion unaCondimentacion) {
+	public RecetaBuilder agregarCondimentaciones(
+			Condimentacion unaCondimentacion) {
 		condimentaciones.add(unaCondimentacion);
 		return this;
 	}
@@ -56,7 +64,7 @@ public class RecetaBuilder {
 		this.dificultad = dificultad;
 		return this;
 	}
-	
+
 	public RecetaBuilder setTemporada(Temporada temporada) {
 		this.temporada = temporada;
 		return this;
@@ -67,7 +75,8 @@ public class RecetaBuilder {
 			throw new RecetaNoValidaException("La Receta No es Válida!!!");
 		}
 
-		return new Receta(nombre, ingredientes, condimentaciones, subRecetas, cantCalorias, dificultad, temporada, preparacion);
+		return new Receta(nombre, ingredientes, condimentaciones, subRecetas,
+				cantCalorias, dificultad, temporada, preparacion, urlImagen);
 	}
 
 	private boolean esRecetaValida() {

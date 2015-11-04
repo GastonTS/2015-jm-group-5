@@ -46,6 +46,9 @@ public class Receta {
 	@Enumerated(EnumType.ORDINAL)
 	@Updateable
 	private Temporada temporada;
+	
+	@Updateable
+	private String urlImagen;
 
 	public enum Dificultad {
 		BAJA, MEDIA, ALTA
@@ -59,8 +62,12 @@ public class Receta {
 
 	}
 
-	public Receta(String nombreReceta, Collection<Ingrediente> unosIngredientes, Collection<Condimentacion> unasCondimentaciones,
-			Collection<Receta> unasSubRecetas, double unasCantCalorias, Dificultad unaDificultad, Temporada unaTemporada, String unaPreparacion) {
+	public Receta(String nombreReceta,
+			Collection<Ingrediente> unosIngredientes,
+			Collection<Condimentacion> unasCondimentaciones,
+			Collection<Receta> unasSubRecetas, double unasCantCalorias,
+			Dificultad unaDificultad, Temporada unaTemporada,
+			String unaPreparacion, String unaUrlImagen) {
 
 		nombre = nombreReceta;
 		ingredientes = unosIngredientes;
@@ -70,6 +77,7 @@ public class Receta {
 		dificultad = unaDificultad;
 		temporada = unaTemporada;
 		preparacion = unaPreparacion;
+		urlImagen = unaUrlImagen;
 	}
 
 	public void setDueño(Usuario unUsuario) {
@@ -88,6 +96,10 @@ public class Receta {
 		return preparacion;
 	}
 
+	public String getUrlImagen() {
+		return urlImagen;
+	}
+	
 	private Stream<Ingrediente> getIngredientesSubRecetas() {
 		return subRecetas.stream().flatMap(subReceta -> subReceta.getIngredientesTotales().stream());
 	}
