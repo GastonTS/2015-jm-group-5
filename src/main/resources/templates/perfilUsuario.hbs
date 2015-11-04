@@ -46,11 +46,9 @@
 	
 		<br><h4><b>Condiciones de Salud </b></h4>
 		<select multiple class="form-control">
-  			<option>1</option>
- 			<option>2</option>
-  			<option>3</option>
- 			<option>4</option>
-  			<option>5</option>
+  			{{#each usuario.CondicionesDeSalud}}
+  				<option>{{this.Nombre}}</option>
+			{{/each}}
 		</select>
 		</div>	
 		
