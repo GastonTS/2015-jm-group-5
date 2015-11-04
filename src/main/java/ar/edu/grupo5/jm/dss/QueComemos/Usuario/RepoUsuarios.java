@@ -10,12 +10,14 @@ import ar.edu.grupo5.jm.dss.QueComemos.ObjectUpdater.ObjectUpdater;
 
 public class RepoUsuarios implements ObjectUpdater, WithGlobalEntityManager {
 
-	public RepoUsuarios(Collection<Usuario> unosUsuarios) {
-		unosUsuarios.stream().forEach(unUsuario -> entityManager().persist(unUsuario));
+	public static RepoUsuarios instancia = new RepoUsuarios();
+	
+	public Usuario getUsuario(Long idUsuario){
+		return entityManager().find(Usuario.class, idUsuario);
 	}
 
-	public Collection<Usuario> getUsuarios(){
-		return entityManager().createQuery("FROM Usuario", Usuario.class).getResultList();
+	public Collection<Usuario> getUsuariosTotales(){
+		  return entityManager().createQuery("FROM Usuario", Usuario.class).getResultList();
 	}
 	
 	public Collection<Usuario> getUsuariosAceptados() {

@@ -206,6 +206,10 @@ public class Usuario {
 		recetasFavoritas.remove(unaReceta);
 	}
 
+	public boolean esRecetaFavorita(Receta unaReceta) {
+		return recetasFavoritas.contains(unaReceta); 
+	}
+	
 	public boolean puedeAccederA(Receta unaReceta) {
 		return unaReceta.esPublica() || unaReceta.esElDueño(this) || esRecetaDeGrupo(unaReceta);
 	}

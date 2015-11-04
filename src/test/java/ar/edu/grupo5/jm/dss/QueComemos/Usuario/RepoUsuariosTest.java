@@ -78,7 +78,7 @@ public class RepoUsuariosTest extends AbstractPersistenceTest implements WithGlo
 				.setRutina(Rutina.MEDIANA)
 				.construirUsuario();
 		
-		repoUsuarios = new RepoUsuarios(new ArrayList<Usuario>());
+		repoUsuarios = RepoUsuarios.instancia;
 
 		repoUsuarios.solicitaIngreso(juanchi);
 		repoUsuarios.solicitaIngreso(gaston);

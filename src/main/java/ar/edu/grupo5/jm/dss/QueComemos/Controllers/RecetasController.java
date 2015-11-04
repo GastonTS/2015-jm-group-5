@@ -6,9 +6,11 @@ import java.util.HashMap;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import ar.edu.grupo5.jm.dss.QueComemos.Main.Bootstrap;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta.Dificultad;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Recetario;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.CondicionDeSalud.CondicionDeSalud;
 import spark.ModelAndView;
 import spark.Request;
@@ -99,12 +101,14 @@ public class RecetasController{
 		
 		Collection<CondicionDeSalud> condicionesInadecuadas = CondicionDeSalud.condicionesALasQueEsInadecuada(receta);
 		
+		Usuario currentUser = new Bootstrap().currentUserHARDCODE();
+		
 		HashMap<String, Object> viewModel = new HashMap<>();
 		    viewModel.put("receta", receta);
 		    viewModel.put("dificultades", dificultades);
 		    viewModel.put("publica", receta.esPublica());
 		    viewModel.put("autor", receta.getDueño());
-		    viewModel.put("favorita", false);
+		    viewModel.put("favorita", currentUser.esRecetaFavorita(receta));
 		    viewModel.put("inadecuado", !condicionesInadecuadas.isEmpty());
 		    viewModel.put("condicionesInadecuado", condicionesInadecuadas);
 		    

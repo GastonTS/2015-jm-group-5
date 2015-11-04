@@ -1,7 +1,6 @@
 package ar.edu.grupo5.jm.dss.QueComemos.Main;
 
 import java.time.LocalDate;
-import java.util.Arrays;
 
 import org.uqbarproject.jpa.java8.extras.EntityManagerOps;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
@@ -22,6 +21,10 @@ import ar.edu.grupo5.jm.dss.QueComemos.Usuario.DatosPersonales.Sexo;
 
 public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, TransactionalOps {
 
+	public Usuario currentUserHARDCODE() {
+		return RepoUsuarios.instancia.getUsuario((long) 1);
+	}
+	
 	public static void main(String[] args) {
 		new Bootstrap().run();
 	}
@@ -30,7 +33,8 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
 		Receta receta = createRecetaExample(); 
 		Usuario usuario = createUsuarioExample();
 	    withTransaction(() -> {
-			new RepoUsuarios(Arrays.asList(usuario));
+			RepoUsuarios.instancia.solicitaIngreso(usuario);
+			RepoUsuarios.instancia.apruebaSolicitud(usuario);
 	    }); 
 	    
 	    withTransaction(()-> {

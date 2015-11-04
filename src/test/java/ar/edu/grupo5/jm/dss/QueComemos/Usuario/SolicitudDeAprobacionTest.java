@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -72,7 +71,7 @@ public class SolicitudDeAprobacionTest extends AbstractPersistenceTest implement
 				.setRutina(Rutina.INTENSIVA)
 				.construirUsuario();
 		
-		repoUsuarios = new RepoUsuarios(new ArrayList<Usuario>());
+		repoUsuarios = RepoUsuarios.instancia;
 		repoUsuarios.solicitaIngreso(poe);
 		repoUsuarios.solicitaIngreso(borges);
 		repoUsuarios.solicitaIngreso(verne);
