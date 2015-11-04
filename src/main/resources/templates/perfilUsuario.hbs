@@ -67,8 +67,9 @@
 		
 		<br> <h4><b> Recetas Favoritas</b></h4>
 		<select multiple class="form-control">
+		
   		{{#recetasFavoritas}}
-  			<option>{{nombre}}</option>
+  			<option onclick="window.document.location='/recetas/show?id={{Id}}';">{{nombre}}</option>
   	      {{/recetasFavoritas}}
 		</select>
 		
