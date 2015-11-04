@@ -33,6 +33,8 @@ public class Receta {
 	private Collection<Condimentacion> condimentaciones;
 	@Updateable
 	private double cantCalorias;
+	@SuppressWarnings("unused")
+	private double cantCaloriasTotales;
 	@ManyToMany(cascade = CascadeType.ALL)
 	@Updateable
 	private Collection<Receta> subRecetas;
@@ -78,6 +80,7 @@ public class Receta {
 		temporada = unaTemporada;
 		preparacion = unaPreparacion;
 		urlImagen = unaUrlImagen;
+		cantCaloriasTotales = this.getCantCaloriasTotales();
 	}
 
 	public void setDueño(Usuario unUsuario) {
@@ -124,6 +127,10 @@ public class Receta {
 		return cantCalorias + getCantCaloriasSubRecetas();
 	}
 
+	public double getCantCalorias(){
+		return cantCalorias;
+	}
+	
 	public Collection<Receta> getSubRecetas() {
 		return subRecetas;
 	}

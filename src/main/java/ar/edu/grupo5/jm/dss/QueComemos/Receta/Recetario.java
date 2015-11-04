@@ -81,7 +81,7 @@ public class Recetario extends ConsultorRecetas implements ObjectUpdater, WithGl
 				.setParameter("valor", "%" + valor + "%").getResultList();
 	}
 	public Collection<Receta> filtrarPorRangoCalorias(Double min, Double max){
-		return entityManager().createQuery("From Receta as r WHERE r.cantCalorias BETWEEN :min AND :max", Receta.class)
+		return entityManager().createQuery("From Receta as r WHERE r.cantCaloriasTotales BETWEEN :min AND :max", Receta.class)
 				.setParameter("min", min).setParameter("max", max).getResultList();
 	}
 	public Collection<Receta> filtrarPorDificultad(String dificultad){

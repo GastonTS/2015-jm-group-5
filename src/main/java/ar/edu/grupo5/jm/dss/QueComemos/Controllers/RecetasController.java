@@ -17,20 +17,20 @@ import spark.Request;
 import spark.Response;
 
 public class RecetasController{
-	
+
+    Double minCalorias;
+    Double maxCalorias;
+    
 	public ModelAndView mostrar(Request request, Response response){
 
 		return new ModelAndView(null, "recetas.hbs");
 	}
-
-    Double minCalorias;
-    Double maxCalorias;
     
 	public ModelAndView listar(Request request, Response response) {
 		    Collection<Receta> recetas = Recetario.instancia.getRecetasTotales();
 		    
 		    minCalorias = 0.0;
-		    maxCalorias = 999999.9;
+		    maxCalorias = 99999.9;
 
 		    String filtroNombre = request.queryParams("nombre");
 		    String filtroDificultad = request.queryParams("dificultad");
@@ -62,10 +62,10 @@ public class RecetasController{
 		    			.collect(Collectors.toList());
 		    }
 		    
-		    if (!Objects.isNull(filtroMinCalorias) && !Objects.isNull(filtroMaxCalorias))
-		    	recetas = recetas.stream().filter(
-		    			unaReceta -> Recetario.instancia.filtrarPorRangoCalorias(minCalorias, maxCalorias).contains(unaReceta))
-		    			.collect(Collectors.toList());
+		   recetas = recetas.stream().filter(
+				   unaReceta -> Recetario.instancia.filtrarPorRangoCalorias(minCalorias, maxCalorias).contains(unaReceta))
+				   .collect(Collectors.toList());
+		    
 		    
 		    HashMap<String, Object> viewModel = new HashMap<>();
 		    viewModel.put("recetas", recetas);
