@@ -1,5 +1,7 @@
 package ar.edu.grupo5.jm.dss.QueComemos.Controllers;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.HashMap;
 
@@ -29,9 +31,15 @@ public class UsuariosController {
 		 Collection<Ingrediente> disgustos =usuario.getDisgustosAlimenticios();
 		 Collection<Ingrediente> gustos = usuario.getPreferenciasAlimenticias();
 		 Collection<Receta> recetasFavoritas = usuario.getRecetasFavoritas();
+		 
+		  LocalDate date = usuario.getFechaDeNacimiento();
+		  DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		  String text = date.format(formatter);
+	
 		
 			 HashMap<String, Object> viewModel = new HashMap<>();
 			    viewModel.put("usuario", usuario);
+			    viewModel.put("fecha", text);
 			    viewModel.put("disgustos", disgustos);
 			    viewModel.put("gustos", gustos);
 			    viewModel.put("recetasFavoritas", recetasFavoritas);  	
