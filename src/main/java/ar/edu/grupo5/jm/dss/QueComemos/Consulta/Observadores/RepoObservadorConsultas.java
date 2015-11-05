@@ -28,10 +28,10 @@ public class RepoObservadorConsultas implements WithGlobalEntityManager {
 		this.getObservadores().forEach(observador -> observador.notificarConsulta(unaConsulta));
 	}
 
-	public <TipoObservador> Optional<TipoObservador> getObservador(String discriminante, Class<TipoObservador> tipo) {
-		List<TipoObservador> observadores = entityManager().createQuery("FROM ObservadorConsultas WHERE DTYPE = :discriminante", tipo)
+	public Optional<ObservadorConsultas> getObservador(String discriminante) {
+		List<ObservadorConsultas> observadores = entityManager().createQuery("FROM ObservadorConsultas WHERE DTYPE = :discriminante", ObservadorConsultas.class)
 				.setParameter("discriminante", discriminante).getResultList();
 
-		return (observadores.isEmpty()) ? Optional.empty() : Optional.of(observadores.get(0));
+		return observadores.stream().findFirst();
 	}
 }

@@ -2,10 +2,25 @@ package ar.edu.grupo5.jm.dss.QueComemos.Main;
 
 import java.time.LocalDate;
 
+
+
+
+
+
 import org.uqbarproject.jpa.java8.extras.EntityManagerOps;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 
+
+
+
+
+
+import ar.edu.grupo5.jm.dss.QueComemos.Consulta.Consulta;
+import ar.edu.grupo5.jm.dss.QueComemos.Consulta.Filtro.SinFiltro;
+import ar.edu.grupo5.jm.dss.QueComemos.Consulta.Observadores.ConsultadasPorUsuario;
+import ar.edu.grupo5.jm.dss.QueComemos.Consulta.Observadores.ConsultasTotales;
+import ar.edu.grupo5.jm.dss.QueComemos.Consulta.Observadores.RepoObservadorConsultas;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Condimentacion;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Ingrediente;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
@@ -41,7 +56,18 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
 	    
 	    withTransaction(()-> {
 			Recetario.instancia.crearReceta(receta, usuario);
-			usuario.agregarAFavorita(receta);
+			//usuario.agregarAFavorita(receta);
+	    });
+	    
+	    withTransaction(()-> {
+	    	RepoObservadorConsultas.instancia.agregarObservador(new ConsultasTotales());
+	    	RepoObservadorConsultas.instancia.agregarObservador(new ConsultadasPorUsuario());
+	    });
+	    
+	    withTransaction(()-> {
+	    	new Consulta(Recetario.instancia, new SinFiltro(), currentUserHARDCODE());
+	    	new Consulta(Recetario.instancia, new SinFiltro(), currentUserHARDCODE());
+	    	new Consulta(Recetario.instancia, new SinFiltro(), currentUserHARDCODE());
 	    });
 	}
 

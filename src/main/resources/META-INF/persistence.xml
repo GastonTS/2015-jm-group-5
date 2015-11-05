@@ -36,6 +36,8 @@
 		<class>ar.edu.grupo5.jm.dss.QueComemos.Consulta.Observadores.AcumuladorConsultas</class>
 		<class>ar.edu.grupo5.jm.dss.QueComemos.Consulta.Observadores.PorHoraDelDia</class>
 		<class>ar.edu.grupo5.jm.dss.QueComemos.Consulta.Observadores.ConsultaVeganoRecetasDificles</class>
+		<class>ar.edu.grupo5.jm.dss.QueComemos.Consulta.Observadores.ConsultadasPorUsuario</class>
+		<class>ar.edu.grupo5.jm.dss.QueComemos.Consulta.Observadores.HistorialConsultaUsuario</class>
 		<class>ar.edu.grupo5.jm.dss.QueComemos.Consulta.MonitoreoAsincronico.ProcesoAsincronico</class>
 		<class>ar.edu.grupo5.jm.dss.QueComemos.Consulta.MonitoreoAsincronico.AgregarRecetasConsultadasAFavoritas</class>
 		<class>ar.edu.grupo5.jm.dss.QueComemos.Consulta.MonitoreoAsincronico.EnviarConsultaPorMail</class>
