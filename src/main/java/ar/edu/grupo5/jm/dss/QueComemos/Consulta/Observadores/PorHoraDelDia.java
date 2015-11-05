@@ -3,7 +3,6 @@ package ar.edu.grupo5.jm.dss.QueComemos.Consulta.Observadores;
 import java.time.Clock;
 import java.time.LocalTime;
 import java.time.ZoneId;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,8 +10,7 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
 
-import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
-import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
+import ar.edu.grupo5.jm.dss.QueComemos.Consulta.Consulta;
 
 @Entity
 public class PorHoraDelDia extends ObservadorConsultas {
@@ -39,7 +37,7 @@ public class PorHoraDelDia extends ObservadorConsultas {
 	}
 
 	@Override
-	public void notificarConsulta(Usuario unUsuario, Collection<Receta> recetasConsultadas) {
+	public void notificarConsulta(Consulta unaConsulta) {
 		int horaDeConsulta = LocalTime.now(reloj).getHour();
 
 		consultasPorHoraDelDia.put(horaDeConsulta, getConsultasPorHoraDelDia(horaDeConsulta) + 1);

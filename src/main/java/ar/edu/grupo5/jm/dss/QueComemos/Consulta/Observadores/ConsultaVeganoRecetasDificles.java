@@ -6,6 +6,7 @@ import java.util.Collection;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 
+import ar.edu.grupo5.jm.dss.QueComemos.Consulta.Consulta;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
@@ -16,9 +17,11 @@ public class ConsultaVeganoRecetasDificles extends ObservadorConsultas {
 	private Collection<Usuario> veganosQueConsultaronDificiles = new ArrayList<Usuario>();
 
 	@Override
-	public void notificarConsulta(Usuario unUsuario, Collection<Receta> recetasConsultadas) {
-		if(unUsuario.esVegano()) {
-			this.notificarVegano(unUsuario, recetasConsultadas); 
+	public void notificarConsulta(Consulta unaConsulta) {
+		Usuario usuario = unaConsulta.getUsuario();
+		
+		if(usuario.esVegano()) {
+			this.notificarVegano(usuario, unaConsulta.getRecetasConsultadas()); 
 		}
 	}
 	

@@ -6,8 +6,7 @@ import java.util.Optional;
 
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 
-import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
-import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
+import ar.edu.grupo5.jm.dss.QueComemos.Consulta.Consulta;
 
 public class RepoObservadorConsultas implements WithGlobalEntityManager {
 
@@ -25,15 +24,14 @@ public class RepoObservadorConsultas implements WithGlobalEntityManager {
 		return entityManager().createQuery("FROM ObservadorConsultas", ObservadorConsultas.class).getResultList();
 	}
 
-	public void notificarObservadores(Usuario unUsuario, Collection<Receta> recetasConsultadas) {
-		this.getObservadores().forEach(observador -> observador.notificarConsulta(unUsuario, recetasConsultadas));
+	public void notificarObservadores(Consulta unaConsulta) {
+		this.getObservadores().forEach(observador -> observador.notificarConsulta(unaConsulta));
 	}
 
 	public <TipoObservador> Optional<TipoObservador> getObservador(String discriminante, Class<TipoObservador> tipo) {
 		List<TipoObservador> observadores = entityManager().createQuery("FROM ObservadorConsultas WHERE DTYPE = :discriminante", tipo)
-				.setParameter("discriminante", discriminante)
-				.getResultList();
-		
-		return (observadores.isEmpty())?Optional.empty() : Optional.of(observadores.get(0));
+				.setParameter("discriminante", discriminante).getResultList();
+
+		return (observadores.isEmpty()) ? Optional.empty() : Optional.of(observadores.get(0));
 	}
 }

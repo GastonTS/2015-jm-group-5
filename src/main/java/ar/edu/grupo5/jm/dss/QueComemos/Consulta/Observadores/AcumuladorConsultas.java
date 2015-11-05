@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 import javax.persistence.Entity;
 
+import ar.edu.grupo5.jm.dss.QueComemos.Consulta.Consulta;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
@@ -17,9 +18,8 @@ abstract class AcumuladorConsultas extends ObservadorConsultas {
 
 	public abstract Collection<Receta> getRecetasConsultadas(Usuario unUsuario);
 
-	public void notificarConsulta(Usuario unUsuario,
-			Collection<Receta> nuevasRecetasConsultadas) {
-		this.getRecetasConsultadas(unUsuario).addAll(nuevasRecetasConsultadas);
+	public void notificarConsulta(Consulta unaConsulta) {
+		this.getRecetasConsultadas(unaConsulta.getUsuario()).addAll(unaConsulta.getRecetasConsultadas());
 	}
 
 	public Optional<Receta> elementoQueMasSeRepiteEn(
