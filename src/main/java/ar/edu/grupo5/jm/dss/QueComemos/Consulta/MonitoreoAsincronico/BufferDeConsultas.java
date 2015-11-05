@@ -2,11 +2,14 @@ package ar.edu.grupo5.jm.dss.QueComemos.Consulta.MonitoreoAsincronico;
 
 import java.util.Collection;
 
+import javax.persistence.Entity;
+
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 
 import ar.edu.grupo5.jm.dss.QueComemos.Consulta.Consulta;
 import ar.edu.grupo5.jm.dss.QueComemos.Consulta.Observadores.ObservadorConsultas;
 
+@Entity
 public class BufferDeConsultas extends ObservadorConsultas implements WithGlobalEntityManager {
 
 	public static BufferDeConsultas instancia = new BufferDeConsultas();
