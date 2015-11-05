@@ -30,7 +30,8 @@ public class Recetario extends ConsultorRecetas implements ObjectUpdater, WithGl
 		return listarTodasPuedeAcceder(unUsuario);
 	}
 
-	//PENSAR COMO HACERLA SIN USAR EL METODO QUE DEVUELVE LA LISTA COMPLETA
+	//PENSAR COMO HACERLA SIN USAR EL METODO QUE DEVUELVE LA LISTA COMPLETA}
+	//XXX para hacer esto tendrian que implementar la consulta en memoria
 	public Collection<Receta> listarTodasPuedeAcceder(Usuario unUsuario) {
 		return getRecetasTotales().stream().filter(receta -> unUsuario.puedeAccederA(receta)).collect(Collectors.toSet());
 	}

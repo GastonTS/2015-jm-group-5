@@ -75,6 +75,7 @@ public class RecetasController{
 	}
 
 	private ModelAndView showReceta(Receta receta) {
+		//FIXME esto deberia ir al modelo/repositorio
 		Collection<Dificultad> dificultades = Arrays.asList(Dificultad.values())
 				.stream().filter(dificultad -> dificultad != receta.getDificultad())
 				.collect(Collectors.toList());

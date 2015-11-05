@@ -17,6 +17,11 @@ body {
   style="text-shadow: 1px 1px 1px #3b3939;
 }
 
+.clickeable {
+  cursor: pointer;
+}
+
+
 .bottom-align-text {
   position: absolute;
   bottom: 0;
@@ -28,7 +33,7 @@ body {
     position: relative;
     background: #000 url("jumbotron3.jpg") center center;
     width: 100%;
-    height: 65%;
+    height: 70%;
     background-size: cover;
     overflow: hidden;
     display: flex;
