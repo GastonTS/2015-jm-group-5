@@ -94,4 +94,16 @@ public class RecetasController{
 		    viewModel.put("hasPhoto", !receta.getUrlImagen().isEmpty());
 		return  new ModelAndView(viewModel, "detalleReceta.hbs");
 	}
+	
+	public Void cambiarFavorita(Request request, Response response) {
+	    Long idReceta = Long.parseLong(request.queryParams("idReceta"));
+	    Receta receta = Recetario.instancia.getReceta(idReceta);
+	    if(request.queryParams("value").equals("true")) {
+	    	new Bootstrap().currentUserHARDCODE().agregarAFavorita(receta);
+	    } else {
+	    	new Bootstrap().currentUserHARDCODE().quitarRecetaFavorita(receta);
+	    }
+	    response.redirect("show?id=" + request.queryParams("idReceta"));
+		return null;
+	}
 }

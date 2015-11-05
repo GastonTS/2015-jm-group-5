@@ -1,7 +1,7 @@
 package ar.edu.grupo5.jm.dss.QueComemos.Main;
 
 import static spark.Spark.get;
-//import static spark.Spark.post;
+import static spark.Spark.post;
 import static spark.SparkBase.port;
 import static spark.SparkBase.staticFileLocation;
 
@@ -38,6 +38,9 @@ public class Routes {
 
 		    get("/recetas", recetas::listar, engine);
 		    get("/recetas/show", "application/json", recetas::detalle, engine);
+		    
+		    post("/recetas/favorita", recetas::cambiarFavorita);
+		    
 		    get("/usuarios", usuarios::listar, engine);
 		    get("/perfil", usuarios::verPerfil, engine);
 
