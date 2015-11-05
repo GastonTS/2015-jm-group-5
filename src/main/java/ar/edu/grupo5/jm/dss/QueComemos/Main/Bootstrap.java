@@ -43,7 +43,6 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
 			Recetario.instancia.crearReceta(receta, usuario);
 			usuario.agregarAFavorita(receta);
 	    });
-	    
 	}
 
 	public Usuario createUsuarioExample(){

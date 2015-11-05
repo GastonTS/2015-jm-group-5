@@ -30,14 +30,11 @@ public class RepoUsuarios implements ObjectUpdater, WithGlobalEntityManager {
 
 	public void remove(Usuario unUsuario) {
 		existeUsuario(unUsuario);
-		entityManager().createQuery("DELETE Usuario as u WHERE u.usuarioId = :idUsuarioQuitado")
-			.setParameter("idUsuarioQuitado", unUsuario.getId())
-			.executeUpdate();
+		entityManager().remove(unUsuario);
 	}
 
 	private void existeUsuario(Usuario unUsuario) {
-		if (entityManager().createQuery("FROM Usuario as u WHERE u.usuarioId = :idUsuarioBuscado", Usuario.class)
-				.setParameter("idUsuarioBuscado", unUsuario.getId()).getResultList().size() == 0) {
+		if (entityManager().find(Usuario.class, unUsuario.getId()) != null) {
 			throw new UsuarioIngresadoNoExisteException("No se encontro usuario en el repositorio de usuarios");
 		}
 	}
@@ -62,11 +59,6 @@ public class RepoUsuarios implements ObjectUpdater, WithGlobalEntityManager {
 					filter(u -> u.getCondicionesDeSalud().containsAll(unUsuario.getCondiciones())).collect(Collectors.toList());
 	}
 
-	//DEPRECATED
-	/*private Boolean tienenMismoNombreYCondiciones(UsuarioBuscado usuarioBuscado, Usuario usuarioPosta) {
-		return usuarioBuscado.tieneElNombreDe(usuarioPosta) && usuarioBuscado.tieneTodasLasCondicionesDeSaludDe(usuarioPosta);
-	}*/
-	
 	public void solicitaIngreso(Usuario unUsuario) {
 		entityManager().persist(unUsuario);
 	}

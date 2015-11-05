@@ -21,7 +21,7 @@ import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 
 import ar.edu.grupo5.jm.dss.QueComemos.Consulta.Filtro.NoEsInadecuadaParaUsuario;
 import ar.edu.grupo5.jm.dss.QueComemos.Consulta.Filtro.SinFiltro;
-import ar.edu.grupo5.jm.dss.QueComemos.Consulta.MonitoreoAsincronico.AgregarRecetasConsultadasAFavoritas;
+import ar.edu.grupo5.jm.dss.QueComemos.Consulta.MonitoreoAsincronico.ConsultadasAFavoritas;
 import ar.edu.grupo5.jm.dss.QueComemos.Consulta.MonitoreoAsincronico.BufferDeConsultas;
 import ar.edu.grupo5.jm.dss.QueComemos.Consulta.MonitoreoAsincronico.EnviarConsultaPorMail;
 import ar.edu.grupo5.jm.dss.QueComemos.Consulta.MonitoreoAsincronico.LogearConsultasMasDe100;
@@ -42,7 +42,6 @@ public class MonitoreoConsultasTest extends AbstractPersistenceTest implements
 
 	private SinFiltro sinFiltro;
 	private NoEsInadecuadaParaUsuario segunCondicionesDelusuario;
-	private Consulta consulta;
 
 	private Consulta consultaMock = mock(Consulta.class);
 	private Collection<Receta> recetasMock;
@@ -64,11 +63,9 @@ public class MonitoreoConsultasTest extends AbstractPersistenceTest implements
 	private Usuario gusMock = mock(Usuario.class);
 	Collection<Usuario> usuariosConOpcionMandarMail;
 	MailSender mailSenderMock = mock(MailSender.class);
-//	LogearConsultasMasDe100 procesoAsincronicoLog = mock(LogearConsultasMasDe100.class);
-//	AgregarRecetasConsultadasAFavoritas procesoAsincronicoFavs = mock(AgregarRecetasConsultadasAFavoritas.class);
 
 	LogearConsultasMasDe100 monitorMayor100 = new LogearConsultasMasDe100();
-	AgregarRecetasConsultadasAFavoritas monitorRecetasFavoritas = new AgregarRecetasConsultadasAFavoritas();
+	ConsultadasAFavoritas monitorRecetasFavoritas = new ConsultadasAFavoritas();
 	EnviarConsultaPorMail monitorEnviarMail;
 
 	@Before
@@ -93,13 +90,11 @@ public class MonitoreoConsultasTest extends AbstractPersistenceTest implements
 		sinFiltro = new SinFiltro();
 		segunCondicionesDelusuario = new NoEsInadecuadaParaUsuario(sinFiltro);
 		entityManager().persist(zaffa);
-		consulta = new Consulta(consultor, segunCondicionesDelusuario, zaffa);
+		new Consulta(consultor, segunCondicionesDelusuario, zaffa);
 		recetasMock = new ArrayList<Receta>();
 		recetasMock.add(receta1Mock);		
 		recetasMock.add(receta2Mock);		
 		recetasMock.add(receta3Mock);
-		BufferDeConsultas.instancia.limpiarConsultas();
-		BufferDeConsultas.instancia.agregarConsulta(consulta);
 	}
 
 	@Test

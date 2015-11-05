@@ -36,5 +36,4 @@ public class HomeController implements WithGlobalEntityManager,
 
 		return new ModelAndView(viewModel, "home.hbs");
 	}
-
 }

@@ -1,7 +1,6 @@
 package ar.edu.grupo5.jm.dss.QueComemos.Consulta.MonitoreoAsincronico;
 
 import java.util.Collection;
-
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 
 import ar.edu.grupo5.jm.dss.QueComemos.Consulta.Consulta;
@@ -29,11 +28,10 @@ public class BufferDeConsultas implements WithGlobalEntityManager {
 		Collection<ProcesoAsincronico> procesosARealizar = this.getProcesosAsincronicos();
 		Collection<Consulta> consultasRealizadas = this.getConsultasRealizadas();
 		procesosARealizar.forEach(proceso -> proceso.procesarConsultas(consultasRealizadas));
-		this.limpiarConsultas();
+		this.limpiarConsultas(consultasRealizadas);
 	}
-
-	public void limpiarConsultas() {
-		entityManager().createQuery("DELETE Consulta")
-		.executeUpdate();;
+ 
+	public void limpiarConsultas(Collection<Consulta> consultasRealizadas) {
+		consultasRealizadas.forEach(consulta -> entityManager().remove(consulta));
 	}
 }

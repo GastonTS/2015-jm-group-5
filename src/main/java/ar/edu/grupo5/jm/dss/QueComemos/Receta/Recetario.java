@@ -5,8 +5,6 @@ import java.util.stream.Collectors;
 
 import ar.edu.grupo5.jm.dss.QueComemos.Consulta.ConsultorRecetas;
 import ar.edu.grupo5.jm.dss.QueComemos.ObjectUpdater.ObjectUpdater;
-import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta.Dificultad;
-import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta.Temporada;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
@@ -38,9 +36,7 @@ public class Recetario extends ConsultorRecetas implements ObjectUpdater, WithGl
 	}
 
 	public void quitarReceta(Receta unaReceta) {
-		entityManager().createQuery("DELETE Receta as r WHERE r.recetaId = :idRecetaQuitada")
-			.setParameter("idRecetaQuitada", unaReceta.getId())
-			.executeUpdate();
+		entityManager().remove(unaReceta);
 	}
 
 	public void crearReceta(Receta unaReceta, Usuario unUsuario) {

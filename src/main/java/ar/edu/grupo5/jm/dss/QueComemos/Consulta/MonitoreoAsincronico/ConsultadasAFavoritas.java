@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import ar.edu.grupo5.jm.dss.QueComemos.Consulta.Consulta;
 
 @Entity
-public class AgregarRecetasConsultadasAFavoritas extends ProcesoAsincronico {
+public class ConsultadasAFavoritas extends ProcesoAsincronico {
 	
 
 	@Override
