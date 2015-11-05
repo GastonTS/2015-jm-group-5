@@ -2,6 +2,7 @@ package ar.edu.grupo5.jm.dss.QueComemos.Consulta.Filtro;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import javax.persistence.CascadeType;
@@ -35,8 +36,7 @@ public abstract class PostProcesamiento extends Filtro {
 
 	@Override
 	public Collection<Receta> filtrarRecetas(Collection<Receta> recetas, Usuario unUsuario) {
-		List<Receta> recetasParciales = (List<Receta>) subFiltro.filtrarRecetas(recetas, unUsuario);
-
+		List<Receta> recetasParciales = subFiltro.filtrarRecetas(recetas, unUsuario).stream().collect(Collectors.toList());
 		return procesar(recetasParciales);
 	}
 

@@ -48,10 +48,13 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
 	
 	public void run() {
 		Receta receta = createRecetaExample(); 
-		Usuario usuario = createUsuarioExample();
+		Usuario usuario = createUsuarioExample("Leandro");
+		Usuario usuario2 = createUsuarioExample("UsuarioDummy");
 	    withTransaction(() -> {
 			RepoUsuarios.instancia.solicitaIngreso(usuario);
 			RepoUsuarios.instancia.apruebaSolicitud(usuario);
+			RepoUsuarios.instancia.solicitaIngreso(usuario2);
+			RepoUsuarios.instancia.apruebaSolicitud(usuario2);
 	    }); 
 	    
 	    withTransaction(()-> {
@@ -65,13 +68,13 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
 	    });
 	    
 	    withTransaction(()-> {
-	    	new Consulta(Recetario.instancia, new SinFiltro(), currentUserHARDCODE());
-	    	new Consulta(Recetario.instancia, new SinFiltro(), currentUserHARDCODE());
-	    	new Consulta(Recetario.instancia, new SinFiltro(), currentUserHARDCODE());
+//	    	new Consulta(Recetario.instancia, new SinFiltro(), usuario2);
+//	    	new Consulta(Recetario.instancia, new SinFiltro(), usuario2);
+//	    	new Consulta(Recetario.instancia, new SinFiltro(), usuario2);
 	    });
 	}
 
-	public Usuario createUsuarioExample(){
+	public Usuario createUsuarioExample(String nombre){
 		Ingrediente maracuya = new Ingrediente("Maracuya");
 		Ingrediente miel = new Ingrediente("Queso");
 		Ingrediente queso = new Ingrediente("Miel");
@@ -79,7 +82,7 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
 		
 		
 		Usuario lean = new UsuarioBuilder()
-			.setNombre("Leandro")
+			.setNombre(nombre)
 			.setSexo(Sexo.MASCULINO)
 			.setFechaDeNacimiento(LocalDate.parse("1993-11-09"))
 			.setPeso(82)

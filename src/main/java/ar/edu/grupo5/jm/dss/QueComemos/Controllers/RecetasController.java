@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.stream.Collectors;
 
+import ar.edu.grupo5.jm.dss.QueComemos.Consulta.Consulta;
 import ar.edu.grupo5.jm.dss.QueComemos.Consulta.Filtro.PorDificultad;
 import ar.edu.grupo5.jm.dss.QueComemos.Consulta.Filtro.PorNombre;
 import ar.edu.grupo5.jm.dss.QueComemos.Consulta.Filtro.PorRangoCalorias;
@@ -43,8 +44,9 @@ public class RecetasController{
 		    		(new PorTemporada(new PorRangoCalorias(sinFiltro, filtroMinCalorias, filtroMaxCalorias), 
 		    				filtroTemporada), filtroDificultad), filtroNombre);
 		    
-		    recetas = superFiltro.filtrarRecetas(recetas, usuario);
-		    
+		    recetas = new Consulta(Recetario.instancia, superFiltro, new Bootstrap().currentUserHARDCODE())
+		    	.getRecetasConsultadas();
+		    		
 		    HashMap<String, Object> viewModel = new HashMap<>();
 		    viewModel.put("recetas", recetas);
 		    viewModel.put("nombre", filtroNombre);
@@ -61,7 +63,7 @@ public class RecetasController{
 		String idProperty = request.queryParams("id");
 		
 		if(idProperty == null) {
-			//show 404 page
+			return null; //page 404
 		} else {
 			Receta receta = Recetario.instancia.getReceta(Long.parseLong(idProperty));
 			if(receta != null) {

@@ -22,7 +22,9 @@ public class SoloPares extends PostProcesamiento {
 
 	@Override
 	protected Collection<Receta> procesar(Collection<Receta> recetas) {
-		return recetas.stream().filter(receta -> ((List<Receta>) recetas).indexOf(receta) % 2 == 1).collect(Collectors.toList());
+		List<Receta> recetasParciales = recetas.stream().collect(Collectors.toList());
+		
+		return recetasParciales.stream().filter(receta -> recetasParciales.indexOf(receta) % 2 == 1).collect(Collectors.toList());
 	}
 
 }
