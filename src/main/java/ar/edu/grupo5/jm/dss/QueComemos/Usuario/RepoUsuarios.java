@@ -34,7 +34,7 @@ public class RepoUsuarios implements ObjectUpdater, WithGlobalEntityManager {
 	}
 
 	private void existeUsuario(Usuario unUsuario) {
-		if (entityManager().find(Usuario.class, unUsuario.getId()) != null) {
+		if (entityManager().find(Usuario.class, unUsuario.getId()) == null) {
 			throw new UsuarioIngresadoNoExisteException("No se encontro usuario en el repositorio de usuarios");
 		}
 	}
