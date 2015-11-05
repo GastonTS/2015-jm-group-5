@@ -34,13 +34,20 @@ public class UsuariosController {
 		 
 		  LocalDate date = usuario.getFechaDeNacimiento();
 		  DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		  String text = date.format(formatter);
+		  String fechaNac = date.format(formatter);
+		  String estado;
+		  if ( usuario.getIMC() > 30){ estado = "Peligroso";}
+		  else if (usuario.getIMC() < 18) {estado = "Fuera de lo esperado";}
+		  else {estado = "Normal";
+		  
+		  }
 	
 		
 			 HashMap<String, Object> viewModel = new HashMap<>();
 			    viewModel.put("usuario", usuario);
-			    viewModel.put("fecha", text);
+			    viewModel.put("fecha", fechaNac);
 			    viewModel.put("disgustos", disgustos);
+			    viewModel.put("estado", estado);
 			    viewModel.put("gustos", gustos);
 			    viewModel.put("recetasFavoritas", recetasFavoritas);  	
 		    return new ModelAndView(viewModel, "perfilUsuario.hbs");

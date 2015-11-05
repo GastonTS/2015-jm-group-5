@@ -12,9 +12,9 @@
 	 	</div>	
 
  		 <div class="col-xs-3">
- 	 
+ 	           <div class="row">
 			  <h2><b> {{usuario.Nombre}}</b> </h2>
-			 
+			 </div>
 			  <br>
 			<blockquote>
 		       <h4><b> Sexo <small> {{usuario.Sexo}}</small> </b></h4>
@@ -27,7 +27,8 @@
 	
 	  		<hr><h4><b> Peso <small> {{usuario.Peso}}</small> </b></h4>
 			
-			<hr><h4><b>IMC <small> {{usuario.IMC}}</small> </b></h4>
+			<hr><h4><b>IMC <small> {{usuario.IMC}}  </small>
+			 <small>Estado: {{estado}} </small></b></h4>
 			
 			<hr><h4> <b> Rutina <small> {{usuario.Rutina}}</small> </b></h4>
 			
@@ -35,7 +36,7 @@
 		</div>	
 		
 		<div class="col-xs-3">
-		<br><br><br>
+		<br><br><br><br>
 		<h4><b>Lo que preferis:</b> </h4>
 		<select multiple class="form-control">
 		{{#gustos}}
@@ -58,7 +59,7 @@
 		
 		
 	<div class="col-xs-3">
-	<br><br><br><h4><b>Lo que no te gusta: </b></h4>
+	<br><br><br><br><h4><b>Lo que no te gusta: </b></h4>
 		<select multiple class="form-control">
   			{{#disgustos}}
   			<option>{{Nombre}}</option>
@@ -93,8 +94,6 @@
 	 </a>
 	 </div>	
 	 
-	 
-		
 	
 </div>
 

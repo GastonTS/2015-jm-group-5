@@ -6,37 +6,29 @@
 
 <form action="/recetas" >
 <div class="container">
-  <div class="row">
-	<div class="col-md-offset-2 col-md-3">
+
+	<div class="col-xs-offset-1 col-xs-2">
+	
+	 <h2><b> Filtros</b> </h2>
 	  <div class="input-group">
 	  	  <label for="nombre">Nombre</label>
 		  <input type="text" class="form-control" name="nombre">
 	  </div>
-	</div>
 	
-  </div>
-
-  <div class="row">
-  	<div class="col-md-offset-2 col-md-3">
-		<label>Rango de Calorias</label>
+		<hr><label>Rango de Calorias</label>
 		<div class="input-group">
 		  <input type="number" class="form-control" placeholder="Mínimo" name="cantMinCalorias">
 		</div>
-  	</div>
-  </div>
   
-  <div class="row">
-  	<div class="col-md-offset-2 col-md-3">
+  	
   		<div class="input-group">
 		  <input type="number" class="form-control" placeholder="Máximo" name="cantMaxCalorias">
 		</div>
- 	</div>
-  </div>
-		
-  <div class="row">
-  	<div class="col-md-offset-2">
-		<div class="form-group">
-        	<div class=" col-xs-3 selectContainer">
+ 	
+
+  
+		<hr><div class="form-group">
+        	
         	    <label class="dificultad">Dificultad</label>
             	<select class="form-control" name="dificultad">
             	    <option value=""></option>
@@ -44,14 +36,12 @@
                 	<option value="MEDIA">MEDIA</option>
                 	<option value="BAJA">BAJA</option>
             	</select>
-        	</div>
+        	
     	</div>
-    </div>
-  </div>
-  <div class="row">
-  	<div class="col-md-offset-2">
-		<div class="form-group">
-        	<div class="col-xs-3 selectContainer">
+   
+ 
+		<hr><div class="form-group">
+        	
         	    <label class="temporada">Temporada</label>
             	<select class="form-control" name="temporada">
             	    <option value=""></option>
@@ -61,23 +51,23 @@
                 	<option value="INVIERNO">Invierno</option>
                 	<option value="TODOELAÑO">Todo el Año</option>
             	</select>
-        	</div>
+        	
     	</div>
-    </div>
-    
-    <div class="col-md-offset-2 col-md-4">
-   		<button type="submit" class="form-control btn btn-info btn-lg">
+    	
+    	<button type="submit" class="form-control btn btn-primary ">
  			<span class="glyphicon glyphicon-search" aria-hidden="true"></span> Consultar
 		</button>
-	</div>
+    
   </div>
 
-	  
+	
 
-</form>
+		
 
-<div class="row">
-	<div class="col-md-offset-1 col-md-10">	
+		<div class="col-xs-offset-0 col-md-8">	
+		
+		<h2 style="text-align: center"><b> Resultados</b> </h2>
+			<hr><blockquote>
 	<table class="table table-hover" >
 		<thead>
 			<tr>
@@ -96,10 +86,19 @@
 				<td>{{Dificultad}}</td>
 				<td>{{Temporada}}</td>
 			</tr>
-		{{/recetas}}		
+		{{/recetas}}	
+			</blockquote>	
 	</table>
 	</div>
+
+
+
 </div>
+
+</form>
+
+
+
 
 </div>
 
