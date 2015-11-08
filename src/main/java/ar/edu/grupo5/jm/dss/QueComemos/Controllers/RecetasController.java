@@ -15,6 +15,7 @@ import ar.edu.grupo5.jm.dss.QueComemos.Main.Bootstrap;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta.Dificultad;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Recetario;
+import ar.edu.grupo5.jm.dss.QueComemos.Receta.Ingrediente;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.CondicionDeSalud.CondicionDeSalud;
 import spark.ModelAndView;
@@ -94,7 +95,9 @@ public ModelAndView editar (Request request, Response response) {
 
 public ModelAndView edicionReceta (Receta receta){
 	HashMap<String, Object> viewModel = new HashMap<>();
+	Collection<Ingrediente> ingredientes = receta.getIngredientes();
     viewModel.put("receta", receta);
+    viewModel.put("ingredientes", ingredientes);
    
 	 return new ModelAndView(viewModel, "edicionReceta.hbs");
 	

@@ -110,6 +110,10 @@ public class Receta {
 	public Collection<Ingrediente> getIngredientesTotales() {
 		return Stream.concat(ingredientes.stream(), getIngredientesSubRecetas()).collect(Collectors.toList());
 	}
+	
+	public Collection<Ingrediente> getIngredientes() {
+		return ingredientes;
+	}
 
 	private Stream<Condimentacion> getCondimentacionesSubRecetas() {
 		return subRecetas.stream().flatMap(subReceta -> subReceta.getCondimentacionesTotales().stream());
