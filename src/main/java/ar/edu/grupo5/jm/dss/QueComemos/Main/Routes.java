@@ -38,6 +38,7 @@ public class Routes {
 
 		    get("/recetas", recetas::listar, engine);
 		    get("/recetas/show", "application/json", recetas::detalle, engine);
+		    get("recetas/edit", recetas::editar, engine);
 		    
 		    post("/recetas/favorita", recetas::cambiarFavorita);
 		    

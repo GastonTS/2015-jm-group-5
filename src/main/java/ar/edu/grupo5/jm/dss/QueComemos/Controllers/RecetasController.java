@@ -66,13 +66,39 @@ public class RecetasController{
 			return null; //page 404
 		} else {
 			Receta receta = Recetario.instancia.getReceta(Long.parseLong(idProperty));
+			
 			if(receta != null) {
 				return showReceta(receta);
 			}
 		}
 		
 		return null; //page 404
+		
 	}
+	
+public ModelAndView editar (Request request, Response response) {
+		
+	String idProperty = request.queryParams("idReceta");
+
+	if(idProperty == null) {
+		return null; //page 404
+	} else {
+		Receta receta = Recetario.instancia.getReceta(Long.parseLong(idProperty));
+		if(receta != null) {
+			return edicionReceta(receta);
+		}
+	}
+	return null; //page 404   
+	}
+
+
+public ModelAndView edicionReceta (Receta receta){
+	HashMap<String, Object> viewModel = new HashMap<>();
+    viewModel.put("receta", receta);
+   
+	 return new ModelAndView(viewModel, "edicionReceta.hbs");
+	
+}
 
 	private ModelAndView showReceta(Receta receta) {
 		//FIXME esto deberia ir al modelo/repositorio
