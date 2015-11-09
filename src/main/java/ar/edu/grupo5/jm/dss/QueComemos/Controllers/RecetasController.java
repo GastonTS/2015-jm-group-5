@@ -5,6 +5,9 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.stream.Collectors;
 
+import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
+import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
+
 import ar.edu.grupo5.jm.dss.QueComemos.Consulta.Consulta;
 import ar.edu.grupo5.jm.dss.QueComemos.Consulta.Filtro.PorDificultad;
 import ar.edu.grupo5.jm.dss.QueComemos.Consulta.Filtro.PorNombre;
@@ -22,7 +25,7 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
-public class RecetasController{
+public class RecetasController implements WithGlobalEntityManager, TransactionalOps {
 
     SinFiltro sinFiltro = new SinFiltro();
 	Usuario usuario = new Bootstrap().currentUserHARDCODE();
@@ -45,7 +48,7 @@ public class RecetasController{
 		    		(new PorTemporada(new PorRangoCalorias(sinFiltro, filtroMinCalorias, filtroMaxCalorias), 
 		    				filtroTemporada), filtroDificultad), filtroNombre);
 		    
-		    recetas = new Consulta(Recetario.instancia, superFiltro, new Bootstrap().currentUserHARDCODE())
+		    recetas = new Consulta(Recetario.instancia, superFiltro, currentUser())
 		    	.getRecetasConsultadas();
 		    		
 		    HashMap<String, Object> viewModel = new HashMap<>();
@@ -111,7 +114,7 @@ public ModelAndView edicionReceta (Receta receta){
 		
 		Collection<CondicionDeSalud> condicionesInadecuadas = CondicionDeSalud.condicionesALasQueEsInadecuada(receta);
 		
-		Usuario currentUser = new Bootstrap().currentUserHARDCODE();
+		Usuario currentUser = currentUser();
 		
 		HashMap<String, Object> viewModel = new HashMap<>();
 		    viewModel.put("receta", receta);
@@ -126,14 +129,20 @@ public ModelAndView edicionReceta (Receta receta){
 	}
 	
 	public Void cambiarFavorita(Request request, Response response) {
-	    Long idReceta = Long.parseLong(request.queryParams("idReceta"));
-	    Receta receta = Recetario.instancia.getReceta(idReceta);
-	    if(request.queryParams("value").equals("true")) {
-	    	new Bootstrap().currentUserHARDCODE().agregarAFavorita(receta);
-	    } else {
-	    	new Bootstrap().currentUserHARDCODE().quitarRecetaFavorita(receta);
-	    }
+		Long idReceta = Long.parseLong(request.queryParams("idReceta"));
+		withTransaction(() -> {
+			Receta receta = Recetario.instancia.getReceta(idReceta);
+		    if(request.queryParams("value").equals("true")) {
+		    	currentUser().agregarAFavorita(receta);
+		    } else {
+		    	currentUser().quitarRecetaFavorita(receta);
+		    }	
+		});
 	    response.redirect("show?id=" + request.queryParams("idReceta"));
 		return null;
+	}
+
+	private Usuario currentUser() {
+		return new Bootstrap().currentUserHARDCODE();
 	}
 }
