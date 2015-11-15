@@ -70,7 +70,7 @@
 			
 			
 	
-	     <div class="col-xs-6">
+	     <div class="col-xs-offset-2 col-xs-8">
 	      		 <div class="input-group">
 		  			 <label for="ingrediente"> <b>ingredientes </b></label> <br>
 		  			 <input type="text"  name="ingrediente"  size="30"> 		  
@@ -87,31 +87,54 @@
 		    	</div>
 		  </div>	
 		   
+		 
+		  <div class="col-xs-offset-1 col-xs-9">
+
+ 			  <hr>
+ 			<h4><b> Condimentaciones: </b> </h4>
+ 				<div class="input-group">
+ 					<div class="col-xs-5">
+  					<label for="condimentacion">Condimento</label>
+ 					 <input class="form-control" id="condimentacion" type="text"  placeholder="Nombre">
+					</div>
+					
+					<div class="col-xs-3">
+  					<label for="cantidad">Cantidad</label>
+  					<input type="number" class="form-control" placeholder="Grs" name="cantidad" >
+  					
+					</div>
+					
+					<div class="col-xs-3">
+					
+					<label for="cantidad" style="color: #FFFFFF">_____ </label>
+  					<button type="button" class="btn btn-default  btn-sm">
+ 						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Añadir
+					</button>
+					</div>
+ 				</div>
+ 				  <hr>
+			<table 	class="table table-hover">
+	   			<thead>
+        			<tr>
+	        			<th>Condimento</th>
+						<th>Cantidad</th>		
+				    </tr>
+			    </thead>
+			    <tbody>
+			   
+				   	{{#each receta.CondimentacionesTotales}}
+		      			<tr>
+					        <td>{{this.Condimento}}</td>
+					        <td>{{this.Cantidad}}</td>
+				      	</tr>
+				 	{{/each}}
+				 </tbody>				
+				 </table>
+			
+		  </div>	
 		   
 		   
-		   <div class="col-xs-6">
-	      			 <div class="input-group">
-		  				 <label for="Condicion"> <b>Inadecuado Para </b></label> <br>
-		  				 
-		  				 	<select class="form-control" style="width:245px">
-		  				 	<option value=""></option>
-                				<option value="Vegano">Vegano</option>
-                				<option value="Hipertenso">Hipertenso</option>
-                				<option value="Celiaco">Celiaco</option>
-                				<option value="Diabetico">Diabetico</option>
-            					</select>	  
-		   				 <button type="button" class="btn btn-default btn-sm">Agregar</button>
-		  			 </div><br> 
-		    
-		     		 <div class="input-group">
-		    			 <select multiple class="form-control" style="width:245px">
-  							{{#each recetas.CondicionesDeSalud}}
-  							<option>{{this.Nombre}}</option>
-							{{/each}}
-		 				  </select>
-		   				<button type="button" class="btn btn-default btn-sm">Eliminar</button> 
-		   				 </div>
-		   </div>	
+		  
 	
 </div>
 
