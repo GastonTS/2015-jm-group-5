@@ -26,18 +26,9 @@ import spark.Request;
 import spark.Response;
 
 public class RecetasController implements WithGlobalEntityManager, TransactionalOps {
-
-    SinFiltro sinFiltro = new SinFiltro();
-	Usuario usuario = new Bootstrap().currentUserHARDCODE();
 	 
-	public ModelAndView mostrar(Request request, Response response){
-
-		return new ModelAndView(null, "recetas.hbs");
-	}
-    
 	public ModelAndView listar(Request request, Response response) {
-		    Collection<Receta> recetas = Recetario.instancia.getRecetasTotales();
-
+		    SinFiltro sinFiltro = new SinFiltro();
 		    String filtroNombre = request.queryParams("nombre");
 		    String filtroDificultad = request.queryParams("dificultad");
 		    String filtroMinCalorias = request.queryParams("cantMinCalorias");
@@ -47,6 +38,10 @@ public class RecetasController implements WithGlobalEntityManager, Transactional
 		    PorNombre superFiltro = new PorNombre(new PorDificultad
 		    		(new PorTemporada(new PorRangoCalorias(sinFiltro, filtroMinCalorias, filtroMaxCalorias), 
 		    				filtroTemporada), filtroDificultad), filtroNombre);
+		    
+		    
+		    //FIXME withTransaction
+		    Collection<Receta> recetas = Recetario.instancia.getRecetasTotales();
 		    
 		    recetas = new Consulta(Recetario.instancia, superFiltro, currentUser())
 		    	.getRecetasConsultadas();

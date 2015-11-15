@@ -4,20 +4,11 @@ import java.time.LocalDate;
 
 
 
-
-
-
 import org.uqbarproject.jpa.java8.extras.EntityManagerOps;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 
 
-
-
-
-
-import ar.edu.grupo5.jm.dss.QueComemos.Consulta.Consulta;
-import ar.edu.grupo5.jm.dss.QueComemos.Consulta.Filtro.SinFiltro;
 import ar.edu.grupo5.jm.dss.QueComemos.Consulta.Observadores.ConsultadasPorUsuario;
 import ar.edu.grupo5.jm.dss.QueComemos.Consulta.Observadores.ConsultasTotales;
 import ar.edu.grupo5.jm.dss.QueComemos.Consulta.Observadores.RepoObservadorConsultas;
@@ -59,7 +50,6 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
 	    
 	    withTransaction(()-> {
 			Recetario.instancia.crearReceta(receta, usuario);
-			//usuario.agregarAFavorita(receta);
 	    });
 	    
 	    withTransaction(()-> {
@@ -139,7 +129,7 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
 		.agregarCondimentaciones(pimienta)
 		.agregarCondimentaciones(ajoMolido)
 		.agregarSubReceta(gnoquis)
-		.setTemporada(Temporada.TODOELAÑO)
+		.setTemporada(Temporada.TODO_EL_AÑO)
 		.setPreparacion(preparacion)
 		.setUrlImagen("http://1.bp.blogspot.com/-PplFMJo7S0Q/UUi_w7hEQPI/AAAAAAAABxk/"
 				+ "Ng99QwM_WXo/s1600/%C3%91oquis+con+bolo%C3%B1esa+r%C3%BAstica.JPG")

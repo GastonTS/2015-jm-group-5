@@ -7,41 +7,43 @@
 
 	<persistence-unit name="db" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-
-
-
-		<class>ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario</class>
-		<class>ar.edu.grupo5.jm.dss.QueComemos.Usuario.Grupo</class>
-		<class>ar.edu.grupo5.jm.dss.QueComemos.Usuario.CondicionDeSalud.CondicionDeSalud</class>
-		<class>ar.edu.grupo5.jm.dss.QueComemos.Usuario.CondicionDeSalud.Celiaco</class>
-		<class>ar.edu.grupo5.jm.dss.QueComemos.Usuario.CondicionDeSalud.Vegano</class>
-		<class>ar.edu.grupo5.jm.dss.QueComemos.Usuario.CondicionDeSalud.Hipertenso</class>
-		<class>ar.edu.grupo5.jm.dss.QueComemos.Usuario.CondicionDeSalud.Diabetico</class>
-		<class>ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta</class>
-		<class>ar.edu.grupo5.jm.dss.QueComemos.Receta.Condimentacion</class>
-		<class>ar.edu.grupo5.jm.dss.QueComemos.Receta.Ingrediente</class>
 		<class>ar.edu.grupo5.jm.dss.QueComemos.Consulta.Consulta</class>
 		<class>ar.edu.grupo5.jm.dss.QueComemos.Consulta.Filtro.Filtro</class>
-		<class>ar.edu.grupo5.jm.dss.QueComemos.Consulta.Filtro.SinFiltro</class>
-		<class>ar.edu.grupo5.jm.dss.QueComemos.Consulta.Filtro.PreFiltro</class>
-		<class>ar.edu.grupo5.jm.dss.QueComemos.Consulta.Filtro.PostProcesamiento</class>
-		<class>ar.edu.grupo5.jm.dss.QueComemos.Consulta.Filtro.OrdenadosPorCriterio</class>
-		<class>ar.edu.grupo5.jm.dss.QueComemos.Consulta.Filtro.Primeros10</class>
-		<class>ar.edu.grupo5.jm.dss.QueComemos.Consulta.Filtro.SoloPares</class>
 		<class>ar.edu.grupo5.jm.dss.QueComemos.Consulta.Filtro.NoEsInadecuadaParaUsuario</class>
-		<class>ar.edu.grupo5.jm.dss.QueComemos.Consulta.Filtro.PreparacionBarata</class>
-		<class>ar.edu.grupo5.jm.dss.QueComemos.Consulta.Filtro.NoLeDisgustaAlUsuario</class>
 		<class>ar.edu.grupo5.jm.dss.QueComemos.Consulta.Filtro.NoExcedeCalorias</class>
-		<class>ar.edu.grupo5.jm.dss.QueComemos.Consulta.Observadores.ObservadorConsultas</class>
-		<class>ar.edu.grupo5.jm.dss.QueComemos.Consulta.Observadores.AcumuladorConsultas</class>
-		<class>ar.edu.grupo5.jm.dss.QueComemos.Consulta.Observadores.PorHoraDelDia</class>
-		<class>ar.edu.grupo5.jm.dss.QueComemos.Consulta.Observadores.ConsultaVeganoRecetasDificles</class>
-		<class>ar.edu.grupo5.jm.dss.QueComemos.Consulta.Observadores.ConsultadasPorUsuario</class>
-		<class>ar.edu.grupo5.jm.dss.QueComemos.Consulta.Observadores.HistorialConsultaUsuario</class>
-		<class>ar.edu.grupo5.jm.dss.QueComemos.Consulta.MonitoreoAsincronico.ProcesoAsincronico</class>
-		<class>ar.edu.grupo5.jm.dss.QueComemos.Consulta.MonitoreoAsincronico.AgregarRecetasConsultadasAFavoritas</class>
+		<class>ar.edu.grupo5.jm.dss.QueComemos.Consulta.Filtro.NoLeDisgustaAlUsuario</class>
+		<class>ar.edu.grupo5.jm.dss.QueComemos.Consulta.Filtro.OrdenadosPorCriterio</class>
+		<class>ar.edu.grupo5.jm.dss.QueComemos.Consulta.Filtro.PostProcesamiento</class>
+		<class>ar.edu.grupo5.jm.dss.QueComemos.Consulta.Filtro.PreFiltro</class>
+		<class>ar.edu.grupo5.jm.dss.QueComemos.Consulta.Filtro.PreparacionBarata</class>
+		<class>ar.edu.grupo5.jm.dss.QueComemos.Consulta.Filtro.Primeros10</class>
+		<class>ar.edu.grupo5.jm.dss.QueComemos.Consulta.Filtro.SinFiltro</class>
+		<class>ar.edu.grupo5.jm.dss.QueComemos.Consulta.Filtro.SoloPares</class>
+		<class>ar.edu.grupo5.jm.dss.QueComemos.Consulta.MonitoreoAsincronico</class>
+		<class>ar.edu.grupo5.jm.dss.QueComemos.Consulta.MonitoreoAsincronico.ConsultadasAFavoritas</class>
 		<class>ar.edu.grupo5.jm.dss.QueComemos.Consulta.MonitoreoAsincronico.EnviarConsultaPorMail</class>
 		<class>ar.edu.grupo5.jm.dss.QueComemos.Consulta.MonitoreoAsincronico.LogearConsultasMasDe100</class>
+		<class>ar.edu.grupo5.jm.dss.QueComemos.Consulta.MonitoreoAsincronico.ProcesoAsincronico</class>
+		<class>ar.edu.grupo5.jm.dss.QueComemos.Consulta.Observadores.AcumuladorConsultas</class>
+		<class>ar.edu.grupo5.jm.dss.QueComemos.Consulta.Observadores.ConsultadasPorUsuario</class>
+		<class>ar.edu.grupo5.jm.dss.QueComemos.Consulta.Observadores.ConsultasSegunSexo</class>
+		<class>ar.edu.grupo5.jm.dss.QueComemos.Consulta.Observadores.ConsultasTotales</class>
+		<class>ar.edu.grupo5.jm.dss.QueComemos.Consulta.Observadores.ConsultaVeganoRecetasDificles</class>
+		<class>ar.edu.grupo5.jm.dss.QueComemos.Consulta.Observadores.HistorialConsultaUsuario</class>
+		<class>ar.edu.grupo5.jm.dss.QueComemos.Consulta.Observadores.ObservadorConsultas</class>
+		<class>ar.edu.grupo5.jm.dss.QueComemos.Consulta.Observadores.PorHoraDelDia</class>
+		<class>ar.edu.grupo5.jm.dss.QueComemos.Receta.Condimentacion</class>
+		<class>ar.edu.grupo5.jm.dss.QueComemos.Receta.Ingrediente</class>
+		<class>ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta</class>
+		<class>ar.edu.grupo5.jm.dss.QueComemos.Usuario.Complexion</class>
+		<class>ar.edu.grupo5.jm.dss.QueComemos.Usuario.DatosPersonales</class>
+		<class>ar.edu.grupo5.jm.dss.QueComemos.Usuario.Grupo</class>
+		<class>ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario</class>
+		<class>ar.edu.grupo5.jm.dss.QueComemos.Usuario.CondicionDeSalud.Celiaco</class>
+		<class>ar.edu.grupo5.jm.dss.QueComemos.Usuario.CondicionDeSalud.CondicionDeSalud</class>
+		<class>ar.edu.grupo5.jm.dss.QueComemos.Usuario.CondicionDeSalud.Diabetico</class>
+		<class>ar.edu.grupo5.jm.dss.QueComemos.Usuario.CondicionDeSalud.Hipertenso</class>
+		<class>ar.edu.grupo5.jm.dss.QueComemos.Usuario.CondicionDeSalud.Vegano</class>
 
 		<properties>
 			<property name="hibernate.archive.autodetection" value="class" />

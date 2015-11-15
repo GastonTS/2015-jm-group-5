@@ -13,13 +13,15 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import org.apache.commons.lang3.text.WordUtils;
+
 import ar.edu.grupo5.jm.dss.QueComemos.ObjectUpdater.Updateable;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
 @Entity
 public class Receta {
 
-	@Id
+	@Id 
 	@GeneratedValue
 	private Long recetaId;
 	
@@ -33,8 +35,6 @@ public class Receta {
 	private Collection<Condimentacion> condimentaciones;
 	@Updateable
 	private double cantCalorias;
-	@SuppressWarnings("unused")
-	private double cantCaloriasTotales;
 	@ManyToMany(cascade = CascadeType.ALL)
 	@Updateable
 	private Collection<Receta> subRecetas;
@@ -53,11 +53,21 @@ public class Receta {
 	private String urlImagen;
 
 	public enum Dificultad {
-		BAJA, MEDIA, ALTA
+		BAJA, MEDIA, ALTA;	
+		
+		@Override
+		public String toString() {
+			return WordUtils.capitalize(this.name().toLowerCase());
+		}
 	}
 	
 	public enum Temporada {
-		PRIMAVERA, OTOÑO, VERANO, INVIERNO, TODOELAÑO
+		PRIMAVERA, OTOÑO, VERANO, INVIERNO, TODO_EL_AÑO;
+		
+		@Override
+		public String toString() {
+			return WordUtils.capitalize(this.name().toLowerCase()).replaceAll("_", " ");
+		}
 	}
 
 	public Receta() {
@@ -80,7 +90,6 @@ public class Receta {
 		temporada = unaTemporada;
 		preparacion = unaPreparacion;
 		urlImagen = unaUrlImagen;
-		cantCaloriasTotales = this.getCantCaloriasTotales();
 	}
 
 	public void setDueño(Usuario unUsuario) {

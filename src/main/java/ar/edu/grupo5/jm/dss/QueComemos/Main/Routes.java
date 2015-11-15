@@ -1,23 +1,14 @@
 package ar.edu.grupo5.jm.dss.QueComemos.Main;
 
 import static spark.Spark.after;
-import static spark.Spark.before;
 import static spark.Spark.get;
 import static spark.Spark.post;
 import static spark.SparkBase.port;
 import static spark.SparkBase.staticFileLocation;
 
 
-
-
-
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
-import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 import ar.edu.grupo5.jm.dss.QueComemos.Controllers.HomeController;
 import ar.edu.grupo5.jm.dss.QueComemos.Controllers.RecetasController;
