@@ -122,6 +122,10 @@ public class Receta {
 	public Collection<Condimentacion> getCondimentacionesTotales() {
 		return Stream.concat(condimentaciones.stream(), getCondimentacionesSubRecetas()).collect(Collectors.toList());
 	}
+	
+	public Collection<Condimentacion> getCondimentaciones() {
+		return condimentaciones;
+	}
 
 	private double getCantCaloriasSubRecetas() {
 		return subRecetas.stream().mapToDouble(subReceta -> subReceta.getCantCaloriasTotales()).sum();
