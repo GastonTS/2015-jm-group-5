@@ -1,9 +1,7 @@
 package ar.edu.grupo5.jm.dss.QueComemos.Controllers;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.stream.Collectors;
 
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
@@ -17,6 +15,7 @@ import ar.edu.grupo5.jm.dss.QueComemos.Consulta.Filtro.SinFiltro;
 import ar.edu.grupo5.jm.dss.QueComemos.Main.Bootstrap;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta.Dificultad;
+import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta.Temporada;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Recetario;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Ingrediente;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
@@ -75,45 +74,40 @@ public class RecetasController implements WithGlobalEntityManager, Transactional
 		
 	}
 	
-public ModelAndView editar (Request request, Response response) {
-		
-	String idProperty = request.queryParams("idReceta");
-
-	if(idProperty == null) {
-		return null; //page 404
-	} else {
-		Receta receta = Recetario.instancia.getReceta(Long.parseLong(idProperty));
-		if(receta != null) {
-			return edicionReceta(receta);
-		}
-	}
-	return null; //page 404   
-	}
-
-
-public ModelAndView edicionReceta (Receta receta){
-	HashMap<String, Object> viewModel = new HashMap<>();
-	Collection<Ingrediente> ingredientes = receta.getIngredientes();
-    viewModel.put("receta", receta);
-    viewModel.put("ingredientes", ingredientes);
-   
-	 return new ModelAndView(viewModel, "edicionReceta.hbs");
+	public ModelAndView editar (Request request, Response response) {
+			
+		String idProperty = request.queryParams("idReceta");
 	
-}
-
+		if(idProperty == null) {
+			return null; //page 404
+		} else {
+			Receta receta = Recetario.instancia.getReceta(Long.parseLong(idProperty));
+			if(receta != null) {
+				return edicionReceta(receta);
+			}
+		}
+		return null; //page 404   
+		}
+	
+	
+	public ModelAndView edicionReceta (Receta receta){
+		HashMap<String, Object> viewModel = new HashMap<>();
+		Collection<Ingrediente> ingredientes = receta.getIngredientes(); 
+	    viewModel.put("receta", receta);
+	    viewModel.put("dificultades", Dificultad.values());
+	    viewModel.put("temporadas", Temporada.values());
+	    viewModel.put("ingredientes", ingredientes);
+	   
+		 return new ModelAndView(viewModel, "edicionReceta.hbs");
+	}
+	
 	private ModelAndView showReceta(Receta receta) {
-		//FIXME esto deberia ir al modelo/repositorio
-		Collection<Dificultad> dificultades = Arrays.asList(Dificultad.values())
-				.stream().filter(dificultad -> dificultad != receta.getDificultad())
-				.collect(Collectors.toList());
-		
 		Collection<CondicionDeSalud> condicionesInadecuadas = CondicionDeSalud.condicionesALasQueEsInadecuada(receta);
 		
 		Usuario currentUser = currentUser();
 		
 		HashMap<String, Object> viewModel = new HashMap<>();
 		    viewModel.put("receta", receta);
-		    viewModel.put("dificultades", dificultades);
 		    viewModel.put("publica", receta.esPublica());
 		    viewModel.put("autor", receta.getDueño());
 		    viewModel.put("favorita", currentUser.esRecetaFavorita(receta));
@@ -122,7 +116,7 @@ public ModelAndView edicionReceta (Receta receta){
 		    viewModel.put("hasPhoto", !receta.getUrlImagen().isEmpty());
 		return  new ModelAndView(viewModel, "detalleReceta.hbs");
 	}
-	
+		
 	public Void cambiarFavorita(Request request, Response response) {
 		Long idReceta = Long.parseLong(request.queryParams("idReceta"));
 		withTransaction(() -> {
@@ -136,7 +130,7 @@ public ModelAndView edicionReceta (Receta receta){
 	    response.redirect("show?id=" + request.queryParams("idReceta"));
 		return null;
 	}
-
+	
 	private Usuario currentUser() {
 		return new Bootstrap().currentUserHARDCODE();
 	}

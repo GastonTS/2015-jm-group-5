@@ -13,8 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
-import org.apache.commons.lang3.text.WordUtils;
-
 import ar.edu.grupo5.jm.dss.QueComemos.ObjectUpdater.Updateable;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
@@ -52,21 +50,19 @@ public class Receta {
 	@Updateable
 	private String urlImagen;
 
-	public enum Dificultad {
+	public enum Dificultad implements WithEnumUtils {
 		BAJA, MEDIA, ALTA;	
 		
-		@Override
-		public String toString() {
-			return WordUtils.capitalize(this.name().toLowerCase());
+		public String getPrettyName() {
+			return this.getFormattedName();
 		}
 	}
 	
-	public enum Temporada {
+	public enum Temporada implements WithEnumUtils {
 		PRIMAVERA, OTOÑO, VERANO, INVIERNO, TODO_EL_AÑO;
 		
-		@Override
-		public String toString() {
-			return WordUtils.capitalize(this.name().toLowerCase()).replaceAll("_", " ");
+		public String getPrettyName() {
+			return this.getFormattedName();
 		}
 	}
 

@@ -32,12 +32,10 @@
         	
         	    <label class="dificultad">Dificultad </label>
             	<select class="form-control" name="dificultad">
-            	    <option value=""></option>
-                	<option value="ALTA">ALTA</option>
-                	<option value="MEDIA">MEDIA</option>
-                	<option value="BAJA">BAJA</option>
-                	<option selected="selected">{{receta.Dificultad}}</option>
-                	
+				  	{{#each dificultades}}
+					  	<option value={{this}}>{{this.prettyName}}</option>
+				  	{{/each}}
+				  	<option value={{receta.dificultad}} selected="selected">{{receta.dificultad.prettyName}}</option>
             	</select>
         	
     	</div>
@@ -47,15 +45,10 @@
         	
         	    <label class="temporada">Temporada</label>
             	<select class="form-control" name="temporada" selected="{{receta.Temporada}}">
-            	    <option value=""></option>
-                	<option value="PRIMAVERA">PRIMAVERA</option>
-                	<option value="VERANO">VERANO</option>
-                	<option value="OTOÑO">OTOÑO</option>
-                	<option value="INVIERNO">INVIERNO</option>
-                	<option value="TODOELAÑO">TODOELAÑO</option>
-                	<option selected="selected">{{receta.Temporada}}</option>
-                	
-                	
+				  	{{#each temporadas}}
+					  	<option value={{this}}>{{this.prettyName}}</option>
+				  	{{/each}}
+                	<option value={{receta.Temporada}} selected="selected">{{receta.Temporada.prettyName}}</option>
             	</select>
         	
     	</div>
