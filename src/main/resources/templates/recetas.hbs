@@ -12,46 +12,47 @@
 	 <h2><b> Filtros</b> </h2>
 	  <div class="input-group">
 	  	  <label for="nombre">Nombre</label>
-		  <input type="text" class="form-control" name="nombre">
+		  <input type="text" class="form-control" name="nombre" value="{{nombre}}">
 	  </div>
 	
-		<hr><label>Rango de Calorias</label>
+		<hr><label>Rango de Calorias</label> 
 		<div class="input-group">
-		  <input type="number" class="form-control" placeholder="Mínimo" name="cantMinCalorias">
+		  <input type="number" class="form-control" placeholder="Mínimo" name="cantMinCalorias" value="{{cantMinCalorias}}">
 		</div>
   
   	
   		<div class="input-group">
-		  <input type="number" class="form-control" placeholder="Máximo" name="cantMaxCalorias">
+		  <input type="number" class="form-control" placeholder="Máximo" name="cantMaxCalorias" value="{{cantMaxCalorias}}">
 		</div>
  	
 
   
 		<hr><div class="form-group">
-        	
         	    <label class="dificultad">Dificultad</label>
             	<select class="form-control" name="dificultad">
-            	    <option value=""></option>
-                	<option value="ALTA">ALTA</option>
-                	<option value="MEDIA">MEDIA</option>
-                	<option value="BAJA">BAJA</option>
-            	</select>
-        	
+			  	<option></option>
+			  	{{#each dificultades}}
+				  	<option value={{this}}>{{this.prettyName}}</option>
+			  	{{/each}}
+			  	{{#if dificultad}}
+            		<option value={{dificultad}} selected="selected">{{dificultad.prettyName}}</option>
+        		{{/if}}
+        	</select>           	
     	</div>
-   
- 
-		<hr><div class="form-group">
-        	
-        	    <label class="temporada">Temporada</label>
-            	<select class="form-control" name="temporada">
-            	    <option value=""></option>
-                	<option value="PRIMAVERA">Primavera</option>
-                	<option value="VERANO">Verano</option>
-                	<option value="OTOÑO">Otoño</option>
-                	<option value="INVIERNO">Invierno</option>
-                	<option value="TODOELAÑO">Todo el Año</option>
-            	</select>
-        	
+		<hr>
+
+		<div class="form-group">
+    	    <label class="temporada">Temporada</label>
+        	<select class="form-control" name="temporada">
+        		<option></option>
+			  	{{#each temporadas}}
+				  	<option value={{this}}>{{this.prettyName}}</option>
+			  	{{/each}}
+			  	{{#if dificultad}}
+            		<option value={{temporada}} selected="selected">{{temporada.prettyName}}</option>
+        		{{/if}}
+            	
+        	</select>    
     	</div>
     	
     	<button type="submit" class="form-control btn btn-primary ">
@@ -79,12 +80,12 @@
 			</tr>
 		</thead>
 		{{#recetas}}
-			<tr class="clickeable" onclick="document.location='/recetas/show?id={{Id}}';">
+			<tr class="clickeable" onclick="document.location='/recetas/{{Id}}/show';">
 				<td>{{Id}}</td>
 				<td>{{Nombre}}</td>
 				<td>{{CantCaloriasTotales}}</td>
-				<td>{{Dificultad}}</td>
-				<td>{{Temporada}}</td>
+				<td>{{Dificultad.PrettyName}}</td>
+				<td>{{Temporada.PrettyName}}</td>
 			</tr>
 		{{/recetas}}	
 			</blockquote>	

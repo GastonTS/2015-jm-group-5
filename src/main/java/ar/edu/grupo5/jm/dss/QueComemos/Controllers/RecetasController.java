@@ -34,6 +34,9 @@ public class RecetasController implements WithGlobalEntityManager, Transactional
 		    String filtroMaxCalorias = request.queryParams("cantMaxCalorias");
 		    String filtroTemporada = request.queryParams("temporada");
 		    
+		    Dificultad dificultad = (filtroDificultad!= null && !filtroDificultad.equals(""))? Dificultad.valueOf(filtroDificultad) : null;
+		    Temporada temporada = (filtroTemporada!= null && !filtroTemporada.equals(""))? Temporada.valueOf(filtroTemporada) : null;
+		    
 		    PorNombre superFiltro = new PorNombre(new PorDificultad
 		    		(new PorTemporada(new PorRangoCalorias(sinFiltro, filtroMinCalorias, filtroMaxCalorias), 
 		    				filtroTemporada), filtroDificultad), filtroNombre);
@@ -47,9 +50,11 @@ public class RecetasController implements WithGlobalEntityManager, Transactional
 		    		
 		    HashMap<String, Object> viewModel = new HashMap<>();
 		    viewModel.put("recetas", recetas);
+		    viewModel.put("dificultades", Dificultad.values());
+		    viewModel.put("temporadas", Temporada.values());
 		    viewModel.put("nombre", filtroNombre);
-		    viewModel.put("dificultad", filtroDificultad);
-		    viewModel.put("temporada", filtroTemporada);
+		    viewModel.put("dificultad", dificultad);
+		    viewModel.put("temporada", temporada);
 		    viewModel.put("cantMinCalorias", filtroMinCalorias);
 		    viewModel.put("cantMaxCalorias", filtroMaxCalorias);
 
@@ -58,7 +63,7 @@ public class RecetasController implements WithGlobalEntityManager, Transactional
 	
 	public ModelAndView detalle (Request request, Response response) {
 		
-		String idProperty = request.queryParams("id");
+		String idProperty = request.params("idReceta");
 		
 		if(idProperty == null) {
 			return null; //page 404
@@ -76,7 +81,7 @@ public class RecetasController implements WithGlobalEntityManager, Transactional
 	
 	public ModelAndView editar (Request request, Response response) {
 			
-		String idProperty = request.queryParams("idReceta");
+		String idProperty = request.params("idReceta");
 	
 		if(idProperty == null) {
 			return null; //page 404
@@ -93,12 +98,15 @@ public class RecetasController implements WithGlobalEntityManager, Transactional
 	public ModelAndView edicionReceta (Receta receta){
 		HashMap<String, Object> viewModel = new HashMap<>();
 		Collection<Ingrediente> ingredientes = receta.getIngredientes(); 
+		Collection<Receta> recetas = Recetario.instancia.getRecetas(currentUser());
+		recetas.remove(receta);
 	    viewModel.put("receta", receta);
+	    viewModel.put("recetas", recetas);
 	    viewModel.put("dificultades", Dificultad.values());
 	    viewModel.put("temporadas", Temporada.values());
 	    viewModel.put("ingredientes", ingredientes);
 	   
-		 return new ModelAndView(viewModel, "edicionReceta.hbs");
+		return new ModelAndView(viewModel, "edicionReceta.hbs");
 	}
 	
 	private ModelAndView showReceta(Receta receta) {
@@ -118,7 +126,7 @@ public class RecetasController implements WithGlobalEntityManager, Transactional
 	}
 		
 	public Void cambiarFavorita(Request request, Response response) {
-		Long idReceta = Long.parseLong(request.queryParams("idReceta"));
+		Long idReceta = Long.parseLong(request.params("idReceta"));
 		withTransaction(() -> {
 			Receta receta = Recetario.instancia.getReceta(idReceta);
 		    if(request.queryParams("value").equals("true")) {
@@ -127,7 +135,7 @@ public class RecetasController implements WithGlobalEntityManager, Transactional
 		    	currentUser().quitarRecetaFavorita(receta);
 		    }	
 		});
-	    response.redirect("show?id=" + request.queryParams("idReceta"));
+	    response.redirect("show");
 		return null;
 	}
 	

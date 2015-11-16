@@ -44,10 +44,10 @@ public class Routes {
 		    });
 
 		    get("/recetas", recetas::listar, engine);
-		    get("/recetas/show", "application/json", recetas::detalle, engine);
-		    get("recetas/edit", recetas::editar, engine);
+		    get("/recetas/:idReceta/show", recetas::detalle, engine);
+		    get("recetas/:idReceta/edit", recetas::editar, engine);
 		    
-		    post("/recetas/favorita", recetas::cambiarFavorita);
+		    post("/recetas/:idReceta/favorita", recetas::cambiarFavorita);
 		    
 		    get("/usuarios", usuarios::listar, engine);
 		    get("/perfil", usuarios::verPerfil, engine);

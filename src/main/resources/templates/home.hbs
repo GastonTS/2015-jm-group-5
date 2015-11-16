@@ -37,7 +37,6 @@
 	<table 	class="table table-hover"  >
 	   <thead>
         <tr>
-	        <th>Id</th>
 			<th>Nombre</th>
 			<th>Calorias</th>
 			<th>Temporada</th>
@@ -47,12 +46,11 @@
     <tbody>
    
 	    {{#recetas}}
-			<tr class="clickeable" onclick="window.document.location='/recetas/show?id={{Id}}';">
-			    <td>{{Id}}</td>
+			<tr class="clickeable" onclick="window.document.location='/recetas/{{Id}}/show';">
 			    <td>{{Nombre}}</td>
 				<td>{{CantCaloriasTotales}}</td>
-				<td>{{Temporada}}</td>
-				<td>{{Dificultad}}</td>
+				<td>{{Temporada.PrettyName}}</td>
+				<td>{{Dificultad.PrettyName}}</td>
 			</tr>
 	    {{/recetas}}
 	 </tbody>				

@@ -14,7 +14,7 @@ public class RecetaBuilder {
 	private double cantCalorias;
 	private Collection<Receta> subRecetas = new ArrayList<Receta>();
 	private Dificultad dificultad;
-	private Temporada temporada;
+	private Temporada temporada = Temporada.TODO_EL_AÑO;
 	private String preparacion;
 	private String urlImagen="";
 

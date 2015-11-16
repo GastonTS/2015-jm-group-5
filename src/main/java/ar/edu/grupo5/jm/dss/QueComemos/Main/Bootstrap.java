@@ -39,6 +39,7 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
 	
 	public void run() {
 		Receta receta = createRecetaExample(); 
+		Receta receta2 = createRecetaExample2();
 		Usuario usuario = createUsuarioExample("Leandro");
 		Usuario usuario2 = createUsuarioExample("UsuarioDummy");
 	    withTransaction(() -> {
@@ -50,6 +51,7 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
 	    
 	    withTransaction(()-> {
 			Recetario.instancia.crearReceta(receta, usuario);
+			Recetario.instancia.crearReceta(receta2, usuario);
 	    });
 	    
 	    withTransaction(()-> {
@@ -88,7 +90,28 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
 		 return lean;
 	 }
 	
+	private Receta createRecetaExample2() {
+		Ingrediente papa = new Ingrediente("Papa");
+		Ingrediente leche = new Ingrediente("Leche");
+		
+		Condimentacion sal = new Condimentacion("sal",200);
+		Condimentacion pimienta = new Condimentacion("Pimienta",20);
 	
+		String preparacion = "Lorem ipsum dolor sit amet, duo cu animal eripuit moderatius";
+		
+		Receta engrudoEspecial = new RecetaBuilder()
+		.setCantCalorias(150)
+		.setNombre("Engrudo Especial")
+		.agregarIngrediente(papa)
+		.agregarIngrediente(leche)
+		.setDificultad(Dificultad.BAJA)
+		.agregarCondimentaciones(sal)
+		.agregarCondimentaciones(pimienta)
+		.setPreparacion(preparacion)
+		.construirReceta();
+		
+		return engrudoEspecial; 
+	}
 	private Receta createRecetaExample() {
 		
 		Ingrediente papa = new Ingrediente("Papa");
