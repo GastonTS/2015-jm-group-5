@@ -101,13 +101,14 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
 		
 		Receta engrudoEspecial = new RecetaBuilder()
 		.setCantCalorias(150)
-		.setNombre("Engrudo Especial")
+		.setNombre("Cheddar Lovers")
 		.agregarIngrediente(papa)
 		.agregarIngrediente(leche)
 		.setDificultad(Dificultad.BAJA)
 		.agregarCondimentaciones(sal)
 		.agregarCondimentaciones(pimienta)
 		.setPreparacion(preparacion)
+		.setUrlImagen("http://www.technobuffalo.com/wp-content/uploads/2014/04/fast-food.jpg")
 		.construirReceta();
 		
 		return engrudoEspecial; 

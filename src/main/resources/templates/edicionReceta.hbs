@@ -7,7 +7,8 @@
 <div class="container">
 
 	<div class="row">
-	    <h3>Edicion Receta</h3>
+	    <h3>Editando: <a href="/recetas/{{receta.Id}}/show">{{receta.Nombre}}</a></h3>
+	    <hr>
 	    <!-- tabs left -->
 	    <div class="tabbable">
 	        <div class="col-md-2">
@@ -19,13 +20,6 @@
 			            <li><a href="#d" data-toggle="tab">Subrecetas</a></li>
 			        </ul>
 		        </div>
-		        <br>
-		        <br>
-		        <div class="row" align="center">
-		        	<a  href="/recetas/{{receta.Id}}/show" class="btn btn-default">
-						<span class="glyphicon glyphicon-arrow-left" aria-hidden="true" ></span> Volver
-					</a>	
-				</div>
 			</div>
 	        <div class="tab-content col-md-offset-1 col-md-9">
 	            <div class="tab-pane active" id="a">

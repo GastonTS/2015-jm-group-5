@@ -28,6 +28,57 @@ body {
   right: 0;
 }
 
+.my-thumb-box{
+    width:    25%; /* desired width */
+}
+
+.my-thumb-box:before {
+    content:     "";
+    display:     block;
+    padding-top: 100%; /* initial ratio of 1:1*/
+}
+
+.my-thumb-blank {
+    background-image: url(http://aerostatiksolution.com/wp-content/uploads/2015/01/black-white.png);
+}
+
+.my-thumb {
+    position: absolute;
+    background-color: #000;
+    background-position: center center; 
+    background-size: cover;
+    overflow: hidden;
+    top:      15px;
+    left:     15px;
+    bottom:   15px;
+    right:    15px;
+}
+
+.my-thumb-title {
+  background-color: rgba(0,0,0,0.70);
+  bottom: 0;
+  color: #9d9d9d;
+  left: 0;
+  font-size: 22px;
+  font-size: 1.0vw;
+  letter-spacing: 0;
+  height: 20%;
+  padding: 10px;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  text-shadow: 0 0 2px #000;
+}
+
+.my-thumb:hover div{
+    color: #FFF;
+}
+
+.square-img {
+    height: 100%;
+    width: 100%;
+}
+
 
 .jumbotron {
     position: relative;

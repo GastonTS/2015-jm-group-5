@@ -4,8 +4,8 @@
 		
 {{# partial "contenido" }}	  
 
-  <div class="jumbotron" >
-	<div class="container" style="text-align: center">
+<div class="jumbotron" >
+	<div class="container" style="text-align: center"> 
 	   <div class="row">
 		   	<h1 class="within-jumbo-text" style="color: #FFFFFF; text-shadow: 2px 2px 2px #3b3939;"><b>Un Antojo, Todas las Recetas.</b></h1>
 		  	<br>
@@ -17,105 +17,95 @@
     			Consultar
     		</a>	
 	    </div>   
-  	</div>
-  </div>
+  	</div> 
+</div>
 
 
 <div class="container">
-<article class="homepage-section-header homepage-map-header text-center">
-      <h2 class="title">Te recomendamos estas recetas !!!, {{listadoTitulo}}</h2>
-      
-      </article>
+	<article class="homepage-section-header homepage-map-header text-center">
+      <h2 class="title">Te recomendamos estas recetas !!!, {{listadoTitulo}}</h2>  
+	</article>
+	<hr>
 
-<div class="row">
-
-         <div class="col-md-1">	
-         </div>
-
-	<div class="col-md-10">	
-   <hr>
-	<table 	class="table table-hover"  >
-	   <thead>
-        <tr>
-			<th>Nombre</th>
-			<th>Calorias</th>
-			<th>Temporada</th>
-			<th>Dificultad</th>
-	    </tr>
-    </thead>
-    <tbody>
-   
-	    {{#recetas}}
-			<tr class="clickeable" onclick="window.document.location='/recetas/{{Id}}/show';">
-			    <td>{{Nombre}}</td>
-				<td>{{CantCaloriasTotales}}</td>
-				<td>{{Temporada.PrettyName}}</td>
-				<td>{{Dificultad.PrettyName}}</td>
-			</tr>
-	    {{/recetas}}
-	 </tbody>				
-	 </table>
+	<div class="row">
+		<div class="row">
+			{{#recetas}}
+				<div class="col-md-3 col-xs-6 my-thumb-box">
+					<a href="/recetas/{{Id}}/show">
+						{{#if this.UrlImagen}}
+						<div class="img-rounded my-thumb" style="background-image: url({{this.UrlImagen}});">
+						{{else}}
+						<div class="img-rounded my-thumb my-thumb-blank">
+						{{/if}}
+							<div class="my-thumb-title">
+								<p>{{this.Nombre}}</p>
+							</div>
+						</div>
+					</a>
+				</div>
+			{{/recetas}}
+		</div>
 	</div>
-</div>
 
-<br><br><br>
+	<br><br><br>
 
- <div class="col-md-1">	
-         </div>
-<div class="col-xs-5">
+ 	<div class="col-md-1">	
+     </div>
+	<div class="col-xs-5">
 
-	  <hr><h3 class="text-left">Tenes hambre? No sabes que cocinar?</h3>
-		<h4 class="text-left">Ya sea que te quieras cuidar en las comidas, o prepararte las cosas mas 
-		grasosas y deliciosas....</h4>
+		<hr><h3 class="text-left">Tenes hambre? No sabes que cocinar?</h3>
+		<h4 class="text-left">Ya sea que te quieras cuidar en las comidas, o prepararte las cosas mas grasosas y deliciosas....</h4>
 		
-		<h4 class="text-left">Podes realizar consultas segun tus preferencias, y ver el detalle de preparacion, 
-		ingreddientes, calorias, tanto de tus recetas como las nuestras !!</h4>
-	<br> <a class="btn btn-default btn-sm"  href="/recetas">
-	<span class="glyphicon glyphicon-search"></span> Realiza tu consulta ahora
-	 </a>
-	 </div>	
+		<h4 class="text-left">Podes realizar consultas segun tus preferencias, y ver el detalle de preparacion, ingreddientes, calorias, tanto de tus recetas como las nuestras !!</h4>
+		<br> 
+		<a class="btn btn-default btn-sm"  href="/recetas">
+			<span class="glyphicon glyphicon-search"></span> Realiza tu consulta ahora
+	 	</a>
+ 	</div>	
 	 
-	 <div class="col-xs-5">
-	 <hr><h3 class="text-left">Revisa tu Estado!!</h3>
+	<div class="col-xs-5">
+		<hr>
+		<h3 class="text-left">Revisa tu Estado!!</h3>
 		<h4 class="text-left">En tu perfil encontrar toda tu informacion, cosas que te gustan, aquellas 
 		cosas que no, tus recetas favoritas. </h4>
 		<h4>Podras consultar tu estado de salud revisando el indice
 		de masa corpal calculado de la forma mas precisa y exacta posible !!</h4>
-	 <br><a class="btn btn-default btn-sm"  href="/perfil">
-	<span class="glyphicon glyphicon-user"></span> Accede a tu perfil
-	 </a>
-	 </div>	
+	 	<br>
+	 	<a class="btn btn-default btn-sm"  href="/perfil">
+			<span class="glyphicon glyphicon-user"></span> Accede a tu perfil
+	 	</a>
+	</div>	
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
-  <article class="col-xs-12 homepage-faqs-content" align="bottom">
+  	<article class="col-xs-12 homepage-faqs-content" align="bottom">
         <div class="homepage-faqs-item faqs-item-header homepage-section-header " align="center">
-          <h2 class="title" >¿Seguís con dudas?</h2>
-          <p class="subtitle">Queremos ofrecerte el mejor servicio y la mejor experiencia</p>
+          	<h2 class="title" >¿Seguís con dudas?</h2>
+          	<p class="subtitle">Queremos ofrecerte el mejor servicio y la mejor experiencia</p>
         </div>
 
         <div class="col-md-3 homepage-faqs-item">
-          <h4 class="faqs-item-title" ><font color="#0066FF">¿Puedo consultar todas las veces que quiera?</font></h4>
-          <p class="faqs-item-text">Si, podés consultartodas las veces que quieras, sin restricciones. Podés consultar todos los días en cualquier momento.</p>
+          	<h4 class="faqs-item-title" ><font color="#0066FF">¿Puedo consultar todas las veces que quiera?</font></h4>
+          	<p class="faqs-item-text">Si, podés consultartodas las veces que quieras, sin restricciones. Podés consultar todos los días en cualquier momento.</p>
         </div>
 
         <div class="col-md-3 homepage-faqs-item">
-          <h4 class="faqs-item-title"><font color="#0066FF">¿Puedo subir mi propia receta?</font></h4>
-          <p class="faqs-item-text">Claro que si, de hecho también te puedes unir a grupos y compartir recetas entre todos</p>
+          	<h4 class="faqs-item-title"><font color="#0066FF">¿Puedo subir mi propia receta?</font></h4>
+          	<p class="faqs-item-text">Claro que si, de hecho también te puedes unir a grupos y compartir recetas entre todos</p>
         </div>
 
         <div class="col-md-3 homepage-faqs-item">
-          <h4 class="faqs-item-title"><font color="#0066FF">¿Puedo cancelar sin problemas?</font></h4>
-          <p class="faqs-item-text">Podés cancelar en cualquier momento ingresando a tu perfil. Además, te ofrecemos la posibilidad de suspender por 15 o 30 días.</p>
+          	<h4 class="faqs-item-title"><font color="#0066FF">¿Puedo cancelar sin problemas?</font></h4>
+          	<p class="faqs-item-text">Podés cancelar en cualquier momento ingresando a tu perfil. Además, te ofrecemos la posibilidad de suspender por 15 o 30 días.</p>
         </div>
 
         <div class="col-md-3 homepage-faqs-item">
-          <h4 class="faqs-item-title"><font color="#0066FF">¿Tengo periodo de prueba gratis?</font></h4>
-          <p class="faqs-item-text">Te damos 14 días gratis para que pruebes Que Comemos, si ves que no es para vos, cancelás y listo. Si cancelás antes del día 15, no te hacemos ningún cobro.</p>
+          	<h4 class="faqs-item-title"><font color="#0066FF">¿Tengo periodo de prueba gratis?</font></h4>
+          	<p class="faqs-item-text">Te damos 14 días gratis para que pruebes Que Comemos, si ves que no es para vos, cancelás y listo. Si cancelás antes del día 15, no te hacemos ningún cobro.</p>
         </div>
-        
- </div>      
-</article>
+  	</article>	  
+</div>      
+
 
 {{/partial}}
 				
