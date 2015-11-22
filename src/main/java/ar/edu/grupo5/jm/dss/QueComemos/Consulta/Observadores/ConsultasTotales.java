@@ -16,9 +16,8 @@ import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 public class ConsultasTotales extends AcumuladorConsultas {
 	
 	public static ConsultasTotales instancia() {
-		Optional<ObservadorConsultas> esto = RepoObservadorConsultas.instancia.getObservador("ConsultasTotales");
-		return (esto.isPresent()) ? (ConsultasTotales) esto.get() : new ConsultasTotales();
-	}
+		return RepoObservadorConsultas.instancia.getObservador(ConsultasTotales.class);
+	}	
 	
 	@ManyToMany @JoinTable(name = "RecetasTotalesXAcumulador")
 	Collection<Receta> recetasConsultadas = new ArrayList<Receta>();
@@ -38,5 +37,4 @@ public class ConsultasTotales extends AcumuladorConsultas {
 	public void notificarConsulta(Consulta unaConsulta) {
 		recetasConsultadas.addAll(unaConsulta.getRecetasConsultadas());
 	}
-	
 }

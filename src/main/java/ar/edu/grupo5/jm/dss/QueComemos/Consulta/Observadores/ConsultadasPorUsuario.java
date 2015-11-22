@@ -15,11 +15,11 @@ import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
 @Entity
 public class ConsultadasPorUsuario extends AcumuladorConsultas {
-	
+
 	public static ConsultadasPorUsuario instancia() {
-		Optional<ObservadorConsultas> esto = RepoObservadorConsultas.instancia.getObservador("ConsultadasPorUsuario");
-		return (esto.isPresent()) ? (ConsultadasPorUsuario) esto.get() : new ConsultadasPorUsuario();
+		return RepoObservadorConsultas.instancia.getObservador(ConsultadasPorUsuario.class);
 	}
+	
 	@OneToMany(cascade = CascadeType.ALL) 
 	Collection<HistorialConsultaUsuario> historialesConsultados = new ArrayList<HistorialConsultaUsuario>();
 

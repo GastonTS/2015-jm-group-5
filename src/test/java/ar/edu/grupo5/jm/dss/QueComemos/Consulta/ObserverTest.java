@@ -30,7 +30,6 @@ import ar.edu.grupo5.jm.dss.QueComemos.Usuario.CondicionDeSalud.Vegano;
 
 public class ObserverTest {
 	private Usuario usuarioMock = mock(Usuario.class);
-	private Usuario usuarioMockFem = mock(Usuario.class);
 	private Usuario veganoMock  = mock(Usuario.class);
 	private Usuario otroVeganoMock = mock(Usuario.class);
 	private Usuario noVeganoMock = mock(Usuario.class);
@@ -117,24 +116,21 @@ public class ObserverTest {
 
 	@Test
 	public void cantidadYNombreDeRecetasConsultadasDeHombresYMujeres() {
-		when(consulta.getUsuario()).thenReturn(usuarioMock);
+		when(consulta.getSexo()).thenReturn(Sexo.MASCULINO);
 		when(consulta.getRecetasConsultadas()).thenReturn(recetas);
-		when(consulta1.getUsuario()).thenReturn(usuarioMock);
+		when(consulta1.getSexo()).thenReturn(Sexo.MASCULINO);
 		when(consulta1.getRecetasConsultadas()).thenReturn(recetasDeGuisoYPancho);
-		when(consulta2.getUsuario()).thenReturn(usuarioMock);
+		when(consulta2.getSexo()).thenReturn(Sexo.MASCULINO);
 		when(consulta2.getRecetasConsultadas()).thenReturn(recetasDePanchoYEnsalada);
 		
 		
-		when(consulta3.getUsuario()).thenReturn(usuarioMockFem);
+		when(consulta3.getSexo()).thenReturn(Sexo.FEMENINO);
 		when(consulta3.getRecetasConsultadas()).thenReturn(recetas);
-		when(consulta4.getUsuario()).thenReturn(usuarioMockFem);
+		when(consulta4.getSexo()).thenReturn(Sexo.FEMENINO);
 		when(consulta4.getRecetasConsultadas()).thenReturn(recetasDePanchoYEnsalada);
-		when(consulta5.getUsuario()).thenReturn(usuarioMockFem);
+		when(consulta5.getSexo()).thenReturn(Sexo.FEMENINO);
 		when(consulta5.getRecetasConsultadas()).thenReturn(recetaExtraEnsalada);
 		
-		when(usuarioMock.getSexo()).thenReturn(Sexo.MASCULINO);
-		when(usuarioMockFem.getSexo()).thenReturn(Sexo.FEMENINO);
-
 		observerSegunSexo.notificarConsulta(consulta);
 		observerSegunSexo.notificarConsulta(consulta1);
 		observerSegunSexo.notificarConsulta(consulta2);
@@ -149,8 +145,12 @@ public class ObserverTest {
 		assertEquals(observerSegunSexo.recetaMasConsultadaPor(Sexo.FEMENINO), Optional.of(ensaladaMock));
 		assertEquals(observerSegunSexo.cantidadRecetaMasConsultadaPor(Sexo.FEMENINO), 4);
 		
-		verify(usuarioMock, times(3)).getSexo();
-		verify(usuarioMockFem, times(3)).getSexo();
+		verify(consulta, times(1)).getSexo();
+		verify(consulta1, times(1)).getSexo();
+		verify(consulta2, times(1)).getSexo();
+		verify(consulta3, times(1)).getSexo();
+		verify(consulta4, times(1)).getSexo();
+		verify(consulta5, times(1)).getSexo();
 	}
 
 	@Test
