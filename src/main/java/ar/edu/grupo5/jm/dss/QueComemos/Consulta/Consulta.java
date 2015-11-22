@@ -21,7 +21,7 @@ public class Consulta {
 	
 	@Id
 	@GeneratedValue
-	private Long recetaId;
+	private Long consultaId;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	public Filtro filtro;
