@@ -1,6 +1,7 @@
 package ar.edu.grupo5.jm.dss.QueComemos.Consulta.Observadores;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -8,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OrderColumn;
 
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
@@ -22,6 +24,7 @@ public class HistorialConsultaUsuario {
 	private Usuario consultor;
 	
 	@ManyToMany
+	@OrderColumn
 	private List<Receta> consultadas = new ArrayList<Receta>();
 	
 	public HistorialConsultaUsuario() {
@@ -42,6 +45,10 @@ public class HistorialConsultaUsuario {
 	
 	public boolean perteneceA(Usuario unUsuario) {
 		return unUsuario == consultor;
+	}
+
+	public void agregarTodasConsultadas(Collection<Receta> unasRecetas) {
+		consultadas.addAll(unasRecetas);
 	}
 	
 }

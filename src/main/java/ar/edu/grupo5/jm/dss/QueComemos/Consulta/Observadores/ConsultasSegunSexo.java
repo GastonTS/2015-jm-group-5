@@ -8,9 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
+import ar.edu.grupo5.jm.dss.QueComemos.Consulta.Consulta;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.DatosPersonales.Sexo;
-import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
 @Entity
 public class ConsultasSegunSexo extends AcumuladorConsultas {
@@ -18,11 +18,6 @@ public class ConsultasSegunSexo extends AcumuladorConsultas {
 	Collection<Receta> consultasHombres = new ArrayList<Receta>();
 	@ManyToMany @JoinTable(name = "RecetasMujeresXAcumulador")
 	Collection<Receta> consultasMujeres = new ArrayList<Receta>();
-
-	@Override
-	public Collection<Receta> getRecetasConsultadas(Usuario unUsuario) {
-		return getConsultasSegunSexo(unUsuario.getSexo());
-	}
 
 	public Collection<Receta> getConsultasSegunSexo(Sexo unSexo) {
 		if (unSexo.equals(Sexo.MASCULINO)) {
@@ -37,6 +32,10 @@ public class ConsultasSegunSexo extends AcumuladorConsultas {
 
 	public Optional<Receta> recetaMasConsultadaPor(Sexo unSexo) {
 		return elementoQueMasSeRepiteEn(getConsultasSegunSexo(unSexo));
+	}
+
+	public void notificarConsulta(Consulta unaConsulta) {
+		this.getConsultasSegunSexo(unaConsulta.getSexo()).addAll(unaConsulta.getRecetasConsultadas());
 	}
 
 }

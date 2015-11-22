@@ -9,8 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
+import ar.edu.grupo5.jm.dss.QueComemos.Consulta.Consulta;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
-import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 
 @Entity
 public class ConsultasTotales extends AcumuladorConsultas {
@@ -23,11 +23,6 @@ public class ConsultasTotales extends AcumuladorConsultas {
 	@ManyToMany @JoinTable(name = "RecetasTotalesXAcumulador")
 	Collection<Receta> recetasConsultadas = new ArrayList<Receta>();
 
-	@Override
-	public Collection<Receta> getRecetasConsultadas(Usuario unUsuario) {
-		return recetasConsultadas;
-	}
-
 	public Optional<Receta> recetaMasConsultada() {
 		return elementoQueMasSeRepiteEn(recetasConsultadas);
 	}
@@ -38,6 +33,10 @@ public class ConsultasTotales extends AcumuladorConsultas {
 	
 	public List<Receta> masConsultadasEnOrden() {
 		return this.recetasMasConsultadasEnOrdenDescendiente(recetasConsultadas);
+	}
+
+	public void notificarConsulta(Consulta unaConsulta) {
+		recetasConsultadas.addAll(unaConsulta.getRecetasConsultadas());
 	}
 	
 }

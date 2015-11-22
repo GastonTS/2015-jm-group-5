@@ -14,6 +14,7 @@ import ar.edu.grupo5.jm.dss.QueComemos.Consulta.Filtro.Filtro;
 import ar.edu.grupo5.jm.dss.QueComemos.Consulta.Observadores.RepoObservadorConsultas;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
+import ar.edu.grupo5.jm.dss.QueComemos.Usuario.DatosPersonales.Sexo;
 
 @Entity
 public class Consulta {
@@ -49,6 +50,10 @@ public class Consulta {
 		return usuario.getNombre();
 	}
 
+	public Sexo getSexo() {
+		return usuario.getSexo();
+	}
+	
 	public String getDestinatario() {
 		return usuario.getMail();
 	}
