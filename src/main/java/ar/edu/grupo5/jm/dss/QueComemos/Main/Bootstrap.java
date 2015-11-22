@@ -8,10 +8,12 @@ import org.uqbarproject.jpa.java8.extras.EntityManagerOps;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 
-
+import ar.edu.grupo5.jm.dss.QueComemos.Consulta.Consulta;
 import ar.edu.grupo5.jm.dss.QueComemos.Consulta.Observadores.ConsultadasPorUsuario;
 import ar.edu.grupo5.jm.dss.QueComemos.Consulta.Observadores.ConsultasTotales;
 import ar.edu.grupo5.jm.dss.QueComemos.Consulta.Observadores.RepoObservadorConsultas;
+import ar.edu.grupo5.jm.dss.QueComemos.Consulta.Filtro.SinFiltro;
+import ar.edu.grupo5.jm.dss.QueComemos.Consulta.Filtro.SoloPares;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Condimentacion;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Ingrediente;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
@@ -60,9 +62,11 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
 	    });
 	    
 	    withTransaction(()-> {
-//	    	new Consulta(Recetario.instancia, new SinFiltro(), usuario2);
-//	    	new Consulta(Recetario.instancia, new SinFiltro(), usuario2);
-//	    	new Consulta(Recetario.instancia, new SinFiltro(), usuario2);
+	    	Consulta consulta1 = new Consulta(Recetario.instancia, new SinFiltro(), usuario2);
+	    	Consulta consulta2 = new Consulta(Recetario.instancia, new SoloPares(new SinFiltro()), usuario2);
+	    	
+	    	RepoObservadorConsultas.instancia.notificarObservadores(consulta1);
+	    	RepoObservadorConsultas.instancia.notificarObservadores(consulta2);
 	    });
 	}
 
