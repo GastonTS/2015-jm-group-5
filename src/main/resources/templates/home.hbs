@@ -8,14 +8,21 @@
 	<div class="container" style="text-align: center"> 
 	   <div class="row">
 		   	<h1 class="within-jumbo-text" style="color: #FFFFFF; text-shadow: 2px 2px 2px #3b3939;"><b>Un Antojo, Todas las Recetas.</b></h1>
-		  	<br>
 		  	<p class="within-jumbo-text" style="text-shadow: 1px 1px 1px #3b3939;">Consulta como hacer las recetas que más te gusten.</p>
-	  	</div>      
+	  	</div>
+	  	<br>      
 	    <div class="row">
-    		<a align="center" href="/recetas" class="btn btn-primary btn-lg">
-    			<span class="glyphicon glyphicon-search"></span> 
-    			Consultar
-    		</a>	
+		    <form id="busquedaConsulta" method="GET" action="/recetas">
+			    <div class="input-group input-group-lg col-md-offset-2 col-md-8">
+			    	<input type="text" class="form-control" placeholder="¿Qué receta buscás?..." name="nombre">
+		    		<span class="input-group-btn">
+		        		<button class="btn btn-primary" type="submit">
+			    			<span class="glyphicon glyphicon-search"></span> 
+			    			Consultar
+		        		</button>
+		      		</span>
+			    </div>
+			</form>
 	    </div>   
   	</div> 
 </div>

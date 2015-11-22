@@ -91,6 +91,9 @@ body {
     align-items: center;
 }
 
+#slider-calorias .ui-slider-range { background: #729fcf; }
+#slider-calorias .ui-slider-handle { border-color: #729fcf; }
+
 /* title */
 .navbar-default .navbar-brand {
     color: #9CFFCB;

@@ -1,6 +1,7 @@
 package ar.edu.grupo5.jm.dss.QueComemos.Receta;
 
 import java.util.Collection;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import ar.edu.grupo5.jm.dss.QueComemos.Consulta.ConsultorRecetas;
@@ -70,6 +71,20 @@ public class Recetario extends ConsultorRecetas implements ObjectUpdater, WithGl
 			this.update(viejaReceta, nuevaReceta);
 		} else {
 			crearReceta(nuevaReceta, unUsuario);
+		}
+	}
+
+	public int topeCaloriasPuedeAcceder(Usuario unUsuario) {
+		Collection<Receta> recetas = this.listarTodasPuedeAcceder(unUsuario);
+		
+		Optional<Receta> recetaMasCalorica = recetas.stream().max((receta1, receta2) -> 
+				Double.compare(receta1.getCantCaloriasTotales(),
+						receta2.getCantCaloriasTotales()));
+
+		if(recetaMasCalorica.isPresent()) {
+			return ((int) ((recetaMasCalorica.get().getCantCaloriasTotales() + 10d)/10)) * 10;
+		} else {
+			return 0;
 		}
 	}
 }

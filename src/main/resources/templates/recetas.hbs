@@ -4,92 +4,121 @@
 		
 {{# partial "contenido" }}	
 
+<script>
+	$(function() {
+	  	$( "#slider-calorias" ).slider({
+		    range: true,
+		    min: {{topeMinCalorias}},
+		    max: {{topeMaxCalorias}},
+		    {{#if cantMinCalorias}}
+				values: [ {{cantMinCalorias}}, {{cantMaxCalorias}} ],
+				{{else}}
+				values: [ {{topeMinCalorias}}, {{topeMaxCalorias}} ],
+			{{/if}}
+
+		    slide: function( event, ui ) {
+		    	if(ui.values[ 0 ] === {{topeMinCalorias}} && ui.values[ 1 ] === {{topeMaxCalorias}}) {
+				    $( "#minCalorias" ).val( "" );
+		      		$( "#maxCalorias" ).val( "" );
+		    	} else {
+		    		$( "#minCalorias" ).val( ui.values[ 0 ]);
+		     		$( "#maxCalorias" ).val( ui.values[ 1 ]);
+		    	}
+		      	$( "#amount" ).val( ui.values[ 0 ] + "cal - " + ui.values[ 1 ] + "cal");
+		    }
+	  	});
+      	$( "#minCalorias" ).val( {{cantMinCalorias}} );
+	  	$( "#maxCalorias" ).val( {{cantMaxCalorias}} );
+	  	$( "#amount" ).val( $( "#slider-calorias" ).slider( "values", 0 ) +
+	   	 	"cal - " + $( "#slider-calorias" ).slider( "values", 1 ) + "cal");
+	});
+</script>
+
 <form action="/recetas" >
 <div class="container">
-
-	<div class="col-xs-offset-1 col-xs-2">
-	
-	 <h2><b> Filtros</b> </h2>
-	  <div class="input-group">
-	  	  <label for="nombre">Nombre</label>
-		  <input type="text" class="form-control" name="nombre" value="{{nombre}}">
-	  </div>
-	
-		<hr><label>Rango de Calorias</label> 
-		<div class="input-group">
-		  <input type="number" class="form-control" placeholder="Mínimo" name="cantMinCalorias" value="{{cantMinCalorias}}">
+	<div class="row">
+		<div class="col-md-9 pull-right">
+			<h2 style="text-align: center"><b>Consulta de Recetas</b></h2>
 		</div>
-  
-  	
-  		<div class="input-group">
-		  <input type="number" class="form-control" placeholder="Máximo" name="cantMaxCalorias" value="{{cantMaxCalorias}}">
-		</div>
- 	
+	</div>
 
-  
-		<hr><div class="form-group">
-        	    <label class="dificultad">Dificultad</label>
-            	<select class="form-control" name="dificultad">
-			  	<option></option>
-			  	{{#each dificultades}}
-				  	<option value={{this}}>{{this.prettyName}}</option>
-			  	{{/each}}
-			  	{{#if dificultad}}
-            		<option value={{dificultad}} selected="selected">{{dificultad.prettyName}}</option>
-        		{{/if}}
-        	</select>           	
-    	</div>
+	<div class="col-md-3">
+		<div class="panel panel-default">
+			<div class="panel-heading"><b>Filtros</b></div>
+
+		 	<div class="panel-body">
+			  	<div class="input-group">
+			  		<label for="nombre">Nombre</label>
+				  	<input type="text" class="form-control" name="nombre" value="{{nombre}}">
+			  	</div>
+			
+				<hr>
+				<p>
+				  	<label for="amount">Rango de Calorias:</label>
+				  	<input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+				</p>
+				<input type="hidden" class="form-control" id="minCalorias" name="cantMinCalorias">
+				<input type="hidden" class="form-control" id="maxCalorias" name="cantMaxCalorias">
+				<div id="slider-calorias"></div>
+		  
+				<hr><div class="form-group">
+		    	    <label class="dificultad">Dificultad</label>
+		        	<select class="form-control" name="dificultad">
+					  	<option></option>
+					  	{{#each dificultades}}
+						  	<option value={{this}}>{{this.prettyName}}</option>
+					  	{{/each}}
+					  	{{#if dificultad}}
+		            		<option value={{dificultad}} selected="selected">{{dificultad.prettyName}}</option>
+		        		{{/if}}
+		        	</select>           	
+		    	</div>
+				<hr>
+
+				<div class="form-group">
+		    	    <label class="temporada">Temporada</label>
+		        	<select class="form-control" name="temporada">
+		        		<option></option>
+					  	{{#each temporadas}}
+						  	<option value={{this}}>{{this.prettyName}}</option>
+					  	{{/each}}
+					  	{{#if dificultad}}
+		            		<option value={{temporada}} selected="selected">{{temporada.prettyName}}</option>
+		        		{{/if}}
+		            	
+		        	</select>    
+		    	</div>
+		    	
+		    	<button type="submit" class="form-control btn btn-primary ">
+		 			<span class="glyphicon glyphicon-search" aria-hidden="true"></span> Consultar
+				</button>
+	    	</div>
+	  	</div>
+	</div>
+	<div class="col-md-9">	
 		<hr>
-
-		<div class="form-group">
-    	    <label class="temporada">Temporada</label>
-        	<select class="form-control" name="temporada">
-        		<option></option>
-			  	{{#each temporadas}}
-				  	<option value={{this}}>{{this.prettyName}}</option>
-			  	{{/each}}
-			  	{{#if dificultad}}
-            		<option value={{temporada}} selected="selected">{{temporada.prettyName}}</option>
-        		{{/if}}
-            	
-        	</select>    
-    	</div>
-    	
-    	<button type="submit" class="form-control btn btn-primary ">
- 			<span class="glyphicon glyphicon-search" aria-hidden="true"></span> Consultar
-		</button>
-    
-  </div>
-
-	
-
-		
-
-		<div class="col-xs-offset-0 col-md-8">	
-		
-		<h2 style="text-align: center"><b> Resultados</b> </h2>
-			<hr><blockquote>
-	<table class="table table-hover" >
-		<thead>
-			<tr>
-			    <th>Id</th>
-				<th>Nombre</th>
-				<th>Calorias</th>
-				<th>Dificultad</th>
-				<th>Temporada</th>
-			</tr>
-		</thead>
-		{{#recetas}}
-			<tr class="clickeable" onclick="document.location='/recetas/{{Id}}/show';">
-				<td>{{Id}}</td>
-				<td>{{Nombre}}</td>
-				<td>{{CantCaloriasTotales}}</td>
-				<td>{{Dificultad.PrettyName}}</td>
-				<td>{{Temporada.PrettyName}}</td>
-			</tr>
-		{{/recetas}}	
-			</blockquote>	
-	</table>
+		<blockquote>
+			<table class="table table-hover" >
+				<thead>
+					<tr>
+						<th>Nombre</th>
+						<th>Calorias</th>
+						<th>Dificultad</th>
+						<th>Temporada</th>
+					</tr>
+				</thead>
+				<tbody>
+					{{#recetas}}
+						<tr class="clickeable" onclick="document.location='/recetas/{{Id}}/show';">
+							<td>{{Nombre}}</td>
+							<td>{{CantCaloriasTotales}}</td>
+							<td>{{Dificultad.PrettyName}}</td>
+							<td>{{Temporada.PrettyName}}</td>
+						</tr>
+					{{/recetas}}	
+				</tbody>
+			</table>
+		</blockquote>
 	</div>
 
 

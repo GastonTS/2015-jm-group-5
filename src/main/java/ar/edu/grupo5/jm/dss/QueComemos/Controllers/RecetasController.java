@@ -43,6 +43,7 @@ public class RecetasController implements WithGlobalEntityManager, Transactional
 		    				filtroTemporada), filtroDificultad), filtroNombre);
 		    
 		    
+		    int topeMaxCalorias = Recetario.instancia.topeCaloriasPuedeAcceder(currentUser());
 		    Consulta consulta = new Consulta(Recetario.instancia, superFiltro, currentUser());
 		    withTransaction(() -> {
 		    	RepoObservadorConsultas.instancia.notificarObservadores(consulta);
@@ -55,8 +56,10 @@ public class RecetasController implements WithGlobalEntityManager, Transactional
 		    viewModel.put("nombre", filtroNombre);
 		    viewModel.put("dificultad", dificultad);
 		    viewModel.put("temporada", temporada);
-		    viewModel.put("cantMinCalorias", filtroMinCalorias);
-		    viewModel.put("cantMaxCalorias", filtroMaxCalorias);
+	    	viewModel.put("cantMinCalorias", filtroMinCalorias);
+	    	viewModel.put("cantMaxCalorias", filtroMaxCalorias);
+		    viewModel.put("topeMinCalorias", 0);
+		    viewModel.put("topeMaxCalorias", topeMaxCalorias);
 
 		    return new ModelAndView(viewModel, "recetas.hbs");
 	}

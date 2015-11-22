@@ -22,7 +22,7 @@ public class PorNombre extends PostProcesamiento{
 	@Override
 	protected Collection<Receta> procesar(Collection<Receta> recetas) {
 		if (!Objects.isNull(nombre) && !nombre.isEmpty())
-			return recetas.stream().filter(unaReceta -> unaReceta.getNombre().matches(".*" + nombre + ".*")).collect(Collectors.toList());
+			return recetas.stream().filter(unaReceta -> unaReceta.getNombre().toLowerCase().matches(".*" + nombre.toLowerCase() + ".*")).collect(Collectors.toList());
 		else
 			return recetas;
 	}	

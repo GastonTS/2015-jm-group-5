@@ -30,7 +30,7 @@ public class PorRangoCalorias extends PostProcesamiento{
 
 	@Override
 	protected Collection<Receta> procesar(Collection<Receta> recetas) {
-		return recetas.stream().filter(unaReceta -> unaReceta.getCantCaloriasTotales() < maxCalorias && 
-				unaReceta.getCantCaloriasTotales() > minCalorias).collect(Collectors.toList());
+		return recetas.stream().filter(unaReceta -> unaReceta.getCantCaloriasTotales() <= maxCalorias && 
+				unaReceta.getCantCaloriasTotales() >= minCalorias).collect(Collectors.toList());
 	}
 }
