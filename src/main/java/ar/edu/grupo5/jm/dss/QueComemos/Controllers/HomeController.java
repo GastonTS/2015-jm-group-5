@@ -29,14 +29,14 @@ public class HomeController implements WithGlobalEntityManager, TransactionalOps
 
 		if (!recetas.isEmpty()) {
 			
-			viewModel.put("listadoTitulo", "Ultimas Recetas marcadas como Favoritas.");
+			viewModel.put("listadoTitulo", "Últimas Recetas marcadas como Favoritas por vos:");
 		} else {
 			recetas = ConsultadasPorUsuario.instancia().masConsultadasEnOrden(currentUser);
 			if(!recetas.isEmpty()) {
-				viewModel.put("listadoTitulo", "Recetas más consultadas por vos.");
+				viewModel.put("listadoTitulo", "Recetas que más consultaste:");
 			} else {
 				recetas = ConsultasTotales.instancia().masConsultadasEnOrden().stream().limit(10).collect(Collectors.toList());
-				viewModel.put("listadoTitulo", "Recetas más consultadas a nivel global.");
+				viewModel.put("listadoTitulo", "Recetas más consultadas a nivel global:");
 			}
 		}
 		viewModel.put("recetas", recetas);
