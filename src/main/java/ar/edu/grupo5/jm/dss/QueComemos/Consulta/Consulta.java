@@ -11,7 +11,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 import ar.edu.grupo5.jm.dss.QueComemos.Consulta.Filtro.Filtro;
-import ar.edu.grupo5.jm.dss.QueComemos.Consulta.Observadores.RepoObservadorConsultas;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.DatosPersonales.Sexo;
@@ -33,9 +32,7 @@ public class Consulta {
 	public Consulta(ConsultorRecetas unConsultor, Filtro unFiltro, Usuario unUsuario) {
 		filtro = unFiltro;
 		usuario = unUsuario;
-
 		recetasConsultadas = filtro.filtrarRecetas(unConsultor.getRecetas(usuario), usuario);
-		RepoObservadorConsultas.instancia.notificarObservadores(this);
 	}
 
 	public Usuario getUsuario() {

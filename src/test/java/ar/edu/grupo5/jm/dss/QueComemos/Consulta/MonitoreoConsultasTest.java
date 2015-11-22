@@ -26,6 +26,7 @@ import ar.edu.grupo5.jm.dss.QueComemos.Consulta.MonitoreoAsincronico.BufferDeCon
 import ar.edu.grupo5.jm.dss.QueComemos.Consulta.MonitoreoAsincronico.EnviarConsultaPorMail;
 import ar.edu.grupo5.jm.dss.QueComemos.Consulta.MonitoreoAsincronico.LogearConsultasMasDe100;
 import ar.edu.grupo5.jm.dss.QueComemos.Consulta.MonitoreoAsincronico.MailSender;
+import ar.edu.grupo5.jm.dss.QueComemos.Consulta.Observadores.RepoObservadorConsultas;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Ingrediente;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Recetario;
@@ -90,7 +91,7 @@ public class MonitoreoConsultasTest extends AbstractPersistenceTest implements
 		sinFiltro = new SinFiltro();
 		segunCondicionesDelusuario = new NoEsInadecuadaParaUsuario(sinFiltro);
 		entityManager().persist(zaffa);
-		new Consulta(consultor, segunCondicionesDelusuario, zaffa);
+		RepoObservadorConsultas.instancia.notificarObservadores(new Consulta(consultor, segunCondicionesDelusuario, zaffa));
 		recetasMock = new ArrayList<Receta>();
 		recetasMock.add(receta1Mock);		
 		recetasMock.add(receta2Mock);		

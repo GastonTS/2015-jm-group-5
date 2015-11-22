@@ -12,6 +12,7 @@ import ar.edu.grupo5.jm.dss.QueComemos.Consulta.Filtro.PorNombre;
 import ar.edu.grupo5.jm.dss.QueComemos.Consulta.Filtro.PorRangoCalorias;
 import ar.edu.grupo5.jm.dss.QueComemos.Consulta.Filtro.PorTemporada;
 import ar.edu.grupo5.jm.dss.QueComemos.Consulta.Filtro.SinFiltro;
+import ar.edu.grupo5.jm.dss.QueComemos.Consulta.Observadores.RepoObservadorConsultas;
 import ar.edu.grupo5.jm.dss.QueComemos.Main.Bootstrap;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta.Dificultad;
@@ -42,14 +43,13 @@ public class RecetasController implements WithGlobalEntityManager, Transactional
 		    				filtroTemporada), filtroDificultad), filtroNombre);
 		    
 		    
-		    //FIXME withTransaction
-		    Collection<Receta> recetas = Recetario.instancia.getRecetasTotales();
+		    Consulta consulta = new Consulta(Recetario.instancia, superFiltro, currentUser());
+		    withTransaction(() -> {
+		    	RepoObservadorConsultas.instancia.notificarObservadores(consulta);
+		    });
 		    
-		    recetas = new Consulta(Recetario.instancia, superFiltro, currentUser())
-		    	.getRecetasConsultadas();
-		    		
 		    HashMap<String, Object> viewModel = new HashMap<>();
-		    viewModel.put("recetas", recetas);
+		    viewModel.put("recetas", consulta.getRecetasConsultadas());
 		    viewModel.put("dificultades", Dificultad.values());
 		    viewModel.put("temporadas", Temporada.values());
 		    viewModel.put("nombre", filtroNombre);
