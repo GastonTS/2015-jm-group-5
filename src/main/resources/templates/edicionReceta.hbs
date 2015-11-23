@@ -26,86 +26,91 @@
 					<div class="row">
 	            		<h4><b>Datos Básicos: </b> </h4>
 		            </div>
-					<div class="row">		
-						<div class="form-group col-md-6">
-					  		<label for="nombre">Nombre</label>
-						  	<input type="text" class="form-control" name="nombre" value="{{receta.Nombre}}"> 
-						 
+
+					<form id="datosBasicos" method="POST" action="editDatosBasicos" style="display: inline;">
+						<div class="row">		
+							<div class="form-group col-md-6">
+						  		<label for="nombre">Nombre</label>
+							  	<input type="text" class="form-control" name="nombre" value="{{receta.Nombre}}"> 
+							 
+						  	</div>
 					  	</div>
-				  	</div>
 
-					<div class="row">
-						<div class="form-group col-md-8">
-							<label for="nombre">Imagen (URL)</label>
-							<input type="text" class="form-control" name="url" value="{{receta.UrlImagen}}">
+						<div class="row">
+							<div class="form-group col-md-8">
+								<label for="url">Imagen (URL)</label>
+								<input type="text" class="form-control" name="url" value="{{receta.UrlImagen}}">
+							</div>
 						</div>
-					</div>
-					<hr>
-					<div class="row">
-						<div class="form-group col-md-4">
-			        	    <label class="temporada">Temporada</label>
-			            	<select class="form-control" name="temporada" selected="{{receta.Temporada}}">
-							  	{{#each temporadas}}
-								  	<option value={{this}}>{{this.prettyName}}</option>
-							  	{{/each}}
-			                	<option value={{receta.Temporada}} selected="selected">{{receta.Temporada.prettyName}}</option>
-			            	</select>        	
+						<hr>
+						<div class="row">
+							<div class="form-group col-md-4">
+				        	    <label for="temporada">Temporada</label>
+				            	<select class="form-control" name="temporada" selected="{{receta.Temporada}}">
+								  	{{#each temporadas}}
+									  	<option value={{this}}>{{this.prettyName}}</option>
+								  	{{/each}}
+				                	<option value={{receta.Temporada}} selected="selected">{{receta.Temporada.prettyName}}</option>
+				            	</select>        	
+					    	</div>
+						</div>
+
+						<div class="row">
+							<div class="form-group col-md-4">
+								<label for="calorias">Cantidad de Calorías</label>
+								<input type="number" class="form-control" placeholder="Calorias" name="calorias" value="{{receta.CantCalorias}}">
+							</div>
+					  	</div>
+
+						<div class="row">
+							<div class="form-group col-md-4">
+				        	    <label for="dificultad">Dificultad </label>
+				            	<select class="form-control" name="dificultad">
+								  	{{#each dificultades}}
+									  	<option value={{this}}>{{this.prettyName}}</option>
+								  	{{/each}}
+								  	<option value={{receta.dificultad}} selected="selected">{{receta.dificultad.prettyName}}</option>
+				            	</select>
+				    		</div>
 				    	</div>
-					</div>
 
-					<div class="row">
-						<div class="form-group col-md-4">
-							<label>Cantidad de Calorías</label>
-							<input type="number" class="form-control" placeholder="Calorias" name="calorias" value="{{receta.CantCalorias}}">
-						</div>
-				  	</div>
+				    	<hr>
+						<div class="row">
+							<div class="form-group col-md-12">
+								<label for="proceso">Proceso de Preparación </label>
+					  			<textarea class="form-control" rows="4" name="proceso">{{receta.Preparacion}}</textarea>
+				  			</div>
+		      			</div>
 
-					<div class="row">
-						<div class="form-group col-md-4">
-			        	    <label class="dificultad">Dificultad </label>
-			            	<select class="form-control" name="dificultad">
-							  	{{#each dificultades}}
-								  	<option value={{this}}>{{this.prettyName}}</option>
-							  	{{/each}}
-							  	<option value={{receta.dificultad}} selected="selected">{{receta.dificultad.prettyName}}</option>
-			            	</select>
-			    		</div>
-			    	</div>
-
-			    	<hr>
-					<div class="row">
-						<div class="form-group col-md-12">
-							<label>Proceso de Preparación </label>
-				  			<textarea class="form-control" rows="4" name="proceso">
-				  				{{receta.Preparacion}}
-			  				</textarea>
-			  			</div>
-	      			</div>
-
-					<br> 
-					<div class="row">
-						<button type="button" class="btn btn-primary pull-right">
-	 						<span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span> Guardar
-						</button>
-					</div>
+						<br> 
+						<div class="row">
+							<button type="submit" form="datosBasicos" class="btn btn-primary pull-right">
+		 						<span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span> Guardar
+							</button>
+						</div>						
+			
+					</form>	
 	      		</div>
 
 	            <div class="tab-pane" id="b">
 	 				<div class="row">
 	 					<h4><b> Ingredientes: </b> </h4>
 	 				</div>
-
-	      			<div class="form-group row" style="display: flex; align-items: center;">
-	      				<div class="col-md-5">
-		  					<label for="ingrediente"> <b>Ingrediente</b></label> <br>
-		  					<input class="form-control" id="ingrediente" type="text"  placeholder="Ingrediente">	  
-			  			</div>
-						<div class="col-md-4" align="center" style="align-self: flex-end;">
-		  					<button type="button" class="btn btn-default  btn-sm pull-right">
-		 						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Añadir
-							</button>
-						</div>	
-			  		</div>
+					
+					<form id="agregarIngrediente" method="POST" action="agregarIngrediente" style="display: inline;">
+	      				<div class="form-group row" style="display: flex; align-items: center;">
+	      					<div class="col-md-5">
+			  					<label for="ingrediente"> <b>Ingrediente</b></label> <br>
+			  					<input class="form-control" id="ingrediente" name="ingrediente" type="text"  placeholder="Ingrediente">	  
+				  			</div>
+							<div class="col-md-4" align="center" style="align-self: flex-end;">
+			  					<button type="submit" form="agregarIngrediente" class="btn btn-default  btn-sm pull-right">
+			 						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Añadir
+								</button>
+							</div>
+						</div>
+					</form>	
+			  		
 			  		<hr> 
 		 			<div class="row">
 						<table 	class="table table-striped">
@@ -116,16 +121,19 @@
 							    </tr>
 						    </thead>
 						    <tbody>
-							   	{{#each ingredientes}}
-					      			<tr>
-								        <td>{{Nombre}}</td>
-								        <td>
-	        			  					<button type="button" class="btn btn-default">
-						 						<span class="glyphicon glyphicon-remove" aria-hidden="true" style="color: #CC0000;"></span>
+						   	{{#each ingredientes}}
+				      			<tr>
+							        <td>{{Nombre}}</td>
+							        <td>
+	        							<form id="quitarIngrediente{{Id}}" method="POST" action="quitarIngrediente">
+      										<input type="hidden" class="form-cpntrol" name="idIngrediente" value={{Id}}>
+        			  						<button type="submit" form="quitarIngrediente{{Id}}" class="btn btn-default">
+					 							<span class="glyphicon glyphicon-remove" aria-hidden="true" style="color: #CC0000;"></span>
 											</button>
-										</td>
-							      	</tr>
-							 	{{/each}}
+										</form>
+									</td>
+						      	</tr>
+						 	{{/each}}
 							</tbody>				
 						</table>
 	 				</div>	   
@@ -136,23 +144,25 @@
 	 					<h4><b> Condimentaciones: </b> </h4>
 	 				</div>
 	 				<div class="row">
-		 				<div class="form-group" style="display: flex; align-items: center;">
-		 					<div class="col-xs-5">
-		  						<label for="condimentacion">Condimento</label>
-		 					 	<input class="form-control" id="condimentacion" type="text"  placeholder="Nombre">
-							</div>
-							
-							<div class="col-xs-3">
-			  					<label for="cantidad">Cantidad</label>
-			  					<input type="number" class="form-control" placeholder="Grs" name="cantidad" >
-							</div>
-							
-							<div class="col-xs-4" align="center" style="align-self: flex-end;">
-			  					<button type="button" class="btn btn-default  btn-sm">
-			 						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Añadir
-								</button>
-							</div>
-		 				</div>
+		 				<form id="agregarCondimentacion" method="POST" action="agregarCondimentacion" style="display: inline;">
+			 				<div class="form-group" style="display: flex; align-items: center;">
+			 					<div class="col-xs-5">
+			  						<label for="condimento">Condimento</label>
+			 					 	<input class="form-control" name="condimento" type="text"  placeholder="Nombre">
+								</div>
+								
+								<div class="col-xs-3">
+				  					<label for="cantidad">Cantidad</label>
+				  					<input type="number" class="form-control" placeholder="Grs" name="cantidad" >
+								</div>
+								
+								<div class="col-xs-4" align="center" style="align-self: flex-end;">
+				  					<button type="submit" form="agregarCondimentacion" class="btn btn-default  btn-sm">
+				 						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Añadir
+									</button>
+								</div>
+			 				</div>
+		 				</form>
 	 				</div>
 		 			<hr>
 		 			<div class="row">
@@ -165,17 +175,20 @@
 							    </tr>
 						    </thead>
 						    <tbody>
-							   	{{#each receta.Condimentaciones}}
-					      			<tr>
-								        <td>{{this.Condimento}}</td>
-								        <td>{{this.Cantidad}}</td>
-								        <td>
-	        			  					<button type="button" class="btn btn-default">
+						   	{{#each receta.Condimentaciones}}
+				      			<tr>
+							        <td>{{this.Condimento}}</td>
+							        <td>{{this.Cantidad}}</td>
+							        <td>
+							        	<form id="quitarCondimentacion{{Id}}" method="POST" action="quitarCondimentacion">
+	        			  					<input type="hidden" class="form-cpntrol" name="idCondimentacion" value={{Id}}>
+	        			  					<button type="submit" form="quitarCondimentacion{{Id}}" class="btn btn-default">
 						 						<span class="glyphicon glyphicon-remove" aria-hidden="true" style="color: #CC0000;"></span>
 											</button>
-										</td>
-							      	</tr>
-							 	{{/each}}
+										</form>
+									</td>
+						      	</tr>
+						 	{{/each}}
 							</tbody>				
 						</table>
 	 				</div>
@@ -186,18 +199,18 @@
 	 					<h4><b> Subreceta: </b> </h4>
 	 				</div>
 
-					<form id="agregaSubReceta" method="GET" action="/recetas/{{receta.id}}/agregaSubReceta" style="display: inline;">
+					<form id="agregarSubReceta" method="POST" action="agregarSubReceta">
 		      			<div class="form-group row" style="display: flex; align-items: center;">
 		      				<div class="col-md-5">
-			  					<label for="subReceta"> <b>Subreceta</b></label> <br>
-				            	<select class="form-control" name="subReceta">
+			  					<label for="idSubReceta"> <b>Subreceta</b></label> <br>
+				            	<select class="form-control" name="idSubReceta">
 								  	{{#each recetas}}
 									  	<option value={{this.Id}}>{{this.Nombre}}</option>
 								  	{{/each}}
 				            	</select>	  
 				  			</div>
 							<div class="col-md-4" align="center" style="align-self: flex-end;">
-			  					<button type="submit" form="agregaSubReceta" class="btn btn-default  btn-sm pull-right">
+			  					<button type="submit" form="agregarSubReceta" class="btn btn-default  btn-sm pull-right">
 			 						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Añadir
 								</button>
 							</div>	
@@ -217,9 +230,12 @@
 					      			<tr>
 								        <td>{{Nombre}}</td>
 								        <td>
-	        			  					<button type="button" class="btn btn-default">
-						 						<span class="glyphicon glyphicon-remove" aria-hidden="true" style="color: #CC0000;"></span>
-											</button>
+								        	<form id="quitarSubReceta{{Id}}" method="POST" action="quitarSubReceta">
+								        		<input type="hidden" class="form-cpntrol" name="idSubReceta" value={{Id}}>
+		        			  					<button type="submit" form="quitarSubReceta{{Id}}" class="btn btn-default">
+							 						<span class="glyphicon glyphicon-remove" aria-hidden="true" style="color: #CC0000;"></span>
+												</button>
+											</form>
 										</td>
 							      	</tr>
 							 	{{/each}}

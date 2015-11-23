@@ -49,19 +49,13 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
 			RepoUsuarios.instancia.apruebaSolicitud(usuario);
 			RepoUsuarios.instancia.solicitaIngreso(usuario2);
 			RepoUsuarios.instancia.apruebaSolicitud(usuario2);
-	    }); 
-	    
-	    withTransaction(()-> {
+
 			Recetario.instancia.crearReceta(receta, usuario);
 			Recetario.instancia.crearReceta(receta2, usuario);
-	    });
-	    
-	    withTransaction(()-> {
-	    	RepoObservadorConsultas.instancia.agregarObservador(new ConsultasTotales());
+
+			RepoObservadorConsultas.instancia.agregarObservador(new ConsultasTotales());
 	    	RepoObservadorConsultas.instancia.agregarObservador(new ConsultadasPorUsuario());
-	    });
-	    
-	    withTransaction(()-> {
+
 	    	Consulta consulta1 = new Consulta(Recetario.instancia, new SinFiltro(), usuario2);
 	    	Consulta consulta2 = new Consulta(Recetario.instancia, new SoloPares(new SinFiltro()), usuario2);
 	    	

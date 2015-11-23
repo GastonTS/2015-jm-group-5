@@ -2,6 +2,7 @@ package ar.edu.grupo5.jm.dss.QueComemos.Controllers;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.function.Function;
 
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
@@ -14,9 +15,13 @@ import ar.edu.grupo5.jm.dss.QueComemos.Consulta.Filtro.PorTemporada;
 import ar.edu.grupo5.jm.dss.QueComemos.Consulta.Filtro.SinFiltro;
 import ar.edu.grupo5.jm.dss.QueComemos.Consulta.Observadores.RepoObservadorConsultas;
 import ar.edu.grupo5.jm.dss.QueComemos.Main.Bootstrap;
+import ar.edu.grupo5.jm.dss.QueComemos.Receta.Condimentacion;
+import ar.edu.grupo5.jm.dss.QueComemos.Receta.NoPuedeAccederARecetaException;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta.Dificultad;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Receta.Temporada;
+import ar.edu.grupo5.jm.dss.QueComemos.Receta.RecetaBuilder;
+import ar.edu.grupo5.jm.dss.QueComemos.Receta.RecetaNoValidaException;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Recetario;
 import ar.edu.grupo5.jm.dss.QueComemos.Receta.Ingrediente;
 import ar.edu.grupo5.jm.dss.QueComemos.Usuario.Usuario;
@@ -140,6 +145,167 @@ public class RecetasController implements WithGlobalEntityManager, Transactional
 		});
 	    response.redirect("show");
 		return null;
+	}
+	
+	public Void agregarSubReceta(Request request, Response response) {
+		Long idReceta = Long.parseLong(request.params("idReceta"));
+	    String idSubReceta = request.queryParams("idSubReceta");
+	    
+	    if(idSubReceta != null && !idSubReceta.isEmpty()) {
+	    	modificarRecetaCon(idReceta, (receta -> {
+	    		Receta subReceta = Recetario.instancia.getReceta(Long.parseLong(idSubReceta));
+	    		return  new RecetaBuilder()
+	    			.setPropiedadesDe(receta)
+	    			.agregarSubReceta(subReceta)
+	    			.construirReceta();
+	    	}), response);
+	    }
+		return null;
+	}
+	
+	public Void quitarSubReceta(Request request, Response response) {
+		Long idReceta = Long.parseLong(request.params("idReceta"));
+	    String idSubReceta = request.queryParams("idSubReceta");
+	    
+	    if(idSubReceta != null && !idSubReceta.isEmpty()) {
+	    	modificarRecetaCon(idReceta, (receta -> {
+	    		Receta subReceta = Recetario.instancia.getReceta(Long.parseLong(idSubReceta));
+	    		return  new RecetaBuilder()
+	    			.setPropiedadesDe(receta)
+	    			.removerSubReceta(subReceta)
+	    			.construirReceta();
+	    	}), response);
+	    }
+		return null;
+	}
+	
+	
+	public Void agregarCondimentacion(Request request, Response response) {
+		Long idReceta = Long.parseLong(request.params("idReceta"));
+	    String condimento = request.queryParams("condimento");
+	    String cantidad = request.queryParams("cantidad");
+	    
+	    
+	    if(condimento != null && !condimento.isEmpty() && cantidad != null && !cantidad.isEmpty()) {
+	    	modificarRecetaCon(idReceta, (receta -> {
+	    		return  new RecetaBuilder()
+	    			.setPropiedadesDe(receta)
+	    			.agregarCondimentaciones(new Condimentacion(condimento, Double.parseDouble(cantidad)))
+	    			.construirReceta();
+	    	}), response);
+	    }
+		return null;
+	}
+	
+	public Void quitarCondimentacion(Request request, Response response) {
+		Long idReceta = Long.parseLong(request.params("idReceta"));
+		String idCondimentacion = request.queryParams("idCondimentacion");
+	    
+	    if(idCondimentacion != null && !idCondimentacion.isEmpty()) {
+	    	modificarRecetaCon(idReceta, (receta -> {
+	    		return  new RecetaBuilder()
+	    			.setPropiedadesDe(receta)
+	    			.removerCondimentacionDeId(Long.parseLong(idCondimentacion))
+	    			.construirReceta();
+	    	}), response);
+	    }
+		return null;
+	}
+	
+	public Void agregarIngrediente(Request request, Response response) {
+		Long idReceta = Long.parseLong(request.params("idReceta"));
+	    String ingrediente = request.queryParams("ingrediente");
+	    
+	    if(ingrediente != null && !ingrediente.isEmpty()) {
+	    	modificarRecetaCon(idReceta, (receta -> {
+	    		return  new RecetaBuilder()
+	    			.setPropiedadesDe(receta)
+	    			.agregarIngrediente(new Ingrediente(ingrediente))
+	    			.construirReceta();
+	    	}), response);
+	    }
+		return null;
+	}
+	
+	public Void quitarIngrediente(Request request, Response response) {
+		Long idReceta = Long.parseLong(request.params("idReceta"));
+		String idIngrediente = request.queryParams("idIngrediente");
+	    
+	    if(idIngrediente != null && !idIngrediente.isEmpty()) {
+	    	modificarRecetaCon(idReceta, (receta -> {
+	    		return  new RecetaBuilder()
+	    			.setPropiedadesDe(receta)
+	    			.removerIngredienteDeId(Long.parseLong(idIngrediente))
+	    			.construirReceta();
+	    	}), response);
+	    }
+		return null;
+	}
+	
+	public Void editarBasicos(Request request, Response response) {
+		Long idReceta = Long.parseLong(request.params("idReceta"));
+	    String nombre = request.queryParams("nombre");
+	    String url = request.queryParams("url");
+	    String temporada = request.queryParams("temporada");
+	    String calorias = request.queryParams("calorias");
+	    String dificultad = request.queryParams("dificultad");
+	    String proceso = request.queryParams("proceso");
+		
+	    modificarRecetaCon(idReceta, (receta -> {
+	    	return this.nuevaRecetaConCamposBasicosActualizados(receta, 
+	    			nombre, url, temporada, calorias, dificultad, proceso);
+	    	}), response);
+	    
+		return null;
+	}
+	
+	private Receta nuevaRecetaConCamposBasicosActualizados(Receta receta, String nombre, String url, String temporada, String calorias, String dificultad,
+			String proceso) {
+		
+		RecetaBuilder builder = new RecetaBuilder().setPropiedadesDe(receta);
+		
+    	if(nombre != null && !nombre.isEmpty()) {
+    		builder.setNombre(nombre);
+    	}
+
+    	if(url != null) {
+    		builder.setUrlImagen(url);
+    	}
+
+    	if(temporada != null && !temporada.isEmpty()) {
+    		builder.setTemporada(Temporada.valueOf(temporada));
+    	}
+
+    	if(calorias != null && !calorias.isEmpty()) {
+    		builder.setCantCalorias(Double.parseDouble(calorias));
+    	}
+    	
+    	if(dificultad != null && !dificultad.isEmpty()) {
+    		builder.setDificultad(Dificultad.valueOf(dificultad));
+    	}
+
+    	if(proceso != null) {
+    		builder.setPreparacion(proceso);
+    	}
+    	
+    	return builder.construirReceta();
+	}
+
+	private void modificarRecetaCon(Long idReceta, Function<Receta, Receta> trasnformer, Response response) {
+		try {
+			withTransaction(() -> {
+				Receta receta = Recetario.instancia.getReceta(idReceta);
+				Receta nuevaReceta = trasnformer.apply(receta);
+				Recetario.instancia.modificarReceta(receta, nuevaReceta, currentUser());
+			});
+			//TODO Cartel se grabaron los cambios, ver problema redirigir a nueva copia privada cuando modifico publica
+			response.redirect("edit");
+			
+		} catch (RecetaNoValidaException ex) {
+	    	//TODO no se pudo modificar la receta: la receta resultante no es válida!
+	    } catch (NoPuedeAccederARecetaException ex) {
+			//TODO no se pudo modificar la receta: usuario no tiene permisos para ello!
+		}
 	}
 	
 	private Usuario currentUser() {

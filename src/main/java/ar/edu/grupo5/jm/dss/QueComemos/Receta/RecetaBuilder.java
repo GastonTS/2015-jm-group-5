@@ -18,6 +18,18 @@ public class RecetaBuilder {
 	private String preparacion;
 	private String urlImagen="";
 
+	public RecetaBuilder setPropiedadesDe(Receta unaReceta) {
+		return this.setNombre(unaReceta.getNombre())
+			.setCantCalorias(unaReceta.getCantCalorias())
+			.setDificultad(unaReceta.getDificultad())
+			.setPreparacion(unaReceta.getPreparacion())
+			.setTemporada(unaReceta.getTemporada())
+			.setUrlImagen(unaReceta.getUrlImagen())
+			.agregarTodosLosIngredientes(unaReceta.getIngredientes())
+			.agregarTodasLasCondimentaciones(unaReceta.getCondimentaciones())
+			.agregarTodasLasSubRecetas(unaReceta.getSubRecetas());
+	}
+	
 	public RecetaBuilder setNombre(String unNombre) {
 		nombre = unNombre;
 		return this;
@@ -49,6 +61,12 @@ public class RecetaBuilder {
 		condimentaciones.add(unaCondimentacion);
 		return this;
 	}
+	
+	public RecetaBuilder agregarTodasLasCondimentaciones(
+			Collection<Condimentacion> unasCondimentaciones) {
+		condimentaciones.addAll(unasCondimentaciones);
+		return this;
+	}
 
 	public RecetaBuilder setCantCalorias(double unaCantCalorias) {
 		cantCalorias = unaCantCalorias;
@@ -60,6 +78,11 @@ public class RecetaBuilder {
 		return this;
 	}
 
+	public RecetaBuilder agregarTodasLasSubRecetas(Collection<Receta> unasSubRecetas) {
+		subRecetas.addAll(unasSubRecetas);
+		return this;
+	}
+	
 	public RecetaBuilder setDificultad(Dificultad dificultad) {
 		this.dificultad = dificultad;
 		return this;
@@ -69,7 +92,22 @@ public class RecetaBuilder {
 		this.temporada = temporada;
 		return this;
 	}
+	
+	public RecetaBuilder removerIngredienteDeId(Long idIngrediente) {
+		ingredientes.removeIf(ingrediente -> idIngrediente.equals(ingrediente.getId()));
+		return this;
+	}
 
+	public RecetaBuilder removerCondimentacionDeId(Long idCondimentacion) {
+		condimentaciones.removeIf(condimentacion -> idCondimentacion.equals(condimentacion.getId()));
+		return this;
+	}
+	
+	public RecetaBuilder removerSubReceta(Receta subReceta) {
+		subRecetas.remove(subReceta);
+		return this;
+	}
+	
 	public Receta construirReceta() {
 		if (!esRecetaValida()) {
 			throw new RecetaNoValidaException("La Receta No es Válida!!!");
@@ -90,5 +128,4 @@ public class RecetaBuilder {
 	private boolean caloriasEntre(int minimo, int maximo) {
 		return cantCalorias >= minimo && cantCalorias <= maximo;
 	}
-
 }

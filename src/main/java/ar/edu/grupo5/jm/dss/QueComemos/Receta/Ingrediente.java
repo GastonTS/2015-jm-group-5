@@ -36,4 +36,9 @@ public class Ingrediente {
 		return nombre.hashCode();
 	}
 
+
+	public Long getId() {
+		return ingredienteID;
+	}
+
 }

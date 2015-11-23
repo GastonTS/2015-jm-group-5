@@ -23,6 +23,10 @@ public class Condimentacion {
 		cantidad = unaCantidad;
 	}
 
+	public Long getId() {
+		return condimentacionId;
+	}
+	
 	public String getCondimento() {
 		return condimento;
 	}

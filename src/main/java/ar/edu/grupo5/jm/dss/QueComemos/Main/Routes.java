@@ -49,9 +49,19 @@ public class Routes {
 		    
 		    post("/recetas/:idReceta/favorita", recetas::cambiarFavorita);
 		    
+		    post("/recetas/:idReceta/editDatosBasicos", recetas::editarBasicos);
+		    
+		    post("/recetas/:idReceta/agregarIngrediente", recetas::agregarIngrediente);
+		    post("/recetas/:idReceta/quitarIngrediente", recetas::quitarIngrediente);
+		    
+		    post("/recetas/:idReceta/agregarCondimentacion", recetas::agregarCondimentacion);
+		    post("/recetas/:idReceta/quitarCondimentacion", recetas::quitarCondimentacion);
+		    
+		    post("/recetas/:idReceta/agregarSubReceta", recetas::agregarSubReceta);
+		    post("/recetas/:idReceta/quitarSubReceta", recetas::quitarSubReceta);
+		    
 		    get("/usuarios", usuarios::listar, engine);
 		    get("/perfil", usuarios::verPerfil, engine);
-		    //FIXME falta el post
 
 		  }
 
